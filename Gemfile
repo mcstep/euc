@@ -32,3 +32,5 @@ group :development, :test do
   gem 'pry-rescue'
 end
 gem 'rest-client'
+gem 'rails_12factor', group: :production
+
