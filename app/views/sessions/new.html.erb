@@ -1,0 +1,29 @@
+<div id="signin">
+        <div class="bg clear">
+                <h3>Welcome back!</h3>
+
+                <div class="content">
+                  <%= form_tag sessions_path do %>
+                  <div class="fields">
+                    <%= label_tag :username %><br />
+                    <%= text_field_tag :username, params[:username], :class => "form-control" %>
+                  </div>
+                  <div class="fields">
+                    <%= label_tag :password %><br />
+                    <%= password_field_tag :password, params[:password], :class => "form-control" %>
+                  </div>
+                  <div class="actions">
+                     <%= submit_tag "Log in", :class => "btn btn-primary btn-lg" %>
+                  </div>
+                  <% end %>
+                </div>
+
+                <div class="bottom-wrapper">
+                        <div class="message">
+                                <span>Don't have an account?</span>
+                                <a href="<%= new_user_path %>">Sign up here</a>.
+                        </div>
+                </div>
+        </div>
+</div>
+

@@ -6,9 +6,21 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
 
-<%= yield %>
+<body id="<%= yield :body_id %>">
 
+        <div id="wrapper">
+
+        <%= render "shared/sidebar_menu" %>
+
+        <div id="content">
+	  <%= render 'layouts/messages' %>
+          <%= yield %>
+        </div>
+    </div>
+
+    <%= yield :bottom_content %>
 </body>
+
+
 </html>

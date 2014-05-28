@@ -11,6 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140527173340) do
+
+  create_table "invitations", force: true do |t|
+    t.integer  "sender_id"
+    t.string   "recipient_email"
+    t.string   "token"
+    t.string   "recipient_username"
+    t.string   "recipient_firstname"
+    t.string   "recipient_lastname"
+    t.string   "recipient_title"
+    t.string   "recipient_company"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "username"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "invitation_id"
+    t.integer  "invitation_limit"
+  end
 
 end

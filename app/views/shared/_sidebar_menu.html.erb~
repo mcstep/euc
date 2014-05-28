@@ -1,0 +1,57 @@
+<div id="sidebar-default" class="main-sidebar fix-scroll">
+  <div class="current-user">
+      <a href="#" class="name">
+        <span>
+          John Smith
+          <i class="fa fa-chevron-down"></i>
+        </span>
+      </a>
+      <ul class="menu">
+        <li>
+          <a href="#">Account settings</a>
+        </li>
+        <li>
+          <a href="#">Help / Support</a>
+        </li>
+        <li>
+          <a href="<%= log_out_path %>">Sign out</a>
+        </li>
+      </ul>
+  </div>
+  <div class="menu-section">
+    <h3>General</h3>
+    <ul>
+      <li class="option">
+        <a href="<%= root_url %>" class="active">
+          <i class="ion-android-earth"></i> 
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="option">
+        <a href="#" data-toggle="sidebar">
+          <i class="ion-person-stalker"></i> <span>Invitations</span>
+          <i class="fa fa-chevron-down"></i>
+        </a>
+        <ul class="submenu">
+          <li><a href="#">Send Invitation</a></li>
+          <li><a href="<%= datatables_lists_path %>">Manage Invitations</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="menu-section">
+    <h3>Admin</h3>
+    <ul>
+      <li class="option">
+        <a href="#" data-toggle="sidebar">
+          <i class="ion-person"></i> <span>My account</span>
+          <i class="fa fa-chevron-down"></i>
+        </a>
+        <ul class="submenu">
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
