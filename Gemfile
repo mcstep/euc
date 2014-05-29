@@ -34,3 +34,7 @@ end
 gem 'rest-client'
 gem 'rails_12factor', group: :production
 
+gem 'sidekiq'
+
+gem 'sinatra', require: false
+gem 'slim'
