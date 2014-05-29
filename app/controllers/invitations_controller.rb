@@ -47,6 +47,7 @@ class InvitationsController < ApplicationController
     respond_to do |format|
       if account_created
         WelcomeUserMailer.welcome_email(@invitation,json_body['password']).deliver
+        SignupWorker.perform_async('bob', 5)
         format.html { redirect_to @invitation, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation }
       else
