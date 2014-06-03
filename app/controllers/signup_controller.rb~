@@ -12,9 +12,9 @@ class SignupController < ApplicationController
     @invitation.recipient_title = params[:title]
     @invitation.expires_at = (Time.now + 1.year)
 
-    #if params[:email].split("@").last == "gmail.com"
-    # account_create= true
-    #end
+    if params[:email].split("@").last == "gmail.com"
+     account_create= true
+    end
 
     account_create= true
   

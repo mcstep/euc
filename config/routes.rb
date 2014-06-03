@@ -18,5 +18,15 @@ Rails.application.routes.draw do
   resources :signup
 
   require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
+  #mount Sidekiq::Web => '/sidekiq'
+  
+  class SessionAuthenticatedConstraint
+    def self.matches?(request)
+      !request.session[:user_id].blank?
+    end
+  end
+
+  constraints(SessionAuthenticatedConstraint) do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

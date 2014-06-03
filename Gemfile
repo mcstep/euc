@@ -40,3 +40,5 @@ gem 'sinatra', require: false
 gem 'slim'
 
 gem 'unicorn'
+
+gem 'pundit'

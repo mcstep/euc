@@ -27,28 +27,12 @@ class InvitationsController < ApplicationController
   def create
     @invitation = Invitation.new(invitation_params)
     @invitation.sender = current_user
-
-    #Create the AD account
-    account_created = false
-    begin
-      response = RestClient.post 'http://75.126.198.236:8080/signup', :fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :uname => 'demo.user', :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title
-      if response.code == 200
-        json_body = JSON.parse response
-        @invitation.recipient_username = json_body['username']
-        @invitation.save!
-        account_created = true
-      end
-    rescue => e
-      @invitation.errors[:base] << "Sorry! Could not contact the AD Server at this time. Please try again later!"
-      logger.error "error contacting AD server"
-      puts e
-    end
+    @invitation.expires_at = (Time.now + 1.month) 
 
     respond_to do |format|
-      if account_created
-        WelcomeUserMailer.welcome_email(@invitation,json_body['password']).deliver
-        SignupWorker.perform_async('bob', 5)
-        format.html { redirect_to @invitation, notice: 'Invitation was successfully created.' }
+      if @invitation.save
+        SignupWorker.perform_async(@invitation.id)
+        format.html { redirect_to root_path, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation }
       else
         format.html { render :new }
@@ -92,7 +76,7 @@ class InvitationsController < ApplicationController
     @user.save!
 
     respond_to do |format|
-      format.html { redirect_to invitations_url, notice: 'Invitation was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Invitation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

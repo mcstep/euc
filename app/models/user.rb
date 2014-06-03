@@ -16,6 +16,13 @@ class User < ActiveRecord::Base
 
   before_create :set_invitation_limit
 
+  enum role: [:user, :vip, :admin]
+  after_initialize :set_default_role, :if => :new_record?
+
+  def set_default_role
+    self.role ||= :user
+  end
+
 private
 
   def set_invitation_limit
