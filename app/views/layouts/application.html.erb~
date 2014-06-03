@@ -9,9 +9,12 @@
 
 <body id="<%= yield :body_id %>">
 
+       <div class="top-bar"></div>
         <div id="wrapper">
 
         <%= render "shared/sidebar_menu" %>
+
+        <div class="normal-notification"></div>
 
         <div id="content">
 	  <%= render 'layouts/messages' %>

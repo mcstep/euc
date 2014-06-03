@@ -25,4 +25,4 @@
 
 //= require theme
 //= require_directory ./pages/.
-
+//= require bootstrap/bootstrap-modal 

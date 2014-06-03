@@ -50,12 +50,12 @@
 		<table class="table table-striped table-bordered table-condense">
 	  <thead>
 	    <tr>
-	      <th>Sender</th>
-	      <th>Email</th>
 	      <th>Full Name</th>
+	      <th>Email</th>
 	      <th>Company</th>
 	      <th>Title</th>
 	      <th>Expires on</th>
+	      <th>Sender</th>
 	      <th colspan="1"></th>
 	    </tr>
 	  </thead>
@@ -64,12 +64,12 @@
 	    <% @invitations = Invitation.where(sender_id: current_user.id) %>
 	    <% @invitations.each do |invitation| %>
 	      <tr>
-		<td><%= invitation.sender.username %></td>
-		<td><%= invitation.recipient_email %></td>
 		<td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
+		<td><%= invitation.recipient_email %></td>
 		<td><%= invitation.recipient_company %></td>
 		<td><%= invitation.recipient_title %></td>
 		<td><%= (invitation.expires_at).to_date.to_formatted_s(:long) %></td>
+		<td><%= invitation.sender.username %></td>
 		<td class="text-center"><%= link_to 'Expire Account', invitation, method: :delete, data: { confirm: 'Are you sure?' }, class: "new-user btn btn-danger" %></td>
 	      </tr>
 	    <% end %>
