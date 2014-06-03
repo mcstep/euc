@@ -11,17 +11,10 @@
 
 </div>
 
-<br/>
-<div class="jumbotron hero-main">
-            <div class="caption">
-              <h2>Welcome to the EUC Demo Portal</h2>
-              <p class="lead">Test drive VMware Horizon Suite</p>
-            </div>
-          </div>
-
 <% if current_user %>
 
 <br/>
+<h3> Login to Your Demo Account </h3>
 <div class="row-fluid">
     <div class="span3">
         <div class="well menu">
