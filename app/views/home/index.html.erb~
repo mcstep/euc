@@ -6,13 +6,22 @@
         </div>
 
         <div class="page-title">
-        Dashboard
+          <header>
+            <h1><a href="/" class="home">EUC Demo Portal</a></h1>
+          </header>
         </div>
 
 </div>
 
-<% if current_user %>
+<div class="jumbotron hero-main">
+            <div class="caption">
+              <h2>Welcome to the EUC Demo Portal</h2>
+              <p class="lead">Test drive VMware Horizon Suite</p>
+            </div>
+          </div>
 
+
+<% if current_user %>
 <br/>
 <h3> Login to Your Demo Account </h3>
 <div class="row-fluid">
@@ -25,6 +34,7 @@
     </div>
 </div>
 
+       <h3> Account Stats </h3>
 	<div class="content-wrapper">
 	  <div class="metrics clearfix">
 	    <div class="metric">
@@ -67,7 +77,7 @@
 		<td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
 		<td><%= invitation.recipient_company %></td>
 		<td><%= invitation.recipient_title %></td>
-		<td><%= (invitation.expires_at).to_date() %></td>
+		<td><%= (invitation.expires_at).to_date.to_formatted_s(:long) %></td>
 		<td class="text-center"><%= link_to 'Expire Account', invitation, method: :delete, data: { confirm: 'Are you sure?' }, class: "new-user btn btn-danger" %></td>
 	      </tr>
 	    <% end %>

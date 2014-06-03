@@ -25,5 +25,13 @@ class SignupWorker
     puts "Sending email...."
     WelcomeUserMailer.welcome_email(@invitation,json_body['password']).deliver
     puts "Email sent successfully"
+
+    puts "Calling sync service.."
+    begin
+      RestClient.post 'http://75.126.198.236:8080/sync/dldc', :uname => 'demo.user'
+    rescue => e
+      puts e
+    end
+    puts "Sync success"
   end
 end

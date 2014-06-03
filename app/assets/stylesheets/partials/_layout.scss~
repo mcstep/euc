@@ -3041,7 +3041,7 @@ z-index: 999999;
 background: url("hero-index.jpg") right no-repeat;
 }
 
-.jumbotron {
+.jumbotron .caption {
 text-align: center;
 color: #fff;
 padding: 0px;
@@ -3051,5 +3051,16 @@ height: 300px;
 width: 840px;
 }
 
+.home {
+background: url("logo-banner-amer.png") no-repeat
+}
+
+h1 a.home {
+position: relative;
+width: 350px;
+/* height: 25px; */
+float: left;
+text-indent: -9999px;
+}
 
 

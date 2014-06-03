@@ -1,7 +1,24 @@
 Sidekiq.configure_server do |config|
-  config.redis = { :url => 'redis://pub-redis-11927.us-east-1-3.3.ec2.garantiadata.com:11927', :namespace => 'portal' }
+  if Rails.env == 'development'
+    config.redis = { :url => 'redis://localhost:6379/12', :namespace => "portal_development" }
+  else
+    config.redis = { :url => 'redis://pub-redis-11927.us-east-1-3.3.ec2.garantiadata.com:11927', :namespace => 'portal' }
+  end
 end
 
+# When in Unicorn, this block needs to go in unicorn's `after_fork` callback:
 Sidekiq.configure_client do |config|
-  config.redis = { :url => 'redis://pub-redis-11927.us-east-1-3.3.ec2.garantiadata.com:11927', :namespace => 'portal' }
+  if Rails.env == 'development'
+    config.redis = { :url => 'redis://localhost:6379/12', :namespace => "portal_development" }
+  else
+    config.redis = { :url => 'redis://pub-redis-11927.us-east-1-3.3.ec2.garantiadata.com:11927', :namespace => 'portal' }
+  end
 end
+
+#Sidekiq.configure_server do |config|
+#  config.redis = { :url => 'redis://pub-redis-11927.us-east-1-3.3.ec2.garantiadata.com:11927', :namespace => 'portal' }
+#end
+
+#Sidekiq.configure_client do |config|
+#  config.redis = { :url => 'redis://pub-redis-11927.us-east-1-3.3.ec2.garantiadata.com:11927', :namespace => 'portal' }
+#end

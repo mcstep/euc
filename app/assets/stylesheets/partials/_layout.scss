@@ -3051,5 +3051,16 @@ height: 300px;
 width: 840px;
 }
 
+.home {
+background: url("logo-banner-amer.png") no-repeat
+}
+
+header h1 a.home {
+position: relative;
+width: 350px;
+/* height: 25px; */
+float: left;
+text-indent: -9999px;
+}
 
 

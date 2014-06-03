@@ -7,7 +7,7 @@ class SignupWorker
 
     account_created = false
     begin
-      response = RestClient.post 'http://75.126.198.236:8080/signup', :fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :uname => 'demo.user', :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title, :expires_at => (@invitation.expires_at.to_i*1000)
+      response = RestClient.post 'http://75.126.198.236:8080/signup', :fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :uname => 'demo.user', :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title, :expires_at => ((@invitation.expires_at.to_i)*1000)
       if response.code == 200
         json_body = JSON.parse response
         @invitation.recipient_username = json_body['username']
@@ -25,5 +25,13 @@ class SignupWorker
     puts "Sending email...."
     WelcomeUserMailer.welcome_email(@invitation,json_body['password']).deliver
     puts "Email sent successfully"
+
+    puts "Calling sync service.."
+    begin
+     RestClient.post 'http://75.126.198.236:8080/sync/dldc', :uname => 'demo.user'
+    rescue => e
+      puts e
+    end
+    puts "Sync success"
   end
 end

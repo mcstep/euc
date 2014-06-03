@@ -12,7 +12,7 @@
 
 		&.clear {
 			background-image: none;
-			background: rgba(242, 245, 248, 0);
+			background: #F2F5F8;
 
 			.logo {
 				.brankic-pen {
