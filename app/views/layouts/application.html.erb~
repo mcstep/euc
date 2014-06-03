@@ -14,6 +14,7 @@
         <%= render "shared/sidebar_menu" %>
 
         <div id="content">
+	  <%= render 'layouts/messages' %>
           <%= yield %>
         </div>
     </div>

@@ -2,7 +2,7 @@
   <div class="current-user">
    <% if current_user %>
       <a href="#" class="name">
-      <%= image_tag "avatars/1.jpg", class: "avatar" %>
+        <%= image_tag "avatars/1.jpg", class: "avatar" %>
         <span>
           <%= current_user.username %>
           <i class="fa fa-chevron-down"></i>
