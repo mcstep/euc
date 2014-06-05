@@ -22,7 +22,7 @@ def create
         usr = User.new
         usr.username = user_json['username']
 	usr.email = user_json['email'] if user_json['email'] != nil
-	usr.display_name = user_json['name'] if user_json['email'] != nil    
+	usr.display_name = user_json['name'] if user_json['name'] != nil    
 	usr.invitation_limit = 5 
         # If the user is in one of the whitelisted domains -> assign a vip role
         if usr.email.split("@").last == "vmware.com"

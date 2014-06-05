@@ -24,11 +24,11 @@ class SignupController < ApplicationController
     account_create= true
   
     respond_to do |format|
-      if account_create
-        @invitation.save!
+      if account_create && @invitation.save!
         SignupWorker.perform_async(@invitation.id)
-        format.html { redirect_to root_path, notice: 'Account was successfully created.' }
+        format.html { redirect_to dashboard_path, notice: 'Account was successfully requested. Please check your email for login details.' }
       else
+	flash.now.alert = "One or more fields are invalid"
         format.html { render :new }
       end
     end

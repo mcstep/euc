@@ -17,7 +17,7 @@ def create
       user = User.authenticate(params[:username], params[:password])
       if user
         session[:user_id] = user.id
-        redirect_to root_url, :notice => "Logged in!"
+        redirect_to dashboard_path, :notice => "Logged in!"
       else
         usr = User.new
         usr.username = user_json['username']

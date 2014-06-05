@@ -32,7 +32,7 @@ class InvitationsController < ApplicationController
     respond_to do |format|
       if @invitation.save
         SignupWorker.perform_async(@invitation.id)
-        format.html { redirect_to root_path, notice: 'Invitation was successfully created.' }
+        format.html { redirect_to dashboard_path, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation }
       else
         format.html { render :new }
@@ -76,7 +76,7 @@ class InvitationsController < ApplicationController
     @user.save!
 
     respond_to do |format|
-      format.html { redirect_to invitations_url, notice: 'Invitation was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Invitation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
