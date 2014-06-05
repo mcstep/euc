@@ -1,8 +1,8 @@
 (function () {
 	var page_scripts = function () {
-		if (!$("#ui").length) return;
-		set_up_offline_plugin();
-
+		//if (!$("#ui").length) return;
+		//set_up_offline_plugin();
+		
 		// Focus input when prompt modal is shown
 		$('#prompt-modal').on('shown.bs.modal', function (e) {
 			$("#prompt-modal").find("input:text").focus();
@@ -28,6 +28,7 @@
 
 		// Focus first input when form modal is shown
 		$('#form-validation-modal').on('shown.bs.modal', function (e) {
+			alert("hello world");
 			$("#form-validation-modal").find("input:text:eq(0)").focus();
 		})
 

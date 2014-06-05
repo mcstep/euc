@@ -47,7 +47,7 @@ var ready = function() {
 	$('#new-invitation-form').validate({
 		rules: {
 			"invitation[recipient_email]": {
-				required: true,
+				required: true
 				email: true
 			},
 			"invitation[recipient_firstname]": {
