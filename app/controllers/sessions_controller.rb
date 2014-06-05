@@ -34,7 +34,7 @@ def create
 	
 	puts "User ID#{usr.id}"
         session[:user_id] = usr.id
-        redirect_to root_url, :notice => "Logged in!"
+        redirect_to dashboard_path, :notice => "Logged in!"
      end
    else
       flash.now.alert = "Invalid username or password"

@@ -3071,6 +3071,7 @@ text-indent: -9999px;
 .container {
   margin-top: 40px;
   margin-left: 0px;
+  padding: 0px;
 }
 body
 {
@@ -3139,4 +3140,18 @@ span.tags
     margin-left: -10px;
     z-index: 10;
     }
+
+
+.easyPieChart,
+.easy-pie-chart {
+  position: relative;
+  text-align: center;
+}
+.easyPieChart canvas,
+.easy-pie-chart canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 

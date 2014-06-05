@@ -15,6 +15,23 @@
 
 <% if current_user %>
 
+
+<div class="infobox infobox-blue2">
+										<div class="infobox-progress">
+											<div class="easy-pie-chart percentage" data-percent="42" data-size="46" style="height: 46px; width: 46px; line-height: 45px;">
+												<span class="percent">42</span>%
+											<canvas height="46" width="46"></canvas></div>
+										</div>
+
+										<div class="infobox-data">
+											<span class="infobox-text">traffic used</span>
+
+											<div class="infobox-content">
+												<span class="bigger-110">~</span>
+												58GB remaining
+											</div>
+										</div>
+									</div>
 <%= render 'profile' %>
 
 <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
