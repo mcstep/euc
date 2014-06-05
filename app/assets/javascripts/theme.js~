@@ -47,13 +47,41 @@ var ready = function() {
 	$('#new-invitation-form').validate({
 		rules: {
 			"invitation[recipient_email]": {
-				required: true
+				required: true,
 				email: true
 			},
 			"invitation[recipient_firstname]": {
 				required: true
 			},
 			"invitation[recipient_lastname]": {
+				required: true
+			},
+			"invitation[recipient_company]": {
+				required: true
+			},
+			"invitation[recipient_title]": {
+				required: true
+			}
+		},
+		highlight: function (element) {
+			$(element).closest('.form-group').removeClass('success').addClass('error');
+		},
+		success: function (element) {
+			element.addClass('valid').closest('.form-group').removeClass('error').addClass('success');
+		}
+	});
+
+	// Form validation
+	$('.signup_form').validate({
+		rules: {
+			"invitation[email]": {
+				required: true,
+				email: true
+			},
+			"invitation[firstname]": {
+				required: true
+			},
+			"invitation[lastname]": {
 				required: true
 			},
 			"invitation[recipient_company]": {

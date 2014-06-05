@@ -10,7 +10,7 @@ def create
   end
 
   begin
-    response = RestClient.post 'http://75.126.198.236:8080/authenticate', :username => "#{params[:username]}@vmwdemo.int", :password => params[:password], :token => 'xQAt7e39l44EAP1D14cv5qXXjg0D904w'
+    response = RestClient.post 'http://75.126.198.236:8080/authenticate', :username => "#{params[:username]}@vmwdemo.com", :password => params[:password], :token => 'xQAt7e39l44EAP1D14cv5qXXjg0D904w'
     if response.code == 200
       user_json = JSON.parse response
       puts "Auth response #{user_json}"

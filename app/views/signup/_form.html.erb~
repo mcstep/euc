@@ -1,14 +1,15 @@
 <div class="bg clear">
   <h3>Enter your information</h3>
   <div class="content">
- 	<%= form_tag signup_index_path do |f| %>
+ 	<%= form_tag signup_index_path, :class => 'signup_form' do |f| %>
 	  
 	  <div class="fields">		
-	    <%= text_field_tag :recipient_email, nil, placeholder: 'Email(must be @vmware.com)', class: "form-control" %>
-	    <%= text_field_tag :recipient_firstname, nil, placeholder: 'First Name', class: "form-control" %>
-	    <%= text_field_tag :recipient_lastname, nil, placeholder: 'Last Name', class: "form-control" %>
-	    <%= text_field_tag :recipient_company, nil, placeholder: 'Company', class: "form-control" %>
-	    <%= text_field_tag :recipient_title, nil, placeholder: 'Title', class: "form-control" %>	
+	    <%= text_field_tag :email, nil, placeholder: 'Email(must be @vmware.com)', class: "form-control" %>
+	    <%= text_field_tag :firstname, nil, placeholder: 'First Name', class: "form-control" %>
+	    <%= text_field_tag :lastname, nil, placeholder: 'Last Name', class: "form-control" %>
+	    <%= text_field_tag :company, nil, placeholder: 'Company', class: "form-control" %>
+	    <%= text_field_tag :title, nil, placeholder: 'Title', class: "form-control" %>	
+            <%= select_tag :region, options_for_select([ "AMER", "EMEA","APAC", ]), class: "form-control required", :prompt => "Select One" %>
 	  </div>
 	
           <div class="info">

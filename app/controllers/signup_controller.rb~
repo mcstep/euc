@@ -16,15 +16,18 @@ class SignupController < ApplicationController
     @invitation.recipient_company = params[:company]
     @invitation.recipient_title = params[:title]
     @invitation.expires_at = (Time.now + 1.year)
+    @invitation.region = params[:region]
 
-    #if params[:email].split("@").last == "gmail.com"
-    # account_create= true
-    #end
+    user_domain = params[:email].split("@").last 
+    @domain = Domain.find_by_name(domain)	
+    if !@domain.nil? && @domain.status == 'active'
+     account_create= true
+    end
 
-    account_create= true
-  
+    #account_create= true
+    puts params
     respond_to do |format|
-      if account_create && @invitation.save!
+      if account_create && @invitation.save
         SignupWorker.perform_async(@invitation.id)
         format.html { redirect_to dashboard_path, notice: 'Account was successfully requested. Please check your email for login details.' }
       else

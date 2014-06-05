@@ -71,6 +71,34 @@ var ready = function() {
 		}
 	});
 
+	// Form validation
+	$('.signup_form').validate({
+		rules: {
+			"email": {
+				required: true,
+				email: true
+			},
+			"firstname": {
+				required: true
+			},
+			"lastname": {
+				required: true
+			},
+			"company": {
+				required: true
+			},
+			"title": {
+				required: true
+			}
+		},
+		highlight: function (element) {
+			$(element).closest('.form-group').removeClass('success').addClass('error');
+		},
+		success: function (element) {
+			element.addClass('valid').closest('.form-group').removeClass('error').addClass('success');
+		}
+	});
+
 	
 
 };

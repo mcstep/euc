@@ -3068,7 +3068,7 @@ text-indent: -9999px;
 
 
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
-.container {
+.container-left {
   margin-top: 40px;
   margin-left: 0px;
   padding: 0px;
@@ -3142,16 +3142,8 @@ span.tags
     }
 
 
-.easyPieChart,
-.easy-pie-chart {
-  position: relative;
-  text-align: center;
+.container-right {
+  margin-top: 40px;
+  margin-right: 0px;
+  padding: 0px;
 }
-.easyPieChart canvas,
-.easy-pie-chart canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-

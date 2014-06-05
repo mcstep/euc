@@ -28,7 +28,13 @@ class SignupWorker
 
     puts "Calling sync service.."
     begin
-     RestClient.post 'http://75.126.198.236:8080/sync/dldc', :uname => 'demo.user'
+      region = "dldc"
+      if !@invitation.region.nil?
+        region = @invitation.region
+      end
+      url = "http://75.126.198.236:8080/sync/#{region}"
+      response = RestClient.post url, :uname => 'demo.user'
+      puts response.body
     rescue => e
       puts e
     end
