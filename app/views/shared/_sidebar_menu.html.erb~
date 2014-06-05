@@ -3,7 +3,7 @@
    <% if current_user %>
       <br/>	
       <a href="#" class="name">
-        <%= image_tag "avatars/1.jpg", class: "avatar" %>
+        <%= image_tag "http://www.localcrimenews.com/wp-content/uploads/2013/07/default-user-icon-profile.png", class: "avatar" %>
         <span>
           <%= current_user.username %>
           <i class="fa fa-chevron-down"></i>
