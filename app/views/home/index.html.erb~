@@ -16,22 +16,6 @@
 <% if current_user %>
 
 
-<div class="infobox infobox-blue">
-										<div class="infobox-icon">
-											<i class="ace-icon fa fa-twitter"></i>
-										</div>
-
-										<div class="infobox-data">
-											<span class="infobox-data-number">11</span>
-											<div class="infobox-content">new followers</div>
-										</div>
-
-										<div class="badge badge-success">
-											+32%
-											<i class="ace-icon fa fa-arrow-up"></i>
-										</div>
-									</div>
-
 <%= render 'profile' %>
 
 <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
