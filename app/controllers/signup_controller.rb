@@ -3,6 +3,11 @@ class SignupController < ApplicationController
   end
 
   def create
+    if params[:email].empty? || params[:firstname].empty? || params[:lastname].empty? || params[:company].empty? || params[:title].empty?
+      flash.now.alert = "One or more fields are invalid"
+      render "new" and return
+    end
+
     account_create = false
     @invitation = Invitation.new
     @invitation.recipient_email = params[:email]
@@ -20,7 +25,7 @@ class SignupController < ApplicationController
   
     respond_to do |format|
       if account_create
-        @invitation.save
+        @invitation.save!
         SignupWorker.perform_async(@invitation.id)
         format.html { redirect_to root_path, notice: 'Account was successfully created.' }
       else

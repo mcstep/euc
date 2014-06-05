@@ -23,7 +23,7 @@ class UserPolicy
   end
 
   def invites?
-    @user.admin? || @user.vip?
+    @user.admin?
   end
 
 end

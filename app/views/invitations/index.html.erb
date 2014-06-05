@@ -31,10 +31,9 @@
   </thead>
 
   <tbody>
-    <% @invitations = Invitation.where(sender_id: current_user.id) %>
     <% @invitations.each do |invitation| %>
       <tr>
-        <td><%= invitation.sender.username %></td>
+        <td><%= invitation.sender.username unless invitation.sender.blank?%></td>
         <td><%= invitation.recipient_email %></td>
         <td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
         <td><%= invitation.recipient_company %></td>

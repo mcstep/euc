@@ -1,6 +1,7 @@
 (function () {
 	var page_scripts = function () {
 		if (!$("#ui").length) return;
+		alert("hello");
 		set_up_offline_plugin();
 
 		// Focus input when prompt modal is shown

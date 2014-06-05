@@ -1,0 +1,45 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-lg-6">
+    	 <div class="well profile">
+            <div class="col-sm-12">
+                <div class="col-xs-12 col-sm-8">
+                    <h2><%= current_user.display_name %></h2>
+                    <p><strong>Username: </strong> <%= current_user.username %> </p>
+                    <p><strong>Email: </strong> <%= current_user.email %> </p>
+		    <p><strong>Company: </strong> <%= current_user.email %> </p>	
+	            <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
+	            <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? %>
+                      <p><strong>Invited by: </strong> <%= @current_user_invited.sender.username %></p>
+	            <% end %>
+                </div>             
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <figure>
+                        <img src="http://www.localcrimenews.com/wp-content/uploads/2013/07/default-user-icon-profile.png" alt="" class="img-circle img-responsive">
+                    </figure>
+                </div>
+            </div>            
+            <div class="col-xs-12 divider text-center">
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2></h2>                    
+			<a href="vmware-view://view.vmwdemo.com/" class="btn btn-success btn-block">
+				<span>Horizon View App</span>
+			</a>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2></h2>                    
+			<a href="https://view.vmwdemo.com" target="_blank" class="btn btn-info btn-block">
+				<span>Horizon View</span>
+			</a>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2></h2>                    
+			<a href="https://hzws.vmwdemo.com" target="_blank" class="btn btn-info btn-block">
+				<span>Horizon View app</span>
+			</a>
+                </div>
+            </div>
+    	 </div>                 
+		</div>
+	</div>
+</div>

@@ -31,9 +31,11 @@
           <span>Dashboard</span>
         </a>
       </li>
+      <% if current_user && policy(current_user).admin? %>
+
       <li class="option">
         <a href="#" data-toggle="sidebar">
-          <i class="ion-person-stalker"></i> <span>Invitations</span>
+          <i class="ion-person-stalker"></i> <span>Accounts</span>
           <i class="fa fa-chevron-down"></i>
         </a>
         <ul class="submenu">
@@ -41,6 +43,8 @@
           <li><a href="<%= invitations_path %>">Manage Accounts</a></li>
         </ul>
       </li>
+
+    <% end %>
     </ul>
   </div>
   <div class="menu-section">

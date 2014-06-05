@@ -25,4 +25,9 @@
 
 //= require theme
 //= require_directory ./pages/.
-//= require bootstrap/bootstrap-modal 
+
+//= require_tree .
+
+$("#username").focus(function(){
+  alert("WHY");
+});

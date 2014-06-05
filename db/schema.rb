@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140529231322) do
+ActiveRecord::Schema.define(version: 20140604225040) do
 
   create_table "invitations", force: true do |t|
     t.integer  "sender_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20140529231322) do
     t.integer  "invitation_id"
     t.integer  "invitation_limit"
     t.integer  "role"
+    t.string   "display_name"
   end
 
 end
