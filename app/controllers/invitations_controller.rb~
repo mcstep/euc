@@ -25,10 +25,11 @@ class InvitationsController < ApplicationController
   # POST /invitations
   # POST /invitations.json
   def create
+    puts invitation_params
     @invitation = Invitation.new(invitation_params)
     @invitation.sender = current_user
     @invitation.expires_at = (Time.now + 1.month) 
-
+    puts "Region: #{@invitation.region}"
     respond_to do |format|
       if @invitation.save
         SignupWorker.perform_async(@invitation.id)
@@ -61,8 +62,8 @@ class InvitationsController < ApplicationController
     #Remove the AD account
     account_removed = false
     begin
-      response = RestClient.post 'http://75.126.198.236:8080/unregister', :username => @invitation.recipient_username
-      #response = RestClient.post(url='http://75.126.198.236:8080/unregister',payload={:username => @invitation.recipient_username}, headers= {:token => ENV["API_KEY"]})
+      #response = RestClient.post 'http://75.126.198.236:8080/unregister', :username => @invitation.recipient_username
+      response = RestClient.post(url='http://75.126.198.236:8080/unregister',payload={:username => @invitation.recipient_username}, headers= {:token => ENV["API_KEY"]})
       if response.code == 200
         @invitation.destroy
         account_removed = true
@@ -99,5 +100,9 @@ class InvitationsController < ApplicationController
 
     def require_login
       redirect_to log_in_path, notice: "Please sign in" unless current_user
+    end
+    
+    def person_params
+     params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region)
     end
 end
