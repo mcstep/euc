@@ -5,7 +5,7 @@
       <a href="#" class="name">
         <%= image_tag "http://www.localcrimenews.com/wp-content/uploads/2013/07/default-user-icon-profile.png", class: "avatar" %>
         <span>
-          <%= current_user.username %>
+          <%= current_user.display_name %>
           <i class="fa fa-chevron-down"></i>
         </span>
       </a>
