@@ -2,7 +2,7 @@ Sidekiq.configure_server do |config|
   if Rails.env == 'development'
     config.redis = { :url => ENV["REDIS_URL"], :namespace => ENV["REDIS_NAMESPACE"] }
   else
-    config.redis = { :url => 'pub-redis-14604.us-east-1-1.1.ec2.garantiadata.com:14604', :namespace => 'portal' }
+    config.redis = { :url => 'redis://pub-redis-14604.us-east-1-1.1.ec2.garantiadata.com:14604', :namespace => 'portal' }
   end
 end
 
@@ -11,7 +11,7 @@ Sidekiq.configure_client do |config|
   if Rails.env == 'development'
     config.redis = { :url => ENV["REDIS_URL"], :namespace => ENV["REDIS_NAMESPACE"] }
   else
-    config.redis = { :url => 'pub-redis-14604.us-east-1-1.1.ec2.garantiadata.com:14604', :namespace => 'portal' }
+    config.redis = { :url => 'redis://pub-redis-14604.us-east-1-1.1.ec2.garantiadata.com:14604', :namespace => 'portal' }
   end
 end
 
