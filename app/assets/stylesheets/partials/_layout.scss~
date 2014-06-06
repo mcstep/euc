@@ -3142,6 +3142,6 @@ span.tags
     }
 
 .table-thin {
-  width: 100px;
+  width: auto;;
 }
 
