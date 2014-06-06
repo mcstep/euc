@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
-	    @invitation = Invitation.new
+    @invitation = Invitation.new
+    @domains = Domain.all
   end
 end

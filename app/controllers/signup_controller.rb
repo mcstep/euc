@@ -8,7 +8,13 @@ class SignupController < ApplicationController
       render "new" and return
     end
 
-    account_create = false
+    user_domain = params[:email].split("@").last 
+    @domain = Domain.find_by_name(user_domain)	
+    if @domain.nil? || @domain.status != 'active'
+      flash.now.alert = "Sorry! We do not support your email domain for registration yet"
+      render "new" and return
+    end
+
     @invitation = Invitation.new
     @invitation.recipient_email = params[:email]
     @invitation.recipient_firstname = params[:firstname]
@@ -18,13 +24,7 @@ class SignupController < ApplicationController
     @invitation.expires_at = (Time.now + 1.year)
     @invitation.region = params[:region]
 
-    user_domain = params[:email].split("@").last 
-    @domain = Domain.find_by_name(user_domain)	
-    if !@domain.nil? && @domain.status == 'active'
-     account_create= true
-    end
-
-    #account_create= true
+    account_create= true
     puts params
     respond_to do |format|
       if account_create && @invitation.save

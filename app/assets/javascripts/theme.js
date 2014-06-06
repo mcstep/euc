@@ -99,6 +99,24 @@ var ready = function() {
 		}
 	});
 
+	// Form validation
+	$('.signin_form').validate({
+		rules: {
+			"username": {
+				required: true
+			},
+			"password": {
+				required: true
+			}
+		},
+		highlight: function (element) {
+			$(element).closest('.form-group').removeClass('success').addClass('error');
+		},
+		success: function (element) {
+			element.addClass('valid').closest('.form-group').removeClass('error').addClass('success');
+		}
+	});
+
 	
 
 };

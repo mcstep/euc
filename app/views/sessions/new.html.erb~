@@ -1,9 +1,9 @@
-ignin">
+<div id="signin">
         <div class="bg clear">
                 <h3>Welcome! Please Sign in</h3>
 
                 <div class="content">
-                  <%= form_tag sessions_path do %>
+                  <%= form_tag sessions_path, :class => 'signup_form' do %>
                   <div class="fields">
                     <%= label_tag :username %><br />
                     <%= text_field_tag :username, params[:username], :class => "form-control" %>

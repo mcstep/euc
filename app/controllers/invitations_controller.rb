@@ -61,13 +61,18 @@ class InvitationsController < ApplicationController
     #Remove the AD account
     account_removed = false
     begin
-      response = RestClient.post 'http://75.126.198.236:8080/unregister', :username => @invitation.recipient_username
+      #response = RestClient.post 'http://75.126.198.236:8080/unregister', :username => @invitation.recipient_username
+      response = RestClient.post(url='http://75.126.198.236:8080/unregister',payload={:username => @invitation.recipient_username}, headers= {:token => ENV["API_KEY"]})
       if response.code == 200
         @invitation.destroy
         account_removed = true
       end
-    rescue => e
-      format.html { render :new }
+    rescue RestClient::Exception
+      redirect_to dashboard_path, alert: "Could not delete the user's account"
+      return
+    rescue Exception
+      redirect_to dashboard_path, alert: "Unable to delete the user's account at this time. Please try again later"
+      return
     end
 
     #Update the invitation limit

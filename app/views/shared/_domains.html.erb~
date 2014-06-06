@@ -1,0 +1,25 @@
+<table class="table table-striped table-bordered table-condense table-thin">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Status</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% @domains.each do |domain| %>
+	      <tr>
+		<td><%= domain.name %></td>
+		<td><%= domain.status %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+
+<form class="form-inline" role="form">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail2">Name</label>
+    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+  </div>
+  <button type="submit" class="btn btn-default btn-success">Sign in</button>
+</form>

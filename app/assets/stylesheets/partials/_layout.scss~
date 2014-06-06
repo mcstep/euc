@@ -3141,9 +3141,7 @@ span.tags
     z-index: 10;
     }
 
-
-.container-right {
-  margin-top: 40px;
-  margin-right: 0px;
-  padding: 0px;
+.table-thin {
+  width: 100px;
 }
+
