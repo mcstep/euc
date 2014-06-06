@@ -1,5 +1,6 @@
 class WelcomeUserMailer < ActionMailer::Base
-  default from: 'test.vmwdemo@gmail.com'
+  default from: 'noreply@vmwdemo.com'
+  default reply_to: 'eucdemohelpp@vmware.com'
  
   def welcome_email(user, password)
     @user = user
