@@ -102,7 +102,7 @@ class InvitationsController < ApplicationController
       redirect_to log_in_path, notice: "Please sign in" unless current_user
     end
     
-    def person_params
+    def invitation_params
      params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region)
     end
 end

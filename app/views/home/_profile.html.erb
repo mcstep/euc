@@ -12,11 +12,14 @@
 		    <p><strong>Title: </strong> <%= current_user.title %> </p>	
 		    <p><strong>Company: </strong> <%= current_user.company %> </p>	
 	            <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
+	            <% if !@current_user_invited.blank? %>
+                      <p><strong>Region: </strong> <%= @current_user_invited.region %></p>
+	            <% end %>
 	            <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? %>
                       <p><strong>Invited by: </strong> <%= @current_user_invited.sender.username %></p>
 	            <% end %>
                 </div>             
-                <div class="col-xs-12 col-sm-4 text-center">
+                <div class="col-xs-12 col-sm-4 text-center ">
                     <figure>
                         <img src="<%= asset_path('default-user-icon-profile.png') %>" alt="" class="img-circle img-responsive">
                     </figure>

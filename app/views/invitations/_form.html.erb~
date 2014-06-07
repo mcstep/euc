@@ -1,4 +1,5 @@
 <div class="bg clear">
+  <h3>User Details</h3>
   <div class="content">
  	<%= form_for(@invitation) do |f| %>
 	  <% if @invitation.errors.any? %>
@@ -17,12 +18,14 @@
 	    <%= f.text_field :recipient_email, placeholder: 'Email', class: "form-control" %>
 	    <%= f.text_field :recipient_firstname, placeholder: 'First Name', class: "form-control" %>
 	    <%= f.text_field :recipient_lastname, placeholder: 'Last Name', class: "form-control" %>
+	    <%= f.text_field :recipient_username, placeholder: 'Last Name', class: "form-control" %>
 	    <%= f.text_field :recipient_company, placeholder: 'Company', class: "form-control" %>
-	    <%= f.text_field :recipient_title, placeholder: 'Title', class: "form-control" %>	
+	    <%= f.text_field :recipient_title, placeholder: 'Title', class: "form-control" %>
+            <%= f.select(:region, ["AMER", "EMEA","APAC", "DLDC"], {:prompt => "Select Home Region"}, { :class => 'form-control required' }) %>
 	  </div>
 	
           <div class="info">
-            Your 30-day trial will start now. After your trial ends, the user's <strong>account will be deleted from the system.</strong>
+            A 30-day account will be setup for the user. After the 30-day trial ends, the <strong>user's account will automatically be deleted from the system.</strong>
           </div>
 
 	  <div class="signup">

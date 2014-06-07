@@ -13,7 +13,7 @@ class SignupWorker
     account_created = false
     begin
       #response = RestClient.post 'http://75.126.198.236:8080/signup', :fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :uname => 'demo.user', :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title, :expires_at => ((@invitation.expires_at.to_i)*1000), :region => region
-      response = RestClient.post(url='http://75.126.198.236:8080/signup', payload ={:fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :uname => 'demo.user', :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title, :expires_at => ((@invitation.expires_at.to_i)*1000), :region => region}, headers={:token => ENV["API_KEY"]}
+      response = RestClient.post(url='http://75.126.198.236:8080/signup', payload ={:fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :uname => @invitation.recipient_username, :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title, :expires_at => ((@invitation.expires_at.to_i)*1000), :region => region}, headers={:token => ENV["API_KEY"]})
 
       if response.code == 200
         json_body = JSON.parse response

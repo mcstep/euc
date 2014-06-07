@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'password_reset/create'
+
   get 'signup/new'
 
   resources :invitations
@@ -8,6 +10,10 @@ Rails.application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "signup#new", :as => "sign_up"
+  get "dashboard" => "home#index", :as => "dashboard"
+  get "password_reset" => "password_reset#create", :as => "password_reset"
+
+  get 'home/index'
 
   get 'sessions/new'
 
@@ -26,7 +32,5 @@ Rails.application.routes.draw do
 
   constraints(SessionAuthenticatedConstraint) do
     mount Sidekiq::Web => '/sidekiq'
-    get "dashboard" => "home#index", :as => "dashboard"
-    get 'home/index'
   end
 end

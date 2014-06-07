@@ -72,6 +72,35 @@ var ready = function() {
 	});
 
 	// Form validation
+	$('#new_invitation').validate({
+		rules: {
+			"invitation[recipient_email]": {
+				required: true,
+				email: true
+			},
+			"invitation[recipient_firstname]": {
+				required: true
+			},
+			"invitation[recipient_lastname]": {
+				required: true
+			},
+			"invitation[recipient_company]": {
+				required: true
+			},
+			"invitation[recipient_title]": {
+				required: true
+			}
+		},
+		highlight: function (element) {
+			$(element).closest('.form-group').removeClass('success').addClass('error');
+		},
+		success: function (element) {
+			element.addClass('valid').closest('.form-group').removeClass('error').addClass('success');
+		}
+	});
+
+
+	// Form validation
 	$('.signup_form').validate({
 		rules: {
 			"email": {
@@ -107,6 +136,25 @@ var ready = function() {
 			},
 			"password": {
 				required: true
+			}
+		},
+		highlight: function (element) {
+			$(element).closest('.form-group').removeClass('success').addClass('error');
+		},
+		success: function (element) {
+			element.addClass('valid').closest('.form-group').removeClass('error').addClass('success');
+		}
+	});
+
+	// Form validation
+	$('#password-reset-form').validate({
+		rules: {
+			"username": {
+				required: true
+			},
+			"email": {
+				required: true,
+				email: true
 			}
 		},
 		highlight: function (element) {

@@ -9,11 +9,12 @@
 	    <%= text_field_tag :lastname, nil, placeholder: 'Last Name', class: "form-control" %>
 	    <%= text_field_tag :company, nil, placeholder: 'Company', class: "form-control" %>
 	    <%= text_field_tag :title, nil, placeholder: 'Title', class: "form-control" %>	
-            <%= select_tag :region, options_for_select([ "AMER", "EMEA","APAC", ]), class: "form-control required", :prompt => "Select Region" %>
+	    <%= text_field_tag :username, nil, placeholder: 'Username (optional)', class: "form-control" %>	
+            <%= select_tag :region, options_for_select([ "AMER", "EMEA","APAC", ]), class: "form-control required", :prompt => "Select Home Region" %>
 	  </div>
 	
           <div class="info">
-            Your 30-day trial will start now. After your trial ends, <strong>your account will be deleted from the system.</strong>
+            Your 360-day trial will start now. After your trial ends, <strong>your account will be deleted from the system.</strong>
           </div>
 
 	  <div class="signup">

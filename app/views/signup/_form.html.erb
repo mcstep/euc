@@ -7,9 +7,10 @@
 	    <%= text_field_tag :email, nil, placeholder: 'Email', class: "form-control" %>
 	    <%= text_field_tag :firstname, nil, placeholder: 'First Name', class: "form-control" %>
 	    <%= text_field_tag :lastname, nil, placeholder: 'Last Name', class: "form-control" %>
+	    <%= text_field_tag :username, nil, placeholder: 'Username (optional)', class: "form-control" %>	
 	    <%= text_field_tag :company, nil, placeholder: 'Company', class: "form-control" %>
 	    <%= text_field_tag :title, nil, placeholder: 'Title', class: "form-control" %>	
-            <%= select_tag :region, options_for_select([ "AMER", "EMEA","APAC", ]), class: "form-control required", :prompt => "Select Region" %>
+            <%= select_tag :region, options_for_select([ "AMER", "EMEA","APAC", ]), class: "form-control required", :prompt => "Select Home Region" %>
 	  </div>
 	
           <div class="info">

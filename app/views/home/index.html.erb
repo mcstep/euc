@@ -57,7 +57,7 @@
 	      <th>Company</th>
 	      <th>Title</th>
 	      <th>Expires on</th>
-	      <th>Sender</th>
+	      <th>Region</th>
 	      <th colspan="1"></th>
 	    </tr>
 	  </thead>
@@ -71,7 +71,7 @@
 		<td><%= invitation.recipient_company %></td>
 		<td><%= invitation.recipient_title %></td>
 		<td><%= (invitation.expires_at).to_date.to_formatted_s(:long) %></td>
-		<td><%= invitation.sender.username %></td>
+		<td><%= invitation.region %></td>
 		<td class="text-center"><%= link_to 'Expire Account', invitation, method: :delete, data: { confirm: 'Are you sure?' }, class: "new-user btn btn-danger" %></td>
 	      </tr>
 	    <% end %>
@@ -110,6 +110,10 @@
 					  	<div class="form-group">
 					    	<label>Email:</label>
 					    	<input type="email" name="invitation[recipient_email]" class="form-control" />
+					  	</div>
+					  	<div class="form-group">
+					    	<label>Username:</label>
+					    	<input type="text" name="invitation[recipient_username]" placeholder="(optional)" class="form-control" />
 					  	</div>
 						<div class="form-group">
 					    	<label>Company:</label>

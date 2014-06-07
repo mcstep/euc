@@ -9,7 +9,9 @@ class Invitation < ActiveRecord::Base
   before_create :generate_token
   before_create :decrement_sender_count, :if => :sender
 
-  enum invitation_status: [:pending, :active, :inactive]
+  validates_uniqueness_of :recipient_email
+  #validates_uniqueness_of :recipient_email, :scope => [:invitation_status]
+  enum invitation_status: [:pending, :active, :expired, :declined]
 private
 
   def recipient_is_not_registered
