@@ -12,7 +12,6 @@ class SignupWorker
 
     account_created = false
     begin
-      #response = RestClient.post 'http://75.126.198.236:8080/signup', :fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :uname => 'demo.user', :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title, :expires_at => ((@invitation.expires_at.to_i)*1000), :region => region
       response = RestClient.post(url='http://75.126.198.236:8080/signup', payload ={:fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :username => @invitation.recipient_username, :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title, :expires_at => ((@invitation.expires_at.to_i)*1000), :region => region}, headers={:token => ENV["API_KEY"]})
 
       if response.code == 200
@@ -35,8 +34,8 @@ class SignupWorker
 
     puts "Creating user profile directory.."
     begin
-      url = "http://75.126.198.236:8080/createdir"
-      response = RestClient.post url, :username => @invitation.recipient_username, :region => region
+      create_dir_url = "http://75.126.198.236:8080/createdir"
+      response = RestClient.post(url=create_dir_url,payload={:username => @invitation.recipient_username, :region => region}, headers= {:token => ENV["API_KEY"]})
       puts response.body
     rescue => e
       puts e
@@ -45,8 +44,8 @@ class SignupWorker
 
     puts "Calling sync service for home region.."
     begin
-      url = "http://75.126.198.236:8080/sync/#{region}"
-      response = RestClient.post url, :uname => 'demo.user'
+      home_sync_url = "http://75.126.198.236:8080/sync/#{region}"
+      response = RestClient.post(url=home_sync_url,payload={:uname => 'demo.user'}, headers= {:token => ENV["API_KEY"]})
       puts response.body
     rescue => e
       puts e
@@ -57,8 +56,8 @@ class SignupWorker
     rem_regions = ['amer', 'dldc', 'emea', 'apac'] - ["#{region}"]
     rem_regions.each do |sync_reg|
       begin
-        url = "http://75.126.198.236:8080/sync/#{region}"
-        response = RestClient.post url, :uname => 'demo.user'
+        sync_url = "http://75.126.198.236:8080/sync/#{sync_reg}"
+        response = RestClient.post(url=home_sync_url,payload={:uname => 'demo.user'}, headers= {:token => ENV["API_KEY"]})
         puts response.body
       rescue => e
         puts e

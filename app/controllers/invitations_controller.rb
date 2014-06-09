@@ -62,7 +62,6 @@ class InvitationsController < ApplicationController
     #Remove the AD account
     account_removed = false
     begin
-      #response = RestClient.post 'http://75.126.198.236:8080/unregister', :username => @invitation.recipient_username
       response = RestClient.post(url='http://75.126.198.236:8080/unregister',payload={:username => @invitation.recipient_username}, headers= {:token => ENV["API_KEY"]})
       if response.code == 200
         @invitation.destroy
