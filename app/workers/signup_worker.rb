@@ -12,7 +12,7 @@ class SignupWorker
 
     account_created = false
     begin
-      response = RestClient.post(url='http://75.126.198.236:8080/signup', payload ={:fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :username => @invitation.recipient_username, :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title, :expires_at => ((@invitation.expires_at.to_i)*1000), :region => region}, headers={:token => ENV["API_KEY"]})
+      response = RestClient.post(url="#{ENV['API_HOST']}/signup", payload ={:fname => @invitation.recipient_firstname, :lname => @invitation.recipient_lastname, :username => @invitation.recipient_username, :org => @invitation.recipient_company, :email => @invitation.recipient_email, :title => @invitation.recipient_title, :expires_at => ((@invitation.expires_at.to_i)*1000), :region => region}, headers={:token => ENV["API_KEY"]})
 
       if response.code == 200
         json_body = JSON.parse response
@@ -34,7 +34,7 @@ class SignupWorker
 
     puts "Creating user profile directory.."
     begin
-      create_dir_url = "http://75.126.198.236:8080/createdir"
+      create_dir_url = "#{ENV['API_HOST']}/createdir"
       response = RestClient.post(url=create_dir_url,payload={:username => @invitation.recipient_username, :region => region}, headers= {:token => ENV["API_KEY"]})
       puts response.body
     rescue => e
@@ -44,7 +44,7 @@ class SignupWorker
 
     puts "Calling sync service for home region.."
     begin
-      home_sync_url = "http://75.126.198.236:8080/sync/#{region}"
+      home_sync_url = "#{ENV['API_HOST']}/sync/#{region}"
       response = RestClient.post(url=home_sync_url,payload={:uname => 'demo.user'}, headers= {:token => ENV["API_KEY"]})
       puts response.body
     rescue => e
@@ -56,7 +56,7 @@ class SignupWorker
     rem_regions = ['amer', 'dldc', 'emea', 'apac'] - ["#{region}"]
     rem_regions.each do |sync_reg|
       begin
-        sync_url = "http://75.126.198.236:8080/sync/#{sync_reg}"
+        sync_url = "#{ENV['API_HOST']}/sync/#{sync_reg}"
         response = RestClient.post(url=sync_url,payload={:uname => 'demo.user'}, headers= {:token => ENV["API_KEY"]})
         puts response.body
       rescue => e

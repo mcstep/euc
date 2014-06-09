@@ -10,7 +10,7 @@ def create
   end
 
   begin
-    response = RestClient.post(url='http://75.126.198.236:8080/authenticate',payload={:username => params[:username], :password => params[:password]}, headers= {:token => ENV["API_KEY"]})
+    response = RestClient.post(url="#{ENV['API_HOST']}/authenticate",payload={:username => params[:username], :password => params[:password]}, headers= {:token => ENV["API_KEY"]})
     puts response
     if response.code == 200
       user_json = JSON.parse response
