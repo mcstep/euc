@@ -43,13 +43,26 @@ class SignupWorker
     end
     puts "Created user profile directory successfully"
 
-    puts "Calling sync service.."
+    puts "Calling sync service for home region.."
     begin
       url = "http://75.126.198.236:8080/sync/#{region}"
       response = RestClient.post url, :uname => 'demo.user'
       puts response.body
     rescue => e
       puts e
+    end
+    puts "Sync success"
+
+    puts "Calling sync service for remaining regions.."
+    rem_regions = ['amer', 'dldc', 'emea', 'apac'] - ["#{region}"]
+    rem_regions.each do |sync_reg|
+      begin
+        url = "http://75.126.198.236:8080/sync/#{sync_reg}"
+        response = RestClient.post url, :uname => 'demo.user'
+        puts response.body
+      rescue => e
+        puts e
+      end
     end
     puts "Sync success"
   end
