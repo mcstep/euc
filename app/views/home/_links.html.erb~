@@ -11,7 +11,7 @@
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu text-left" role="menu">
-                        <li><a href="vmware-view://hv6amer.vmwdemo.com/"><span class="fa pull-right"></span> AMER </a></li>
+                        <li><a href="vmware-view://#{current_user.username}@hv6amer.vmwdemo.com/"><span class="fa pull-right"></span> AMER </a></li>
                         <li class="divider"></li>
                         <li><a href="vmware-view://hv6emea.vmwdemo.com/"><span class="fa pull-right"></span> EMEA  </a></li>
                         <li><a href="vmware-view://hv6apac.vmwdemo.com/"><span class="fa pull-right"></span>APAC</a></li>
@@ -57,6 +57,7 @@
                       </ul>
                     </div>
 
+</div>
 </div>
 
 

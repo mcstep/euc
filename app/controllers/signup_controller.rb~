@@ -23,14 +23,15 @@ class SignupController < ApplicationController
     @invitation.recipient_title = params[:title]
     @invitation.expires_at = (Time.now + 1.year)
     @invitation.region = params[:region]
-    @invitation.recipient_username
+    @invitation.recipient_username = params[:username]
 
     account_create= true
     puts params
     respond_to do |format|
       if account_create && @invitation.save
         SignupWorker.perform_async(@invitation.id)
-        format.html { redirect_to dashboard_path, notice: 'Account was successfully requested. Please check your email for login details.' }
+	flash.now.notice = "Account was successfully requested. Please check your email for login details."
+        format.html { render :new, notice: '' }
       else
 	flash.now.alert = "One or more fields are invalid"
         format.html { render :new }
