@@ -12,7 +12,8 @@ class PasswordResetController < ApplicationController
           PasswordResetWorker.perform_async(@invitation.id, response)
           redirect_to log_in_path, notice: 'Password reset successfully requested. Please check your email for login details.'
         end
-      rescue RestClient::Exception
+      rescue RestClient::Exception => e
+        puts e
         redirect_to log_in_path, alert: "Could not reset the user's password"
         return
       rescue Exception => e
