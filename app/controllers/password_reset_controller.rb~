@@ -13,7 +13,7 @@ class PasswordResetController < ApplicationController
           redirect_to log_in_path, notice: 'Password reset successfully requested. Please check your email for login details.'
         end
       rescue RestClient::Exception => e
-        puts e
+        puts "EXCEPTION TRACE: " + e
         redirect_to log_in_path, alert: "Could not reset the user's password"
         return
       rescue Exception => e
