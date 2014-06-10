@@ -3,7 +3,7 @@ class Invitation < ActiveRecord::Base
   has_one :recipient, :class_name => 'User'
 
   validates_presence_of :recipient_email, :recipient_firstname, :recipient_lastname
-  validate :recipient_is_not_registered
+  validate :recipient_is_not_registered, :on => :create
   validate :sender_has_invitations, :if => :sender
 
   before_create :generate_token
