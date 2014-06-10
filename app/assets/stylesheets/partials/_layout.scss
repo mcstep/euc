@@ -3069,9 +3069,11 @@ text-indent: -9999px;
 
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 .container-left {
-  margin-top: 40px;
   margin-left: 0px;
   padding: 0px;
+}
+.container-top {
+  margin-top: 40px;
 }
 body
 {
@@ -3141,9 +3143,18 @@ span.tags
     z-index: 10;
     }
 
+
 .table-thin {
   width: auto;
 }
 
 .center-y{vertical-align:middle;}
 
+.top-margin {
+  margin-top: 40px;
+}
+
+
+.auto-width {
+  width: auto;
+}

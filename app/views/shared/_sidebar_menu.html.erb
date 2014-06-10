@@ -23,6 +23,8 @@
       </ul>
   </div>
 
+
+        <br/>
   <div class="menu-section">
     <h3>Admin</h3>
     <ul>
@@ -49,6 +51,8 @@
     </ul>
   </div>
 
+<% if current_user %>
+
   <div class="menu-section">
     <h3>General</h3>
     <ul>
@@ -74,6 +78,8 @@
     <% end %>
     </ul>
   </div>
+
+<% end %>
 
    <% if current_user %>
 

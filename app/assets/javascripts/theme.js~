@@ -89,9 +89,6 @@ var ready = function() {
 			},
 			"invitation[recipient_title]": {
 				required: true
-			},
-			"invitation[recipient_username]": {
-				required: true
 			}
 		},
 		highlight: function (element) {
@@ -167,8 +164,6 @@ var ready = function() {
 			element.addClass('valid').closest('.form-group').removeClass('error').addClass('success');
 		}
 	});
-
-	
 
 };
 

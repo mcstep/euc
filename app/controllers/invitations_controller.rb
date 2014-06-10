@@ -6,6 +6,9 @@ class InvitationsController < ApplicationController
   # GET /invitations.json
   def index
     @invitations = Invitation.all
+    unless current_user.admin?
+        redirect_to dashboard_path, :alert => "Access denied."
+    end
   end
 
   # GET /invitations/1

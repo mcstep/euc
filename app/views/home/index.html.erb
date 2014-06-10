@@ -17,35 +17,18 @@
 
 <%= render 'profile' %>
 
+<%= render 'links' %>
+
 <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
 <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? %>
 	<br/>
 	<h3> Account Details </h3>
 	<div class="account details">
-           Your account was created by <strong> <%= @current_user_invited.sender.username %> </strong> and their email is <strong> <%= mail_to @current_user_invited.sender.email %> </strong>	
+           Your account was created by <strong> <%= @current_user_invited.sender.display_name %> </strong> and their email is <strong> <%= mail_to @current_user_invited.sender.email %> </strong>	
 	</div>
 <% end %>
 
 <% if policy(current_user).invites? %>
-	
-       <h3> Account Stats </h3>
-	<div class="content-wrapper">
-	  <div class="metrics clearfix">
-	    <div class="metric">
-	      <span class="field">Invitation limit</span>
-	      <span class="data">5</span>
-	    </div>
-	    <div class="metric">
-	      <span class="field">Invitations used</span>
-	      <span class="data"><%= 5 - current_user.invitation_limit %> </span>
-	    </div>
-	    <div class="metric">
-	      <span class="field">Invitations remaining</span>
-	      <span class="data"><%= current_user.invitation_limit %></span>
-	    </div>
-	  </div>
-	</div>
-
 	<div class ="slots">
 		<br/>
 		<h3> Manage Accounts </h3>

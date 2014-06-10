@@ -165,7 +165,7 @@ var ready = function() {
 		}
 	});
 
-	
+$('.dropdown-toggle').dropdown()
 
 };
 
