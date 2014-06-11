@@ -29,7 +29,7 @@ class SignupWorker
     puts "Done creating account. Response from AD #{json_body}"
 
     puts "Sending email...."
-    WelcomeUserMailer.welcome_email(@invitation,json_body['password']).deliver
+    WelcomeUserMailer.welcome_email(@invitation,json_body['password'],ENV['DOMAIN']).deliver
     puts "Email sent successfully"
 
     puts "Creating user profile directory.."
