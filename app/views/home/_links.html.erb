@@ -1,5 +1,5 @@
 <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
-<% if @current_user_invited.blank? %>
+<% if @current_user_invited.blank? || @current_user_invited.region.blank? %>
 <% region = 'amer' %>
 <% else %>
 <% region = @current_user_invited.region.downcase %>
