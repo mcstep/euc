@@ -10,12 +10,13 @@ def create
   end
 
   begin
-    response = RestClient.post(url="#{ENV['API_HOST']}/authenticate",payload={:username => params[:username], :password => params[:password]}, headers= {:token => ENV["API_KEY"]})
+    username = params[:username][/[^@]+/]
+    response = RestClient.post(url="#{ENV['API_HOST']}/authenticate",payload={:username => username, :password => params[:password]}, headers= {:token => ENV["API_KEY"]})
     puts response
     if response.code == 200
       user_json = JSON.parse response
       puts "Auth response #{user_json}"
-      user = User.authenticate(params[:username], params[:password])
+      user = User.authenticate(username, params[:password])
       if user
 	# Update the user's attributes, in case they've been updated in the AD
 	user.email = user_json['email'] if user_json['email'] != nil
