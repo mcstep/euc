@@ -73,22 +73,28 @@ class InvitationsController < ApplicationController
     account_removed = false
     begin
       response = RestClient.post(url="#{ENV['API_HOST']}/unregister",payload={:username => @invitation.recipient_username}, headers= {:token => ENV["API_KEY"]})
+      puts "Got response #{response} for account deletion"
       if response.code == 200
         @invitation.destroy
+	@user_rec_for_invite = User.find_by_email(@invitation.recipient_email)
+	@user_rec_for_invite.destroy unless @user_rec_for_invite.nil?
         account_removed = true
       end
     rescue RestClient::Exception
       redirect_to dashboard_path, alert: "Could not delete the user's account"
       return
-    rescue Exception
+    rescue Exception => e
+      puts e
       redirect_to dashboard_path, alert: "Unable to delete the user's account at this time. Please try again later"
       return
     end
 
     #Update the invitation limit
     @user = @invitation.sender
-    @user.invitation_limit += 1
-    @user.save!
+    if !@user.nil?
+     @user.invitation_limit += 1
+     @user.save!
+    end
 
     respond_to do |format|
       format.html { redirect_to dashboard_path, notice: 'Invitation was successfully destroyed.' }

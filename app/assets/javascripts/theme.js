@@ -83,7 +83,8 @@ var ready = function() {
 		rules: {
 			"invitation[recipient_email]": {
 				required: true,
-				email: true
+				email: true,
+				remote:"/invitations/check_invitation"
 			},
 			"invitation[recipient_firstname]": {
 				required: true
@@ -98,6 +99,11 @@ var ready = function() {
 				required: true
 			}
 		},
+                messages: {
+                  "invitation[recipient_email]": {
+                    remote: jQuery.format("{0} is already in use")
+                  }
+                },
 		highlight: function (element) {
 			$(element).closest('.form-group').removeClass('success').addClass('error');
 		},

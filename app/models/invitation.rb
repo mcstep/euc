@@ -15,7 +15,7 @@ class Invitation < ActiveRecord::Base
 private
 
   def recipient_is_not_registered
-    errors.add :recipient_email, 'is already registered' if User.find_by_email(recipient_email)
+    errors.add :recipient_email, 'is already registered' if Invitation.find_by_recipient_email(recipient_email)
   end
 
   def sender_has_invitations
