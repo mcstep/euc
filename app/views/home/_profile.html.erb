@@ -5,7 +5,7 @@
             <div class="col-sm-12">
                 <div class="col-xs-12 col-sm-8">
                     <h2><%= current_user.display_name %></h2>
-                    <p><strong>Username: </strong> <%= current_user.username %> </p>
+                    <p><strong>Username: </strong> <%= current_user.username %>@<%= ENV['DOMAIN'] %></p>
                     <p><strong>Email: </strong> <%= current_user.email %> </p>
 		    <p><strong>Title: </strong> <%= current_user.title %> </p>	
 		    <p><strong>Company: </strong> <%= current_user.company %> </p>	

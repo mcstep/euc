@@ -3,7 +3,12 @@ Rails.application.routes.draw do
 
   get 'signup/new'
 
-  resources :invitations
+  #resources :invitations
+  resources :invitations do
+    collection do
+      get 'check_invitation'
+    end
+  end
 
   root 'home#index'
 
@@ -17,12 +22,11 @@ Rails.application.routes.draw do
 
   get 'sessions/new'
 
-  resources :users
+  #resources :users
   resources :sessions
   resources :signup
 
   require 'sidekiq/web'
-  #mount Sidekiq::Web => '/sidekiq'
   
   class SessionAuthenticatedConstraint
     def self.matches?(request)

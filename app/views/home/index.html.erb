@@ -80,6 +80,18 @@
 			        		Invite User
 			        	</h4>
 			      	</div>
+	  <% if @invitation.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@invitation.errors.count, "error") %> prohibited this invitation from being saved:</h2>
+
+	      <ul>
+	      <% @invitation.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
 			      	<div class="modal-body">
 						<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token" %>
 						<div class="form-group">

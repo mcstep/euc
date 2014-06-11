@@ -340,7 +340,7 @@ background: #970b0e !important;
                             </h3>
                             <p style="color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 25px 0 10px; padding: 0;" align="left">
                               Welcome to VMWDemo, we're happy to have you! <br /> You are signed up for our free
-                              30 day trial and we hope that you find it useful.
+                              trial and your account expires on <%= (invitation.expires_at).to_date.to_formatted_s(:long) %>. We hope that you find it useful.
                             </p>
 <p style="color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 25px 0 10px; padding: 0;" align="left">
                               Your Username is <%= @user.recipient_username %> and Password is <%= @password %>
@@ -369,7 +369,7 @@ background: #970b0e !important;
                               Copyright © 2014 VMware, Inc. All rights reserved.
                             </p>
                             <p style="text-align: center; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; margin: 2px; padding: 0;" align="center">
-                              3401 Hillview Avenue Palo Alto, CA. 94304
+                              3401 Hillview Avenue Palo Alto, CA 94304
                             </p>
                           </td>
                           <td class="expander" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top"></td>

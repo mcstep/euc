@@ -2,6 +2,13 @@ class InvitationsController < ApplicationController
   before_action :set_invitation, only: [:show, :edit, :update, :destroy]
   before_action :require_login
 
+  def check_invitation
+    @invitation = Invitation.find_by_recipient_email(params[:invitation][:recipient_email])
+    respond_to do |format|
+      format.json { render :json => !@invitation }
+    end
+  end
+
   # GET /invitations
   # GET /invitations.json
   def index

@@ -26,6 +26,7 @@
       <th>Full Name</th>
       <th>Company</th>
       <th>Title</th>
+      <th>Expires on</th>
       <th colspan="1"></th>
     </tr>
   </thead>
@@ -33,11 +34,16 @@
   <tbody>
     <% @invitations.each do |invitation| %>
       <tr>
-        <td><%= invitation.sender.username unless invitation.sender.blank?%></td>
+        <% if invitation.sender.blank? %>
+          <td><strong>N/A</strong></td>
+        <% else %>
+          <td><%= invitation.sender.display_name unless invitation.sender.blank? %></td>  
+        <% end %>
         <td><%= invitation.recipient_email %></td>
         <td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
         <td><%= invitation.recipient_company %></td>
         <td><%= invitation.recipient_title %></td>
+        <td><%= (invitation.expires_at).to_date.to_formatted_s(:long) %></td>
         <td><%= link_to 'Delete', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

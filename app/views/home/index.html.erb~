@@ -24,7 +24,7 @@
 	<br/>
 	<h3> Account Details </h3>
 	<div class="account details">
-           Your account was created by <strong> <%= @current_user_invited.sender.firstname %> </strong> and their email is <strong> <%= mail_to @current_user_invited.sender.email %> </strong>	
+           Your account was created by <strong> <%= @current_user_invited.sender.display_name %> </strong> and their email is <strong> <%= mail_to @current_user_invited.sender.email %> </strong>	
 	</div>
 <% end %>
 
