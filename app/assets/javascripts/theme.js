@@ -172,7 +172,8 @@ var ready = function() {
 		}
 	});
 
-$('.dropdown-toggle').dropdown()
+$('.dropdown-toggle').dropdown();
+$('.popoverHorizon').popover({container: 'body'});
 
 };
 

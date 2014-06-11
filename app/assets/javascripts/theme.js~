@@ -64,11 +64,11 @@ var ready = function() {
 				required: true
 			}
 		},
-    messages: {
-        "invitation[recipient_email]": {
-            remote: jQuery.format("{0} is already in use")
-        }
-    },
+                messages: {
+                  "invitation[recipient_email]": {
+                    remote: jQuery.format("{0} is already in use")
+                  }
+                },
 		highlight: function (element) {
 			$(element).closest('.form-group').removeClass('success').addClass('error');
 		},
@@ -172,7 +172,8 @@ var ready = function() {
 		}
 	});
 
-$('.dropdown-toggle').dropdown()
+$('.dropdown-toggle').dropdown();
+$('.popoverHorizon').popover();
 
 };
 

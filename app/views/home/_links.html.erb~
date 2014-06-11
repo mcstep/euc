@@ -1,27 +1,37 @@
+<% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
+<% if @current_user_invited.blank? %>
+<% region = 'amer' %>
+<% else %>
+<% region = @current_user_invited.region.downcase %>
+<% end %>
+<% rem_regions = ['amer', 'emea', 'apac'] - ["#{region}"] %>
+
 <div class="container container-left">
   <h3> Login to your horizon environment </h3>
-
 <div style="max-width: 350px;" class="well">
                     <div class="btn-group dropup btn-block">
-			<a href="vmware-view://hv6amer.vmwdemo.com/" class="btn btn-info btn-large" style="width: 280px;">
-				<span>Horizon View App</span>
+			<a href="vmware-view://hv6<%= region %>.vmwdemo.com/" class="btn btn-info btn-large popoverHorizon" data-content="Click to login to your home region or pick a region from the dropdown" rel="popover" data-trigger="hover" data-placement="bottom"" style="width: 280px;">
+				<span>Launch Horizon View App</span>
 			</a>
                       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu text-left" role="menu">
-                        <li><a href="vmware-view://#{current_user.username}@hv6amer.vmwdemo.com/"><span class="fa pull-right"></span> AMER </a></li>
+                        <li><a href="vmware-view://hv6<%= region %>.vmwdemo.com/"><span class="fa pull-right"></span> <%= region.upcase %> (Home)  </a></li>
                         <li class="divider"></li>
-                        <li><a href="vmware-view://hv6emea.vmwdemo.com/"><span class="fa pull-right"></span> EMEA  </a></li>
-                        <li><a href="vmware-view://hv6apac.vmwdemo.com/"><span class="fa pull-right"></span>APAC</a></li>
+                        <% rem_regions.each do |sync_reg| %>
+                          <li><a href="vmware-view://hv6<%= sync_reg %>.vmwdemo.com/"><span class="fa pull-right"></span> <%= sync_reg.upcase %>  </a></li>
+                        <% end %>
                         <li class="divider"></li>
                         <li><a href="#" class="btn disabled" role="button"> Pick Region </a></li>
                       </ul>
                     </div>
+
 			<p style="margin-top: 8px" class="text-center">or</p>
+
                     <div class="btn-group dropup btn-block">
-			<a href="https://hv6amer.vmwdemo.com" target="_blank" class="btn btn-info btn-large" style="width: 280px;">
+			<a href="https://hv6<%= region %>.vmwdemo.com" target="_blank" class="btn btn-info btn-large popoverHorizon" data-content="Click to login to your home region or pick a region from the dropdown" rel="popover" data-trigger="hover" data-placement="bottom"" style="width: 280px;">
 				<span>Horizon View</span>
 			</a>
                       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -29,10 +39,11 @@
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu text-left" role="menu">
-                        <li><a href="https://hv6amer.vmwdemo.com" target="_blank"><span class="fa pull-right"></span> AMER </a></li>
+                        <li><a href="https://hv6<%= region %>.vmwdemo.com" target="_blank"><span class="fa pull-right"></span> <%= region.upcase %> (Home) </a></li>
                         <li class="divider"></li>
-                        <li><a href="https://hv6emea.vmwdemo.com" target="_blank"><span class="fa pull-right"></span> EMEA  </a></li>
-                        <li><a href="https://hv6apac.vmwdemo.com" target="_blank"><span class="fa pull-right"></span>APAC</a></li>
+                        <% rem_regions.each do |sync_reg| %>
+                          <li><a href="https://hv6<%= sync_reg %>.vmwdemo.com" target="_blank"><span class="fa pull-right"></span> <%= sync_reg.upcase %>  </a></li>
+                        <% end %>
                         <li class="divider"></li>
                         <li><a href="#" class="btn disabled" role="button"> Pick Region </a></li>
                       </ul>
@@ -40,7 +51,7 @@
 			<hr>
 
                     <div class="btn-group dropup btn-block">
-			<a href="https://hw6amer.vmwdemo.com" target="_blank" class="btn btn-info btn-large" style="width: 280px;">
+			<a href="https://hw6<%= region %>.vmwdemo.com" target="_blank" class="btn btn-info btn-large" style="width: 280px;">
 				<span>Horizon Workspace</span>
 			</a>
                       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -48,10 +59,11 @@
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu text-left" role="menu">
-                        <li><a href="https://hw6amer.vmwdemo.com" target="_blank"><span class="fa pull-right"></span> AMER </a></li>
+                        <li><a href="https://hw6<%= region %>.vmwdemo.com" target="_blank"><span class="fa pull-right"></span> <%= region.upcase %> (Home) </a></li>
                         <li class="divider"></li>
-                        <li><a href="https://hw6emea.vmwdemo.com" target="_blank"><span class="fa pull-right"></span> EMEA  </a></li>
-                        <li><a href="https://hw6apac.vmwdemo.com" target="_blank"><span class="fa pull-right"></span>APAC</a></li>
+                        <% rem_regions.each do |sync_reg| %>
+                          <li><a href="https://hw6<%= sync_reg %>.vmwdemo.com" target="_blank"><span class="fa pull-right"></span><%= sync_reg.upcase %></a></li>
+                        <% end %>
                         <li class="divider"></li>
                         <li><a href="#" class="btn disabled" role="button"> Pick Region </a></li>
                       </ul>

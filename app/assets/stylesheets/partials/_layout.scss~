@@ -3143,6 +3143,9 @@ span.tags
     z-index: 10;
     }
 
+.hoverme:hover > dropup .dropdown-menu {
+    display: block;    
+}
 
 .table-thin {
   width: auto;
@@ -3157,10 +3160,4 @@ span.tags
 
 .auto-width {
   width: auto;
-}
-
-.caret-right {
-  border-right: 0;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
 }
