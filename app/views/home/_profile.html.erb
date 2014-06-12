@@ -1,6 +1,6 @@
 <div class="container container-left container-top">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-6">
           <div class="well profile">
             <div class="col-sm-12">
                 <div class="col-xs-12 col-sm-8">
@@ -25,27 +25,5 @@
             </div>
           </div>
         </div>
-	<div class="col-md-2"></div>
-        <div class="col-md-4">
- <% if policy(current_user).invites? %>
-          <h3> Account Stats </h3>
-	  <div class="content-wrapper">
-	    <div class="metrics clearfix">
-	      <div class="metric">
-	        <span class="field">Invitation limit</span>
-	        <span class="data">5</span>
-	      </div>
-	      <div class="metric">
-	        <span class="field">Invitations used</span>
-	        <span class="data"><%= 5 - current_user.invitation_limit %> </span>
-	      </div>
-	      <div class="metric">
-	        <span class="field">Invitations remaining</span>
-	        <span class="data"><%= current_user.invitation_limit %></span>
-	      </div>
-	    </div>
-	  </div>
-        </div>
-<% end %>
     </div>
 </div>

@@ -18,11 +18,13 @@ Rails.application.routes.draw do
   get "dashboard" => "home#index", :as => "dashboard"
   post "password_reset" => "password_reset#create", :as => "password_reset"
 
+  get "toggle" => "domains#toggle", :as => "toggle"
+
   get 'home/index'
 
   get 'sessions/new'
 
-  #resources :users
+  resources :domains
   resources :sessions
   resources :signup
 

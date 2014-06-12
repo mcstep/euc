@@ -34,7 +34,7 @@ $.rails.allowAction = (element) ->
 			        	</h4>
 			      	</div>
 			      	<div class="modal-body">
-						Do you want to delete this account? The users account will permanently be deleted.
+						#{message}
 			      	</div>
 			      	<div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

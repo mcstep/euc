@@ -181,6 +181,18 @@ var ready = function() {
 $('.dropdown-toggle').dropdown();
 $('.popoverHorizon').popover({container: 'body'});
 
+$('.btn-toggle').click(function() {
+	$(this).find('.btn-active').toggleClass('btn-success');
+	$(this).find('.btn-active').toggleClass('active');
+	$(this).find('.btn-inactive').toggleClass('btn-danger');
+	$(this).find('.btn-inactive').toggleClass('active');
+});
+
+$('.datepicker').datepicker({
+    format: 'mm-dd-yyyy',
+    maxDate: '+10D'
+});
+
 };
 
 $(document).on("ready page:load", ready);

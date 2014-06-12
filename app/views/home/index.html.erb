@@ -19,6 +19,8 @@
 
 <%= render 'links' %>
 
+<%= render 'account_stats' %>
+
 <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
 <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? %>
 	<br/>
@@ -27,6 +29,7 @@
            Your account was created by <strong> <%= @current_user_invited.sender.display_name %> </strong> and their email is <strong> <%= mail_to @current_user_invited.sender.email %> </strong>	
 	</div>
 <% end %>
+
 
 <% if policy(current_user).invites? %>
 	<div class ="slots">
@@ -55,7 +58,7 @@
 		<td><%= invitation.recipient_title %></td>
 		<td><%= (invitation.expires_at).to_date.to_formatted_s(:long) %></td>
 		<td><%= invitation.region %></td>
-		<td class="text-center"><%= link_to 'Expire Account', invitation, method: :delete, data: { confirm: 'Are you sure?' }, class: "new-user btn btn-danger" %></td>
+		<td class="text-center"><%= link_to 'Expire Account', invitation, method: :delete, data: { confirm: 'Do you want to delete this account? The users account will permanently be deleted.' }, class: "new-user btn btn-danger" %></td>
 	      </tr>
 	    <% end %>
 	  </tbody>

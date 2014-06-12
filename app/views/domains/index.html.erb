@@ -1,0 +1,43 @@
+		<h3> Manage Domains </h3>
+		<table class="table table-striped table-bordered table-condense table-thin">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Status</th>
+	      <th colspan="1">Actions</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% @domains.each do |domain| %>
+	      <tr>
+		<td><%= domain.name %></td>
+		<td class="text-center">
+		  <div class="btn-group btn-toggle"> 
+		    <% if domain.status == 'active' %>
+		      <%= link_to "ON", toggle_path(id: domain.id),  class: "btn btn-sm btn-default btn-success active btn-active" %>
+                      <%= link_to 'OFF', toggle_path(id: domain.id), class: "btn btn-sm btn-default btn-inactive" %>
+		   <% else %>
+		     <%= link_to "ON", toggle_path(id: domain.id), class: "btn btn-sm btn-default btn-active" %>
+                     <%= link_to 'OFF', toggle_path(id: domain.id), class: "btn btn-sm btn-default btn-danger active btn-inactive" %>
+		   <% end %>
+		  </div>		
+		</td>
+		<td class="text-center">
+                  <%= link_to 'Delete', domain, method: :delete, data: { confirm: 'This domain will be deleted'}, class: "new-user btn btn-danger" %>
+		</td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+
+<form id="new-domain-form" method="post" action="/domains" class="form-inline" role="form">
+  <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token" %>
+  <div class="form-group">
+    <label class="sr-only" for="domain[name]">Domain Name</label>
+    <input type="text" class="form-control" name="domain[name]" placeholder="Enter domain name">
+  </div>
+  <button type="submit" class="btn btn-default btn-success">Add</button>
+</form>
+
+
