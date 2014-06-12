@@ -21,11 +21,12 @@
 	    <%= f.text_field :recipient_username, placeholder: 'Username (optional)', class: "form-control" %>
 	    <%= f.text_field :recipient_company, placeholder: 'Company', class: "form-control" %>
 	    <%= f.text_field :recipient_title, placeholder: 'Title', class: "form-control" %>
+            <%= f.text_field :expires_at, placeholder: '   Expires on (optional)', class: "form-control datepicker" %>
             <%= f.select(:region, ["AMER", "EMEA","APAC", "DLDC"], {:prompt => "Select Home Region"}, { :class => 'form-control required' }) %>
 	  </div>
-	
+
           <div class="info">
-            A 30-day account will be setup for the user. After the 30-day trial ends, the <strong>user's account will automatically be deleted from the system.</strong>
+            A trial account will be setup for the user. After the trial ends, the <strong>user's account will automatically be deleted from the system.</strong>
           </div>
 
 	  <div class="signup">
@@ -34,3 +35,9 @@
 	<% end %>
   </div>
 </div>
+
+
+<div class="period-select hidden-xs">
+        <form class="input-daterange">
+        </form>
+    </div>

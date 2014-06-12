@@ -1,4 +1,5 @@
 class DomainsController < ApplicationController
+  before_action :require_login
   def index
     @domains = Domain.all
   end
@@ -38,6 +39,10 @@ class DomainsController < ApplicationController
   end
  
   private
+
+  def require_login
+    redirect_to root_path, :alert => "Access denied." unless current_user && current_user.admin?
+  end
 
   def domain_params
     params.require(:domain).permit(:name)

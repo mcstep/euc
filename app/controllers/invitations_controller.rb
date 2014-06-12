@@ -38,7 +38,11 @@ class InvitationsController < ApplicationController
     puts invitation_params
     @invitation = Invitation.new(invitation_params)
     @invitation.sender = current_user
-    @invitation.expires_at = (Time.now + 1.month) 
+    if !params[:invitation][:expires_at].blank?
+      @invitation.expires_at = DateTime.strptime(params[:invitation][:expires_at], '%B %d, %Y') 
+    else 
+      @invitation.expires_at = (Time.now + 1.month) 
+    end
     puts "Region: #{@invitation.region}"
     respond_to do |format|
       if @invitation.save
@@ -118,6 +122,6 @@ class InvitationsController < ApplicationController
     end
     
     def invitation_params
-     params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region, :recipient_username)
+     params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region, :recipient_username, :expires_at)
     end
 end

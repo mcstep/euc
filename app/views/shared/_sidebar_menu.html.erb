@@ -5,7 +5,7 @@
       <a href="#" class="name">
         <%= image_tag "default-user-icon-profile.png", class: "avatar" %>
         <span>
-          <%= current_user.display_name %>
+          <%= current_user.display_name.split(" ")[0] %>
           <i class="fa fa-chevron-down"></i>
         </span>
       </a>
@@ -22,40 +22,21 @@
 
         <br/>
 
-<% if current_user %>
 
   <div class="menu-section">
     <h3>General</h3>
     <ul>
+    <% if current_user %>
+
       <li class="option">
         <a href="<%= dashboard_path %>" class="active">
           <i class="ion-android-earth"></i> 
           <span>Dashboard</span>
         </a>
       </li>
-      <% if current_user && policy(current_user).admin? %>
 
-      <li class="option">
-        <a href="#" data-toggle="sidebar">
-          <i class="ion-person-stalker"></i> <span>Accounts</span>
-          <i class="fa fa-chevron-down"></i>
-        </a>
-        <ul class="submenu">
-          <li><a href="<%= new_invitation_path %>">Send Invitation</a></li>
-          <li><a href="<%= invitations_path %>">Manage Accounts</a></li>
-          <li><a href="<%= domains_path %>">Manage Domains</a></li>
-        </ul>
-      </li>
+   <% end %>
 
-    <% end %>
-    </ul>
-  </div>
-
-<% end %>
-
-  <div class="menu-section">
-    <h3>Admin</h3>
-    <ul>
       <% if current_user %>
       <li class="option">
         <a href="#" data-toggle="sidebar">
@@ -75,8 +56,38 @@
           </a>
         </li>
       <% end %>
+
     </ul>
   </div>
+
+
+
+      <% if current_user && policy(current_user).admin? %>
+
+  <div class="menu-section">
+    <h3>Admin</h3>
+    <ul>
+      <li class="option">
+        <a href="#" data-toggle="sidebar">
+          <i class="ion-person-stalker"></i> <span>Accounts</span>
+          <i class="fa fa-chevron-down"></i>
+        </a>
+        <ul class="submenu">
+          <li><a href="<%= new_invitation_path %>">Send Invitation</a></li>
+          <li><a href="<%= invitations_path %>">Manage Accounts</a></li>
+        </ul>
+      </li>
+
+      <li class="option">
+        <a href="<%= domains_path %>" class="active">
+          <i class="ion-card"></i> 
+          <span>Domains</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+    <% end %>
 
    <% if current_user %>
 

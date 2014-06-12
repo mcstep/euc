@@ -42,3 +42,4 @@ gem 'slim'
 gem 'unicorn'
 
 gem 'pundit'
+gem 'bootstrap-datepicker-rails'

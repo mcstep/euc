@@ -66,7 +66,7 @@ var ready = function() {
 		},
                 messages: {
                   "invitation[recipient_email]": {
-                    remote: jQuery.format("{0} is already in use")
+                    remote: jQuery.format("This email is already in use")
                   }
                 },
 		highlight: function (element) {
@@ -97,11 +97,14 @@ var ready = function() {
 			},
 			"invitation[recipient_title]": {
 				required: true
+			},
+			"invitation[expires_at]": {
+				date: true
 			}
 		},
                 messages: {
                   "invitation[recipient_email]": {
-                    remote: jQuery.format("{0} is already in use")
+                    remote: jQuery.format("This email is already in use")
                   }
                 },
 		highlight: function (element) {
@@ -188,10 +191,15 @@ $('.btn-toggle').click(function() {
 	$(this).find('.btn-inactive').toggleClass('active');
 });
 
-$('.datepicker').datepicker({
-    format: 'mm-dd-yyyy',
-    maxDate: '+10D'
-});
+
+ // Range Datepicker
+ $('.datepicker').datepicker({
+   format: 'MM d, yyyy',
+   autoclose: true,
+   orientation: 'right top',
+   startDate: new Date(),
+   endDate: "+3y"
+ });
 
 };
 
