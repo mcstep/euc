@@ -203,6 +203,29 @@ var ready = function() {
 $('.dropdown-toggle').dropdown();
 $('.popoverHorizon').popover({container: 'body'});
 
+   $('.popoverInviteUserLink').popover({
+        html: true,
+        trigger: 'manual',
+        container: $(this).attr('id'),
+        placement: 'top',
+        content: "<p style=\"color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 5px 0 10px; padding: 0;\" align=\"left\"> Before provisioning any accounts, please familiarize yourself with the following troubleshooting information:<br/><ul><li><a href=\"http://pubs.vmware.com/view-52/index.jsp#com.vmware.view.administration.doc/GUID-6B20BD72-2BC3-41A0-A356-F85258EA5A08.html\" target=\"_blank\">Troubleshooting View Components</a></li><li><a href=\"http://pubs.vmware.com/view-52/topic/com.vmware.view.administration.doc/GUID-D2A0D9E0-696D-4962-837C-2EC203F5F79B.html\" target=\"_blank\">Troubleshooting Network Connection Problems</a></li><li><a href=\"http://pubs.vmware.com/view-52/topic/com.vmware.view.administration.doc/GUID-D6ABDC1E-1208-44AA-9048-4E7B9E995FCA.html\" target=\"_blank\">Further Troubleshooting Information</a></li></ul></p>"
+    }).on("mouseenter", function () {
+        var _this = this;
+        $(this).popover("show");
+        $(this).siblings(".popover").on("mouseleave", function () {
+            $(_this).popover('hide');
+        });
+    }).on("mouseleave", function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!$(".popover:hover").length) {
+                $(_this).popover("hide")
+            }
+        }, 100);
+    });
+
+
+
 $('.btn-toggle').click(function() {
 	$(this).find('.btn-active').toggleClass('btn-success');
 	$(this).find('.btn-active').toggleClass('active');

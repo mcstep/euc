@@ -15,6 +15,10 @@
 
 <% if current_user %>
 
+  <% if current_user.role == 'vip' %>
+    <%= render 'header' %>	
+  <% end %>
+
 <%= render 'profile' %>
 
 <%= render 'links' %>
@@ -23,7 +27,11 @@
 
 <%= render 'invitations' %>
 
-<%= render 'footer' %>
+  <% if current_user.role == 'vip' %>
+    <%= render 'footer' %>	
+  <% end %>
+
+
 
 
 <% end %>
