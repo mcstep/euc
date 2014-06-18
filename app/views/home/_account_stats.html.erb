@@ -1,22 +1,27 @@
  <% if policy(current_user).invites? %>
-          <h3> Account Stats </h3>
-	  <div class="content-wrapper">
-            <section>
-	    <div class="metrics clearfix account-stats">
-	      <div class="metric">
-	        <span class="field">Invitation Limit</span>
-	        <span class="data">5</span>
-	      </div>
-	      <div class="metric">
-	        <span class="field">Invitations Used</span>
-	        <span class="data"><%= 5 - current_user.invitation_limit %> </span>
-	      </div>
-	      <div class="metric">
-	        <span class="field">Invitations Remaining</span>
-	        <span class="data"><%= current_user.invitation_limit %></span>
-	      </div>
-	    </div>
-          <section> 
-	  </div>
+ <% invites_used = 5 - current_user.invitation_limit %>
+ <% progress_bar_theme = "progress-bar-info" %>
+ <% if invites_used < 3 %>
+   <% progress_bar_theme = "progress-bar-success" %>
+ <% elsif invites_used >= 3 %>
+   <% progress_bar_theme = "progress-bar-warning" %>
+ <% elsif invites_used > 4 %>
+   <% progress_bar_theme = "progress-bar-danger" %>
+ <% end %>
+
+          <h3> Invitation Usage Stats </h3>
+<div class="bs-example h-fill-basic">
+                        <div class="progress">
+    <div class="progress-bar <%= progress_bar_theme %>" role="progressbar" aria-valuetransitiongoal="<%= invites_used %>" aria-valuemax="5"></div>
+</div>
+You have <%= pluralize(current_user.invitation_limit, 'invite') %> remaining
+                        <script type="text/javascript">
+$('.progress-bar').progressbar({
+    display_text: 'center',
+    use_percentage: false,
+    amount_format: function(p, t) {return p + ' of ' + t;}
+});
+                        </script>
+                    </div>
 <% end %>
 

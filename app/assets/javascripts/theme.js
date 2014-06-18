@@ -233,7 +233,16 @@ $('.popoverHorizon').popover({container: 'body'});
         }, 100);
     });
 
+$('.popoverPotentialSeats').popover(
+{ container: 'body', 
+  trigger: 'focus', 
+  content: 'Please enter the total number of potential Horizon users. This information will only be used for VMware internal reporting.'});
 
+$('.popoverPotentialSeatsModal').popover(
+{ container: '.modal-body',
+  placement: 'bottom', 
+  trigger: 'focus', 
+  content: 'Please enter the total number of potential Horizon users. This information will only be used for VMware internal reporting.'});
 
 $('.btn-toggle').click(function() {
 	$(this).find('.btn-active').toggleClass('btn-success');
@@ -348,7 +357,9 @@ $('.btn-toggle').click(function() {
 		});
 
 
-
+$('.progress-bar').progressbar({
+    display_text: 'center'
+});
 
 };
 

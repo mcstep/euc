@@ -3401,3 +3401,21 @@ span.tags
   margin-bottom: 0;
 }
 
+
+.progress{
+ max-width: 350px;
+}
+
+bs-example {
+margin-left: 0;
+margin-right: 0;
+background-color: #fff;
+border-width: 1px;
+border-color: #ddd;
+border-radius: 4px 4px 0 0;
+box-shadow: none;
+}
+
+.popoverPotentialSeats {
+z-index: 12000;
+}
