@@ -101,6 +101,18 @@
 		}
 	}
 
+
+	h4 {
+		font-size: 18px;
+		text-align: center;
+		margin-top: 35px;
+
+		@media (max-width: $maxSmall) {
+			font-size: 20px;
+			margin-top: 15px;
+		}
+	}
+
 	.content {
 		max-width: 620px;
 		margin: 0 auto;
@@ -131,6 +143,10 @@
 
 		.info {
 			margin-top: -10px;
+		}
+
+		.info-center {
+			text-align: center;
 		}
 
 		.signup {

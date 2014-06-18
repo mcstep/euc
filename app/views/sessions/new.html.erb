@@ -1,6 +1,7 @@
 <div id="signin">
         <div class="bg clear">
-                <h3>Welcome! Please Sign in</h3>
+                <h3>Welcome to the VMware End User Computing Demo Portal!</h3>
+                <h4>If you have an account, please sign in</h4>
 
                 <div class="content">
                   <%= form_tag sessions_path, :class => 'signin_form' do %>
@@ -16,15 +17,11 @@
                      <%= submit_tag "Log in", :class => "btn btn-primary btn-lg" %>
                   </div>
                   <% end %>
-                </div>
 
-                <div class="bottom-wrapper">
                         <div class="message">
-                                <span>Forgot password?</span>
-                                <a href="#" data-toggle="modal" data-target="#password-reset-modal">Click here to reset</a><br/>
-                                <span>Don't have an account?</span>
-                                <a href="<%= sign_up_path %>">Sign up here</a>
+                                <a href="#" data-toggle="modal" data-target="#password-reset-modal">Forgot password? Click here to reset</a><br/>
                         </div>
+
                 </div>
         </div>
 

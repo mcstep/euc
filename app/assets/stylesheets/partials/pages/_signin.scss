@@ -117,6 +117,17 @@
 		}
 	}
 
+	h4 {
+		font-size: 18px;
+		text-align: center;
+		margin-top: 20px;
+
+		@media (max-width: $maxSmall) {
+			font-size: 20px;
+			margin-top: 15px;
+		}
+	}
+
 	.content {
 		max-width: 460px;
 		margin: 0 auto;

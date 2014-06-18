@@ -11,9 +11,6 @@
       </a>
       <ul class="menu">
         <li>
-          <a href="#">Help / Support</a>
-        </li>
-        <li>
           <a href="<%= log_out_path %>">Sign out</a>
         </li>
     <% end %>
@@ -44,7 +41,7 @@
           <i class="fa fa-chevron-down"></i>
         </a>
         <ul class="submenu">
-          <li><a href="mailto:eucdemohelp@vmware.com?Subject=Help with portal">Support</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#support-modal">Support</a></li>
           <li><a href="<%= log_out_path %>">Sign out</a></li>
         </ul>
       </li>
@@ -93,7 +90,7 @@
 
   <div class="bottom-menu hidden-sm">
     <ul>
-      <li><a href="mailto:eucdemohelp@vmware.com?Subject=Help with portal"><i class="ion-help"></i></a></li>
+      <li><a data-toggle="modal" data-target="#support-modal"><i class="ion-help"></i></a></li>
       <li><a href="<%= dashboard_path %>"><i class="ion-person"></i></a></li>
       <li><a href="<%= log_out_path %>"><i class="ion-log-out"></i></a></li>
     </ul>
@@ -101,3 +98,48 @@
 
   <% end %>
 </div>
+
+<% if current_user %>
+
+	<!-- Support Modal -->
+	<div class="modal fade" id="support-modal" tabindex="-1" role="dialog">
+	  	<div class="modal-dialog">
+		    <div class="modal-content">
+		    	<form id="support-form" method="post" action="/support_request" role="form">
+			       <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token" %>
+			      	<div class="modal-header">
+			        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        	<h4 class="modal-title" id="myModalLabel">
+			        		Submit a support request
+			        	</h4>
+			      	</div>
+			      	<div class="modal-body">
+					  	<div class="form-group">
+					    	<label>To:</label>
+						<% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
+					        <% if !@current_user_invited.blank? && !@current_user_invited.sender.email == 'admin@vmwdemo.com' %>
+					    	  <input type="text" name="recipient" class="form-control" readonly="true" value="<%=  @current_user_invited.sender.email %>"/>
+					        <% else %>
+					    	  <input type="text" name="recipient" class="form-control" readonly="true" value="eucdemohelp@vmware.com"/>
+					        <% end %>
+					  	</div>
+					  	<div class="form-group">
+					    	<label>Subject:</label>
+					    	<input type="text" name="subject" class="form-control" />
+					  	</div>
+					  	<div class="form-group">
+					  		<label>Body:</label>
+					  		<textarea class="form-control" name="notes" rows="3" maxlength="1000"></textarea>
+					  	</div>
+			      	</div>
+			      	<div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				        <button type="submit" class="btn btn-success">Submit request</button>
+			      	</div>
+				</form>
+		    </div>
+	  	</div>
+	</div>
+
+<% end %>
+

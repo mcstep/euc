@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'support_request/create'
+
   get 'password_reset/create'
 
   get 'signup/new'
@@ -17,7 +19,8 @@ Rails.application.routes.draw do
   get "sign_up" => "signup#new", :as => "sign_up"
   get "dashboard" => "home#index", :as => "dashboard"
   post "password_reset" => "password_reset#create", :as => "password_reset"
-
+  post "support_request" => "support_request#create", :as => "support_request"
+  
   get "toggle" => "domains#toggle", :as => "toggle"
 
   get 'home/index'

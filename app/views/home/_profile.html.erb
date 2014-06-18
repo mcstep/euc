@@ -1,7 +1,8 @@
 <div class="container container-left container-top">
     <div class="row">
         <div class="col-md-6 col-lg-6">
-          <div class="well profile">
+        <section>
+          <div class="well profile user-profile">
             <div class="col-sm-12">
                 <div class="col-xs-12 col-sm-8">
                     <h2><%= current_user.display_name %></h2>
@@ -13,8 +14,8 @@
 	            <% if !@current_user_invited.blank? %>
                       <p><strong>Region: </strong> <%= @current_user_invited.region %></p>
 	            <% end %>
-	            <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? %>
-                      <p><strong>Invited by: </strong> <%= @current_user_invited.sender.display_name %></p>
+	            <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? && !@current_user_invited.sender.email == 'admin@vmwdemo.com'%>
+                      <p><strong>Invited by: </strong> <%= @current_user_invited.sender.display_name %><a href="#" data-toggle="modal" data-target="#support-modal"> (Contact)</a></p>
 	            <% end %>
                 </div>             
                 <div class="col-xs-12 col-sm-4 text-center top-margin">
@@ -24,6 +25,7 @@
                 </div>
             </div>
           </div>
+        </section>
         </div>
     </div>
 </div>

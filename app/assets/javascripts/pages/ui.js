@@ -125,9 +125,9 @@
 		});
 
 		tour.addStep('example-step', {
-		  	text: 'This modal looks really cool for welcoming new users',
+		  	text: 'This is your user profile',
 		  	attachTo: {
-		  		element: '.tour-first-step',
+		  		element: '.profile',
 		  		on: 'bottom'
 		  	},
 		  	buttons: [
@@ -144,9 +144,9 @@
 		});
 
 		tour.addStep('example-step', {
-		  	text: 'This button is useful to show users a message regarding an action on your app',
+		  	text: 'These are links to your horizon environment. They default to your home region but you can pick a different one from the dropdown on the right',
 		  	attachTo: {
-		  		element: '.tour-second-step',
+		  		element: '.horizon-links',
 		  		on: 'top'
 		  	},
 		  	buttons: [
@@ -163,9 +163,9 @@
 		});
 
 		tour.addStep('example-step', {
-		  	text: 'This plugin is very useful to notify users of their connections',
+		  	text: 'This shows what your invitation limit is, how many you\'ve used and how many you have remaining',
 		  	attachTo: {
-		  		element: '.tour-third-step',
+		  		element: '.account-stats',
 		  		on: 'top'
 		  	},
 		  	buttons: [
@@ -182,9 +182,9 @@
 		});
 
 		tour.addStep('example-step', {
-		  	text: 'You can change the theme skins here',
+		  	text: 'This is how you invite a new user',
 		  	attachTo: {
-		  		element: '.skin-switcher',
+		  		element: '.invite-user-link',
 		  		on: 'left'
 		  	},
 		  	buttons: [

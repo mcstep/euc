@@ -27,10 +27,19 @@ class SignupWorker
     end
 
     puts "Done creating account. Response from AD #{json_body}"
-
-    puts "Sending email...."
-    WelcomeUserMailer.welcome_email(@invitation,json_body['password'],ENV['DOMAIN']).deliver
-    puts "Email sent successfully"
+   
+    # Find a way to optimize this
+    domain_name = @invitation.recipient_email.split("@").last
+    @domain = Domain.find_by_name(domain_name)
+    if !@domain.nil? && @domain.status == 'active'
+      puts "Sending Super User email...."
+        WelcomeUserMailer.welcome_email(@invitation,json_body['password'],ENV['DOMAIN']).deliver
+      puts "Email sent successfully"
+    else
+      puts "Sending Regular User email...."
+        WelcomeUserMailer.welcome_email_invited(@invitation,json_body['password'],ENV['DOMAIN']).deliver
+      puts "Email sent successfully"
+    end
 
     puts "Creating user profile directory.."
     begin

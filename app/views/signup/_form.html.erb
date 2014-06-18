@@ -1,5 +1,5 @@
 <div class="bg clear">
-  <h3>Enter your information</h3>
+  <h4>Enter your information in the form below in order to have an account provisioned</h4>
   <div class="content">
  	<%= form_tag signup_index_path, :class => 'signup_form' do |f| %>
 	  
@@ -13,8 +13,8 @@
             <%= select_tag :region, options_for_select([ "AMER", "EMEA","APAC", ]), class: "form-control required", :prompt => "Select Home Region" %>
 	  </div>
 	
-          <div class="info">
-            Your 360-day trial will start now. After your trial ends, <strong>your account will be deleted from the system.</strong>
+          <div class="info info-center">
+            <strong>Your account will be valid for 365 days</strong>
           </div>
 
 	  <div class="signup">

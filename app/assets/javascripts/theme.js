@@ -181,6 +181,25 @@ var ready = function() {
 		}
 	});
 
+	// Support form validation
+	$('#support-form').validate({
+		rules: {
+			"subject": {
+				required: true
+			},
+			"notes": {
+				required: true
+			}
+
+		},
+		highlight: function (element) {
+			$(element).closest('.form-group').removeClass('success').addClass('error');
+		},
+		success: function (element) {
+			element.addClass('valid').closest('.form-group').removeClass('error').addClass('success');
+		}
+	});
+
 $('.dropdown-toggle').dropdown();
 $('.popoverHorizon').popover({container: 'body'});
 
@@ -201,7 +220,107 @@ $('.btn-toggle').click(function() {
    endDate: "+3y"
  });
 
+
+
+
+		// Guided Tour in app with shepherd.js
+		var tour;
+
+		tour = new Shepherd.Tour({
+		  	defaults: {
+				classes: 'shepherd-element shepherd-open shepherd-theme-arrows',
+				showCancelLink: true
+		    }
+		});
+
+		tour.addStep('example-step', {
+		  	text: 'This is your user profile',
+		  	attachTo: {
+		  		element: '.user-profile',
+		  		on: 'bottom'
+		  	},
+		  	buttons: [
+		  	{
+		      	text: 'Exit',
+		      	classes: 'btn btn-default',
+		    	action: tour.cancel
+		    },
+		    {
+		    	text: 'Next',
+		    	classes: 'btn btn-primary',
+		      	action: tour.next
+		    }]
+		});
+
+		tour.addStep('example-step', {
+		  	text: 'These are links to your horizon environment.',
+		  	attachTo: {
+		  		element: '.horizon-links',
+		  		on: 'bottom'
+		  	},
+		  	buttons: [
+		  	{
+		      	text: 'Back',
+		      	classes: 'btn btn-default',
+		    	action: tour.back
+		    },
+		    {
+		    	text: 'Next',
+		    	classes: 'btn btn-primary',
+		      	action: tour.next
+		    }]
+		});
+
+		tour.addStep('example-step', {
+		  	text: 'This shows what your invitation limit is, how many you\'ve used and how many you have remaining',
+		  	attachTo: {
+		  		element: '.account-stats',
+		  		on: 'bottom'
+		  	},
+		  	buttons: [
+		  	{
+		      	text: 'Back',
+		      	classes: 'btn btn-default',
+		    	action: tour.back
+		    },
+		    {
+		    	text: 'Next',
+		    	classes: 'btn btn-primary',
+		      	action: tour.next
+		    }]
+		});
+
+		tour.addStep('example-step', {
+		  	text: 'This is how you invite a new user',
+		  	attachTo: {
+		  		element: '.invite-user-link',
+		  		on: 'top'
+		  	},
+		  	buttons: [
+		  	{
+		      	text: 'Back',
+		      	classes: 'btn btn-default',
+		    	action: tour.back
+		    },
+		    {
+		    	text: 'Done',
+		    	classes: 'btn btn-success',
+		      	action: tour.next
+		    }]
+		});
+
+		$(".start-tour").click(function (e) {
+			e.preventDefault();
+			tour.start();
+			$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+		});
+
+
+
+
 };
+
+$(".start-tour").click();
 
 $(document).on("ready page:load", ready);
 
@@ -216,6 +335,7 @@ $(document).on("page:load", function () {
       	//window.scrollTo(window.prevPageXOffset, window.prevPageYOffset);
 	}
 });
+
 
 
 var UI = {
