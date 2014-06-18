@@ -122,6 +122,6 @@ class InvitationsController < ApplicationController
     end
     
     def invitation_params
-     params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region, :recipient_username, :expires_at)
+     params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region, :recipient_username, :expires_at, :potential_seats)
     end
 end

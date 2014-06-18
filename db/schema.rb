@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140606051858) do
+ActiveRecord::Schema.define(version: 20140618204420) do
 
   create_table "domains", force: true do |t|
     t.string   "name"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20140606051858) do
     t.datetime "updated_at"
     t.datetime "expires_at"
     t.string   "region"
+    t.integer  "potential_seats"
   end
 
   create_table "users", force: true do |t|
