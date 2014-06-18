@@ -117,7 +117,7 @@
 					  	<div class="form-group">
 					    	<label>To:</label>
 						<% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
-					        <% if !@current_user_invited.blank? && !@current_user_invited.sender.email == 'admin@vmwdemo.com' %>
+					        <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? && !@current_user_invited.sender.email == 'admin@vmwdemo.com' %>
 					    	  <input type="text" name="recipient" class="form-control" readonly="true" value="<%=  @current_user_invited.sender.email %>"/>
 					        <% else %>
 					    	  <input type="text" name="recipient" class="form-control" readonly="true" value="eucdemohelp@vmware.com"/>
