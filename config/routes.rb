@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
-  get "sign_up" => "signup#new", :as => "sign_up"
+  get "register" => "signup#new", :as => "register"
   get "dashboard" => "home#index", :as => "dashboard"
   post "password_reset" => "password_reset#create", :as => "password_reset"
   post "support_request" => "support_request#create", :as => "support_request"
