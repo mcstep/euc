@@ -86,5 +86,16 @@ class SignupWorker
       end
     end
     puts "Sync success"
+
+    puts "Calling ad replicate.."
+    begin
+      ad_sync_url = "#{ENV['API_HOST']}/ad/replicate"
+      response = RestClient.post(url=ad_sync_url,payload={:uname => 'demo.user'}, headers= {:token => ENV["API_KEY"]})
+      puts response.body
+    rescue => e
+      puts e
+    end
+    puts "AD replicate called successfully"
+
   end
 end
