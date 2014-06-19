@@ -1,19 +1,19 @@
 class WelcomeUserMailer < ActionMailer::Base
-  default from: 'noreply@vmwdemo.com'
+  default from: %("VMware EUC Demo Portal" <noreply@vmwdemo.com>)
   default reply_to: 'eucdemohelpp@vmware.com'
  
   def welcome_email(user, password, domain)
     @user = user
     @password = password
     @domain = domain
-    mail(to: @user.recipient_email, subject: 'Welcome to VMWDemo')
+    mail(to: @user.recipient_email, subject: 'Your Account Information')
   end
 
   def welcome_email_invited(invitation, password, domain)
     @invitation = invitation
     @password = password
     @domain = domain
-    mail(to: @invitation.recipient_email, subject: 'Welcome to VMWDemo')
+    mail(to: @invitation.recipient_email, subject: 'Your Account Information')
   end
 
   def password_reset_email(user, password)

@@ -41,7 +41,7 @@ class SignupWorker
       puts "Email sent successfully"
     end
 
-    puts "Creating user profile directory.."
+    puts "Creating user profile directory in home region.."
     begin
       create_dir_url = "#{ENV['API_HOST']}/createdir"
       response = RestClient.post(url=create_dir_url,payload={:username => @invitation.recipient_username, :region => region}, headers= {:token => ENV["API_KEY"]})
@@ -49,7 +49,20 @@ class SignupWorker
     rescue => e
       puts e
     end
-    puts "Created user profile directory successfully"
+    puts "Created user profile directory successfully in home region"
+
+    puts "Creating user profile directory in remaining regions.."
+    rem_regions = ['amer', 'dldc', 'emea', 'apac'] - ["#{region}"]
+    rem_regions.each do |sync_reg|
+      begin
+        create_dir_url = "#{ENV['API_HOST']}/createdir"
+        response = RestClient.post(url=create_dir_url,payload={:username => @invitation.recipient_username, :region => sync_reg}, headers= {:token => ENV["API_KEY"]})
+        puts response.body
+      rescue => e
+        puts e
+      end
+    end
+    puts "Created user profile directory successfully in other regions"
 
     puts "Calling sync service for home region.."
     begin
