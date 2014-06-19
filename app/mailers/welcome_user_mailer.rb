@@ -27,6 +27,6 @@ class WelcomeUserMailer < ActionMailer::Base
     @from = from
     @subject = subject
     @body = body
-    mail(to: @recipient, subject: 'Support Request: ' + @subject, from: @from, reply_to: @from)
+    mail(to: @recipient, subject: @subject, from: @from, reply_to: @from)
   end
 end
