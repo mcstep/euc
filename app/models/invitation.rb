@@ -29,6 +29,6 @@ private
   end
 
   def decrement_sender_count
-    sender.decrement! :invitation_limit
+    sender.decrement! :invitation_limit unless !self.sender.blank? && self.sender.admin?
   end
 end

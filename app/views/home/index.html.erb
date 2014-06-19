@@ -23,16 +23,16 @@
 
 <%= render 'links' %>
 
-<%= render 'account_stats' %>
+  <% if current_user.role != 'admin' %>
+    <%= render 'account_stats' %>
+  <% end %>
+
 
 <%= render 'invitations' %>
 
   <% if current_user.role == 'vip' %>
     <%= render 'footer' %>	
   <% end %>
-
-
-
 
 <% end %>
 
