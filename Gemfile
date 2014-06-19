@@ -43,3 +43,5 @@ gem 'unicorn'
 
 gem 'pundit'
 gem 'bootstrap-datepicker-rails'
+
+gem 'newrelic_rpm'
