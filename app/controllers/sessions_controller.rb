@@ -10,7 +10,7 @@ def create
   end
 
   begin
-    username = params[:username][/[^@]+/]
+    username = (params[:username][/[^@]+/]).downcase
     response = RestClient.post(url="#{ENV['API_HOST']}/authenticate",payload={:username => username, :password => params[:password]}, headers= {:token => ENV["API_KEY"]})
     puts response
     if response.code == 200
