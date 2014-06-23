@@ -70,6 +70,10 @@ var ready = function() {
 			"invitation[potential_seats]": {
 				required: true,
 				digits: true
+			},
+			"invitation[recipient_username]": {
+				required: false,
+				regex: /^[a-z0-9._-]+$/i
 			}
 		},
                 messages: {
@@ -112,6 +116,10 @@ var ready = function() {
 			"invitation[potential_seats]": {
 				required: true,
 				digits: true
+			},
+			"invitation[recipient_username]": {
+				required: false,
+				regex: /^[a-z0-9._-]+$/i
 			}		
 		},
                 messages: {
