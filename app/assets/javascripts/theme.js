@@ -43,6 +43,10 @@ var ready = function() {
 	  $("#form-validation-modal").find("input:text:eq(0)").focus();
 	});
 
+	 $.validator.addMethod("regex", function(value, element, regexpr) {          
+	     return this.optional(element) || regexpr.test(value);
+	   }, "Please enter a valid username");    
+
 	// Form validation
 	$('#new-invitation-form').validate({
 		rules: {
@@ -142,6 +146,10 @@ var ready = function() {
 			},
 			"title": {
 				required: true
+			},
+			"username": {
+				required: false,
+				regex: /^[a-z0-9._-]+$/i
 			}
 		},
 		highlight: function (element) {
