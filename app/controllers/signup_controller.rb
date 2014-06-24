@@ -8,7 +8,7 @@ class SignupController < ApplicationController
       render "new" and return
     end
 
-    user_domain = params[:email].split("@").last 
+    user_domain = params[:email].split("@").last.downcase 
     @domain = Domain.find_by_name(user_domain)	
     if @domain.nil? || @domain.status != 'active'
       flash.now.alert = "Sorry! We do not support your email domain for registration yet"
