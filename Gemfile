@@ -45,3 +45,7 @@ gem 'pundit'
 gem 'bootstrap-datepicker-rails'
 
 gem 'newrelic_rpm'
+
+gem "paranoia", "~> 2.0"
+
+gem 'cloudinary'

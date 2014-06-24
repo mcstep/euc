@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140618204420) do
+ActiveRecord::Schema.define(version: 20140620223439) do
 
   create_table "domains", force: true do |t|
     t.string   "name"
@@ -34,7 +34,10 @@ ActiveRecord::Schema.define(version: 20140618204420) do
     t.datetime "expires_at"
     t.string   "region"
     t.integer  "potential_seats"
+    t.datetime "deleted_at"
   end
+
+  add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at"
 
   create_table "users", force: true do |t|
     t.string   "username"

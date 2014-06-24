@@ -1,4 +1,6 @@
 class Invitation < ActiveRecord::Base
+  acts_as_paranoid
+
   belongs_to :sender, :class_name => 'User'
   has_one :recipient, :class_name => 'User'
 
@@ -9,9 +11,12 @@ class Invitation < ActiveRecord::Base
   before_create :generate_token
   before_create :decrement_sender_count, :if => :sender
 
-  validates_uniqueness_of :recipient_email
+  validates_uniqueness_of :recipient_email, :case_sensitive => false, :scope => [:deleted_at]
+  #validates_uniqueness_of :recipient_email
   #validates_uniqueness_of :recipient_email, :scope => [:invitation_status]
   enum invitation_status: [:pending, :active, :expired, :declined]
+
+  before_save :to_lower
 private
 
   def recipient_is_not_registered
@@ -30,5 +35,10 @@ private
 
   def decrement_sender_count
     sender.decrement! :invitation_limit unless !self.sender.blank? && self.sender.admin?
+  end
+
+  def to_lower
+    self.recipient_email = self.recipient_email.downcase
+    self.recipient_username = self.recipient_username.downcase
   end
 end

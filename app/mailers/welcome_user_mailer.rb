@@ -22,11 +22,17 @@ class WelcomeUserMailer < ActionMailer::Base
     mail(to: @user.recipient_email, subject: 'Password Reset')
   end
   
-  def support_request_email(recipient, from, subject, body)
+  def support_request_email(recipient, email, subject, body, name)
     @recipient = recipient
-    @from = from
+    @from = "#{name} <#{email}>"
+    @name = name
     @subject = subject
     @body = body
     mail(to: @recipient, subject: @subject, from: @from, reply_to: @from)
+  end
+
+  def account_expiry_email(invitation)
+    @invitation = invitation
+    mail(to: @invitation.recipient_email, subject: 'Account Expiration')
   end
 end

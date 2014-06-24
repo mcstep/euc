@@ -3,7 +3,7 @@ class InvitationsController < ApplicationController
   before_action :require_login
 
   def check_invitation
-    @invitation = Invitation.find_by_recipient_email(params[:invitation][:recipient_email])
+    @invitation = Invitation.find_by_recipient_email(params[:invitation][:recipient_email].downcase)
     respond_to do |format|
       format.json { render :json => !@invitation }
     end
@@ -83,6 +83,7 @@ class InvitationsController < ApplicationController
 	@user_rec_for_invite = User.find_by_email(@invitation.recipient_email)
 	@user_rec_for_invite.destroy unless @user_rec_for_invite.nil?
         account_removed = true
+        AccountExpireEmailWorker.perform_async(@invitation.id)
       end
     rescue RestClient::Exception
       redirect_to dashboard_path, alert: "Could not delete the user's account"

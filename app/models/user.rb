@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
+  before_save :to_lower
+
   def set_default_role
     self.role ||= :user
   end
@@ -27,6 +29,11 @@ private
 
   def set_invitation_limit
     self.invitation_limit = 5
+  end
+
+  def to_lower
+    self.email = self.email.downcase
+    self.username = self.username.downcase
   end
 
 end
