@@ -98,6 +98,8 @@ class InvitationsController < ApplicationController
     @user = @invitation.sender
     if !@user.nil?
      @user.invitation_limit += 1
+     #new invitation limit model
+     @user.invitations_used -= 1
      @user.save!
     end
 

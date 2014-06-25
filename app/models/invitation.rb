@@ -35,6 +35,7 @@ private
 
   def decrement_sender_count
     sender.decrement! :invitation_limit unless !self.sender.blank? && self.sender.admin?
+    sender.increment! :invitations_used unless !self.sender.blank? && self.sender.admin?
   end
 
   def to_lower

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620223439) do
+ActiveRecord::Schema.define(version: 20140624232738) do
 
   create_table "domains", force: true do |t|
     t.string   "name"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 20140620223439) do
     t.string   "display_name"
     t.string   "company"
     t.string   "title"
+    t.integer  "invitations_used",  default: 0
+    t.integer  "total_invitations", default: 5
   end
 
 end

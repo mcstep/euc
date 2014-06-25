@@ -29,6 +29,7 @@ private
 
   def set_invitation_limit
     self.invitation_limit = 5
+    #TODO: Potentially set total_invitations to a configurable global value
   end
 
   def to_lower
