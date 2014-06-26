@@ -39,7 +39,7 @@ private
   end
 
   def to_lower
-    self.recipient_email = self.recipient_email.downcase
-    self.recipient_username = self.recipient_username.downcase
+    self.recipient_email = self.recipient_email.downcase unless self.recipient_email.blank?
+    self.recipient_username = self.recipient_username.downcase unless self.recipient_username.blank?
   end
 end

@@ -23,9 +23,7 @@ class SignupController < ApplicationController
     @invitation.recipient_title = params[:title]
     @invitation.expires_at = (Time.now + 1.year)
     @invitation.region = params[:region]
-    if !params[:username].empty?
-     @invitation.recipient_username = params[:username].downcase
-    end 
+    @invitation.recipient_username = params[:username]
 
     account_create= true
     puts params
