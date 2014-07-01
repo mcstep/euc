@@ -39,7 +39,7 @@
   </thead>
 
   <tbody>
-    <% @invitations = Invitation.all.where.not(potential_seats: nil).order("potential_seats desc, region") %>
+    <% @invitations = Invitation.all.where.not(potential_seats: nil).where.not(sender_id: nil).order("potential_seats desc, region") %>
     <% @invitations.each do |invitation| %>
       <tr>
         <td><%= invitation.sender.display_name %></td>
