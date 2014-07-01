@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'reports/stats' => "reports#potential_seats", :as => "reports_seats_stats"
+
   get 'support_request/create'
 
   get 'password_reset/create'
