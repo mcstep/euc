@@ -41,12 +41,14 @@
   <tbody>
     <% @invitations = Invitation.all.where.not(potential_seats: nil).where.not(sender_id: nil).order("potential_seats desc, region") %>
     <% @invitations.each do |invitation| %>
-      <tr>
-        <td><%= invitation.sender.display_name %></td>
-        <td><%= invitation.recipient_company %></td>
-        <td><%= invitation.potential_seats %></td>
-        <td><%= invitation.region %></td>
-      </tr>
+      <% if !invitation.sender.empty? %>
+	      <tr>
+		<td><%= invitation.sender.display_name %></td>
+		<td><%= invitation.recipient_company %></td>
+		<td><%= invitation.potential_seats %></td>
+		<td><%= invitation.region %></td>
+	      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
