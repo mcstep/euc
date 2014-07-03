@@ -20,7 +20,7 @@
 	    <%= f.text_field :recipient_lastname, placeholder: 'Last Name', class: "form-control" %>
 	    <%= f.text_field :recipient_username, placeholder: 'Username (optional)', class: "form-control" %>
 	    <%= f.text_field :recipient_company, placeholder: 'Company', class: "form-control" %>
-	    <%= f.text_field :recipient_title, placeholder: 'Title', class: "form-control" %>
+	    <%= f.text_field :recipient_title, placeholder: 'Job Title', class: "form-control" %>
             <%= f.text_field :expires_at, placeholder: '   Expires on (optional)', class: "form-control datepicker" %>
 	    <%= f.text_field :potential_seats, placeholder: 'Potential number of users', class: "form-control popoverPotentialSeats" %>
             <%= f.select(:region, ["AMER", "EMEA","APAC", "DLDC"], {:prompt => "Select Home Region"}, { :class => 'form-control required' }) %>
