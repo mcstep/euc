@@ -27,6 +27,7 @@
       <th>Username</th>
       <th>Title</th>
       <th>Company</th>
+      <th>Region</th>
       <th>Expires on</th>
       <th>Sender</th>
       <th colspan="1"></th>
@@ -41,6 +42,7 @@
         <td><%= invitation.recipient_username %></td>
         <td><%= invitation.recipient_title %></td>
         <td><%= invitation.recipient_company %></td>
+        <td><%= invitation.region %></td>
         <td><%= (invitation.expires_at).to_date.to_formatted_s(:long) %></td>
         <% if invitation.sender.blank? %>
           <td><strong>N/A</strong></td>
