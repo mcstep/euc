@@ -1,0 +1,30 @@
+<h2>Opportunity </h2>
+<div id="dashboard">
+<div class="content-wrapper">
+  <div class="metrics clearfix">
+    <div class="metric">
+      <span class="field">Opportunities > 1000 Seats</span>
+      <% gt_thousand_seats_count = Invitation.all.where("potential_seats >= 1000 and recipient_email not like '%vmware.com' and sender_id=#{current_user.id}").sum(:potential_seats) %>
+      <span class="data"><%= number_with_delimiter(gt_thousand_seats_count, :delimiter => ',') %></span>
+      <span class="data">$<%= number_with_precision(gt_thousand_seats_count*250, :precision => 2, :delimiter => ',') %></span>
+    </div>
+    <div class="metric">
+      <span class="field">Opportunities > 500 Seats</span>
+      <% gt_five_hundred_seats_count = Invitation.all.where("potential_seats >= 500 and potential_seats < 1000 and recipient_email not like '%vmware.com' and sender_id=#{current_user.id}").sum(:potential_seats) %>
+      <span class="data"><%= number_with_delimiter(gt_five_hundred_seats_count, :delimiter => ',') %></span>
+      <span class="data">$<%= number_with_precision(gt_five_hundred_seats_count*250, :precision => 2, :delimiter => ',') %></span>
+    </div>
+    <div class="metric">
+      <span class="field">Opportunities < 500 Seats</span>
+      <% lt_five_hundred_seats_count = Invitation.all.where("potential_seats < 500 and recipient_email not like '%vmware.com' and sender_id=#{current_user.id}").sum(:potential_seats) %>
+      <span class="data"><%= number_with_delimiter(lt_five_hundred_seats_count, :delimiter => ',') %></span>
+      <span class="data">$<%= number_with_precision(lt_five_hundred_seats_count*250, :precision => 2, :delimiter => ',') %></span>
+    </div>
+    <div class="metric">
+      <span class="field">Total Seats</span>
+      <span class="data"><%= number_with_delimiter(gt_thousand_seats_count + gt_five_hundred_seats_count + lt_five_hundred_seats_count, :delimiter => ',') %></span>
+      <span class="data">$<%= number_with_precision((gt_thousand_seats_count + gt_five_hundred_seats_count + lt_five_hundred_seats_count)*250, :precision => 2, :delimiter => ',') %></span>
+    </div>
+  </div>
+</div>
+<br/><br/>
