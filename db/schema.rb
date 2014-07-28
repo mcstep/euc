@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624232738) do
+ActiveRecord::Schema.define(version: 20140724230337) do
 
   create_table "domains", force: true do |t|
     t.string   "name"
     t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "extensions", force: true do |t|
+    t.integer  "extended_by"
+    t.integer  "recipient"
+    t.string   "reason"
+    t.datetime "original_expires_at"
+    t.datetime "revised_expires_at"
   end
 
   create_table "invitations", force: true do |t|

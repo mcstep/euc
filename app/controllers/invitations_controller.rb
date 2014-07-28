@@ -109,6 +109,45 @@ class InvitationsController < ApplicationController
     end
   end
 
+  # DELETE /invitations/1
+  # DELETE /invitations/1.json
+  def extend
+    #Extend the AD account
+    account_extended = false
+    @invitation = Invitation.find_by_id(params[:invitationId])
+    original_expires_at = @invitation.expires_at
+    #@invitation.expires_at = (@invitation.expires_at + 1.month)
+    @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A %B %d %Y') 
+    begin
+      response = RestClient.post(url="#{ENV['API_HOST']}/extendAccount",payload={:username => @invitation.recipient_username,  :expires_at => ((@invitation.expires_at.to_i)*1000)}, headers= {:token => ENV["API_KEY"]})
+      puts "Got response #{response} for account extension"
+      if response.code == 200
+        @invitation.save
+      end
+    rescue RestClient::Exception
+      redirect_to request.referer, alert: "Could not extend the user's account"
+      return
+    rescue Exception => e
+      puts e
+      redirect_to request.referer, alert: "Unable to extend the user's account at this time. Please try again later"
+      return
+    end
+
+    #Add extension record
+    @extension = Extension.new
+    @extension.extended_by = current_user.id #TODO - Fix @invitation.sender.id
+    @extension.recipient = @invitation.id
+    @extension.original_expires_at = original_expires_at
+    @extension.revised_expires_at = @invitation.expires_at
+    @extension.reason = params[:reason]
+    @extension.save
+  
+    respond_to do |format|
+      format.html { redirect_to request.referer, notice: 'Invitation was successfully extended.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_invitation

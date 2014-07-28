@@ -224,6 +224,26 @@ var ready = function() {
 		}
 	});
 
+	// Extend account form validation
+	$('#extend-account-form').validate({
+		rules: {
+			"reason": {
+				required: true
+			},
+                        "expiresAt": {
+				required: true
+			}
+
+		},
+		highlight: function (element) {
+			$(element).closest('.form-group').removeClass('success').addClass('error');
+		},
+		success: function (element) {
+			element.addClass('valid').closest('.form-group').removeClass('error').addClass('success');
+		}
+	});
+
+
 $('.dropdown-toggle').dropdown();
 $('.popoverHorizon').popover({container: 'body'});
 
@@ -259,6 +279,13 @@ $('.popoverPotentialSeatsModal').popover(
   placement: 'bottom', 
   trigger: 'focus', 
   content: 'Please enter the total number of potential Horizon users. This information will only be used for VMware internal reporting.'});
+
+$('.popoverExtendAccount').popover(
+{ container: 'body', 
+  content: 'Extend this user\'s account by a month. (Note: This would be a one-time extension)'});
+
+$('.popoverExpiresAt').popover(
+{ container: 'body'});
 
 $('.btn-toggle').click(function() {
 	$(this).find('.btn-active').toggleClass('btn-success');
@@ -376,6 +403,37 @@ $('.btn-toggle').click(function() {
 $('.progress-bar').progressbar({
     display_text: 'center'
 });
+
+
+   $(".extend-account-link").click(function(){
+     var arr = $(this).data('id').split(';');
+     $("#invitationId").val(arr[0]);
+     $("#invitationUser").val(arr[1]);
+     var expiresAt = new Date(arr[2]);
+     expiresAt.setMonth(expiresAt.getMonth() + 1);
+     $("#expiresAt").val(expiresAt.toDateString());
+     $("#expiresAt").datepicker( "setDate" , expiresAt );  
+
+   });
+
+   $(".extend-account-link-ro").click(function(){
+     var arr = $(this).data('id').split(';');
+     $("#invitationId").val(arr[0]);
+     $("#invitationUser").val(arr[1]);
+     var expiresAt = new Date(arr[2]);
+     expiresAt.setMonth(expiresAt.getMonth() + 1);
+     $("#expiresAtRo").val(expiresAt.toDateString());
+   });
+
+
+ // Range Datepicker
+ $('.datepickerExpiresAt').datepicker({
+   format: 'D MM d yyyy',
+   autoclose: true,
+   orientation: 'right top',
+   startDate: new Date(),
+   endDate: "+3y"
+ });
 
 };
 

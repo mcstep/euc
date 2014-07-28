@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "dashboard" => "home#index", :as => "dashboard"
   post "password_reset" => "password_reset#create", :as => "password_reset"
   post "support_request" => "support_request#create", :as => "support_request"
+  post "extend_invitation" => "invitations#extend", :as => "extend_invitation"
   
   get "toggle" => "domains#toggle", :as => "toggle"
 

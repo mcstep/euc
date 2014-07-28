@@ -34,7 +34,19 @@
 				<td><%= invitation.recipient_email %></td>
 				<td><%= invitation.recipient_company %></td>
 				<td><%= invitation.recipient_title %></td>
-				<td><%= (invitation.expires_at).to_date.to_formatted_s(:long) %></td>
+			    <% @extension = Extension.where(recipient: invitation.id).last %>
+                            <% if @extension.nil? %>
+				<td>
+                                   <%= (invitation.expires_at).to_date.to_formatted_s(:long) %> 
+                                   <a class="extend-account-link-ro" href="#" data-toggle="modal" data-id="<%= invitation.id.to_s + ";" + invitation.recipient_firstname + " " + invitation.recipient_lastname + ";" + invitation.expires_at.to_s %>" data-target="#extend-account-modal" class="extend-user invite-user-link popoverExtendAccount" rel="popover" data-trigger="hover" data-placement="bottom""><span> (Extend)</span></a> 
+                                </td>
+                            <% else %>
+				<td>
+                                   <span class="popoverExpiresAt" rel="popover" data-trigger="hover" data-placement="bottom" data-content="Reason: <%= @extension.reason %>">  
+				   <%= (invitation.expires_at).to_date.to_formatted_s(:long) %> <br/>
+                                   (Extended)</span>
+                                </td>
+                            <% end %> 
 				<td><%= invitation.region %></td>
 				<td class="text-center"><%= link_to 'Expire Account', invitation, method: :delete, data: { confirm: 'Do you want to delete this account? The users account will permanently be deleted.' }, class: "new-user btn btn-danger" %></td>
 			      </tr>
@@ -54,6 +66,47 @@
 <% end %>
 <br/><br/><br/>
 	
+	<!-- Extend account Modal -->
+	<div class="modal fade" id="extend-account-modal" tabindex="-1" role="dialog">
+	  	<div class="modal-dialog">
+		    <div class="modal-content">
+		    	<form id="extend-account-form" method="post" action="/extend_invitation" role="form">
+			       <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token" %>
+                               <input type="hidden" name="invitationId" id="invitationId" %>
+			      	<div class="modal-header">
+			        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        	<h4 class="modal-title" id="myModalLabel">
+			        		Extend Account
+			        	</h4>
+			      	</div>
+			      	<div class="modal-body">
+                                This action will extend the user's account by a month. This will be a one-time extension and the users account will be deleted from the system once the expiration date has been reached. <br/><br/>
+					  	<div class="form-group">
+					    	<label>User:</label>
+					    	  <input type="text" name="user" id="invitationUser" class="form-control" readonly="true" />
+					  	</div>
+
+					  	<div class="form-group">
+					    	  <label>Reason:</label>
+					    	  <input type="text" name="reason" class="form-control" placeholder="Please enter reason for extension" />
+					  	</div>
+
+					  	<div class="form-group">
+					    	  <label>New Expiration Date:</label>
+					    	  <input type="text" name="expiresAt" id="expiresAtRo" class="form-control" readonly="true"/>
+					  	</div>
+
+			      	</div>
+			      	<div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				        <button type="submit" class="btn btn-success">Submit request</button>
+			      	</div>
+				</form>
+		    </div>
+	  	</div>
+	</div>
+
+
 	<!-- Form with Validation Modal -->
 	<div class="modal fade" id="form-validation-modal" tabindex="-1" role="dialog">
 	  	<div class="modal-dialog">
