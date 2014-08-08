@@ -147,6 +147,39 @@ class InvitationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def impersonate
+   begin
+     #backup the current user so we can go back
+     session[:impersonator_id] = current_user.id
+
+     @invitation = Invitation.find_by_id(params[:format])
+     @usr = User.find_by_username(@invitation.recipient_username)
+     @current_user = @usr
+     session[:user_id] = @current_user.id
+   rescue Exception => e
+     puts e
+     redirect_to request.referer, alert: "Unable to impersonate this user at this time. Please try again later"
+     return
+   end
+   
+   redirect_to dashboard_path, notice: 'User was successfully impersonated.'  
+  end
+
+  def unimpersonate
+   begin
+     @usr = User.find_by_id(session[:impersonator_id])
+     @current_user = @usr
+     session[:user_id] = @current_user.id
+     session[:impersonator_id] = nil
+   rescue Exception => e
+     puts e
+     redirect_to request.referer, alert: "Unable to return to normal at this time. Please logout and log back in as admin"
+     return
+   end
+
+   redirect_to dashboard_path  
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

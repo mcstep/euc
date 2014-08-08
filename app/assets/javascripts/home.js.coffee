@@ -19,7 +19,7 @@ $.rails.allowAction = (element) ->
     # We want a button
     .addClass('btn').addClass('btn-danger')
     # We want it to sound confirmy
-    .html("Yes, delete it.")
+    .html("Yes")
 
   # Create the modal box with the message
   modal_html = """
