@@ -142,6 +142,8 @@ class InvitationsController < ApplicationController
     @extension.reason = params[:reason]
     @extension.save
   
+    AccountExtensionEmailWorker.perform_async(@invitation.id, @extension.id)
+
     respond_to do |format|
       format.html { redirect_to request.referer, notice: 'Invitation was successfully extended.' }
       format.json { head :no_content }
