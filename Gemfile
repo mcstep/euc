@@ -51,3 +51,5 @@ gem "paranoia", "~> 2.0"
 gem 'cloudinary'
 
 gem 'kaminari'
+
+gem 'google-api-client'

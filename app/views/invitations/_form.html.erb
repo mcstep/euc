@@ -24,6 +24,7 @@
             <%= f.text_field :expires_at, placeholder: '   Expires on (optional)', class: "form-control datepicker" %>
 	    <%= f.text_field :potential_seats, placeholder: 'Potential number of users', class: "form-control popoverPotentialSeats" %>
             <%= f.select(:region, ["AMER", "EMEA","APAC", "DLDC"], {:prompt => "Select Home Region"}, { :class => 'form-control required' }) %>
+            <%= f.select(:airwatch_trial, [["Yes", "true"], ["No", "false"] ], {:prompt => "AirWatch Trial"}, { :class => 'form-control required' }) %>
 	  </div>
 
           <div class="info">

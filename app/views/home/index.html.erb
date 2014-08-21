@@ -15,6 +15,11 @@
 
 <% if current_user %>
 
+<% invitation_for_user = Invitation.find_by_recipient_email("#{current_user.email}") %>
+<% if invitation_for_user && invitation_for_user.eula_accept_date.nil? && invitation_for_user.airwatch_trial? %>
+  <%= render 'eula' %>
+<% end %>
+  
   <% if !session[:impersonator_id].blank? %>
     <div class="container container-left">
     <div class="row">

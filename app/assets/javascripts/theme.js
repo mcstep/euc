@@ -74,6 +74,9 @@ var ready = function() {
 			"invitation[recipient_username]": {
 				required: false,
 				regex: /^[a-z0-9._-]+$/i
+			},
+			"invitation[airwatch_trial]": {
+				required: true
 			}
 		},
                 messages: {
@@ -120,7 +123,10 @@ var ready = function() {
 			"invitation[recipient_username]": {
 				required: false,
 				regex: /^[a-z0-9._-]+$/i
-			}		
+			},
+			"invitation[airwatch_trial]": {
+				required: true
+			}
 		},
                 messages: {
                   "invitation[recipient_email]": {
@@ -158,6 +164,9 @@ var ready = function() {
 			"username": {
 				required: false,
 				regex: /^[a-z0-9._-]+$/i
+			},
+			"airwatch_trial": {
+				required: true
 			}
 		},
 		highlight: function (element) {
@@ -436,6 +445,11 @@ $('.progress-bar').progressbar({
  });
 
 };
+
+$('#eula-modal').modal({
+  backdrop: 'static',
+  keyboard: true
+});
 
 $(".start-tour").click();
 

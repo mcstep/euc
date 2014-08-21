@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'eula/accept'
+
   get 'reports/stats' => "reports#potential_seats", :as => "reports_seats_stats"
 
   get 'support_request/create'
@@ -25,8 +27,10 @@ Rails.application.routes.draw do
   post "extend_invitation" => "invitations#extend", :as => "extend_invitation"
   post "impersonate_user" => "invitations#impersonate", :as => "impersonate_user"
   post "unimpersonate" => "invitations#unimpersonate", :as => "unimpersonate"
+  post "eula" => "eula#create", :as => "eula"
   
   get "toggle" => "domains#toggle", :as => "toggle"
+  get "toggle_airwatch" => "eula#toggle_airwatch", :as => "toggle_airwatch"
 
   get 'home/index'
 

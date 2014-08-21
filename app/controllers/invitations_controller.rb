@@ -37,6 +37,9 @@ class InvitationsController < ApplicationController
   def create
     puts invitation_params
     @invitation = Invitation.new(invitation_params)
+    # Make google apps same as airwatch, for now
+    @invitation.google_apps_trial = @invitation.airwatch_trial
+
     @invitation.sender = current_user
     if !params[:invitation][:expires_at].blank?
       @invitation.expires_at = DateTime.strptime(params[:invitation][:expires_at], '%B %d, %Y') 
@@ -84,6 +87,10 @@ class InvitationsController < ApplicationController
 	@user_rec_for_invite.destroy unless @user_rec_for_invite.nil?
         account_removed = true
         AccountExpireEmailWorker.perform_async(@invitation.id)
+        # Remove AirWatch account if the user is already enrolled
+        if !@invitation.airwatch_user_id.nil?
+          AirwatchUnprovisionWorker.perform_async(@invitation.id)
+        end
       end
     rescue RestClient::Exception
       redirect_to dashboard_path, alert: "Could not delete the user's account"
@@ -199,6 +206,6 @@ class InvitationsController < ApplicationController
     end
     
     def invitation_params
-     params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region, :recipient_username, :expires_at, :potential_seats)
+     params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region, :recipient_username, :expires_at, :potential_seats, :airwatch_trial)
     end
 end
