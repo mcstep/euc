@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140820214535) do
+ActiveRecord::Schema.define(version: 20140903231752) do
 
   create_table "domains", force: true do |t|
     t.string   "name"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20140820214535) do
     t.boolean  "google_apps_trial"
     t.integer  "airwatch_user_id"
     t.datetime "eula_accept_date"
+    t.boolean  "acc_expiration_reminder_email"
   end
 
   add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at"

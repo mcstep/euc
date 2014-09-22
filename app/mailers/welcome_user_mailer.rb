@@ -36,6 +36,11 @@ class WelcomeUserMailer < ActionMailer::Base
     mail(to: @invitation.recipient_email, subject: 'Account Expiration')
   end
 
+  def account_expiry_reminder_email(invitation)
+    @invitation = invitation
+    mail(to: @invitation.recipient_email, subject: 'Account Expiration Reminder')
+  end
+
   def account_extension_email(invitation, extension)
     @invitation = invitation
     @extension = extension

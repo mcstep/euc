@@ -37,6 +37,12 @@ class InvitationsController < ApplicationController
   def create
     puts invitation_params
     @invitation = Invitation.new(invitation_params)
+   
+    # Check for whitespaces and remove them
+    if @invitation.recipient_username.blank?
+      @invitation.recipient_username = nil
+    end
+ 
     # Make google apps same as airwatch, for now
     @invitation.google_apps_trial = @invitation.airwatch_trial
 
