@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'password_change/check_password'
+
+  get 'password_change/change_password'
+
   get 'eula/accept'
 
   get 'reports/stats' => "reports#potential_seats", :as => "reports_seats_stats"
@@ -28,6 +32,8 @@ Rails.application.routes.draw do
   post "impersonate_user" => "invitations#impersonate", :as => "impersonate_user"
   post "unimpersonate" => "invitations#unimpersonate", :as => "unimpersonate"
   post "eula" => "eula#create", :as => "eula"
+
+  post "change_password" => "password_change#change_password", :as => "change_password"
   
   get "toggle" => "domains#toggle", :as => "toggle"
   get "toggle_airwatch" => "eula#toggle_airwatch", :as => "toggle_airwatch"

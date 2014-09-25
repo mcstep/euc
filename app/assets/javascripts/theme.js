@@ -253,6 +253,36 @@ var ready = function() {
 	});
 
 
+	// Form validation
+	$('#password-change-form').validate({
+		rules: {
+			"current_password": {
+				required: true,
+				remote:"/password_change/check_password"
+			},
+			"new_password": {
+				required: true
+			},
+			"new_password_confirm": {
+				required: true,
+                                equalTo: "#new_password"
+			}
+		},
+                messages: {
+                  "current_password": {
+                    remote: jQuery.format("Incorrect password")
+                  }
+                },
+		highlight: function (element) {
+			$(element).closest('.form-group').removeClass('success').addClass('error');
+		},
+		success: function (element) {
+			element.addClass('valid').closest('.form-group').removeClass('error').addClass('success');
+		}
+	});
+
+
+
 $('.dropdown-toggle').dropdown();
 $('.popoverHorizon').popover({container: 'body'});
 

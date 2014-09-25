@@ -41,6 +41,7 @@
           <i class="fa fa-chevron-down"></i>
         </a>
         <ul class="submenu">
+          <li><a href="#" data-toggle="modal" data-target="#password-change-modal">Change Password</a></li>
           <li><a href="#" data-toggle="modal" data-target="#support-modal">Support</a></li>
           <li><a href="<%= log_out_path %>">Sign out</a></li>
         </ul>
@@ -163,6 +164,43 @@ Support will not be available outside of these hours or on weekends, and any pub
 			      	<div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 				        <button type="submit" class="btn btn-success">Submit request</button>
+			      	</div>
+				</form>
+		    </div>
+	  	</div>
+	</div>
+
+
+
+	<!-- Password Change Modal -->
+	<div class="modal fade" id="password-change-modal" tabindex="-1" role="dialog">
+	  	<div class="modal-dialog">
+		    <div class="modal-content">
+		    	<form id="password-change-form" method="post" action="/change_password" role="form">
+			       <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token" %>
+			      	<div class="modal-header">
+			        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        	<h4 class="modal-title" id="myModalLabel">
+			        		Change Password
+			        	</h4>
+			      	</div>
+			      	<div class="modal-body">
+					  	<div class="form-group">
+					    	<label>Current Password:</label>
+					    	  <input type="password" name="current_password" id="current_password"  class="form-control"/>
+					  	</div>
+					  	<div class="form-group">
+					    	<label>New Password:</label>
+					    	  <input type="password" name="new_password" id="new_password" class="form-control"/>
+					  	</div>
+					  	<div class="form-group">
+					    	<label>Confirm New Password:</label>
+					    	  <input type="password" name="new_password_confirm" id="new_password_confirm" class="form-control"/>
+					  	</div>
+			      	</div>
+			      	<div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				        <button type="submit" class="btn btn-success">Submit</button>
 			      	</div>
 				</form>
 		    </div>
