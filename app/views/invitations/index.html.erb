@@ -31,7 +31,6 @@
       <th>Region</th>
       <th>Expires on</th>
       <th>Sender</th>
-      <th colspan="1">AirWatch</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -54,17 +53,6 @@
         <% else %>
           <td><%= invitation.sender.display_name unless invitation.sender.blank? %></td>  
         <% end %>
-		<td class="text-center">
-		  <div class="btn-group btn-toggle"> 
-		    <% if invitation.airwatch_trial == true %>
-		      <%= link_to "ON", toggle_airwatch_path(id: invitation.id),  class: "btn btn-sm btn-default btn-success active btn-active" %>
-                      <%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: "btn btn-sm btn-default btn-inactive" %>
-		   <% else %>
-		     <%= link_to "ON", toggle_airwatch_path(id: invitation.id), class: "btn btn-sm btn-default btn-active" %>
-                     <%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: "btn btn-sm btn-default btn-danger active btn-inactive" %>
-		   <% end %>
-		  </div>		
-		</td>
         <td><%= link_to 'Delete', invitation, method: :delete, data: { confirm: 'Do you want to delete this account? The users account will permanently be deleted.' } %></td>
         <td><%= link_to 'Impersonate', impersonate_user_path(invitation.id), method: :post, data: { confirm: 'Do you want to impersonate this user?' } %></td>
       </tr>

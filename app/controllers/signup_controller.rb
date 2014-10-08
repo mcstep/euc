@@ -27,6 +27,11 @@ class SignupController < ApplicationController
     @invitation.airwatch_trial = false #Yes, by design for now
     @invitation.google_apps_trial = false #Yes, by design for now
 
+    # Check for whitespaces and remove them
+    if @invitation.recipient_username.blank?
+      @invitation.recipient_username = nil
+    end
+
     account_create= true
     puts params
     respond_to do |format|
