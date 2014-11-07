@@ -38,7 +38,7 @@
                             <% if @extension.nil? %>
 				<td>
                                    <%= (invitation.expires_at).to_date.to_formatted_s(:long) %> 
-                                   <a class="extend-account-link-ro" href="#" data-toggle="modal" data-id="<%= invitation.id.to_s + ";" + invitation.recipient_firstname + " " + invitation.recipient_lastname + ";" + invitation.expires_at.to_s %>" data-target="#extend-account-modal" class="extend-user invite-user-link popoverExtendAccount" rel="popover" data-trigger="hover" data-placement="bottom""><span> (Extend)</span></a> 
+                                   <a class="extend-account-link-ro" href="#" data-toggle="modal" data-id="<%= invitation.id.to_s + ";" + invitation.recipient_firstname + " " + invitation.recipient_lastname + ";" + invitation.expires_at.to_formatted_s(:long) %>" data-target="#extend-account-modal" class="extend-user invite-user-link popoverExtendAccount" rel="popover" data-trigger="hover" data-placement="bottom""><span> (Extend)</span></a> 
                                 </td>
                             <% else %>
 				<td>
