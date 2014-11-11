@@ -105,6 +105,9 @@ class AirwatchProvisionWorker
 
     # TODO://
     # Send enrollment instructions email to user
+    puts "Sending enrollment instructions email to user"
+      WelcomeUserMailer.airwatch_user_activation_email(invitation,user_domain.gsub('.','-'),user_domain).deliver
+    puts "Done sending enrollment instructions email to user"
     # Done sending enrollment instructions email to user
   end
 end

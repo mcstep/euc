@@ -46,4 +46,11 @@ class WelcomeUserMailer < ActionMailer::Base
     @extension = extension
     mail(to: @invitation.recipient_email, subject: 'Account Extension')
   end
+
+  def airwatch_user_activation_email(invitation, group, domain)
+    @invitation = invitation
+    @group = group
+    @domain = domain
+    mail(to: @invitation.recipient_email, subject: 'AirWatch Account Activation and Enrollment Instructions')
+  end
 end
