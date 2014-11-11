@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903231752) do
+ActiveRecord::Schema.define(version: 20141111220057) do
+
+  create_table "airwatch_groups", force: true do |t|
+    t.string   "name"
+    t.string   "group_id"
+    t.integer  "group_id_num"
+    t.integer  "parent_id"
+    t.string   "domain"
+    t.string   "group_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "domains", force: true do |t|
     t.string   "name"

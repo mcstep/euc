@@ -37,6 +37,14 @@ class InvitationsController < ApplicationController
   def create
     puts invitation_params
     @invitation = Invitation.new(invitation_params)
+
+    # Check for sender
+#    if @invitation.sender.blank?
+#      respond_to do |format|
+#	flash.now.alert = "Invalid request"
+#        format.html { render :new }
+#      end
+#    end
    
     # Check for whitespaces and remove them
     if @invitation.recipient_username.blank?
