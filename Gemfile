@@ -53,3 +53,5 @@ gem 'cloudinary'
 gem 'kaminari'
 
 gem 'google-api-client'
+
+gem 'rqrcode_png'

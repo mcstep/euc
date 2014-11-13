@@ -1,6 +1,7 @@
 require 'json'
 require 'google/api_client'
 require 'date'
+require 'rqrcode_png'
 
 class AirwatchProvisionWorker
   include Sidekiq::Worker
@@ -103,10 +104,13 @@ class AirwatchProvisionWorker
     end 
     # Done calling AirWatch API to create Group ID
 
-    # TODO://
     # Send enrollment instructions email to user
     puts "Sending enrollment instructions email to user"
-      WelcomeUserMailer.airwatch_user_activation_email(invitation,user_domain.gsub('.','-'),user_domain).deliver
+      path_to_file = "#{Rails.root}/tmp/temp.png"
+      @qr = RQRCode::QRCode.new("https://awagent.com/Home/Welcome?gid=#{user_domain.gsub('.','-')}&serverurl=testdrive.awmdm.com", :size => 10).to_img.resize(200, 200).save(path_to_file)
+      cloud = Cloudinary::Uploader.upload(path_to_file)
+      File.delete(path_to_file) if File.exist?(path_to_file)
+      WelcomeUserMailer.airwatch_user_activation_email(invitation,user_domain.gsub('.','-'),user_domain, cloud['url']).deliver
     puts "Done sending enrollment instructions email to user"
     # Done sending enrollment instructions email to user
   end
