@@ -54,4 +54,14 @@ class WelcomeUserMailer < ActionMailer::Base
     @qr = qr
     mail(to: @invitation.recipient_email, subject: 'AirWatch Account Activation and Enrollment Instructions')
   end
+
+  def airwatch_user_deactivation_email(invitation)
+    @invitation = invitation
+    mail(to: @invitation.recipient_email, subject: 'AirWatch Account Deactivation')
+  end
+
+  def airwatch_user_reactivation_email(invitation)
+    @invitation = invitation
+    mail(to: @invitation.recipient_email, subject: 'AirWatch Account Activation')
+  end
 end

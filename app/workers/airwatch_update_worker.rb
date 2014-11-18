@@ -23,9 +23,14 @@ class AirwatchUpdateWorker
       request_url = "https://testdrive.awmdm.com/API/v1/system/users/#{airwatch_id}/deactivate"
     end
 
-response = RestClient::Request.execute(:method => :post, :url => request_url, :user => "#{ENV['API_USER']}", :password => "#{ENV['API_PASSWORD']}", :headers => {:host => "testdrive.awmdm.com", :authorization => "Basic bW9oYW46bW9oYW4=", 'aw-tenant-code' => "#{ENV['AIRWATCH_TOKEN']}"})
-
+    response = RestClient::Request.execute(:method => :post, :url => request_url, :user => "#{ENV['API_USER']}", :password => "#{ENV['API_PASSWORD']}", :headers => {:host => "testdrive.awmdm.com", :authorization => "Basic bW9oYW46bW9oYW4=", 'aw-tenant-code' => "#{ENV['AIRWATCH_TOKEN']}"})
     puts "AirWatch Account #{request_type} for User #{invitation.recipient_username}, AirWatch ID #{airwatch_id}. Response Code: #{response.code}"
+    
+    if request_type == "activation"
+      WelcomeUserMailer.airwatch_user_reactivation_email(invitation).deliver
+    else
+      WelcomeUserMailer.airwatch_user_deactivation_email(invitation).deliver
+    end
     #Done calling AirWatch API    
     rescue => e
       puts e
