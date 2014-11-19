@@ -6,7 +6,7 @@ class Invitation < ActiveRecord::Base
 
   validates_presence_of :recipient_email, :recipient_firstname, :recipient_lastname
   validate :recipient_is_not_registered, :on => :create
-  validate :sender_has_invitations, :if => :sender
+  validate :sender_has_invitations, :if => :sender, :on => :create
 
   before_create :generate_token
   before_create :decrement_sender_count, :if => :sender
@@ -24,7 +24,8 @@ private
   end
 
   def sender_has_invitations
-    unless sender.invitation_limit > 0
+    invites_remaining = sender.total_invitations - sender.invitations_used
+    unless invites_remaining > 0
       errors.add_to_base 'You have reached your limit of invitations to send.'
     end
   end
