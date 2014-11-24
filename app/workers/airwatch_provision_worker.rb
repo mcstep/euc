@@ -55,20 +55,6 @@ class AirwatchProvisionWorker
     end
     # Done calling Google API, now call AirWatch API
 
-    #Call AirWatch API
-    begin
-      response = RestClient::Request.execute(:method => :post, :url => "https://testdrive.awmdm.com/API/v1/system/users/adduser", :user => "#{ENV['API_USER']}", :password => "#{ENV['API_PASSWORD']}", :headers => {:content_type => :json, :accept => :json,  :host => "testdrive.awmdm.com", :authorization => "Basic bW9oYW46bW9oYW4=", 'aw-tenant-code' => "#{ENV['AIRWATCH_TOKEN']}"}, :payload => { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory"}.to_json)
-      response_json = JSON.parse(response.body)
-      puts "AirWatch Response Value: #{response_json['Value']}"
-      #Done calling AirWatch API
-      
-      #Update invitation with AirWatch user id
-      invitation.airwatch_user_id = response_json['Value']
-      invitation.save
-    rescue => e
-      puts e
-    end
-
     # Call AirWatch API to create Group ID
     user_domain = usr.email.split("@").last
     
@@ -103,6 +89,29 @@ class AirwatchProvisionWorker
       puts "Domain exists - sending enrollment instructions email with existing Group ID"
     end 
     # Done calling AirWatch API to create Group ID
+
+    #Call AirWatch API
+    begin
+      # Check if this domain exists
+      user_domain_exists = AirwatchGroup.find_by_domain(user_domain)
+      payload = nil
+      if !user_domain_exists.nil?
+        numId = user_domain_exists.group_id_num
+        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Group' => "#{numId}", 'LocationGroupId' => "#{numId}"}
+      else
+        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory"}        
+      end
+      response = RestClient::Request.execute(:method => :post, :url => "https://testdrive.awmdm.com/API/v1/system/users/adduser", :user => "#{ENV['API_USER']}", :password => "#{ENV['API_PASSWORD']}", :headers => {:content_type => :json, :accept => :json,  :host => "testdrive.awmdm.com", :authorization => "Basic bW9oYW46bW9oYW4=", 'aw-tenant-code' => "#{ENV['AIRWATCH_TOKEN']}"}, :payload => payload.to_json)
+      response_json = JSON.parse(response.body)
+      puts "AirWatch Response Value: #{response_json['Value']}"
+      #Done calling AirWatch API
+      
+      #Update invitation with AirWatch user id
+      invitation.airwatch_user_id = response_json['Value']
+      invitation.save
+    rescue => e
+      puts e
+    end
 
     # Send enrollment instructions email to user
     puts "Sending enrollment instructions email to user"
