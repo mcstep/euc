@@ -97,7 +97,8 @@ class AirwatchProvisionWorker
       payload = nil
       if !user_domain_exists.nil?
         numId = user_domain_exists.group_id_num
-        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Group' => "#{numId}", 'LocationGroupId' => "#{numId}"}
+        # payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Group' => "#{numId}", 'LocationGroupId' => "#{numId}"}
+        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory"}        
       else
         payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory"}        
       end
