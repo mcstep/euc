@@ -8,9 +8,9 @@
 	<div class="page-title">
 		Invitations
 	</div>
-	<form class="search hidden-xs">
+	<form id="search-invitation-form" method="get" action="/invitations" class="search hidden-xs">
 		<i class="fa fa-search"></i>
-		<input type="text" name="q" placeholder="Search users..." />
+		<input type="text" name="search" placeholder="Search users..." />
 		<input type="submit" />
 	</form>
 	<a href="<%= new_invitation_path %>" class="new-user btn btn-success pull-right">
@@ -20,6 +20,7 @@
 
 <div> There are a total of <%= Invitation.all.count %> active users</div>
 <br/>
+<%= paginate @invitations %>
 <table class="table table-striped table-bordered table-condense">
   <thead>
     <tr>
@@ -75,6 +76,11 @@
 <br/>
 
 <%= link_to 'New Invitation', new_invitation_path %>
+
+<% if params[:search].present? %>
+	<br/>
+	<%= link_to 'View All', invitations_path %>
+<% end %>
 
 	<!-- Extend account Modal -->
 	<div class="modal fade" id="extend-account-modal" tabindex="-1" role="dialog">

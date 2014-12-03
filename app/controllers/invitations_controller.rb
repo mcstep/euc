@@ -12,7 +12,11 @@ class InvitationsController < ApplicationController
   # GET /invitations
   # GET /invitations.json
   def index
-    @invitations = Invitation.all
+    #@invitations = Invitation.all
+    @invitations = Invitation.order(:recipient_firstname).page params[:page]
+
+    @invitations = @invitations.search(params[:search]) if params[:search].present?
+
     unless current_user.admin?
         redirect_to dashboard_path, :alert => "Access denied."
     end

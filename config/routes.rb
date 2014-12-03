@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   post "impersonate_user" => "invitations#impersonate", :as => "impersonate_user"
   post "unimpersonate" => "invitations#unimpersonate", :as => "unimpersonate"
   post "eula" => "eula#create", :as => "eula"
+  get "invitation_search" => "invitations#search", :as => "invitation_search"
 
   post "change_password" => "password_change#change_password", :as => "change_password"
   

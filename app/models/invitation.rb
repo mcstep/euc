@@ -17,6 +17,17 @@ class Invitation < ActiveRecord::Base
   enum invitation_status: [:pending, :active, :expired, :declined]
 
   before_save :to_lower
+
+  paginates_per 150
+
+  def self.search(search)
+    if search
+      self.where('recipient_lastname LIKE ? or recipient_firstname LIKE ?', "%#{search}%",  "%#{search}%")
+    else
+      self.all
+    end
+  end
+
 private
 
   def recipient_is_not_registered
