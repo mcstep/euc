@@ -26,6 +26,11 @@
 		    <% if current_user.role == 'vip' %>
 		      <p><strong>Role: </strong> Super User </p>	
 		    <% end %>
+            <% if !@current_user_invited.airwatch_user_id.nil? and @current_user_invited.airwatch_trial? %>
+              <p><strong>AirWatch Trial: </strong> Active </p>    
+            <% elsif !@current_user_invited.airwatch_user_id.nil? and !@current_user_invited.airwatch_trial? %>
+              <p><strong>AirWatch Trial: </strong> Inactive </p>                
+            <% end %>
                 </div>             
                 <div class="col-xs-12 col-sm-4 text-center top-margin">
                     <figure>
