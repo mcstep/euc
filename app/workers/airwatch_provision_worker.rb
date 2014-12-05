@@ -114,6 +114,26 @@ class AirwatchProvisionWorker
       puts e
     end
 
+    # Call Receiver to add user to AirWatch Group
+    begin
+      add_user_to_group_url = "#{ENV['API_HOST']}/addUserToGroup"
+      response = RestClient.post(url=add_user_to_group_url,payload={:username => @invitation.recipient_username, :group => 'AirWatchUsers'}, headers= {:token => ENV["API_KEY"]})
+      puts response.body
+    rescue => e
+      puts e
+    end
+    # Done calling Receiver to add user to AirWatch Group
+
+    puts "Calling sync service for workspace.."
+    begin
+      home_sync_url = "#{ENV['API_HOST']}/sync/dldc"
+      response = RestClient.post(url=home_sync_url,payload={:uname => 'demo.user'}, headers= {:token => ENV["API_KEY"]})
+      puts response.body
+    rescue => e
+      puts e
+    end
+    puts "Sync success"
+
     # Send enrollment instructions email to user
     puts "Sending enrollment instructions email to user"
       path_to_file = "#{Rails.root}/tmp/temp.png"
