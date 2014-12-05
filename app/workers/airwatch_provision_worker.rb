@@ -117,7 +117,7 @@ class AirwatchProvisionWorker
     # Call Receiver to add user to AirWatch Group
     begin
       add_user_to_group_url = "#{ENV['API_HOST']}/addUserToGroup"
-      response = RestClient.post(url=add_user_to_group_url,payload={:username => @invitation.recipient_username, :group => 'AirWatchUsers'}, headers= {:token => ENV["API_KEY"]})
+      response = RestClient.post(url=add_user_to_group_url,payload={:username => invitation.recipient_username, :group => 'AirWatchUsers'}, headers= {:token => ENV["API_KEY"]})
       puts response.body
     rescue => e
       puts e
