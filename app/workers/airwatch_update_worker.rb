@@ -41,7 +41,7 @@ class AirwatchUpdateWorker
       WelcomeUserMailer.airwatch_user_deactivation_email(invitation).deliver
       # Call Receiver to remove user from AirWatch Group
       begin
-        add_user_to_group_url = "#{ENV['API_HOST']}/addUserToGroup"
+        add_user_to_group_url = "#{ENV['API_HOST']}/removeUserFromGroup"
         response = RestClient.post(url=add_user_to_group_url,payload={:username => invitation.recipient_username, :group => 'AirWatchUsers'}, headers= {:token => ENV["API_KEY"]})
         puts response.body
       rescue => e
