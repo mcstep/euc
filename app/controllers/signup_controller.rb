@@ -24,8 +24,8 @@ class SignupController < ApplicationController
     @invitation.expires_at = (Time.now + 1.year)
     @invitation.region = params[:region]
     @invitation.recipient_username = params[:username]
-    @invitation.airwatch_trial = false #Yes, by design for now
-    @invitation.google_apps_trial = false #Yes, by design for now
+    @invitation.airwatch_trial = true 
+    @invitation.google_apps_trial = true
 
     # Check for whitespaces and remove them
     if @invitation.recipient_username.blank?
