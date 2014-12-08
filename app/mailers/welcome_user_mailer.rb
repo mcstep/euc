@@ -64,4 +64,10 @@ class WelcomeUserMailer < ActionMailer::Base
     @invitation = invitation
     mail(to: @invitation.recipient_email, subject: 'AirWatch Account Activation')
   end
+
+  def portal_upgrades_email(invitation)
+    @invitation = invitation
+    mail(to: @invitation.recipient_email, subject: 'Demo Portal Upgrades')
+  end
+
 end
