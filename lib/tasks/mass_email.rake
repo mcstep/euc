@@ -6,7 +6,13 @@ task :mass_email_for_all_registered_users => :environment do
   invitations.each do |inv|
     puts "Working on invite - #{inv.recipient_username}"
     if inv.expires_at > DateTime.now
-      UpgradeMassEmail.perform_async(inv.id)
+      puts "Will send upgrade email to - #{inv.recipient_email}"      
+      begin
+        WelcomeUserMailer.portal_upgrades_email(inv).deliver
+      rescue Exception => e
+        puts "Issue sending portal upgrades email to invite #{inv.recipient_email}: #{e}"
+      end
+      puts "Portal upgrades mass email sent successfully"
     end
   end
 end
