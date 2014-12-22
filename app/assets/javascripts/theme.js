@@ -497,6 +497,11 @@ $(document).on("page:load", function () {
 	}
 });
 
+$(window).load(function(){
+	if (document.URL.indexOf("forgotpassword") > -1) {
+		$('#password-reset-modal').modal('show');
+	}
+});
 
 
 var UI = {

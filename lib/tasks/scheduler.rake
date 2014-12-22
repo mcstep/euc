@@ -16,7 +16,7 @@ end
 task :send_expiration_email => :environment do
   puts "Sends an expiration email 24 hours after expiration"
   time = DateTime.now - 24.hour #24 hour grace period
-  expired_accounts = Invitation.where(['expires_at < ?', time])
+  expired_accounts = Invitation.where(['expires_at < ?', time]).limit(25)
   puts "There are #{expired_accounts.count} expired accounts in the system"
   expired_accounts.each do |account|
     puts "#{account.recipient_firstname}'s account with email #{account.recipient_email} expired on #{account.expires_at}"
@@ -38,10 +38,8 @@ task :send_expiration_email => :environment do
       end
     rescue RestClient::Exception => e
       puts e
-      return
     rescue Exception => e
       puts e
-      return
     end
 
     #Update the invitation limit
