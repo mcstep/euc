@@ -24,7 +24,7 @@
         <td><%= reg_code.valid_to %></td>
         <td><%= reg_code.status ? "Enabled" : "Disabled" %></td>
         <td><%= reg_code.registrations %></td>
-        <td><%= Invitation.where("reg_code_id == #{reg_code.id}").count %></td>
+        <td><%= Invitation.where("reg_code_id = #{reg_code.id}").count %></td>
         <td><%= reg_code.account_type %></td>
         <td><%= reg_code.account_validity %> days</td>
         <td><%= link_to 'Show', reg_code %></td>
