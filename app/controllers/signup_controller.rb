@@ -29,7 +29,7 @@ class SignupController < ApplicationController
     end
 
     if reg_code != nil
-      current_reg_count = Invitation.where("reg_code_id == #{reg_code.id}").count
+      current_reg_count = Invitation.where("reg_code_id = #{reg_code.id}").count
       if reg_code.status == false || (!(reg_code.valid_from..reg_code.valid_to).cover?(Time.now)) || (current_reg_count >= reg_code.registrations)
         flash.now.alert = "Sorry! The registration code you entered is no longer valid"
         redirect_to registration_code_signup_path(reg_code.code), :flash => { :error => "Sorry! The registration code you entered is no longer valid" }
