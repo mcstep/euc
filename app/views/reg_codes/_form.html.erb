@@ -1,0 +1,49 @@
+<%= form_for(@reg_code) do |f| %>
+  <% if @reg_code.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reg_code.errors.count, "error") %> prohibited this reg_code from being saved:</h2>
+
+      <ul>
+      <% @reg_code.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :valid_from %><br>
+    <%= f.datetime_select :valid_from %>
+  </div>
+  <div class="field">
+    <%= f.label :valid_to %><br>
+    <%= f.datetime_select :valid_to %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.check_box :status %>
+  </div>
+  <div class="field">
+    <%= f.label :registrations %><br>
+    <%= f.number_field :registrations %>
+  </div>
+  <div class="field">
+    <%= f.label :account_type %><br>
+    <%= f.select(:account_type, [["Regular User", 0], ["Super User", 1] ], {:prompt => "Account Type"} ) %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :account_validity %> (in days)<br>
+    <%= f.number_field :account_validity %>
+  </div>
+  <br/>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <br/>
+<% end %>

@@ -1,0 +1,40 @@
+<h1>Registration Codes</h1>
+<br/>
+
+<table class="table table-striped table-bordered table-condense">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Valid From</th>
+      <th>Valid To</th>
+      <th>Status</th>
+      <th>Registrations Allowed</th>
+      <th>Registrations Used</th>
+      <th>Account Type</th>
+      <th>Account Validity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reg_codes.each do |reg_code| %>
+      <tr>
+        <td><%= reg_code.code %></td>
+        <td><%= reg_code.valid_from %></td>
+        <td><%= reg_code.valid_to %></td>
+        <td><%= reg_code.status ? "Enabled" : "Disabled" %></td>
+        <td><%= reg_code.registrations %></td>
+        <td><%= Invitation.where("reg_code_id == #{reg_code.id}").count %></td>
+        <td><%= reg_code.account_type %></td>
+        <td><%= reg_code.account_validity %> days</td>
+        <td><%= link_to 'Show', reg_code %></td>
+        <td><%= link_to 'Edit', edit_reg_code_path(reg_code) %></td>
+        <td><%= link_to 'Destroy', reg_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reg code', new_reg_code_path %>

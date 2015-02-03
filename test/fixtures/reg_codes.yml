@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  valid_from: 2015-01-28 12:53:19
+  valid_to: 2015-01-28 12:53:19
+  status: false
+  registrations: 1
+  account_type: 1
+  account_validity: 1
+
+two:
+  code: MyString
+  valid_from: 2015-01-28 12:53:19
+  valid_to: 2015-01-28 12:53:19
+  status: false
+  registrations: 1
+  account_type: 1
+  account_validity: 1

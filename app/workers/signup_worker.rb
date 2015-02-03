@@ -88,9 +88,23 @@ class SignupWorker
     puts "Sync success"
 
     # Find a way to optimize this
-    domain_name = @invitation.recipient_email.split("@").last
-    @domain = Domain.find_by_name(domain_name)
-    if !@domain.nil? && @domain.status == 'active'
+    super_user = false
+    # find the corresponding invitation and check if the user signed up with a reg_code
+    inv_for_user = @invitation
+    if !inv_for_user.nil? && !inv_for_user.reg_code_id.nil?
+      reg_code = RegCode.find_by_id(inv_for_user.reg_code_id)
+      if !reg_code.nil? && (reg_code.account_type == 1) # 1 = vip
+        super_user = true
+      end
+    else
+      domain_name = @invitation.recipient_email.split("@").last
+      @domain = Domain.find_by_name(domain_name)
+      if !@domain.nil? && @domain.status == 'active'
+        super_user = true
+      end
+    end
+
+    if super_user == true
       puts "Sending Super User email...."
         WelcomeUserMailer.welcome_email(@invitation,json_body['password'],ENV['DOMAIN']).deliver
       puts "Email sent successfully"

@@ -315,7 +315,7 @@ background: #970b0e !important;
   }
 }
 </style>
-<% if @invitation.sender.email == 'admin@vmwdemo.com' %>
+<% if @invitation.sender.nil? || @invitation.sender.email == 'admin@vmwdemo.com' %>
 <% sender_name = 'us' %>
 <% sender_email = 'eucdemohelp@vmware.com' %>
 <% else %>

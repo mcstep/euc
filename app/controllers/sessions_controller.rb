@@ -34,12 +34,23 @@ def create
 	usr.title = user_json['title'] if user_json['title'] != nil
 	usr.company = user_json['company'] if user_json['company'] != nil    
 	usr.invitation_limit = 5 
-        # If the user is in one of the whitelisted domains -> assign a vip role
-        if is_domain_whitelisted?(usr.email.split("@").last)
-         usr.role = 'vip'
+
+
+        # find the corresponding invitation and check if the user signed up with a reg_code
+        inv_for_user = Invitation.find_by_recipient_username(usr.username)
+        if !inv_for_user.nil? && !inv_for_user.reg_code_id.nil?
+          reg_code = RegCode.find_by_id(inv_for_user.reg_code_id)
+          #TODO: NUll check for reg_code
+          usr.role =  reg_code.account_type
         else
-         usr.role = 'user'
+          # If the user is in one of the whitelisted domains -> assign a vip role
+          if is_domain_whitelisted?(usr.email.split("@").last)
+            usr.role = 'vip'
+          else
+            usr.role = 'user'
+          end          
         end
+
         usr.save!
 	
 	puts "User ID#{usr.id}"

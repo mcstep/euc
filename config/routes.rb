@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :reg_codes
+
   get 'password_change/check_password'
 
   get 'password_change/change_password'
@@ -26,6 +28,7 @@ Rails.application.routes.draw do
   get "log_in" => "sessions#new", :as => "log_in"
   get "forgotpassword" => "sessions#new", :as => "forgotpassword"
   get "register" => "signup#new", :as => "register"
+  get "register/:reg_code", to: 'signup#reg_code', :as => "registration_code_signup"
   get "dashboard" => "home#index", :as => "dashboard"
   post "password_reset" => "password_reset#create", :as => "password_reset"
   post "support_request" => "support_request#create", :as => "support_request"

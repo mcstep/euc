@@ -223,6 +223,12 @@ class InvitationsController < ApplicationController
       redirect_to log_in_path, notice: "Please sign in" unless current_user
     end
     
+    def require_admin
+      unless current_user && current_user.admin?
+        redirect_to dashboard_path, :alert => "Access denied."
+      end
+    end
+
     def invitation_params
      params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region, :recipient_username, :expires_at, :potential_seats, :airwatch_trial)
     end
