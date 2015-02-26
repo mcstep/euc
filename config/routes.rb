@@ -62,4 +62,24 @@ Rails.application.routes.draw do
   constraints(SessionAuthenticatedConstraint) do
     mount Sidekiq::Web => '/sidekiq'
   end
+
+  scope '/api' do
+    scope '/trygrid' do
+      scope '/v1' do
+        scope '/accounts' do
+          get '/' => 'api_accounts#index'
+          post '/' => 'api_accounts#create'
+          scope '/:uuid' do
+            get '/' => 'api_accounts#show'
+            delete '/' => 'api_accounts#delete'
+            put '/' => 'api_accounts#update'
+            post '/password_reset' => 'api_accounts#reset_password'
+            post '/password_change' => 'api_accounts#change_password'
+          end
+        end
+      end
+    end
+  end
+
+
 end
