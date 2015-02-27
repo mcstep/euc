@@ -64,7 +64,7 @@ class ApiAccountsController < BaseApiController
       @account = Account.new
       @account.uuid = SecureRandom.uuid
       @account.account_source = 'trygrid' #0
-      @account.expiration_date = Time.now + 24.hour
+      @account.expiration_date = Time.now + ENV["TRYGRID_ACCOUNT_VALIDITY_HOURS"].to_i.hour #8.hour
 
       @account.assign_attributes(@json['account'])
 
@@ -76,6 +76,11 @@ class ApiAccountsController < BaseApiController
                                     @account.username, 
                                     @account.expiration_date, 
                                     @account.home_region)
+
+      # Remove user from VMWDemousers
+      user_removed = remove_user_from_group(@account.username,'vmwdemousers')
+      # Add user to TryGridUsers
+      user_added = add_user_to_group(@account.username,'trygridusers')
 
       if account_created && json_response && json_response['username'] && json_response['password'] &&  @account.save
         response_json = build_account_json (@account)

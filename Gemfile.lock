@@ -41,6 +41,7 @@ GEM
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
     aws_cf_signer (0.1.3)
+    bazaar (0.0.2)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -233,11 +234,13 @@ GEM
       rack
       raindrops (~> 0.7)
     uuidtools (2.1.5)
+    wannabe_bool (0.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bazaar
   better_errors
   binding_of_caller
   bootstrap-datepicker-rails
@@ -272,3 +275,4 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   unicorn
+  wannabe_bool

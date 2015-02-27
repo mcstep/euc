@@ -55,3 +55,6 @@ gem 'kaminari'
 gem 'google-api-client'
 
 gem 'rqrcode_png'
+
+gem 'wannabe_bool'
+gem 'bazaar'

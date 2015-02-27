@@ -11,6 +11,14 @@ def create
 
   begin
     username = (params[:username][/[^@]+/]).downcase
+
+    inv_for_user = Invitation.find_by_recipient_username(username)
+    if inv_for_user.nil?
+      flash.now.alert = "Invalid username or password"
+      render "new"
+      return
+    end
+
     response = RestClient.post(url="#{ENV['API_HOST']}/authenticate",payload={:username => username, :password => params[:password]}, headers= {:token => ENV["API_KEY"]})
     puts response
     if response.code == 200
