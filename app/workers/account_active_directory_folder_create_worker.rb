@@ -28,8 +28,8 @@ class AccountActiveDirectoryFolderCreateWorker
           puts e
         end
       end
+    end
       puts "Created user profile directory successfully in other regions"
       AccountActiveDirectoryHorizonSyncWorker.perform_async
-    end
   end
 end

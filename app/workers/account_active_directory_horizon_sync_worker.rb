@@ -9,11 +9,11 @@ class AccountActiveDirectoryHorizonSyncWorker
         home_sync_url = "#{ENV['API_HOST']}/sync/#{region}"
         response = RestClient.post(url=home_sync_url,payload={:uname => 'demo.user'}, headers= {:token => ENV["API_KEY"]})
         puts response.body
-        AccountActiveDirectoryReplicateWorker.perform_async
       rescue => e
         puts e
       end
       puts "Sync success"
     end
+    AccountActiveDirectoryReplicateWorker.perform_async
   end
 end

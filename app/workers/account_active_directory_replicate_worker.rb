@@ -2,7 +2,7 @@ class AccountActiveDirectoryReplicateWorker
   include Sidekiq::Worker
 
   def perform
-    if !Rails.env.development?
+    if !Rails.env.development? && ENV["TRYGRID_AD_ENABLED"].to_b
       puts "Calling ad replicate.."
       begin
        ad_sync_url = "#{ENV['API_HOST']}/ad/replicate"
