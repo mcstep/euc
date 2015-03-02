@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225235024) do
+ActiveRecord::Schema.define(version: 20150302173850) do
 
   create_table "accounts", force: true do |t|
     t.string   "first_name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150225235024) do
     t.datetime "deleted_at"
     t.string   "home_region"
     t.string   "uuid"
+    t.string   "country_code"
   end
 
   add_index "accounts", ["deleted_at"], name: "index_accounts_on_deleted_at"

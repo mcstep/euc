@@ -52,21 +52,32 @@ class ApiAccountsController < BaseApiController
   end
 
   def create
-    existing_user = does_user_exist(@json['account']['username'].downcase)
-    if existing_user
-      @json['account']['username'] = @json['account']['first_name'].downcase + "." + @json['account']['last_name'].downcase + "." + rand(101...999).to_s
-      puts "New Username #{@json['account']['username']}"
+    #existing_user = does_user_exist(@json['account']['username'].downcase)
+    #if existing_user
+    #  @json['account']['username'] = @json['account']['first_name'].downcase + "." + @json['account']['last_name'].downcase + "." + rand(101...999).to_s
+    #  puts "New Username #{@json['account']['username']}"
+    #end
+
+    user_name = @json['account']['email'].downcase.split("@").first
+    existing_user = does_user_exist(@json['account']['email'].downcase.split("@").first)
+    while existing_user != nil do
+      user_name = @json['account']['email'].downcase.split("@").first + "." + rand(101...999).to_s
+      puts "User exists, trying with Username #{user_name}"
+      existing_user = does_user_exist(user_name)
     end
 
     if @account.present? #|| (existing_user != nil)
       render nothing: true, status: :conflict
     else
       @account = Account.new
+      @account.assign_attributes(@json['account'])
+
       @account.uuid = SecureRandom.uuid
       @account.account_source = 'trygrid' #0
-      @account.expiration_date = Time.now + ENV["TRYGRID_ACCOUNT_VALIDITY_HOURS"].to_i.hour #8.hour
-
-      @account.assign_attributes(@json['account'])
+      @account.expiration_date = Time.now # Yes, create an expired account which will be extended later
+      #@account.expiration_date = Time.now + ENV["TRYGRID_ACCOUNT_VALIDITY_HOURS"].to_i.hour #8.hour
+      @account.username =  user_name
+      @account.job_title = 'Employee' # Hardcoded for now
 
       account_created, json_response = create_user(@account.first_name, 
                                     @account.last_name, 
@@ -78,9 +89,9 @@ class ApiAccountsController < BaseApiController
                                     @account.home_region)
 
       # Remove user from VMWDemousers
-      user_removed = remove_user_from_group(@account.username,'vmwdemousers')
+      user_removed = remove_user_from_group(user_name,'vmwdemousers')
       # Add user to TryGridUsers
-      user_added = add_user_to_group(@account.username,'trygridusers')
+      user_added = add_user_to_group(user_name,'trygridusers')
 
       if account_created && json_response && json_response['username'] && json_response['password'] &&  @account.save
         response_json = build_account_json (@account)
@@ -88,6 +99,8 @@ class ApiAccountsController < BaseApiController
         response_json['password']   = json_response['password']
 
         render json: response_json # TODO: Render username and password as well
+
+        AccountActiveDirectoryFolderCreateWorker.perform_async(@account.id)
       else
         render nothing: true, status: :bad_request
       end
@@ -141,14 +154,14 @@ class ApiAccountsController < BaseApiController
    def build_account_json (account)
       response_json = {}
       response_json['uuid'] = account.uuid
+      response_json['username']   = account.username
       response_json['first_name'] = account.first_name
       response_json['last_name']  = account.last_name
       response_json['email']      = account.email
       response_json['company']    = account.company
-      response_json['job_title']  = account.job_title
-      response_json['username']   = account.username
+      #response_json['job_title']  = account.job_title
+      response_json['country_code'] = account.country_code
       response_json['expiration_date'] = account.expiration_date
-      response_json['home_region'] = account.home_region
       response_json['create_date'] = account.created_at
       response_json['update_date'] = account.updated_at
 
