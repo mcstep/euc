@@ -3,7 +3,7 @@ class ApiAccountsController < BaseApiController
   before_filter :find_account, only: [:show, :update, :delete, :reset_password, :change_password]
 
   before_filter only: :create do
-    unless @json.has_key?('account') && @json['account']['email'] #&& @json['account'].responds_to?(:[]) 
+    unless @json.has_key?('account') && @json['account']['first_name'] && @json['account']['last_name'] && @json['account']['email'] && @json['account']['country_code'] && @json['account']['company'] #&& @json['account'].responds_to?(:[]) 
       render nothing: true, status: :bad_request
     end
   end
