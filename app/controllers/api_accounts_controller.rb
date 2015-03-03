@@ -113,7 +113,8 @@ class ApiAccountsController < BaseApiController
     account_extended = extend_user_account(@account.username, @json['account']['expiration_date'])
 
     if account_extended && @account.save
-        render json: build_account_json (@account)
+        response_json = build_account_json (@account)
+        render json: response_json
     else
         render nothing: true, status: :bad_request
     end
