@@ -9,7 +9,7 @@ class ApiAccountsController < BaseApiController
   end
 
   before_filter only: :change_password do
-    unless @json.has_key?('account') && @json['account']['username'] && @json['account']['current_password'] && @json['account']['new_password'] 
+    unless @json.has_key?('account') && @json['account']['current_password'] && @json['account']['new_password'] 
       render nothing: true, status: :bad_request
     end
   end
@@ -113,7 +113,7 @@ class ApiAccountsController < BaseApiController
     account_extended = extend_user_account(@account.username, @json['account']['expiration_date'])
 
     if account_extended && @account.save
-        render json: @account
+        render json: build_account_json (@account)
     else
         render nothing: true, status: :bad_request
     end
