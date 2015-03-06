@@ -27,7 +27,23 @@ class ApiAccountsController < BaseApiController
   def index
     all_accounts_json = []
 
-    Account.all.each do |account|
+    since = params.has_key?(:since) ? params[:since] : nil
+    limit_param = params.has_key?(:limit) ? params[:limit] : nil
+    offset_param = params.has_key?(:offset) ? params[:offset] : nil
+
+    if !limit_param.nil? && offset_param.nil?
+      offset_param = 0
+    end
+
+    all_accounts = nil
+    if since.nil?
+      all_accounts = Account.all.limit(limit_param).offset(offset_param)
+    else
+      since_time = DateTime.parse(since)
+      all_accounts = Account.where("created_at > '#{since_time}'").limit(limit_param).offset(offset_param)
+    end
+
+    all_accounts.each do |account|
       account_json = build_account_json (account)
       all_accounts_json << account_json
     end
