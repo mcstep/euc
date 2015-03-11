@@ -183,6 +183,9 @@ class ApiAccountsController < BaseApiController
       response_json['create_date'] = account.created_at
       response_json['update_date'] = account.updated_at
 
+      sanitized_desktopname = URI.encode(ENV["TRYGRID_VIEW_DESKTOPNAME"])
+      response_json['connection_url'] = URI.encode("vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME"]}/#{sanitized_desktopname}&action=start-session&domainName=vmwdemo")
+
       return response_json
    end
  end
