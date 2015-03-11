@@ -94,7 +94,8 @@ class ApiAccountsController < BaseApiController
       #@account.expiration_date = Time.now + ENV["TRYGRID_ACCOUNT_VALIDITY_HOURS"].to_i.hour #8.hour
       @account.username =  user_name
       @account.job_title = 'Employee' # Hardcoded for now
-
+      @account.home_region = 'AMER'
+      
       account_created, json_response = create_user(@account.first_name, 
                                     @account.last_name, 
                                     @account.email, 
