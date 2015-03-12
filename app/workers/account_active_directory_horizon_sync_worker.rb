@@ -14,6 +14,6 @@ class AccountActiveDirectoryHorizonSyncWorker
       end
       puts "Sync success"
     end
-    AccountActiveDirectoryReplicateWorker.perform_async
+    AccountActiveDirectoryAmericaReplicateWorker.perform_async
   end
 end
