@@ -132,6 +132,7 @@ class ApiAccountsController < BaseApiController
     if account_extended && @account.save
         response_json = build_account_json (@account)
         render json: response_json
+        AccountActiveDirectoryAmericaReplicateWorker.perform_async
     else
         render nothing: true, status: :bad_request
     end
@@ -143,6 +144,7 @@ class ApiAccountsController < BaseApiController
       response_json = {}
       response_json['new_password'] = response
       render json: response_json, status: 200
+      AccountActiveDirectoryAmericaReplicateWorker.perform_async
     else
       render nothing: true, status: :bad_request
     end
@@ -158,6 +160,7 @@ class ApiAccountsController < BaseApiController
     password_change, response = change_user_password(@account.username, @json['account']['new_password'])
     if password_change == true
       render nothing: true, status: 200
+      AccountActiveDirectoryAmericaReplicateWorker.perform_async
     else
       render nothing: true, status: :bad_request
     end
