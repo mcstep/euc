@@ -62,6 +62,7 @@ class ApiAccountsController < BaseApiController
 
     if account_removed && response &&  @account.destroy
       render nothing: true, status: 200
+      AccountActiveDirectoryAmericaReplicateWorker.perform_async
     else
       render nothing: true, status: :bad_request
     end
