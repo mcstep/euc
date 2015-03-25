@@ -65,7 +65,7 @@ class AirwatchProvisionWorker
     if user_domain_exists.nil?      
       puts "Domain does not exist - creating Group ID for domain #{user_domain}"
       begin
-        aw_req_payload = { 'Name' => "#{user_domain}", 'GroupId' => "#{user_domain.gsub('.','-')}",'LocationGroupType' => 'Prospect', 'AddDefaultLocation' => 'Yes'}.to_json
+        aw_req_payload = { 'Name' => "#{user_domain}", 'GroupId' => "#{user_domain[0..20].gsub('.','-')}",'LocationGroupType' => 'Prospect', 'AddDefaultLocation' => 'Yes'}.to_json
         response = RestClient::Request.execute(:method => :post, :url => "https://testdrive.awmdm.com/API/v1/system/groups/#{ENV['PARENT_GROUP_ID']}/creategroup", :user => "#{ENV['API_USER']}", :password => "#{ENV['API_PASSWORD']}", :headers => {:content_type => :json, :accept => :json,  :host => "testdrive.awmdm.com", :authorization => "Basic bW9oYW46bW9oYW4=", 'aw-tenant-code' => "#{ENV['AIRWATCH_TOKEN']}"}, :payload => aw_req_payload)
         response_json = JSON.parse(response.body)
         puts "AirWatch Response Value: #{response_json['Value']}" 
