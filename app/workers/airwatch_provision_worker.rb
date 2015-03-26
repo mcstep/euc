@@ -98,9 +98,9 @@ class AirwatchProvisionWorker
       if !user_domain_exists.nil?
         numId = user_domain_exists.group_id_num
         # payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Group' => "#{numId}", 'LocationGroupId' => "#{numId}"}
-        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory"}        
+        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Role' => "VMWDemo"}        
       else
-        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory"}        
+        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Role' => "VMWDemo"}        
       end
       response = RestClient::Request.execute(:method => :post, :url => "https://testdrive.awmdm.com/API/v1/system/users/adduser", :user => "#{ENV['API_USER']}", :password => "#{ENV['API_PASSWORD']}", :headers => {:content_type => :json, :accept => :json,  :host => "testdrive.awmdm.com", :authorization => "Basic bW9oYW46bW9oYW4=", 'aw-tenant-code' => "#{ENV['AIRWATCH_TOKEN']}"}, :payload => payload.to_json)
       response_json = JSON.parse(response.body)
