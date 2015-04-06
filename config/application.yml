@@ -1,0 +1,37 @@
+# Add account credentials and API keys here.
+# See http://railsapps.github.io/rails-environment-variables.html
+# This file should be listed in .gitignore to keep your settings secret!
+# Each entry sets a local environment variable.
+# For example, setting:
+# GMAIL_USERNAME: Your_Gmail_Username
+# makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
+
+# Add configuration values here, as shown below.
+#
+# pusher_app_id: "2954"
+# pusher_key: 7381a978f7dd7f9a1117
+# pusher_secret: abdc3b896a0ffb85d373
+# stripe_api_key: sk_test_2J0l093xOyW72XUYJHE4Dv2r
+# stripe_publishable_key: pk_test_ro9jV5SNwGb1yYlQfzG17LHK
+#
+# production:
+#   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
+#   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
+GMAIL_USERNAME: test.vmwdemo@gmail.com
+GMAIL_PASSWORD: VMware123!
+DOMAIN_NAME: gmail.com
+API_KEY: 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+REDIS_URL: redis://localhost:6379/12
+REDIS_NAMESPACE: portal_development
+API_HOST: http://staging.vmwdemo.com:8080
+DOMAIN: vmwdemo.com
+AIRWATCH_TOKEN: 1SYEHIBAAAG6A7PQAEQA
+API_USER: api.admin
+API_PASSWORD: VMware123!
+PARENT_GROUP_ID: "570"
+CLOUDINARY_URL: cloudinary://574419942286186:iFma2CXcKreVjqRffOwRG5MWiBU@vmware
+API_TOKEN: KwsuqK862ZNQLSy85DgS
+TRYGRID_AD_ENABLED: true
+TRYGRID_ACCOUNT_VALIDITY_HOURS: 8
+TRYGRID_VIEW_SERVERNAME: hv6amer.vmwdemo.com
+TRYGRID_VIEW_DESKTOPNAME: NVIDIA-TRYGRID-TESTING
