@@ -1,5 +1,0 @@
-class DomainsController < ApplicationController
-  def index
-    @domains = Invitation.all
-  end
-end
