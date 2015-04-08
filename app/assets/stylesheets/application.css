@@ -12,11 +12,11 @@
  *
  *= require_self
  *= require bootstrap/bootstrap.min
+ *= require bootstrap-datepicker3
  *= require ../../../vendor/assets/stylesheets/select2
  *= require ../../../vendor/assets/stylesheets/select2-bootstrap
  *= require ../../../vendor/assets/stylesheets/messenger/messenger
  *= require ../../../vendor/assets/stylesheets/messenger/messenger-theme-flat
- *= require bootstrap-datepicker3
  *= require_tree ../../../vendor/assets/stylesheets/.
  *= require theme
  */

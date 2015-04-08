@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap/bootstrap.min
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
 //= require ../../../vendor/assets/javascripts/jquery.flot/jquery.flot
 //= require ../../../vendor/assets/javascripts/jquery.flot/jquery.flot.time
 //= require ../../../vendor/assets/javascripts/jquery.flot/jquery.flot.categories
@@ -21,7 +23,6 @@
 //= require ../../../vendor/assets/javascripts/messenger/messenger.min
 //= require ../../../vendor/assets/javascripts/messenger/messenger-theme-flat
 //= require ../../../vendor/assets/javascripts/moment.min
-//= require bootstrap-datepicker
 //= require_directory ../../../vendor/assets/javascripts/.
 
 //= require theme
