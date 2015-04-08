@@ -13,7 +13,7 @@ task :add_first_dev_user => :environment do
     inv.recipient_company = 'VMware'
     inv.airwatch_trial = true
     inv.google_apps_trial = true
-
+    inv.expires_at = Time.now + 5.year
     inv.save
   end
 
