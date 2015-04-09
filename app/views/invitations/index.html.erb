@@ -52,7 +52,7 @@
         <% if invitation.sender.blank? %>
           <strong>N/A</strong>
         <% else %>
-          <td><%= invitation.sender.display_name unless invitation.sender.blank? %>
+          <%= invitation.sender.display_name unless invitation.sender.blank? %>
         <% end %>
       </td>
       <td class="text-center">
