@@ -13,6 +13,7 @@ def create
     username = (params[:username][/[^@]+/]).downcase
 
     inv_for_user = Invitation.find_by_recipient_username(username)
+
     if inv_for_user.nil?
       flash.now.alert = "Invalid username or password"
       render "new"
@@ -25,24 +26,24 @@ def create
       user_json = JSON.parse response
       puts "Auth response #{user_json}"
       user = User.authenticate(username, params[:password])
+
       if user
-	# Update the user's attributes, in case they've been updated in the AD
-	user.email = user_json['email'] if user_json['email'] != nil
-	user.display_name = user_json['name'] if user_json['name'] != nil 
-	user.title = user_json['title'] if user_json['title'] != nil
-	user.company = user_json['company'] if user_json['company'] != nil    
-	user.save
+        # Update the user's attributes, in case they've been updated in the AD
+        user.email = user_json['email'] if user_json['email'] != nil
+        user.display_name = user_json['name'] if user_json['name'] != nil
+        user.title = user_json['title'] if user_json['title'] != nil
+        user.company = user_json['company'] if user_json['company'] != nil
+        user.save
         session[:user_id] = user.id
         redirect_to dashboard_path, :notice => "Logged in!"
       else
         usr = User.new
         usr.username = user_json['username']
-	usr.email = user_json['email'] if user_json['email'] != nil
-	usr.display_name = user_json['name'] if user_json['name'] != nil    
-	usr.title = user_json['title'] if user_json['title'] != nil
-	usr.company = user_json['company'] if user_json['company'] != nil    
-	usr.invitation_limit = 5 
-
+        usr.email = user_json['email'] if user_json['email'] != nil
+        usr.display_name = user_json['name'] if user_json['name'] != nil
+        usr.title = user_json['title'] if user_json['title'] != nil
+        usr.company = user_json['company'] if user_json['company'] != nil
+        usr.invitation_limit = 5
 
         # find the corresponding invitation and check if the user signed up with a reg_code
         inv_for_user = Invitation.find_by_recipient_username(usr.username)
@@ -56,12 +57,12 @@ def create
             usr.role = 'vip'
           else
             usr.role = 'user'
-          end          
+          end
         end
 
         usr.save!
-	
-	puts "User ID#{usr.id}"
+
+        puts "User ID#{usr.id}"
         session[:user_id] = usr.id
         redirect_to dashboard_path, :notice => "Logged in!"
       end

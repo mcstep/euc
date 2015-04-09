@@ -18,7 +18,7 @@ class InvitationsController < ApplicationController
     @invitations = @invitations.search(params[:search]) if params[:search].present?
 
     unless current_user.admin?
-        redirect_to dashboard_path, :alert => "Access denied."
+      redirect_to dashboard_path, :alert => "Access denied."
     end
   end
 
@@ -49,20 +49,20 @@ class InvitationsController < ApplicationController
 #        format.html { render :new }
 #      end
 #    end
-   
+
     # Check for whitespaces and remove them
     if @invitation.recipient_username.blank?
       @invitation.recipient_username = nil
     end
- 
+
     # Make google apps same as airwatch, for now
     @invitation.google_apps_trial = @invitation.airwatch_trial
 
     @invitation.sender = current_user
     if !params[:invitation][:expires_at].blank?
-      @invitation.expires_at = DateTime.strptime(params[:invitation][:expires_at], '%B %d, %Y') 
-    else 
-      @invitation.expires_at = (Time.now + 1.month) 
+      @invitation.expires_at = DateTime.strptime(params[:invitation][:expires_at], '%B %d, %Y')
+    else
+      @invitation.expires_at = (Time.now + 1.month)
     end
     puts "Region: #{@invitation.region}"
     respond_to do |format|
@@ -101,8 +101,8 @@ class InvitationsController < ApplicationController
       puts "Got response #{response} for account deletion"
       if response.code == 200
         @invitation.destroy
-	@user_rec_for_invite = User.find_by_email(@invitation.recipient_email)
-	@user_rec_for_invite.destroy unless @user_rec_for_invite.nil?
+        @user_rec_for_invite = User.find_by_email(@invitation.recipient_email)
+        @user_rec_for_invite.destroy unless @user_rec_for_invite.nil?
         account_removed = true
         AccountExpireEmailWorker.perform_async(@invitation.id)
         # Remove AirWatch account if the user is already enrolled
@@ -134,15 +134,13 @@ class InvitationsController < ApplicationController
     end
   end
 
-  # DELETE /invitations/1
-  # DELETE /invitations/1.json
   def extend
     #Extend the AD account
     account_extended = false
     @invitation = Invitation.find_by_id(params[:invitationId])
     original_expires_at = @invitation.expires_at
     #@invitation.expires_at = (@invitation.expires_at + 1.month)
-    @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A %B %d %Y') 
+    @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A %B %d %Y')
     begin
       response = RestClient.post(url="#{ENV['API_HOST']}/extendAccount",payload={:username => @invitation.recipient_username,  :expires_at => ((@invitation.expires_at.to_i)*1000)}, headers= {:token => ENV["API_KEY"]})
       puts "Got response #{response} for account extension"
@@ -166,7 +164,7 @@ class InvitationsController < ApplicationController
     @extension.revised_expires_at = @invitation.expires_at
     @extension.reason = params[:reason]
     @extension.save
-  
+
     AccountExtensionEmailWorker.perform_async(@invitation.id, @extension.id)
 
     respond_to do |format|
@@ -174,7 +172,7 @@ class InvitationsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def impersonate
    begin
      #backup the current user so we can go back
@@ -189,8 +187,8 @@ class InvitationsController < ApplicationController
      redirect_to request.referer, alert: "Unable to impersonate this user at this time. Please try again later"
      return
    end
-   
-   redirect_to dashboard_path, notice: 'User was successfully impersonated.'  
+
+   redirect_to dashboard_path, notice: 'User was successfully impersonated.'
   end
 
   def unimpersonate
@@ -205,7 +203,7 @@ class InvitationsController < ApplicationController
      return
    end
 
-   redirect_to dashboard_path  
+   redirect_to dashboard_path
   end
 
   private
@@ -216,20 +214,16 @@ class InvitationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invitation_params
-      params.require(:invitation).permit(:sender_id, :recipient_email, :token, :recipient_username, :recipient_firstname, :recipient_lastname, :recipient_title, :recipient_company)
+      params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region, :recipient_username, :expires_at, :potential_seats, :airwatch_trial)
     end
 
     def require_login
       redirect_to log_in_path, notice: "Please sign in" unless current_user
     end
-    
+
     def require_admin
       unless current_user && current_user.admin?
         redirect_to dashboard_path, :alert => "Access denied."
       end
-    end
-
-    def invitation_params
-     params.require(:invitation).permit(:recipient_firstname, :recipient_lastname, :recipient_email, :recipient_title, :recipient_company, :region, :recipient_username, :expires_at, :potential_seats, :airwatch_trial)
     end
 end

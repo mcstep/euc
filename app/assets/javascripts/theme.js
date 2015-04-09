@@ -465,6 +465,42 @@
 		});
 
 
+		var limitAccountForm = $('#limit-account-form')[0];
+		var limitAccountFormBaseUrl = limitAccountForm.action;
+
+		$(".limit-account-link").click(function() {
+			var $this = $(this);
+			var elements = limitAccountForm.elements;
+
+			elements['id'].value = $this.data('id');
+			elements['potential_seats'].value = $this.data('seats');
+		});
+
+		$('#limit-account-form').on('submit', function (e) {
+			var elements = limitAccountForm.elements;
+			var id = elements['id'].value;
+			var seats = elements['potential_seats'].value;
+
+			$.ajax({
+				type: 'PUT',
+				url: limitAccountFormBaseUrl + id,
+				contentType: 'application/json',
+				dataType: 'json',
+				data: JSON.stringify({
+					invitation: {
+						potential_seats: seats,
+					},
+				}),
+				success: function () {
+					$('.limit-account-link[data-id=' + id + ']').data('seats', seats);
+					$('#limit-account-modal').modal('hide');
+				},
+			});
+
+			return false;
+		});
+
+
 		// Range Datepicker
 		$('.datepickerExpiresAt').datepicker({
 			format: 'D MM d yyyy',
