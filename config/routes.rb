@@ -37,6 +37,9 @@ Rails.application.routes.draw do
     collection do
       get 'check_invitation'
     end
+
+    get 'user' => 'users#show'
+    get 'user/edit' => 'users#edit'
   end
 
   require 'sidekiq/web'

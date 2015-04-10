@@ -12,6 +12,8 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
+  # GET /invitations/1/user
+  # GET /invitations/1/user.json
   def show
   end
 
@@ -21,6 +23,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
+  # GET /invitations/1/user/edit
   def edit
   end
 
@@ -67,7 +70,12 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      if params[:invitation_id].blank?
+        @user = User.find(params[:id])
+      else
+        invitation = Invitation.find(params[:invitation_id])
+        @user = User.find_by_username(invitation.recipient_username)
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
