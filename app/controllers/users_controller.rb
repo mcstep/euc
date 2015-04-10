@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
+  before_action :require_admin
 
   # GET /users
   # GET /users.json
@@ -70,6 +72,16 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email)
+      params.require(:user).permit(:username, :email, :total_invitations)
+    end
+
+    def require_login
+      redirect_to log_in_path, notice: "Please sign in" unless current_user
+    end
+
+    def require_admin
+      unless current_user && current_user.admin?
+        redirect_to dashboard_path, :alert => "Access denied."
+      end
     end
 end

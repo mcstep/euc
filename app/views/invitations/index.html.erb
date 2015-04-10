@@ -122,7 +122,7 @@
 <div class="modal fade" id="limit-account-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="limit-account-form" method="post" action="/invitations/">
+      <form id="limit-account-form" method="post" action="/users/">
         <input type="hidden" name="_method" value="PATCH">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token() %>"/>
         <input type="hidden" name="id"/>
@@ -133,7 +133,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Number of potential seats:</label>
-            <input type="number" required="required" min="0" step="1" name="potential_seats" class="form-control"/>
+            <input type="number" required="required" min="0" step="1" name="total_invitations" class="form-control"/>
           </div>
         </div>
         <div class="modal-footer">

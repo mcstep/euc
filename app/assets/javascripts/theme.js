@@ -465,6 +465,11 @@
 		});
 
 
+		/*
+		 * The PATCH request will be sent to an URL, created by joining
+		 * the original action attribute on the #limit-account-form and
+		 * the data-id attribute on the invitations entry.
+		 */
 		var limitAccountForm = $('#limit-account-form')[0];
 		var limitAccountFormBaseUrl = limitAccountForm.action;
 
@@ -473,13 +478,13 @@
 			var elements = limitAccountForm.elements;
 
 			elements['id'].value = $this.data('id');
-			elements['potential_seats'].value = $this.data('seats');
+			elements['total_invitations'].value = $this.data('seats');
 		});
 
 		$('#limit-account-form').on('submit', function (e) {
 			var elements = limitAccountForm.elements;
 			var id = elements['id'].value;
-			var seats = elements['potential_seats'].value;
+			var seats = elements['total_invitations'].value;
 
 			$.ajax({
 				type: 'PUT',
@@ -487,8 +492,8 @@
 				contentType: 'application/json',
 				dataType: 'json',
 				data: JSON.stringify({
-					invitation: {
-						potential_seats: seats,
+					user: {
+						total_invitations: seats,
 					},
 				}),
 				success: function () {
@@ -643,7 +648,20 @@
 			// sidebar menu dropdown levels
 			var $dropdown_triggers = $sidebar_menu.find("[data-toggle~='sidebar']");
 
-			$dropdown_triggers.click(function(e) {
+			$dropdown_triggers.click(function (e) {
+				// fix sidebar height depending on browser dimensions
+				function check_height() {
+					var height = $("body").height();
+					$(".main-sidebar").css("bottom", "auto");
+					var sidebar_height = $(".main-sidebar").height();
+
+					if (height > sidebar_height) {
+						$(".main-sidebar").css("bottom", 0);
+					} else {
+						$(".main-sidebar").css("bottom", "auto");
+					}
+				};
+
 				e.preventDefault();
 
 				if (!utils.isTablet()) {
@@ -684,20 +702,6 @@
 			} else {
 				$sidebar_menu.find(".menu-section .option > a:eq(0)").addClass("active");
 			}
-
-
-			// fix sidebar height depending on browser dimensions
-			var check_height = function() {
-				var height = $("body").height();
-				$(".main-sidebar").css("bottom", "auto");
-				var sidebar_height = $(".main-sidebar").height();
-
-				if (height > sidebar_height) {
-					$(".main-sidebar").css("bottom", 0);
-				} else {
-					$(".main-sidebar").css("bottom", "auto");
-				}
-			};
 
 
 			// mobile sidebar toggler

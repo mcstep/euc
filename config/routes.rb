@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :reg_codes
   resources :sessions
   resources :signup
+  resources :users
 
   resources :invitations do
     collection do
