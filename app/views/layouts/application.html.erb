@@ -8,20 +8,15 @@
 </head>
 
 <body id="<%= yield :body_id %>">
-
-       <div class="top-bar"></div>
-        <div id="wrapper">
-
-        <%= render "shared/sidebar_menu" %>
-
-
-        <div id="content" class="content">
-	  <%= render 'layouts/messages' %>
-          <%= yield %>
-        </div>
+  <div class="top-bar"></div>
+  <div id="wrapper">
+    <%= render "shared/sidebar_menu" %>
+    <div id="content" class="content">
+      <%= render 'layouts/messages' %>
+      <%= yield %>
     </div>
-
-    <%= yield :bottom_content %>
+  </div>
+  <%= yield :bottom_content %>
 </body>
 
 

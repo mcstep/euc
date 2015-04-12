@@ -14,16 +14,16 @@
 		UI.smart_selects();
 
 		// tooltips
-		$("[data-toggle='tooltip']").tooltip();
+		$('[data-toggle="tooltip"]').tooltip();
 
 		// retina display
 		if (window.devicePixelRatio >= 1.2) {
-			$("[data-2x]").each(function() {
-				if (this.tagName == "IMG") {
-					$(this).attr("src", $(this).attr("data-2x"));
+			$('[data-2x]').each(function() {
+				if (this.tagName == 'IMG') {
+					$(this).attr('src', $(this).attr('data-2x'));
 				} else {
 					$(this).css({
-						"background-image": "url(" + $(this).attr("data-2x") + ")"
+						'background-image': 'url(' + $(this).attr('data-2x') + ')'
 					});
 				}
 			});
@@ -31,48 +31,48 @@
 
 		// Focus first input when form modal is shown
 		$('#form-validation-modal').on('shown.bs.modal', function(e) {
-			$("#form-validation-modal").find("input:text:eq(0)").focus();
+			$('#form-validation-modal').find('input:text:eq(0)').focus();
 		});
 
-		$.validator.addMethod("regex", function(value, element, regexpr) {
+		$.validator.addMethod('regex', function(value, element, regexpr) {
 			return this.optional(element) || regexpr.test(value);
-		}, "Please enter a valid username");
+		}, 'Please enter a valid username');
 
 		// Form validation
 		$('#new-invitation-form').validate({
 			rules: {
-				"invitation[recipient_email]": {
+				'invitation[recipient_email]': {
 					required: true,
 					email: true,
-					remote: "/invitations/check_invitation"
+					remote: '/invitations/check_invitation'
 				},
-				"invitation[recipient_firstname]": {
+				'invitation[recipient_firstname]': {
 					required: true
 				},
-				"invitation[recipient_lastname]": {
+				'invitation[recipient_lastname]': {
 					required: true
 				},
-				"invitation[recipient_company]": {
+				'invitation[recipient_company]': {
 					required: true
 				},
-				"invitation[recipient_title]": {
+				'invitation[recipient_title]': {
 					required: true
 				},
-				"invitation[potential_seats]": {
+				'invitation[potential_seats]': {
 					required: true,
 					digits: true
 				},
-				"invitation[recipient_username]": {
+				'invitation[recipient_username]': {
 					required: false,
 					regex: /^[a-z0-9._-]+$/i
 				},
-				"invitation[airwatch_trial]": {
+				'invitation[airwatch_trial]': {
 					required: true
 				}
 			},
 			messages: {
-				"invitation[recipient_email]": {
-					remote: jQuery.format("This email is already in use")
+				'invitation[recipient_email]': {
+					remote: jQuery.format('This email is already in use')
 				}
 			},
 			highlight: function(element) {
@@ -86,41 +86,41 @@
 		// Form validation
 		$('#new_invitation').validate({
 			rules: {
-				"invitation[recipient_email]": {
+				'invitation[recipient_email]': {
 					required: true,
 					email: true,
-					remote: "/invitations/check_invitation"
+					remote: '/invitations/check_invitation'
 				},
-				"invitation[recipient_firstname]": {
+				'invitation[recipient_firstname]': {
 					required: true
 				},
-				"invitation[recipient_lastname]": {
+				'invitation[recipient_lastname]': {
 					required: true
 				},
-				"invitation[recipient_company]": {
+				'invitation[recipient_company]': {
 					required: true
 				},
-				"invitation[recipient_title]": {
+				'invitation[recipient_title]': {
 					required: true
 				},
-				"invitation[expires_at]": {
+				'invitation[expires_at]': {
 					date: true
 				},
-				"invitation[potential_seats]": {
+				'invitation[potential_seats]': {
 					required: true,
 					digits: true
 				},
-				"invitation[recipient_username]": {
+				'invitation[recipient_username]': {
 					required: false,
 					regex: /^[a-z0-9._-]+$/i
 				},
-				"invitation[airwatch_trial]": {
+				'invitation[airwatch_trial]': {
 					required: true
 				}
 			},
 			messages: {
-				"invitation[recipient_email]": {
-					remote: jQuery.format("This email is already in use")
+				'invitation[recipient_email]': {
+					remote: jQuery.format('This email is already in use')
 				}
 			},
 			highlight: function(element) {
@@ -135,27 +135,27 @@
 		// Form validation
 		$('.signup_form').validate({
 			rules: {
-				"email": {
+				'email': {
 					required: true,
 					email: true
 				},
-				"firstname": {
+				'firstname': {
 					required: true
 				},
-				"lastname": {
+				'lastname': {
 					required: true
 				},
-				"company": {
+				'company': {
 					required: true
 				},
-				"title": {
+				'title': {
 					required: true
 				},
-				"username": {
+				'username': {
 					required: false,
 					regex: /^[a-z0-9._-]+$/i
 				},
-				"airwatch_trial": {
+				'airwatch_trial': {
 					required: true
 				}
 			},
@@ -170,10 +170,10 @@
 		// Form validation
 		$('.signin_form').validate({
 			rules: {
-				"username": {
+				'username': {
 					required: true
 				},
-				"password": {
+				'password': {
 					required: true
 				}
 			},
@@ -188,10 +188,10 @@
 		// Form validation
 		$('#password-reset-form').validate({
 			rules: {
-				"username": {
+				'username': {
 					required: true
 				},
-				"email": {
+				'email': {
 					required: true,
 					email: true
 				}
@@ -207,10 +207,10 @@
 		// Support form validation
 		$('#support-form').validate({
 			rules: {
-				"subject": {
+				'subject': {
 					required: true
 				},
-				"notes": {
+				'notes': {
 					required: true
 				},
 			},
@@ -225,10 +225,10 @@
 		// Extend account form validation
 		$('#extend-account-form').validate({
 			rules: {
-				"reason": {
+				'reason': {
 					required: true
 				},
-				"expiresAt": {
+				'expiresAt': {
 					required: true
 				},
 			},
@@ -243,7 +243,7 @@
 		// Limit potential seats form validation
 		$('#limit-account-form').validate({
 			rules: {
-				"reason": {
+				'reason': {
 					required: true,
 					number: true,
 					min: 0,
@@ -261,21 +261,21 @@
 		// Form validation
 		$('#password-change-form').validate({
 			rules: {
-				"current_password": {
+				'current_password': {
 					required: true,
-					remote: "/password_change/check_password"
+					remote: '/password_change/check_password'
 				},
-				"new_password": {
+				'new_password': {
 					required: true
 				},
-				"new_password_confirm": {
+				'new_password_confirm': {
 					required: true,
-					equalTo: "#new_password"
+					equalTo: '#new_password'
 				}
 			},
 			messages: {
-				"current_password": {
-					remote: jQuery.format("Incorrect password")
+				'current_password': {
+					remote: jQuery.format('Incorrect password')
 				}
 			},
 			highlight: function(element) {
@@ -299,18 +299,18 @@
 			container: $(this).attr('id'),
 			placement: 'top',
 			title: 'Note',
-			content: "<p style=\"color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 5px 0 10px; padding: 0;\" align=\"left\"> Before provisioning any accounts, please familiarize yourself with the following troubleshooting information:<br/><ul><li><a href=\"http://pubs.vmware.com/view-52/index.jsp#com.vmware.view.administration.doc/GUID-6B20BD72-2BC3-41A0-A356-F85258EA5A08.html\" target=\"_blank\">Troubleshooting View Components</a></li><li><a href=\"http://pubs.vmware.com/view-52/topic/com.vmware.view.administration.doc/GUID-D2A0D9E0-696D-4962-837C-2EC203F5F79B.html\" target=\"_blank\">Troubleshooting Network Connection Problems</a></li><li><a href=\"http://pubs.vmware.com/view-52/topic/com.vmware.view.administration.doc/GUID-D6ABDC1E-1208-44AA-9048-4E7B9E995FCA.html\" target=\"_blank\">Further Troubleshooting Information</a></li></ul></p>"
-		}).on("mouseenter", function() {
+			content: '<p style="color: #222222; font-family: \'Helvetica Neue\', Arial, sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 5px 0 10px; padding: 0;" align="left"> Before provisioning any accounts, please familiarize yourself with the following troubleshooting information:<br/><ul><li><a href="http://pubs.vmware.com/view-52/index.jsp#com.vmware.view.administration.doc/GUID-6B20BD72-2BC3-41A0-A356-F85258EA5A08.html" target="_blank">Troubleshooting View Components</a></li><li><a href="http://pubs.vmware.com/view-52/topic/com.vmware.view.administration.doc/GUID-D2A0D9E0-696D-4962-837C-2EC203F5F79B.html" target="_blank">Troubleshooting Network Connection Problems</a></li><li><a href="http://pubs.vmware.com/view-52/topic/com.vmware.view.administration.doc/GUID-D6ABDC1E-1208-44AA-9048-4E7B9E995FCA.html" target="_blank">Further Troubleshooting Information</a></li></ul></p>'
+		}).on('mouseenter', function() {
 			var _this = this;
-			$(this).popover("show");
-			$(this).siblings(".popover").on("mouseleave", function() {
+			$(this).popover('show');
+			$(this).siblings('.popover').on('mouseleave', function() {
 				$(_this).popover('hide');
 			});
-		}).on("mouseleave", function() {
+		}).on('mouseleave', function() {
 			var _this = this;
 			setTimeout(function() {
-				if (!$(".popover:hover").length) {
-					$(_this).popover("hide")
+				if (!$('.popover:hover').length) {
+					$(_this).popover('hide')
 				}
 			}, 100);
 		});
@@ -350,7 +350,7 @@
 			autoclose: true,
 			orientation: 'right top',
 			startDate: new Date(),
-			endDate: "+3y"
+			endDate: '+3y'
 		});
 
 
@@ -430,12 +430,12 @@
 			}]
 		});
 
-		$(".start-tour").click(function(e) {
+		$('.start-tour').click(function(e) {
 			e.preventDefault();
 			tour.start();
-			$("html, body").animate({
+			$('html, body').animate({
 				scrollTop: $(document).height()
-			}, "slow");
+			}, 'slow');
 		});
 
 
@@ -444,26 +444,41 @@
 		});
 
 
-		$(".extend-account-link").click(function() {
-			var arr = $(this).data('id').split(';');
-			$("#invitationId").val(arr[0]);
-			$("#invitationUser").val(arr[1]);
-			var expiresAt = new Date(arr[2]);
-			expiresAt.setMonth(expiresAt.getMonth() + 1);
-			$("#expiresAt").val(expiresAt.toDateString());
-			$("#expiresAt").datepicker("setDate", expiresAt);
+		/**
+		 * Returns the data-* attached to the <tr> within the table of invitations.
+		 *
+		 * @param $elem This must be an element (jQuery/native) within the <tr>
+		 */
+		function getInvitationData(elem) {
+			elem = $(elem).closest('tr');
 
+			return {
+				id       : parseInt(elem.data('id')),
+				firstname: elem.data('firstname'),
+				lastname : elem.data('lastname'),
+				expiresAt: new Date(elem.data('expires-at')),
+			};
+		}
+
+		$('.extend-account-link').on('click', function() {
+			var data = getInvitationData(this);
+
+			data.expiresAt.addMonths(1);
+
+			$('#invitationId').val(data.id);
+			$('#invitationUser').val(data.firstname + ' ' + data.lastname);
+			$('#expiresAt').datepicker('setDate', data.expiresAt);
 		});
 
-		$(".extend-account-link-ro").click(function() {
-			var arr = $(this).data('id').split(';');
-			$("#invitationId").val(arr[0]);
-			$("#invitationUser").val(arr[1]);
-			var expiresAt = new Date(arr[2]);
-			expiresAt.setMonth(expiresAt.getMonth() + 1);
-			$("#expiresAtRo").val(expiresAt.toDateString());
-		});
+		$('.extend-account-link-ro').on('click', function() {
+			var data = getInvitationData(this);
 
+			data.expiresAt.addMonths(1);
+
+			$('#invitationId').val(data.id);
+			$('#invitationUser').val(data.firstname + ' ' + data.lastname);
+			$('#expiresAtRo').val(data.expiresAt.toLocaleDateString());
+		});
 
 		/*
 		 * The PATCH request will be sent to an URL, created by joining
@@ -471,39 +486,43 @@
 		 * the data-id attribute on the invitations entry.
 		 */
 		var limitAccountForm = $('#limit-account-form')[0];
-		var limitAccountFormBaseUrl = limitAccountForm.action;
 
-		$(".limit-account-link").click(function() {
-			var $this = $(this);
-			var elements = limitAccountForm.elements;
+		if (limitAccountForm) {
+			$('.limit-account-link').on('click', function() {
+				var $this = $(this);
+				var data = getInvitationData($this);
 
-			elements['id'].value = $this.data('id');
-			elements['total_invitations'].value = $this.data('seats');
-		});
-
-		$('#limit-account-form').on('submit', function (e) {
-			var elements = limitAccountForm.elements;
-			var id = elements['id'].value;
-			var seats = elements['total_invitations'].value;
-
-			$.ajax({
-				type: 'PUT',
-				url: limitAccountFormBaseUrl + id,
-				contentType: 'application/json',
-				dataType: 'json',
-				data: JSON.stringify({
-					user: {
-						total_invitations: seats,
-					},
-				}),
-				success: function () {
-					$('.limit-account-link[data-id=' + id + ']').data('seats', seats);
-					$('#limit-account-modal').modal('hide');
-				},
+				$.getJSON('/invitations/' + data.id + '/user', function (data) {
+					var elements = limitAccountForm.elements;
+					elements['id'].value = data.id;
+					elements['total_invitations'].value = data.total_invitations;
+					$('#limit-account-modal').modal('show');
+				});
 			});
 
-			return false;
-		});
+			$('#limit-account-form').on('submit', function (e) {
+				var elements = limitAccountForm.elements;
+				var id = elements['id'].value;
+				var total_invitations = elements['total_invitations'].value;
+
+				$.ajax({
+					type: 'PUT',
+					url: '/users/' + id,
+					contentType: 'application/json',
+					dataType: 'json',
+					data: JSON.stringify({
+						user: {
+							total_invitations: total_invitations,
+						},
+					}),
+					success: function () {
+						$('#limit-account-modal').modal('hide');
+					},
+				});
+
+				return false;
+			});
+		}
 
 
 		// Range Datepicker
@@ -512,7 +531,7 @@
 			autoclose: true,
 			orientation: 'right top',
 			startDate: new Date(),
-			endDate: "+3y"
+			endDate: '+3y'
 		});
 
 	};
@@ -522,23 +541,23 @@
 		keyboard: true
 	});
 
-	$(".start-tour").click();
+	$('.start-tour').click();
 
-	$(document).on("ready page:load", ready);
+	$(document).on('ready page:load', ready);
 
-	$(document).on("page:change", function() {
+	$(document).on('page:change', function() {
 		window.prevPageYOffset = window.pageYOffset;
 		window.prevPageXOffset = window.pageXOffset;
 	});
 
-	$(document).on("page:load", function() {
+	$(document).on('page:load', function() {
 		// force re-render -- having an issue with that on Chrome/OSX
 		$('.fix-scroll').hide().show();
 		//window.scrollTo(window.prevPageXOffset, window.prevPageYOffset);
 	});
 
 	$(window).load(function() {
-		if (document.URL.indexOf("forgotpassword") > -1) {
+		if (document.URL.indexOf('forgotpassword') > -1) {
 			$('#password-reset-modal').modal('show');
 		}
 	});
@@ -546,33 +565,33 @@
 
 	var UI = {
 		smart_selects: function() {
-			var $selects = $("[data-smart-select]");
+			var $selects = $('[data-smart-select]');
 			$.each($selects, function(index, el) {
 				var $select = $(el);
 
 				// It has been already initialized
-				if ($select.parent().hasClass("fake-select-wrap")) {
-					$select.siblings(".fake-select").html($select.find("option:selected").text());
+				if ($select.parent().hasClass('fake-select-wrap')) {
+					$select.siblings('.fake-select').html($select.find('option:selected').text());
 					return;
 				}
 
-				var $wrapper = $("<div class='fake-select-wrap' />");
-				var $fake_select = $("<div class='fake-select'></div>");
+				var $wrapper = $('<div class="fake-select-wrap"/>');
+				var $fake_select = $('<div class="fake-select"></div>');
 				$select.wrap($wrapper);
 				$select.after($fake_select);
 
 				// set selected value as default
-				$fake_select.html($select.find("option:selected").text());
+				$fake_select.html($select.find('option:selected').text());
 
 				// change handler
 				$select.change(function() {
-					$fake_select.html($(this).find("option:selected").text());
+					$fake_select.html($(this).find('option:selected').text());
 				});
 
 				$select.focus(function() {
-					$fake_select.addClass("focus");
+					$fake_select.addClass('focus');
 				}).focusout(function() {
-					$fake_select.removeClass("focus");
+					$fake_select.removeClass('focus');
 				});
 			});
 		}
@@ -580,40 +599,40 @@
 
 	var Skins = {
 		initialize: function() {
-			var $toggler = $(".skin-switcher .toggler"),
-				$menu = $(".skin-switcher .menu"),
-				$sidebar = $(".main-sidebar");
+			var $toggler = $('.skin-switcher .toggler'),
+				$menu = $('.skin-switcher .menu'),
+				$sidebar = $('.main-sidebar');
 
 			if (!$toggler.length) {
 				return;
 			}
 
 			if ($.cookie('current_skin')) {
-				$sidebar.attr("id", $.cookie('current_skin'));
+				$sidebar.attr('id', $.cookie('current_skin'));
 
-				$menu.find("a").removeClass("active");
-				$menu.find("a[data-skin=" + $.cookie('current_skin') + "]").addClass("active");
+				$menu.find('a').removeClass('active');
+				$menu.find('a[data-skin=' + $.cookie('current_skin') + ']').addClass('active');
 			}
 
 			$toggler.click(function(e) {
 				e.stopPropagation();
-				$menu.toggleClass("active");
+				$menu.toggleClass('active');
 			});
 
-			$("body").click(function() {
-				$menu.removeClass("active");
+			$('body').click(function() {
+				$menu.removeClass('active');
 			});
 
 			$menu.click(function(e) {
 				e.stopPropagation();
 			});
 
-			$menu.find("a").click(function(e) {
+			$menu.find('a').click(function(e) {
 				e.preventDefault();
-				var skin_id = $(this).data("skin");
-				$menu.find("a").removeClass("active");
-				$(this).addClass("active");
-				$sidebar.attr("id", skin_id);
+				var skin_id = $(this).data('skin');
+				$menu.find('a').removeClass('active');
+				$(this).addClass('active');
+				$sidebar.attr('id', skin_id);
 
 				$.removeCookie('current_skin', {
 					path: '/'
@@ -627,38 +646,38 @@
 
 	var Sidebar = {
 		initialize: function() {
-			var $sidebar_menu = $(".main-sidebar");
+			var $sidebar_menu = $('.main-sidebar');
 
 			// my account dropdown menu
-			var $account_menu = $sidebar_menu.find(".current-user .menu");
-			$(".current-user .name").click(function(e) {
+			var $account_menu = $sidebar_menu.find('.current-user .menu');
+			$('.current-user .name').click(function(e) {
 				e.preventDefault();
 				e.stopPropagation();
-				$account_menu.toggleClass("active");
+				$account_menu.toggleClass('active');
 			});
 
 			$account_menu.click(function(e) {
 				e.stopPropagation()
 			});
-			$("body").click(function() {
-				$account_menu.removeClass("active")
+			$('body').click(function() {
+				$account_menu.removeClass('active')
 			});
 
 
 			// sidebar menu dropdown levels
-			var $dropdown_triggers = $sidebar_menu.find("[data-toggle~='sidebar']");
+			var $dropdown_triggers = $sidebar_menu.find('[data-toggle~="sidebar"]');
 
 			$dropdown_triggers.click(function (e) {
 				// fix sidebar height depending on browser dimensions
 				function check_height() {
-					var height = $("body").height();
-					$(".main-sidebar").css("bottom", "auto");
-					var sidebar_height = $(".main-sidebar").height();
+					var height = $('body').height();
+					$('.main-sidebar').css('bottom', 'auto');
+					var sidebar_height = $('.main-sidebar').height();
 
 					if (height > sidebar_height) {
-						$(".main-sidebar").css("bottom", 0);
+						$('.main-sidebar').css('bottom', 0);
 					} else {
-						$(".main-sidebar").css("bottom", "auto");
+						$('.main-sidebar').css('bottom', 'auto');
 					}
 				};
 
@@ -666,16 +685,16 @@
 
 				if (!utils.isTablet()) {
 					// reset other dropdown menus
-					if (!$(this).closest(".submenu").length) {
-						$dropdown_triggers.not(this).removeClass("toggled").siblings(".submenu").slideUp(300, check_height);
+					if (!$(this).closest('.submenu').length) {
+						$dropdown_triggers.not(this).removeClass('toggled').siblings('.submenu').slideUp(300, check_height);
 					}
 
 					var $trigger = $(this);
-					var $dropdown = $(this).siblings(".submenu");
+					var $dropdown = $(this).siblings('.submenu');
 
-					$trigger.toggleClass("toggled");
+					$trigger.toggleClass('toggled');
 
-					if ($trigger.hasClass("toggled")) {
+					if ($trigger.hasClass('toggled')) {
 						$dropdown.slideDown(300, check_height);
 					} else {
 						$dropdown.slideUp(300, check_height);
@@ -687,32 +706,32 @@
 			// setup active dropdown menu option
 			var path_name = window.location.pathname;
 			// reset all links states
-			$sidebar_menu.find(".menu-section a").removeClass("active");
+			$sidebar_menu.find('.menu-section a').removeClass('active');
 
-			var $active_link = $sidebar_menu.find("a[href='" + path_name + "']");
+			var $active_link = $sidebar_menu.find('a[href="' + path_name + '"]');
 			if ($active_link.length) {
-				$active_link.addClass("active");
+				$active_link.addClass('active');
 
 				// it's a link from a submenu
-				if ($active_link.parents(".submenu").length) {
-					var $parent = $active_link.closest(".option").find("[data-toggle~='sidebar']");
-					$parent.addClass("active toggled");
-					$active_link.parents(".submenu").addClass("active");
+				if ($active_link.parents('.submenu').length) {
+					var $parent = $active_link.closest('.option').find('[data-toggle~="sidebar"]');
+					$parent.addClass('active toggled');
+					$active_link.parents('.submenu').addClass('active');
 				}
 			} else {
-				$sidebar_menu.find(".menu-section .option > a:eq(0)").addClass("active");
+				$sidebar_menu.find('.menu-section .option > a:eq(0)').addClass('active');
 			}
 
 
 			// mobile sidebar toggler
-			var $mobile_toggler = $("#content .sidebar-toggler");
+			var $mobile_toggler = $('#content .sidebar-toggler');
 			$mobile_toggler.click(function(e) {
 				e.stopPropagation();
-				$("body").toggleClass("open-sidebar");
+				$('body').toggleClass('open-sidebar');
 			});
 
-			$("#content").click(function() {
-				$("body").removeClass("open-sidebar");
+			$('#content').click(function() {
+				$('body').removeClass('open-sidebar');
 			})
 		}
 	};
@@ -720,12 +739,26 @@
 	Number.prototype.formatMoney = function(c, d, t) {
 		var n = this;
 		var c = isNaN(c = Math.abs(c)) ? 2 : c;
-		var d = d == undefined ? "." : d;
-		var t = t == undefined ? "," : t;
-		var s = n < 0 ? "-" : "";
-		var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "";
+		var d = d == undefined ? '.' : d;
+		var t = t == undefined ? ',' : t;
+		var s = n < 0 ? '-' : '';
+		var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + '';
 		var j = (j = i.length) > 3 ? j % 3 : 0;
-		return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+		return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+	};
+
+	/*
+	 * as per http://stackoverflow.com/a/12793246
+	 */
+	Date.prototype.addMonths = function (num) {
+		var self = this;
+		var currentMonth = self.getMonth();
+
+		self.setMonth(self.getMonth() + num)
+
+		if (self.getMonth() != ((currentMonth + num) % 12)){
+			self.setDate(0);
+		}
 	};
 
 	window.utils = {
@@ -733,10 +766,10 @@
 			return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 		},
 		animation_ends: function() {
-			return "animationend webkitAnimationEnd oAnimationEnd";
+			return 'animationend webkitAnimationEnd oAnimationEnd';
 		},
 		isTablet: function() {
-			return ($(".main-sidebar").width() < 100);
+			return $('.main-sidebar').width() < 100;
 		},
 		get_timestamp: function(less_days) {
 			return moment().subtract('days', less_days).toDate().getTime();
