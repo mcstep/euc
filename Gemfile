@@ -2,17 +2,19 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.0'
 
-gem "paranoia", "~> 2.0"
+
 gem 'bazaar'
 gem 'bootstrap-datepicker-rails'
+gem 'carrierwave'
 gem 'cloudinary'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'figaro', :github=>"laserlemon/figaro"
+gem 'figaro', :github=>'laserlemon/figaro'
 gem 'google-api-client'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'newrelic_rpm'
+gem 'paranoia', '~> 2.0'
 gem 'passenger'
 gem 'pundit'
 gem 'rest-client'
@@ -32,7 +34,7 @@ group :doc do
 end
 
 group :development, :test do
-  gem "sqlite3"
+  gem 'sqlite3'
   gem 'pry-rails'
   gem 'pry-rescue'
 end
@@ -46,7 +48,7 @@ group :development do
 end
 
 group :production, :staging do
-  gem "pg"
+  gem 'pg'
 end
 
 group :production do

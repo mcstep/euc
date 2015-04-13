@@ -5,41 +5,51 @@
 <% region_hash['DLDC'] = 'Dallas' %>
 
 <div class="container container-left container-top">
-    <div class="row">
-        <div class="col-md-6 col-lg-6">
-        <section>
-          <div class="well profile user-profile">
-            <div class="col-sm-12">
-                <div class="col-xs-12 col-sm-8">
-                    <h2><%= current_user.display_name %></h2>
-                    <p><strong>Username: </strong> <%= current_user.username %>@<%= ENV['DOMAIN'] %></p>
-                    <p><strong>Email: </strong> <%= current_user.email %> </p>
-		    <p><strong>Title: </strong> <%= current_user.title %> </p>	
-		    <p><strong>Company: </strong> <%= current_user.company %> </p>	
-	            <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
-	            <% if !@current_user_invited.blank? %>
-                      <p><strong>Region: </strong> <%= region_hash[@current_user_invited.region] %></p>
-	            <% end %>
-	            <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? && @current_user_invited.sender.email != 'admin@vmwdemo.com'%>
-                      <p><strong>Invited by: </strong> <%= @current_user_invited.sender.display_name %><a href="#" data-toggle="modal" data-target="#support-modal"> (Contact)</a></p>
-	            <% end %>
-		    <% if current_user.role == 'vip' %>
-		      <p><strong>Role: </strong> Super User </p>	
-		    <% end %>
-            <% if !@current_user_invited.blank? and !@current_user_invited.airwatch_user_id.nil? and @current_user_invited.airwatch_trial? %>
-              <p><strong>AirWatch Trial: </strong> Active </p>    
-            <% elsif !@current_user_invited.blank? and !@current_user_invited.airwatch_user_id.nil? and !@current_user_invited.airwatch_trial? %>
-              <p><strong>AirWatch Trial: </strong> Inactive </p>                
+  <div class="row">
+    <div class="col-md-6 col-lg-6">
+    <section>
+      <div class="well profile user-profile">
+        <div class="col-sm-12">
+          <div class="col-xs-12 col-sm-8">
+            <h2><%= current_user.display_name %></h2>
+            <p><strong>Username: </strong> <%= current_user.username %>@<%= ENV['DOMAIN'] %></p>
+            <p><strong>Email: </strong> <%= current_user.email %> </p>
+            <p><strong>Title: </strong> <%= current_user.title %> </p>
+            <p><strong>Company: </strong> <%= current_user.company %> </p>
+
+            <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
+
+            <% if !@current_user_invited.blank? %>
+              <p><strong>Region: </strong> <%= region_hash[@current_user_invited.region] %></p>
             <% end %>
-                </div>             
-                <div class="col-xs-12 col-sm-4 text-center top-margin">
-                    <figure>
-                        <img src="<%= asset_path('default-user-icon-profile.png') %>" alt="" class="img-circle img-responsive">
-                    </figure>
-                </div>
-            </div>
+
+            <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? && @current_user_invited.sender.email != 'admin@vmwdemo.com' %>
+              <p><strong>Invited by: </strong> <%= @current_user_invited.sender.display_name %><a href="#" data-toggle="modal" data-target="#support-modal"> (Contact)</a></p>
+            <% end %>
+
+            <% if current_user.role == 'vip' %>
+              <p><strong>Role: </strong> Super User </p>
+            <% end %>
+
+            <% if !@current_user_invited.blank? and !@current_user_invited.airwatch_user_id.nil? and @current_user_invited.airwatch_trial? %>
+              <p><strong>AirWatch Trial: </strong> Active </p>
+            <% elsif !@current_user_invited.blank? and !@current_user_invited.airwatch_user_id.nil? and !@current_user_invited.airwatch_trial? %>
+              <p><strong>AirWatch Trial: </strong> Inactive </p>
+            <% end %>
+
+            <%= form_for(current_user, method: :patch) do |f| %>
+              <%= f.file_field :avatar %>
+              <%= f.submit %>
+            <% end %>
           </div>
-        </section>
+          <div class="col-xs-12 col-sm-4 text-center top-margin">
+            <figure>
+              <img src="<%= current_user.avatar.blank? ? asset_path('default-user-icon-profile.png') : cloudinary_url(current_user.avatar, :width => 200, :height => 200, :crop => :thumb) %>" alt="Profile Image" class="img-circle img-responsive">
+            </figure>
+          </div>
         </div>
+      </div>
+    </section>
     </div>
+  </div>
 </div>

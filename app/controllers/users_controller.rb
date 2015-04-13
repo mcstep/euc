@@ -3,6 +3,11 @@ class UsersController < ApplicationController
   before_action :require_login
   before_action :require_admin
 
+  #
+  # All GET endpoints are also reachable under
+  # /invitations/1/user(/...)
+  #
+
   # GET /users
   # GET /users.json
   def index
@@ -12,8 +17,6 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  # GET /invitations/1/user
-  # GET /invitations/1/user.json
   def show
   end
 
@@ -23,7 +26,6 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  # GET /invitations/1/user/edit
   def edit
   end
 
@@ -80,7 +82,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :total_invitations)
+      params.require(:user).permit(:username, :email, :total_invitations, :avatar)
     end
 
     def require_login

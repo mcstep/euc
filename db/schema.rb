@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302173850) do
+ActiveRecord::Schema.define(version: 20150412145552) do
 
   create_table "accounts", force: true do |t|
     t.string   "first_name"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20150302173850) do
     t.string   "title"
     t.integer  "invitations_used",  default: 0
     t.integer  "total_invitations", default: 5
+    t.string   "avatar"
   end
 
 end
