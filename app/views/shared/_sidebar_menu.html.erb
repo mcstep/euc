@@ -1,9 +1,9 @@
 <div id="sidebar-clear" class="main-sidebar fix-scroll">
   <div class="current-user">
    <% if current_user %>
-      <br/>	
+      <br/>
       <a href="#" class="name">
-        <%= image_tag "default-user-icon-profile.png", class: "avatar" %>
+        <img class="avatar" src="<%= current_user.avatar_url %>" alt="Profile Image">
         <span>
           <%= current_user.display_name.split(" ")[0] %>
           <i class="fa fa-chevron-down"></i>
@@ -27,7 +27,7 @@
 
       <li class="option">
         <a href="<%= dashboard_path %>" class="active">
-          <i class="ion-android-earth"></i> 
+          <i class="ion-android-earth"></i>
           <span>Dashboard</span>
         </a>
       </li>
@@ -49,7 +49,7 @@
       <% else %>
         <li class="option">
           <a href="<%= log_in_path %>" class="active">
-            <i class="ion-person"></i> 
+            <i class="ion-person"></i>
             <span>Sign in</span>
           </a>
         </li>
@@ -78,21 +78,21 @@
 
       <li class="option">
         <a href="<%= domains_path %>" class="active">
-          <i class="ion-at"></i> 
+          <i class="ion-at"></i>
           <span>Domains</span>
         </a>
       </li>
 
       <li class="option">
         <a href="<%= reports_seats_stats_path %>" class="active">
-          <i class="ion-stats-bars"></i> 
+          <i class="ion-stats-bars"></i>
           <span>Reports</span>
         </a>
       </li>
 
       <li class="option">
         <a href="<%= reg_codes_path %>" class="active">
-          <i class="ion-filing"></i> 
+          <i class="ion-filing"></i>
           <span>Reg Codes</span>
         </a>
       </li>

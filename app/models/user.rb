@@ -32,6 +32,14 @@ class User < ActiveRecord::Base
     "#{Rails.root}/tmp/uploads"
   end
 
+  def avatar_url
+    if self.avatar.blank?
+      ActionController::Base.helpers.asset_path('default-user-icon-profile.png')
+    else
+      Cloudinary::Utils.cloudinary_url(self.avatar, :width => 200, :height => 200, :crop => :thumb)
+    end
+  end
+
 private
   def set_invitation_limit
     self.invitation_limit = 5
