@@ -99,6 +99,7 @@ class InvitationsController < ApplicationController
     begin
       response = RestClient.post(url="#{ENV['API_HOST']}/unregister",payload={:username => @invitation.recipient_username}, headers= {:token => ENV["API_KEY"]})
       puts "Got response #{response} for account deletion"
+
       if response.code == 200
         @invitation.destroy
         @user_rec_for_invite = User.find_by_email(@invitation.recipient_email)
@@ -121,6 +122,7 @@ class InvitationsController < ApplicationController
 
     #Update the invitation limit
     @user = @invitation.sender
+
     if !@user.nil?
      @user.invitation_limit += 1
      #new invitation limit model
@@ -134,16 +136,21 @@ class InvitationsController < ApplicationController
     end
   end
 
+  # WARNING: All updates here should be reflected in the extend_super_user task.
   def extend
     #Extend the AD account
     account_extended = false
+
     @invitation = Invitation.find_by_id(params[:invitationId])
+
     original_expires_at = @invitation.expires_at
     #@invitation.expires_at = (@invitation.expires_at + 1.month)
     @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A %B %d %Y')
+
     begin
       response = RestClient.post(url="#{ENV['API_HOST']}/extendAccount",payload={:username => @invitation.recipient_username,  :expires_at => ((@invitation.expires_at.to_i)*1000)}, headers= {:token => ENV["API_KEY"]})
       puts "Got response #{response} for account extension"
+
       if response.code == 200
         @invitation.save
       end
