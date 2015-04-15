@@ -740,6 +740,51 @@
 		}
 	};
 
+	$.rails.allowAction = function(element) {
+		var message = element.data('confirm');
+
+		if (!message) {
+			return true;
+		}
+
+		var $link = element
+			.clone()
+			.removeAttr('class data-confirm')
+			.addClass('btn btn-danger')
+			.html('Continue');
+
+		var $modal_html = $(
+			  '<div class="modal fade" tabindex="-1" role="dialog">'
+			+     '<div class="modal-dialog">'
+			+         '<div class="modal-content">'
+			+             '<form method="post" action="#" role="form">'
+			+                 '<div class="modal-header">'
+			+                     '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
+			+                     '<h4 class="modal-title" id="myModalLabel">Are you sure?</h4>'
+			+                 '</div>'
+			+                 '<div class="modal-body">'
+			+                     message
+			+                 '</div>'
+			+                 '<div class="modal-footer">'
+			+                     '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+			+                 '</div>'
+			+             '</form>'
+			+         '</div>'
+			+     '</div>'
+			+ '</div>'
+		);
+
+		$modal_html.find('.modal-footer').append($link);
+
+		$modal_html
+			.modal()
+			.on('hidden.bs.modal', function () {
+				$modal_html.remove();
+			});
+
+		return false;
+	};
+
 	Number.prototype.formatMoney = function(c, d, t) {
 		var n = this;
 		var c = isNaN(c = Math.abs(c)) ? 2 : c;
