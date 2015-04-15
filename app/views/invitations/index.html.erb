@@ -19,6 +19,7 @@
 
 <div> There are a total of <%= Invitation.all.count %> active users</div>
 <br/>
+
 <%= paginate @invitations %>
 <table class="table table-striped table-bordered table-condense">
   <thead>
@@ -37,39 +38,46 @@
   </thead>
   <tbody>
     <% @invitations.each do |invitation| %>
-    <tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>">
-      <td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
-      <td><%= invitation.recipient_email %></td>
-      <td><%= invitation.recipient_username %></td>
-      <td><%= invitation.recipient_title %></td>
-      <td><%= invitation.recipient_company %></td>
-      <td><%= invitation.region %></td>
-      <td>
-        <%= (invitation.expires_at).to_date.to_formatted_s(:long) %>
-        <a class="extend-account-link popoverExtendAccount" href="#" data-toggle="modal" data-target="#extend-account-modal" rel="popover" data-trigger="hover" data-placement="bottom"><span> (Extend)</span></a>
-      </td>
-      <td>
-        <% if invitation.sender.blank? %>
-          <strong>N/A</strong>
-        <% else %>
-          <%= invitation.sender.display_name unless invitation.sender.blank? %>
-        <% end %>
-      </td>
-      <td class="text-center">
-        <div class="btn-group btn-toggle">
-          <% if invitation.airwatch_trial == true %>
-            <%= link_to "ON", toggle_airwatch_path(id: invitation.id),  class: "btn btn-sm btn-default btn-success active btn-active" %>
-            <%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: "btn btn-sm btn-default btn-inactive" %>
+      <% is_vip_invitation = invitation.role == User.roles["vip"] %>
+      <tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>">
+        <td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
+        <td><%= invitation.recipient_email %></td>
+        <td><%= invitation.recipient_username %></td>
+        <td><%= invitation.recipient_title %></td>
+        <td><%= invitation.recipient_company %></td>
+        <td><%= invitation.region %></td>
+        <td>
+          <%= (invitation.expires_at).to_date.to_formatted_s(:long) %>
+          <a class="extend-account-link popoverExtendAccount" href="#" data-toggle="modal" data-target="#extend-account-modal"><span> (Extend)</span></a>
+        </td>
+        <td>
+          <% if invitation.sender.blank? %>
+            <strong>N/A</strong>
           <% else %>
-            <%= link_to "ON", toggle_airwatch_path(id: invitation.id), class: "btn btn-sm btn-default btn-active" %>
-            <%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: "btn btn-sm btn-default btn-danger active btn-inactive" %>
+            <%= invitation.sender.display_name unless invitation.sender.blank? %>
           <% end %>
-        </div>
-      </td>
-      <td><%= link_to 'Delete', invitation, method: :delete, data: { confirm: 'Do you want to delete this account? The users account will permanently be deleted.' } %></td>
-      <td><%= link_to 'Impersonate', impersonate_user_path(invitation.id), method: :post, data: { confirm: 'Do you want to impersonate this user?' } %></td>
-      <td><a class="limit-account-link" href="#"><span> Edit Invitation Limit</span></a></td>
-    </tr>
+        </td>
+        <td class="text-center">
+          <div class="btn-group btn-toggle">
+            <% if invitation.airwatch_trial == true %>
+              <%= link_to "ON", toggle_airwatch_path(id: invitation.id),  class: "btn btn-default btn-sm btn-success active btn-active" %>
+              <%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: "btn btn-default btn-sm btn-inactive" %>
+            <% else %>
+              <%= link_to "ON", toggle_airwatch_path(id: invitation.id), class: "btn btn-default btn-sm btn-active" %>
+              <%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: "btn btn-default btn-sm btn-danger active btn-inactive" %>
+            <% end %>
+          </div>
+        </td>
+        <td>
+          <%= link_to 'Delete', invitation, class: "btn btn-default btn-sm", method: :delete, data: { confirm: 'Do you want to delete this account? The users account will permanently be deleted.' } %>
+        </td>
+        <td <%= 'colspan="2"' unless is_vip_invitation %>>
+          <%= link_to 'Impersonate', impersonate_user_path(invitation.id), class: "btn btn-default btn-sm", method: :post, data: { confirm: 'Do you want to impersonate this user?' } %>
+        </td>
+        <% if is_vip_invitation %>
+          <td><a href="#" class="btn btn-default btn-sm limit-account-link"><span> Edit Invitation Limit</span></a></td>
+        <% end %>
+      </tr>
     <% end %>
   </tbody>
 </table>

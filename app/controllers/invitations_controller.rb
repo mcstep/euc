@@ -1,6 +1,7 @@
 class InvitationsController < ApplicationController
   before_action :set_invitation, only: [:show, :edit, :update, :destroy]
   before_action :require_login
+  before_action :require_admin
 
   def check_invitation
     @invitation = Invitation.find_by_recipient_email(params[:invitation][:recipient_email].downcase)
@@ -12,14 +13,13 @@ class InvitationsController < ApplicationController
   # GET /invitations
   # GET /invitations.json
   def index
-    #@invitations = Invitation.all
-    @invitations = Invitation.order(:recipient_firstname).page params[:page]
+    @invitations = Invitation
+      .select("invitations.*, users.role")
+      .joins('LEFT OUTER JOIN users ON users.username = invitations.recipient_username')
+      .order(:recipient_firstname)
+      .page params[:page]
 
     @invitations = @invitations.search(params[:search]) if params[:search].present?
-
-    unless current_user.admin?
-      redirect_to dashboard_path, :alert => "Access denied."
-    end
   end
 
   # GET /invitations/1

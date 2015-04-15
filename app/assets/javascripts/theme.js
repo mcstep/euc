@@ -330,6 +330,8 @@
 
 		$('.popoverExtendAccount').popover({
 			container: 'body',
+			trigger: 'hover',
+			placement: 'right',
 			content: 'Extend this user\'s account by a month. (Note: This would be a one-time extension)'
 		});
 
@@ -493,10 +495,12 @@
 				var data = getInvitationData($this);
 
 				$.getJSON('/invitations/' + data.id + '/user', function (data) {
-					var elements = limitAccountForm.elements;
-					elements['id'].value = data.id;
-					elements['total_invitations'].value = data.total_invitations;
-					$('#limit-account-modal').modal('show');
+					if (data.role === 'vip') {
+						var elements = limitAccountForm.elements;
+						elements['id'].value = data.id;
+						elements['total_invitations'].value = data.total_invitations;
+						$('#limit-account-modal').modal('show');
+					}
 				});
 			});
 
