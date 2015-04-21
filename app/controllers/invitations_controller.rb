@@ -15,7 +15,7 @@ class InvitationsController < ApplicationController
   def index
     @invitations = Invitation
       .select("invitations.*, users.role")
-      .joins('LEFT OUTER JOIN users ON users.username = invitations.recipient_username')
+      .joins('LEFT OUTER JOIN users ON users.invitation_id = invitations.id')
       .order(:recipient_firstname)
       .page params[:page]
 
@@ -186,7 +186,7 @@ class InvitationsController < ApplicationController
       session[:impersonator_id] = current_user.id
 
       @invitation = Invitation.find_by_id(params[:format])
-      @usr = User.find_by_username(@invitation.recipient_username)
+      @usr = User.find_by_invitation_id(@invitation.id)
       @current_user = @usr
       session[:user_id] = @current_user.id
     rescue Exception => e

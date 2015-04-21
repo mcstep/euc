@@ -27,8 +27,8 @@ class PasswordChangeController < ApplicationController
      redirect_to dashboard_path, alert: "Unable to change user password at this time. Please try again later"
      return
    end
-    
-    @invitation = Invitation.find_by_recipient_username(current_user.username)
+
+    @invitation = Invitation.find(current_user.invitation_id)
     if !@invitation.nil? && !@invitation.recipient_username.nil? && (@invitation.recipient_email == current_user.email)
       puts "Password change requested for Username #{current_user.username}"
       begin

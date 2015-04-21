@@ -8,7 +8,7 @@ class GoogleProvisionWorker
 
   def perform(user_id)
     usr = User.find_by_id(user_id)
-    invitation = Invitation.find_by_recipient_username(usr.username)
+    invitation = Invitation.find(usr.invitation_id)
     domain = ENV['DOMAIN']
     password = 'Passw0rd1' # Yes, all google accounts are initially created with this default password. AirWatch will take care of the rest.
 

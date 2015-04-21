@@ -1,6 +1,6 @@
 class EulaController < ApplicationController
   def create
-    inv = Invitation.find_by_recipient_username(current_user.username)
+    inv = Invitation.find(current_user.invitation_id)
     inv.eula_accept_date = Time.now
     inv.save!
 

@@ -1,6 +1,6 @@
 <div class="slots">
   <section>
-    <% @current_user_invited = Invitation.where(recipient_username: current_user.username).first %>
+    <% @current_user_invited = Invitation.find(current_user.invitation_id) %>
     <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? && !@current_user_invited.sender.email == 'admin@vmwdemo.com' %>
       <br/>
       <h3> Account Details </h3>

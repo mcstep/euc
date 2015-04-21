@@ -1,4 +1,4 @@
-desc 'This script automatically extends any super user account expiring in the next N days to a year from their current expiration date'
+desc 'This task automatically extends any super user account expiring in the next N days to a year from their current expiration date'
 
 task :extend_super_user => :environment do
   extend_within = ENV.fetch("SUPER_USER_EXT_DAYS", -1).to_i
@@ -9,7 +9,7 @@ task :extend_super_user => :environment do
   end
 
   invitations = Invitation
-    .joins('INNER JOIN users ON users.username = invitations.recipient_username')
+    .joins('INNER JOIN users ON users.invitation_id = invitations.id')
     .where("users.role = ? AND invitations.expires_at <= ?", User.roles["vip"], Date.today + extend_within.days)
 
   # WARNING:

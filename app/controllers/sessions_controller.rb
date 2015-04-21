@@ -46,7 +46,7 @@ def create
         usr.invitation_limit = 5
 
         # find the corresponding invitation and check if the user signed up with a reg_code
-        inv_for_user = Invitation.find_by_recipient_username(usr.username)
+        inv_for_user = Invitation.find(current_user.invitation_id)
         if !inv_for_user.nil? && !inv_for_user.reg_code_id.nil?
           reg_code = RegCode.find_by_id(inv_for_user.reg_code_id)
           #TODO: NUll check for reg_code

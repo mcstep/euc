@@ -8,7 +8,7 @@ class AirwatchProvisionWorker
 
   def perform(user_id)
     usr = User.find_by_id(user_id)
-    invitation = Invitation.find_by_recipient_username(usr.username)
+    invitation = Invitation.find(usr.invitation_id)
     domain = ENV['DOMAIN']
     password = 'Passw0rd1' # Yes, all google accounts are initially created with this default password. AirWatch will take care of the rest.
 
@@ -57,18 +57,18 @@ class AirwatchProvisionWorker
 
     # Call AirWatch API to create Group ID
     user_domain = usr.email.split("@").last
-    
+
     # Check if this domain exists
     user_domain_exists = AirwatchGroup.find_by_domain(user_domain)
-    
+
     # If the domain doesn't exist, create it
-    if user_domain_exists.nil?      
+    if user_domain_exists.nil?
       puts "Domain does not exist - creating Group ID for domain #{user_domain}"
       begin
         aw_req_payload = { 'Name' => "#{user_domain}", 'GroupId' => "#{user_domain[0...20].gsub('.','-')}",'LocationGroupType' => 'Prospect', 'AddDefaultLocation' => 'Yes'}.to_json
         response = RestClient::Request.execute(:method => :post, :url => "https://testdrive.awmdm.com/API/v1/system/groups/#{ENV['PARENT_GROUP_ID']}/creategroup", :user => "#{ENV['API_USER']}", :password => "#{ENV['API_PASSWORD']}", :headers => {:content_type => :json, :accept => :json,  :host => "testdrive.awmdm.com", :authorization => "Basic bW9oYW46bW9oYW4=", 'aw-tenant-code' => "#{ENV['AIRWATCH_TOKEN']}"}, :payload => aw_req_payload)
         response_json = JSON.parse(response.body)
-        puts "AirWatch Response Value: #{response_json['Value']}" 
+        puts "AirWatch Response Value: #{response_json['Value']}"
 
         # Create and save it in the DB
         airwatch_group = AirwatchGroup.new
@@ -81,13 +81,13 @@ class AirwatchProvisionWorker
 
         airwatch_group.save
 
-        puts "AirWatch Organization Group: #{airwatch_group.group_id}-#{response_json['Value']} saved successfully"     
+        puts "AirWatch Organization Group: #{airwatch_group.group_id}-#{response_json['Value']} saved successfully"
       rescue => e
         puts e
       end
     else
       puts "Domain exists - sending enrollment instructions email with existing Group ID"
-    end 
+    end
     # Done calling AirWatch API to create Group ID
 
     #Call AirWatch API
@@ -98,15 +98,15 @@ class AirwatchProvisionWorker
       if !user_domain_exists.nil?
         numId = user_domain_exists.group_id_num
         # payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Group' => "#{numId}", 'LocationGroupId' => "#{numId}"}
-        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Role' => "VMWDemo"}        
+        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Role' => "VMWDemo"}
       else
-        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Role' => "VMWDemo"}        
+        payload = { 'UserName' => "#{usr.username}", 'Status' => "true",'SecurityType' => "Directory", 'Role' => "VMWDemo"}
       end
       response = RestClient::Request.execute(:method => :post, :url => "https://testdrive.awmdm.com/API/v1/system/users/adduser", :user => "#{ENV['API_USER']}", :password => "#{ENV['API_PASSWORD']}", :headers => {:content_type => :json, :accept => :json,  :host => "testdrive.awmdm.com", :authorization => "Basic bW9oYW46bW9oYW4=", 'aw-tenant-code' => "#{ENV['AIRWATCH_TOKEN']}"}, :payload => payload.to_json)
       response_json = JSON.parse(response.body)
       puts "AirWatch Response Value: #{response_json['Value']}"
       #Done calling AirWatch API
-      
+
       #Update invitation with AirWatch user id
       invitation.airwatch_user_id = response_json['Value']
       invitation.save

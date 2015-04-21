@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150412145552) do
+ActiveRecord::Schema.define(version: 20150421162708) do
 
   create_table "accounts", force: true do |t|
     t.string   "first_name"
@@ -110,5 +110,7 @@ ActiveRecord::Schema.define(version: 20150412145552) do
     t.integer  "total_invitations", default: 5
     t.string   "avatar"
   end
+
+  add_index "users", ["invitation_id"], name: "index_users_on_invitation_id"
 
 end

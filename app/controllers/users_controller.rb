@@ -76,7 +76,7 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
       else
         invitation = Invitation.find(params[:invitation_id])
-        @user = User.find_by_username(invitation.recipient_username)
+        @user = User.find_by_invitation_id(invitation.id)
       end
     end
 
