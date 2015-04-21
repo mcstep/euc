@@ -133,9 +133,9 @@ class ApiAccountsController < BaseApiController
 
     if account_extended && @account.save
         response_json = build_account_json (@account)
-        render json: response_json
         AccountActiveDirectoryAmericaReplicateWorker.perform_async
         AccountActiveDirectoryEuropeReplicateWorker.perform_async
+        render json: response_json
     else
         render nothing: true, status: :bad_request
     end
