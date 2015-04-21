@@ -63,6 +63,7 @@ class ApiAccountsController < BaseApiController
     if account_removed && response &&  @account.destroy
       render nothing: true, status: 200
       AccountActiveDirectoryAmericaReplicateWorker.perform_async
+      AccountActiveDirectoryEuropeReplicateWorker.perform_async
     else
       render nothing: true, status: :bad_request
     end
@@ -134,6 +135,7 @@ class ApiAccountsController < BaseApiController
         response_json = build_account_json (@account)
         render json: response_json
         AccountActiveDirectoryAmericaReplicateWorker.perform_async
+        AccountActiveDirectoryEuropeReplicateWorker.perform_async
     else
         render nothing: true, status: :bad_request
     end
@@ -146,6 +148,7 @@ class ApiAccountsController < BaseApiController
       response_json['new_password'] = response
       render json: response_json, status: 200
       AccountActiveDirectoryAmericaReplicateWorker.perform_async
+      AccountActiveDirectoryEuropeReplicateWorker.perform_async
     else
       render nothing: true, status: :bad_request
     end
@@ -162,6 +165,7 @@ class ApiAccountsController < BaseApiController
     if password_change == true
       render nothing: true, status: 200
       AccountActiveDirectoryAmericaReplicateWorker.perform_async
+      AccountActiveDirectoryEuropeReplicateWorker.perform_async
     else
       render nothing: true, status: :bad_request
     end
@@ -185,7 +189,11 @@ class ApiAccountsController < BaseApiController
       response_json['country_code'] = account.country_code
 
       sanitized_desktopname = URI.encode(ENV["TRYGRID_VIEW_DESKTOPNAME"])
+      # TODO: Delete after Nvidia switches to new format
       response_json['connection_url'] = "vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
+
+      response_json['connection_url_amer'] = "vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME_AMER"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
+      response_json['connection_url_emea'] = "vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME_EMEA"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
 
       response_json['expiration_date'] = account.expiration_date
       response_json['create_date'] = account.created_at
