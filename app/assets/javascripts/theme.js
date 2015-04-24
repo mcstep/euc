@@ -760,7 +760,7 @@
 			+             '<form method="post" action="#" role="form">'
 			+                 '<div class="modal-header">'
 			+                     '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
-			+                     '<h4 class="modal-title" id="myModalLabel">Are you sure?</h4>'
+			+                     '<h4 class="modal-title">Are you sure?</h4>'
 			+                 '</div>'
 			+                 '<div class="modal-body">'
 			+                     message
