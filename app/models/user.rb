@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def region
+    Invitation.find(self.invitation_id).region;
+  end
+
 private
   def set_invitation_limit
     self.invitation_limit = 5

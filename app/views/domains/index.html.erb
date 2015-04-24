@@ -23,7 +23,7 @@
 	      <tr>
 		<td><%= domain.name %></td>
 		<td class="text-center">
-		  <div class="btn-group btn-toggle"> 
+		  <div class="btn-group btn-toggle">
 		    <% if domain.status == 'active' %>
 		      <%= link_to "ON", toggle_path(id: domain.id),  class: "btn btn-sm btn-default btn-success active btn-active" %>
                       <%= link_to 'OFF', toggle_path(id: domain.id), class: "btn btn-sm btn-default btn-inactive" %>
@@ -31,7 +31,7 @@
 		     <%= link_to "ON", toggle_path(id: domain.id), class: "btn btn-sm btn-default btn-active" %>
                      <%= link_to 'OFF', toggle_path(id: domain.id), class: "btn btn-sm btn-default btn-danger active btn-inactive" %>
 		   <% end %>
-		  </div>		
+		  </div>
 		</td>
 		<td class="text-center">
                   <%= link_to 'Delete', domain, method: :delete, data: { confirm: 'This domain will be deleted'}, class: "new-user btn btn-danger" %>

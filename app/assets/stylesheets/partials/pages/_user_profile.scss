@@ -1,23 +1,136 @@
-#edit-profile-modal > .modal-dialog {
-	width: 876px;
+#edit-profile-modal {
+	.modal-content {
+		min-width: 424px;
+		border: none;
+		overflow: hidden;
+	}
+
+	.btn {
+		border: none;
+		border-radius: 0;
+		color: #fff;
+		box-shadow: none;
+		text-shadow: none;
+	}
 }
 
-#edit-profile-modal button {
-	display: inline-block;
-	margin: 0 0 0 10px;
-	padding: 0 30px;
-	line-height: 35px;
-	border: none;
-	font-size: 14px;
-	font-weight: bold;
-	color: #fff;
-	vertical-align: middle;
+#edit-profile-avatar {
+	background-color: #e8eff6;
+
+	img {
+		padding: 20px;
+	}
+
+	.btn {
+		display: block;
+		margin: 10px auto;
+		padding: 0;
+		width: 150px;
+		line-height: 25px;
+		font-size: 14px;
+	}
+
+	.btn-primary {
+		background-color: #4a90e2;
+	}
+
+	.btn-danger {
+		background-color: #f5a623;
+	}
 }
 
-#edit-profile-modal .cancel {
-	background-color: #d0041b;
+#edit-profile-avatar-buttons {
+	margin: -10px 0px 10px 0px;
 }
 
-#edit-profile-modal .submit {
-	background-color: #86bd25;
+#edit-profile-form {
+	.btn {
+		float: right;
+		margin-left: 10px;
+		padding: 0 30px;
+		line-height: 35px;
+		font-size: 16px;
+	}
+
+	.btn-default {
+		background-color: #d0041b;
+	}
+
+	.btn-success {
+		background-color: #86bd25;
+	}
+
+	label {
+		margin-bottom: 2px;
+		color: #999;
+		font-size: 12px;
+		font-weight: normal;
+	}
+
+	& > .row {
+		padding: 0;
+		border: none;
+	}
+
+	& > .header {
+		margin: 20px -15px 13px;
+	}
+
+	& > .body {
+		margin: 10px -15px;
+	}
+
+	& > .footer {
+		margin: 30px -15px 20px;
+	}
+
+	.modal-title {
+		font-size: 24px;
+	}
+
+	.email {
+		float: right;
+		margin-top: 6px;
+		font-size: 18px;
+		color: #999;
+		font-weight: 300;
+	}
+
+	.form-group {
+		margin-bottom: 10px;
+	}
+}
+
+#edit-profile-region {
+	position: relative;
+	top: -7px;
+	float: left;
+	line-height: 0;
+
+	& > div {
+		color: #4A90E2;
+		font-size: 24px;
+		font-weight: 300;
+		line-height: 42px;
+	}
+}
+
+@media (min-width: 992px) {
+	#edit-profile-avatar,
+	#edit-profile-form {
+		float: none;
+		display: table-cell;
+		vertical-align: top;
+	}
+}
+
+@media (max-width: 991px) {
+	#edit-profile-avatar img {
+		width: 135px;
+		height: 135px;
+	}
+
+	#edit-profile-avatar-buttons {
+		margin: 10px 0;
+	}
 }

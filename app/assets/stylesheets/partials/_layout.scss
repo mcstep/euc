@@ -2,6 +2,8 @@ body {
 	font-family: $sourceSans;
 	-webkit-font-smoothing: antialiased;
 	background: #fff;
+	min-width: 444px;
+
 	&.open-sidebar {
 		#wrapper {
 			#content {

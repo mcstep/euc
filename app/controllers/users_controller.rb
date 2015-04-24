@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :require_login
+
   before_action :require_admin
+  skip_before_action :require_admin, only: [:edit_profile]
+
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   #
   # All GET endpoints are also reachable under
@@ -69,6 +72,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_profile
+    if current_user.update(edit_profile_params)
+      redirect_to dashboard_path, notice: 'Your profile was successfully updated.'
+    else
+      redirect_to dashboard_path, warning: 'Failed to update your profile.'
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -82,7 +93,12 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :total_invitations, :avatar)
+      params.require(:user).permit(:email, :total_invitations, :username)
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def edit_profile_params
+      params.require(:user).permit(:avatar, :company, :display_name, :title)
     end
 
     def require_login

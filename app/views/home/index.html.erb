@@ -19,7 +19,7 @@
   <% end %>
 
   <% if !session[:impersonator_id].blank? %>
-    <div class="container container-left">
+    <div class="container-fluid container-left">
       <div class="row">
         <div class="col-lg-9">
           <div class="alerts">
@@ -33,7 +33,6 @@
   <% end %>
 
   <%= render 'header' %>
-  <%= render 'profile' %>
   <%= render 'links' %>
 
   <% if current_user.role != 'admin' %>
