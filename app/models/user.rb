@@ -27,11 +27,6 @@ class User < ActiveRecord::Base
     self.role ||= :user
   end
 
-  # Heroku has a read-only /public/uploads dir
-  def cache_dir
-    "#{Rails.root}/tmp/uploads"
-  end
-
   def avatar_url
     if self.avatar.blank?
       ActionController::Base.helpers.asset_path('default-user-icon-profile.png')
@@ -56,6 +51,8 @@ private
   end
 
   def destroy_previous_avatar
-    self.avatar_was.remove! unless self.avatar_was.blank?
+    if self.avatar_changed? and self.avatar_was.instance_of? AvatarUploader
+      self.avatar_was.remove!
+    end
   end
 end

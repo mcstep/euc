@@ -1,9 +1,7 @@
-#edit-profile-modal {
-	.modal-content {
-		min-width: 424px;
-		border: none;
-		overflow: hidden;
-	}
+#edit-profile-form {
+	min-width: 424px;
+	border: none;
+	overflow: hidden;
 
 	.btn {
 		border: none;
@@ -14,7 +12,7 @@
 	}
 }
 
-#edit-profile-avatar {
+#edit-profile-left {
 	background-color: #e8eff6;
 
 	img {
@@ -24,10 +22,19 @@
 	.btn {
 		display: block;
 		margin: 10px auto;
-		padding: 0;
+		padding: 0 10px;
 		width: 150px;
-		line-height: 25px;
+		line-height: 0;
 		font-size: 14px;
+
+		& > span {
+			display: inline-block;
+			max-width: 130px;
+			line-height: 25px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 	}
 
 	.btn-primary {
@@ -39,11 +46,16 @@
 	}
 }
 
-#edit-profile-avatar-buttons {
+#edit-profile-left-buttons {
 	margin: -10px 0px 10px 0px;
 }
 
-#edit-profile-form {
+#edit-profile-remove-avatar,
+#edit-profile-avatar-file {
+	display: none;
+}
+
+#edit-profile-right {
 	.btn {
 		float: right;
 		margin-left: 10px;
@@ -116,8 +128,8 @@
 }
 
 @media (min-width: 992px) {
-	#edit-profile-avatar,
-	#edit-profile-form {
+	#edit-profile-left,
+	#edit-profile-right {
 		float: none;
 		display: table-cell;
 		vertical-align: top;
@@ -125,12 +137,12 @@
 }
 
 @media (max-width: 991px) {
-	#edit-profile-avatar img {
+	#edit-profile-left img {
 		width: 135px;
 		height: 135px;
 	}
 
-	#edit-profile-avatar-buttons {
+	#edit-profile-left-buttons {
 		margin: 10px 0;
 	}
 }

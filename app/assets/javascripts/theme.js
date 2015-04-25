@@ -538,6 +538,59 @@
 			endDate: '+3y'
 		});
 
+
+		var $editProfileForm = $('#edit-profile-form');
+
+		if ($editProfileForm.length) {
+			function setUploadPhotoButtonText(text) {
+				$uploadPhoto.children().eq(0).text(text);
+			}
+
+			function setRemoveAvatar(remove) {
+				document.getElementById('edit-profile-remove-avatar').checked = remove;
+			}
+
+			// we manually append to file input to assert that it's value is unset
+			var $avatarFile = $('<input id="edit-profile-avatar-file" type="file"/>').appendTo($editProfileForm);
+
+			var $avatarButtons = $('#edit-profile-left-buttons').children();
+			var $takePhoto = $avatarButtons.eq(0);
+			var $uploadPhoto = $avatarButtons.eq(1);
+			var $removePhoto = $avatarButtons.eq(2);
+			var uploadPhotoOriginalText = $uploadPhoto.text();
+
+			setRemoveAvatar(false);
+
+			$avatarFile.on('change', function () {
+				var self = this;
+				var value = self.value;
+
+				if (value) {
+					self.name = 'user[avatar]';
+					setUploadPhotoButtonText(value);
+					setRemoveAvatar(false);
+				}
+			});
+
+			$takePhoto.on('click', function () {
+				alert('Take Photo');
+			});
+
+			$uploadPhoto.on('click', function () {
+				$avatarFile.click();
+			});
+
+			$removePhoto.on('click', function () {
+				var avatarFile = $avatarFile[0];
+
+				if (avatarFile.name) {
+					avatarFile.name = '';
+					setUploadPhotoButtonText(uploadPhotoOriginalText);
+				} else {
+					setRemoveAvatar(true);
+				}
+			});
+		}
 	};
 
 	$('#eula-modal').modal({

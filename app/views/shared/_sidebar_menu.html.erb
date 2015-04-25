@@ -153,23 +153,24 @@
   <!-- Edit Profile Modal -->
   <div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+      <form class="modal-content" id="edit-profile-form" method="post" action="/edit_profile" enctype="multipart/form-data">
+        <input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden"/>
+        <input id="edit-profile-remove-avatar" name="user[remove_avatar]" value="1" type="checkbox"/>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-3" id="edit-profile-avatar">
+            <div class="col-md-3" id="edit-profile-left">
               <div class="row">
                 <div class="col-md-12 col-xs-6">
                   <img class="img-circle img-responsive center-block" src="<%= current_user.avatar_url %>" alt="Profile Image"/>
                 </div>
-                <div class="col-md-12 col-xs-6" id="edit-profile-avatar-buttons">
-                  <button type="button" class="btn btn-primary">Take Photo</button>
-                  <button type="button" class="btn btn-primary">Upload Photo</button>
-                  <button type="button" class="btn btn-danger">Remove Photo</button>
+                <div class="col-md-12 col-xs-6" id="edit-profile-left-buttons">
+                  <button type="button" class="btn btn-primary"><span>Take Photo</span></button>
+                  <button type="button" class="btn btn-primary"><span>Upload Photo</span></button>
+                  <button type="button" class="btn btn-danger" data-default-url=""><span>Remove Photo</span></button>
                 </div>
               </div>
             </div>
-            <form class="col-md-9" id="edit-profile-form" method="post" action="/edit_profile" role="form">
-              <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+            <div class="col-md-9" id="edit-profile-right">
               <div class="row header">
                 <div class="col-xs-12">
                   <div class="email"><%= current_user.username %>@vmwdemo.com</div>
@@ -185,7 +186,7 @@
               <div class="row body">
                 <div class="col-xs-12">
                   <label>Contact Email</label>
-                  <input class="form-control" name="user[email]" value="<%= current_user.email %>" type="email" disabled="disabled"/>
+                  <input class="form-control" value="<%= current_user.email %>" type="text" readonly="readonly"/>
                 </div>
               </div>
               <div class="row body">
@@ -208,10 +209,10 @@
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 

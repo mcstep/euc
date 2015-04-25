@@ -73,10 +73,14 @@ class UsersController < ApplicationController
   end
 
   def edit_profile
-    if current_user.update(edit_profile_params)
-      redirect_to dashboard_path, notice: 'Your profile was successfully updated.'
-    else
-      redirect_to dashboard_path, warning: 'Failed to update your profile.'
+    begin
+      if current_user.update(edit_profile_params)
+        redirect_to dashboard_path, notice: 'Your profile was successfully updated.'
+      else
+        redirect_to dashboard_path, alert: 'Failed to update your profile.'
+      end
+    rescue Exception => e
+      redirect_to dashboard_path, alert: e.to_s
     end
   end
 
@@ -93,12 +97,11 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :total_invitations, :username)
+      params.require(:user).permit(:avatar, :company, :display_name, :email, :total_invitations, :remove_avatar, :title, :username)
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def edit_profile_params
-      params.require(:user).permit(:avatar, :company, :display_name, :title)
+      params.require(:user).permit(:avatar, :company, :display_name, :remove_avatar, :title)
     end
 
     def require_login
