@@ -1,4 +1,8 @@
 class SignupController < ApplicationController
+  def index
+    redirect_to register_path, :status => 301
+  end
+
   def new
   end
 
@@ -14,33 +18,57 @@ class SignupController < ApplicationController
   end
 
   def create
-    if params[:email].empty? || params[:firstname].empty? || params[:lastname].empty? || params[:company].empty? || params[:title].empty?
-      flash.now.alert = "One or more fields are invalid"
-      render "new" and return
+    alerts = [];
+
+    if params[:email].blank?
+      alerts << "Please enter a valid email address."
     end
 
-    user_domain = params[:email].split("@").last.downcase 
-    @domain = Domain.find_by_name(user_domain)	
-    
-    reg_code_text = params[:reg_code_text]
-    reg_code = nil
-    if !reg_code_text.nil?
-      reg_code = RegCode.find_by_code(reg_code_text)
+    if params[:firstname].blank?
+      alerts << "Please enter a valid firstname."
     end
 
-    if reg_code != nil
-      current_reg_count = Invitation.where("reg_code_id = #{reg_code.id}").count
-      if reg_code.status == false || (!(reg_code.valid_from..reg_code.valid_to).cover?(Time.now)) || (current_reg_count >= reg_code.registrations)
-        flash.now.alert = "Sorry! The registration code you entered is no longer valid"
-        redirect_to registration_code_signup_path(reg_code.code), :flash => { :error => "Sorry! The registration code you entered is no longer valid" }
-        return
-        #render "new" and return
+    if params[:lastname].blank?
+      alerts << "Please enter a valid lastname."
+    end
+
+    if params[:company].blank?
+      alerts << "Please enter a valid company."
+    end
+
+    if params[:title].blank?
+      alerts << "Please enter a valid title."
+    end
+
+    if alerts.blank?
+      user_domain = params[:email].split("@").last.downcase
+      @domain = Domain.find_by_name(user_domain)
+
+      reg_code_text = params[:reg_code_text]
+      reg_code = nil
+
+      if !reg_code_text.blank?
+        reg_code = RegCode.find_by_code(reg_code_text)
       end
-    else
-      if @domain.nil? || @domain.status != 'active'
-        flash.now.alert = "Sorry! We do not support your email domain for registration yet"
-        render "new" and return
+
+      if !reg_code.nil?
+        current_reg_count = Invitation.where(reg_code_id: reg_code.id).count
+
+        if reg_code.status == false || (!(reg_code.valid_from..reg_code.valid_to).cover?(Time.now)) || (current_reg_count >= reg_code.registrations)
+          redirect_to registration_code_signup_path(reg_code.code), :flash => { :alert => "Sorry! The registration code you entered is no longer valid" }
+          return
+        end
+      else
+        if @domain.nil? || @domain.status != 'active'
+          alerts << "Your email domain is currently not supported for registration."
+        end
       end
+    end
+
+    if !alerts.blank?
+      flash.now.alert = alerts;
+      render "new"
+      return
     end
 
     @invitation = Invitation.new
@@ -52,7 +80,7 @@ class SignupController < ApplicationController
     @invitation.expires_at = (Time.now + 1.year)
     @invitation.region = params[:region]
     @invitation.recipient_username = params[:username]
-    @invitation.airwatch_trial = true 
+    @invitation.airwatch_trial = true
     @invitation.google_apps_trial = true
     @invitation.reg_code_id = reg_code.id unless reg_code.nil?
 
@@ -67,16 +95,17 @@ class SignupController < ApplicationController
       @invitation.expires_at = (Time.now + num_days.days)
     end
 
-    account_create= true
     puts params
+
     respond_to do |format|
-      if account_create && @invitation.save
+      if @invitation.save
         SignupWorker.perform_async(@invitation.id)
+
         flash.now.notice = "Account was successfully requested. Please check your email for login details."
         format.html { render :new }
       else
-        flash.now.alert = "One or more fields are invalid"
-        format.html { render :new }
+        flash.now.alert = "An error happened. Please try again later."
+        format.html { render :new, :status => 500 }
       end
     end
   end

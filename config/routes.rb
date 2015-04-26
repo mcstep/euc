@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get 'register/:reg_code', to: 'signup#reg_code', :as => 'registration_code_signup'
   get 'reports/stats' => 'reports#potential_seats', :as => 'reports_seats_stats'
   get 'sessions/new'
-  get 'signup/new'
   get 'support_request/create'
   get 'toggle' => 'domains#toggle', :as => 'toggle'
   get 'toggle_airwatch' => 'eula#toggle_airwatch', :as => 'toggle_airwatch'
