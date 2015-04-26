@@ -97,11 +97,11 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:avatar, :company, :display_name, :email, :total_invitations, :remove_avatar, :title, :username)
+      params.require(:user).permit(:avatar, :avatar_data_uri, :company, :display_name, :email, :total_invitations, :remove_avatar, :title, :username)
     end
 
     def edit_profile_params
-      params.require(:user).permit(:avatar, :company, :display_name, :remove_avatar, :title)
+      params.require(:user).permit(:avatar, :avatar_data_uri, :company, :display_name, :remove_avatar, :title)
     end
 
     def require_login

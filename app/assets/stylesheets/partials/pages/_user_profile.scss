@@ -1,15 +1,49 @@
-#edit-profile-form {
-	min-width: 424px;
-	border: none;
-	overflow: hidden;
+#edit-profile-modal {
+	.modal-content {
+		border: none;
+		overflow: hidden;
+	}
 
 	.btn {
+		padding: 0 30px;
 		border: none;
 		border-radius: 0;
 		color: #fff;
 		box-shadow: none;
 		text-shadow: none;
+		line-height: 35px;
+		font-size: 16px;
 	}
+
+	.btn-default {
+		background-color: #d0041b;
+	}
+
+	.btn-success {
+		background-color: #86bd25;
+
+		&[disabled] {
+			background-color: #3e5926;
+		}
+	}
+
+	&.webcam-active {
+		& > .modal-dialog {
+			width: 390px;
+		}
+
+		#edit-profile-general {
+			display: none;
+		}
+
+		#edit-profile-webcam {
+			display: block;
+		}
+	}
+}
+
+#edit-profile-general {
+	min-width: 424px;
 }
 
 #edit-profile-left {
@@ -50,26 +84,10 @@
 	margin: -10px 0px 10px 0px;
 }
 
-#edit-profile-remove-avatar,
-#edit-profile-avatar-file {
-	display: none;
-}
-
 #edit-profile-right {
 	.btn {
 		float: right;
-		margin-left: 10px;
-		padding: 0 30px;
-		line-height: 35px;
-		font-size: 16px;
-	}
-
-	.btn-default {
-		background-color: #d0041b;
-	}
-
-	.btn-success {
-		background-color: #86bd25;
+		margin: 0 0 0 10px;
 	}
 
 	label {
@@ -124,6 +142,28 @@
 		font-size: 24px;
 		font-weight: 300;
 		line-height: 42px;
+	}
+}
+
+#edit-profile-webcam {
+	display: none;
+	background-color: #e8eff6;
+
+	& > h4 {
+		margin: 20px;
+		text-align: center;
+	}
+
+	& > div {
+		width: 350px;
+		height: 350px;
+		margin: 20px;
+	}
+
+	& > footer > button {
+		float: left;
+		margin: 20px 0 20px 20px;
+		width: 165px;
 	}
 }
 

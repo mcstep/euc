@@ -3,7 +3,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   process :tags => ['euc_avatar']
   process :convert => 'jpg'
-  process :resize_to_fit => [200, 200]
+  cloudinary_transformation :quality => 80, :width => 200, :height => 200, :crop => :thumb, :gravity => :face
 
   # Heroku has a read-only /public/uploads dir
   def cache_dir

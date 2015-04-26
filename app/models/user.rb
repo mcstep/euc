@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.default_avatar_url
+    ActionController::Base.helpers.asset_path('default-user-icon-profile.png')
+  end
+
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
   belongs_to :invitation
 
@@ -29,7 +33,7 @@ class User < ActiveRecord::Base
 
   def avatar_url
     if self.avatar.blank?
-      ActionController::Base.helpers.asset_path('default-user-icon-profile.png')
+      self.class.default_avatar_url
     else
       Cloudinary::Utils.cloudinary_url(self.avatar, :width => 200, :height => 200, :crop => :thumb)
     end

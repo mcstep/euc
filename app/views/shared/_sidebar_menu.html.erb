@@ -152,21 +152,21 @@
 
   <!-- Edit Profile Modal -->
   <div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <form class="modal-content" id="edit-profile-form" method="post" action="/edit_profile" enctype="multipart/form-data">
-        <input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden"/>
-        <input id="edit-profile-remove-avatar" name="user[remove_avatar]" value="1" type="checkbox"/>
+    <form class="modal-dialog modal-lg" id="edit-profile-form" method="post" action="/edit_profile" enctype="multipart/form-data">
+      <input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden"/>
+      <input class="hidden" id="edit-profile-remove-avatar" name="user[remove_avatar]" value="1" type="checkbox"/>
+      <div class="modal-content" id="edit-profile-general">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-3" id="edit-profile-left">
               <div class="row">
                 <div class="col-md-12 col-xs-6">
-                  <img class="img-circle img-responsive center-block" src="<%= current_user.avatar_url %>" alt="Profile Image"/>
+                  <img class="img-circle img-responsive center-block" id="edit-profile-avatar" src="<%= current_user.avatar_url %>" alt="Profile Image"/>
                 </div>
                 <div class="col-md-12 col-xs-6" id="edit-profile-left-buttons">
-                  <button type="button" class="btn btn-primary"><span>Take Photo</span></button>
-                  <button type="button" class="btn btn-primary"><span>Upload Photo</span></button>
-                  <button type="button" class="btn btn-danger" data-default-url=""><span>Remove Photo</span></button>
+                  <button class="btn btn-primary" type="button"><span>Take Photo</span></button>
+                  <button class="btn btn-primary" type="button"><span>Upload Photo</span></button>
+                  <button class="btn btn-danger" type="button"><span>Remove Photo</span></button>
                 </div>
               </div>
             </div>
@@ -201,8 +201,8 @@
               </div>
               <div class="row footer">
                 <div class="col-xs-12">
-                  <button type="submit" class="btn btn-success">Save Profile</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button class="btn btn-success" type="submit">Save Profile</button>
+                  <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
                   <div id="edit-profile-region">
                     <label>Region</label>
                     <div><%= current_user.region %></div>
@@ -212,8 +212,19 @@
             </div>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+      <div class="modal-content" id="edit-profile-webcam">
+        <header>
+          <h4>Take Photo</h4>
+        </header>
+        <div></div>
+        <button class="btn btn-primary" id="edit-profile-webcam-shot" type="button" disabled="disabled"><span>Take Photo</span></button>
+        <footer>
+          <button class="btn btn-default" type="button">Cancel</button>
+          <button class="btn btn-success" type="submit" disabled="disabled">Use this Photo</button>
+        </footer>
+      </div>
+    </form>
   </div>
 
   <!-- Password Change Modal -->
