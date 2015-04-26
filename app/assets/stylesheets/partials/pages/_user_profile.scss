@@ -149,15 +149,22 @@
 	display: none;
 	background-color: #e8eff6;
 
-	& > h4 {
+	h4 {
 		margin: 20px;
 		text-align: center;
 	}
 
 	& > div {
+		display: table;
 		width: 350px;
 		height: 350px;
 		margin: 20px;
+
+		& > div {
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+		}
 	}
 
 	& > footer > button {
@@ -165,6 +172,11 @@
 		margin: 20px 0 20px 20px;
 		width: 165px;
 	}
+}
+
+#edit-profile-webcam-shot {
+	display: block;
+	margin: 0 auto;
 }
 
 @media (min-width: 992px) {
