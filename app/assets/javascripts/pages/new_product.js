@@ -1,5 +1,5 @@
 (function () {
-	var page_scripts = function () {
+	function page_scripts() {
 		if (!$("#form-product").length) return;
 
 		// Form validation
@@ -73,5 +73,6 @@
 		$(".mask-cc").mask("9999 9999 9999 9999");
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();

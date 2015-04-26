@@ -1,5 +1,5 @@
 (function () {
-    var page_scripts = function () {
+    function page_scripts() {
         if (!$("#reports-alt").length) return;
 
 		// daterange input
@@ -27,7 +27,7 @@
 			bDestroy: true
         });
 
-        
+
 
 		// bar chart
         var $chrt_border_color = "#efefef";
@@ -80,5 +80,6 @@
 		var plot = $.plot($("#bar-chart"), [dBar], options);
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();

@@ -1,8 +1,8 @@
 (function () {
-	var page_scripts = function () {
+	function page_scripts() {
 		//if (!$("#ui").length) return;
 		//set_up_offline_plugin();
-		
+
 		// Focus input when prompt modal is shown
 		$('#prompt-modal').on('shown.bs.modal', function (e) {
 			$("#prompt-modal").find("input:text").focus();
@@ -14,8 +14,8 @@
 
 			// initialize datepicker when the modal is shown, does not work if the input is hidden
 			$("#form-modal .datepicker").datepicker({
-	        	autoclose: true
-	        });
+				autoclose: true
+			});
 		})
 
 		// Show message on submit
@@ -52,7 +52,7 @@
 
 		Messenger.options = {
 			extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
-		    theme: 'flat'
+			theme: 'flat'
 		}
 
 		$(".normal-notification").click(function (e) {
@@ -64,9 +64,9 @@
 			e.preventDefault();
 
 			Messenger().post({
-			  	message: 'Sorry, there was problem while processing your request.',
-			  	type: 'error',
-			  	showCloseButton: true
+				message: 'Sorry, there was problem while processing your request.',
+				type: 'error',
+				showCloseButton: true
 			});
 		});
 
@@ -75,19 +75,19 @@
 
 			var msg;
 			msg = Messenger().post({
-			  	message: 'Uploading new files...',
-			  	type: 'info',
-			  	actions: {
-			    	cancel: {
-			      		label: 'cancel upload',
-			      		action: function() {
-			        		return msg.update({
-			          			message: 'File uploading was canceled',
-			          			type: 'success',
-			          			actions: false
-			        		});
-			      		}
-			    	}
+				message: 'Uploading new files...',
+				type: 'info',
+				actions: {
+					cancel: {
+						label: 'cancel upload',
+						action: function() {
+							return msg.update({
+								message: 'File uploading was canceled',
+								type: 'success',
+								actions: false
+							});
+						}
+					}
 				}
 			});
 		});
@@ -97,19 +97,19 @@
 
 			var i = 0;
 			Messenger().run({
-			  	errorMessage: 'Error sending message',
-			  	successMessage: 'Message sent!',
-			  	action: function(opts) {
-			    	if (++i < 2) {
-			      		return opts.error({
-			        		status: 500,
-			        		readyState: 0,
-			        		responseText: 0
-			      		});
-			    	} else {
-			      		return opts.success();
-			    	}
-			  	}
+				errorMessage: 'Error sending message',
+				successMessage: 'Message sent!',
+				action: function(opts) {
+					if (++i < 2) {
+						return opts.error({
+							status: 500,
+							readyState: 0,
+							responseText: 0
+						});
+					} else {
+						return opts.success();
+					}
+				}
 			});
 		});
 
@@ -118,86 +118,86 @@
 		var tour;
 
 		tour = new Shepherd.Tour({
-		  	defaults: {
+			defaults: {
 				classes: 'shepherd-element shepherd-open shepherd-theme-arrows',
 				showCancelLink: true
-		    }
+			}
 		});
 
 		tour.addStep('example-step', {
-		  	text: 'This is your user profile',
-		  	attachTo: {
-		  		element: '.profile',
-		  		on: 'bottom'
-		  	},
-		  	buttons: [
-		  	{
-		      	text: 'Exit',
-		      	classes: 'btn btn-default',
-		    	action: tour.cancel
-		    },
-		    {
-		    	text: 'Next',
-		    	classes: 'btn btn-primary',
-		      	action: tour.next
-		    }]
+			text: 'This is your user profile',
+			attachTo: {
+				element: '.profile',
+				on: 'bottom'
+			},
+			buttons: [
+			{
+				text: 'Exit',
+				classes: 'btn btn-default',
+				action: tour.cancel
+			},
+			{
+				text: 'Next',
+				classes: 'btn btn-primary',
+				action: tour.next
+			}]
 		});
 
 		tour.addStep('example-step', {
-		  	text: 'These are links to your horizon environment. They default to your home region but you can pick a different one from the dropdown on the right',
-		  	attachTo: {
-		  		element: '.horizon-links',
-		  		on: 'top'
-		  	},
-		  	buttons: [
-		  	{
-		      	text: 'Back',
-		      	classes: 'btn btn-default',
-		    	action: tour.back
-		    },
-		    {
-		    	text: 'Next',
-		    	classes: 'btn btn-primary',
-		      	action: tour.next
-		    }]
+			text: 'These are links to your horizon environment. They default to your home region but you can pick a different one from the dropdown on the right',
+			attachTo: {
+				element: '.horizon-links',
+				on: 'top'
+			},
+			buttons: [
+			{
+				text: 'Back',
+				classes: 'btn btn-default',
+				action: tour.back
+			},
+			{
+				text: 'Next',
+				classes: 'btn btn-primary',
+				action: tour.next
+			}]
 		});
 
 		tour.addStep('example-step', {
-		  	text: 'This shows what your invitation limit is, how many you\'ve used and how many you have remaining',
-		  	attachTo: {
-		  		element: '.account-stats',
-		  		on: 'top'
-		  	},
-		  	buttons: [
-		  	{
-		      	text: 'Back',
-		      	classes: 'btn btn-default',
-		    	action: tour.back
-		    },
-		    {
-		    	text: 'Next',
-		    	classes: 'btn btn-primary',
-		      	action: tour.next
-		    }]
+			text: 'This shows what your invitation limit is, how many you\'ve used and how many you have remaining',
+			attachTo: {
+				element: '.account-stats',
+				on: 'top'
+			},
+			buttons: [
+			{
+				text: 'Back',
+				classes: 'btn btn-default',
+				action: tour.back
+			},
+			{
+				text: 'Next',
+				classes: 'btn btn-primary',
+				action: tour.next
+			}]
 		});
 
 		tour.addStep('example-step', {
-		  	text: 'This is how you invite a new user',
-		  	attachTo: {
-		  		element: '.invite-user-link',
-		  		on: 'left'
-		  	},
-		  	buttons: [
-		  	{
-		      	text: 'Back',
-		      	classes: 'btn btn-default',
-		    	action: tour.back
-		    },
-		    {
-		    	text: 'Done',
-		    	classes: 'btn btn-success',
-		      	action: tour.next
-		    }]
+			text: 'This is how you invite a new user',
+			attachTo: {
+				element: '.invite-user-link',
+				on: 'left'
+			},
+			buttons: [
+			{
+				text: 'Back',
+				classes: 'btn btn-default',
+				action: tour.back
+			},
+			{
+				text: 'Done',
+				classes: 'btn btn-success',
+				action: tour.next
+			}]
 		});
 
 		$(".start-tour").click(function (e) {
@@ -206,27 +206,28 @@
 		});
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 
 
 	var set_up_offline_plugin = function () {
-		// This is an internal script that allows you to test the Offline.js plugin and see how your pages respond to 
+		// This is an internal script that allows you to test the Offline.js plugin and see how your pages respond to
 		// different connectivity states without having to use brute-force methods to disable your actual connectivity.
 
 		// Only used for demonstration purposes, make sure to remove this in production.
 		var a, b;
 		if ("undefined" == typeof Offline || null === Offline) throw new Error("Offline simulate UI brought in without Offline.js");
-		console.info("The offline.simulate.ui.js module is a development-only resource. Make sure to remove offline.simulate.ui.js in production."), 
+		console.info("The offline.simulate.ui.js module is a development-only resource. Make sure to remove offline.simulate.ui.js in production."),
 		Offline.options.reconnect = {
-		    initialDelay: 10
-		}, 
+			initialDelay: 10
+		},
 		a = function () {
-		    var a;
-		    return document.getElementById("offline-simulate-check").addEventListener("click", function () {
+			var a;
+			return document.getElementById("offline-simulate-check").addEventListener("click", function () {
 				var a;
-		        return null == (a = Offline.options).checks && (a.checks = {}), Offline.options.checks.active = this.checked ? "down" : "up", Offline.check()
+				return null == (a = Offline.options).checks && (a.checks = {}), Offline.options.checks.active = this.checked ? "down" : "up", Offline.check()
 			})
-		}, 
+		},
 		"interactive" === (b = document.readyState) || "complete" === b ? a() : document.addEventListener("DOMContentLoaded", a)
 	}
 })();

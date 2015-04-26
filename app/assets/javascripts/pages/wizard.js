@@ -1,5 +1,5 @@
 (function () {
-	var page_scripts = function () {
+	function page_scripts() {
 		if (!$("#wizard").length) return;
 
 		var $steps = $(".form-wizard .step"),
@@ -28,5 +28,6 @@
 		});
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();

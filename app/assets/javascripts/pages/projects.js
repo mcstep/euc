@@ -1,5 +1,5 @@
 (function () {
-	var page_scripts = function () {
+	function page_scripts() {
 		if (!$("#projects").length) return;
 
 		var $projects = $(".project");
@@ -25,5 +25,6 @@
 		});
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();

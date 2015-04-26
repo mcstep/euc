@@ -1,9 +1,9 @@
 (function () {
-	var page_scripts = function () {
+	function page_scripts() {
 		if (!$("#search").length) return;
 
 		var $filters = $(".filters .filter input:checkbox");
-		
+
 		$filters.change(function () {
 			var $option = $(this).closest(".filter").find(".filter-option");
 
@@ -76,10 +76,11 @@
 			if (show) {
 				$bulk_actions_btn.removeClass("disabled");
 			} else {
-				$bulk_actions_btn.addClass("disabled");	
+				$bulk_actions_btn.addClass("disabled");
 			}
 		}
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();

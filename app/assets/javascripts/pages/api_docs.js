@@ -1,7 +1,7 @@
 (function () {
-	var page_scripts = function () {
+	function page_scripts() {
 		if (!$("#docs").length) return;
-		
+
 		hljs.configure({
 		  tabReplace: '  ',
 		  classPrefix: ''
@@ -22,7 +22,8 @@
 		});
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 
 	// Make highlighting work with turbolinks
 	$(document).on('page:change page:restore', function () {

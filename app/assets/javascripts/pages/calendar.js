@@ -1,12 +1,12 @@
 (function() {
-    var page_scripts = function () {
+    function page_scripts() {
         if (!$("#calendar").length) return;
 
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
-        
+
         $('#fullcalendar').fullCalendar({
             header: {
                 left: 'month,agendaWeek,agendaDay',
@@ -64,7 +64,7 @@
             ],
             eventBackgroundColor: '#278ccf'
         });
-        
+
         // handler to close the new event popup just for displaying purposes
         // more documentation for fullcalendar on http://arshaw.com/fullcalendar/
         $("#new-event-popup .fa-times").click(function () {

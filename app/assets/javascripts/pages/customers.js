@@ -1,5 +1,5 @@
 (function () {
-	var page_scripts = function () {
+	function page_scripts() {
 		if (!$("#users").length) return;
 
 		// User list checkboxes
@@ -41,9 +41,9 @@
 			e.preventDefault();
 			$btns.removeClass("active");
 			$(this).addClass("active");
-			
+
 			$views.removeClass("active");
-			
+
 			$(".users-grid").hide();
 			$(".users-list").hide();
 
@@ -51,5 +51,6 @@
 		});
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();

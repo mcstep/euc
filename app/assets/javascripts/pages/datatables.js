@@ -1,16 +1,17 @@
 (function () {
-    var page_scripts = function () {
-        if (!$("#datatables").length) return;
+	function page_scripts() {
+		if (!$("#datatables").length) return;
 
-        var $table = $("#orders-datatable");
+		var $table = $("#orders-datatable");
 
-        $table.dataTable({
-            sPaginationType: "full_numbers",
-            iDisplayLength: 20,
-            aLengthMenu: [[20, 50, 100, -1], [20, 50, 100, "All"]],
-            bDestroy: true
-        });
-    };
+		$table.dataTable({
+			sPaginationType: "full_numbers",
+			iDisplayLength: 20,
+			aLengthMenu: [[20, 50, 100, -1], [20, 50, 100, "All"]],
+			bDestroy: true
+		});
+	};
 
-    $(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();

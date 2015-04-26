@@ -1,6 +1,6 @@
 (function () {
-	var page_scripts = function () {
-		if (!$("#user-profile").length) return;
+	function page_scripts() {
+        var $editProfileForm = $('#edit-profile-form');
 
         if ($editProfileForm.length) {
             function setRemoveAvatar(remove) {
@@ -144,5 +144,6 @@
         }
 	}
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();

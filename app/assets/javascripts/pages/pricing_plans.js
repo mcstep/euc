@@ -1,5 +1,5 @@
 (function () {
-	var page_scripts = function () {
+	function page_scripts() {
 		if (!$("#pricing").length) return;
 
 		var $plans = $(".plans .plan");
@@ -15,7 +15,7 @@
 		$step_triggers.click(function (e) {
 			e.preventDefault();
 			var go_to_step = $(this).data("step");
-			
+
 			$step_panels.removeClass("active");
 			$step_panels.eq(go_to_step).addClass("active");
 
@@ -28,5 +28,6 @@
 		});
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();

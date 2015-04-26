@@ -1,6 +1,6 @@
 (function () {
-	var page_scripts = function () {
-		if (!$("#dashboard").length) {
+	function page_scripts() {
+		if (!$("#visitors-chart").length) {
 			return;
 		}
 
@@ -132,5 +132,6 @@
 		var plot4 = $.plot($("#bar-chart"), [dBar], options2);
 	};
 
-	$(document).on("ready page:load", page_scripts);
+	$(page_scripts);
+	$(document).on('page:load', page_scripts);
 })();
