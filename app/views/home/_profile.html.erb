@@ -1,0 +1,48 @@
+<% region_hash = Hash.new %>
+<% region_hash['AMER'] = 'Americas'%>
+<% region_hash['EMEA'] = 'Europe' %>
+<% region_hash['APAC'] = 'Asia-Pacific' %>
+<% region_hash['DLDC'] = 'Dallas' %>
+
+<div class="container-fluid container-left container-top" id="user-profile">
+  <div class="well clearfix">
+    <div class="col-md-4 col-md-push-8">
+      <figure class="top-margin">
+        <img class="img-circle img-responsive center-block" src="<%= current_user.avatar_url %>" alt="Profile Image">
+      </figure>
+      <hr/>
+      <figure id="avatar-figure">
+        <div class="text-center">
+          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#edit-profile-modal">Edit Profile</button>
+        </div>
+      </figure>
+    </div>
+    <div class="col-md-8 col-md-pull-4">
+      <h2><%= current_user.display_name %></h2>
+      <p><strong>Username: </strong> <%= current_user.username %>@<%= ENV['DOMAIN'] %></p>
+      <p><strong>Email: </strong> <%= current_user.email %> </p>
+      <p><strong>Title: </strong> <%= current_user.title %> </p>
+      <p><strong>Company: </strong> <%= current_user.company %> </p>
+
+      <% @current_user_invited = Invitation.find(current_user.invitation_id) %>
+
+      <% if !@current_user_invited.blank? %>
+        <p><strong>Region: </strong> <%= region_hash[@current_user_invited.region] %></p>
+      <% end %>
+
+      <% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? && @current_user_invited.sender.email != 'admin@vmwdemo.com' %>
+        <p><strong>Invited by: </strong> <%= @current_user_invited.sender.display_name %><a href="#" data-toggle="modal" data-target="#support-modal"> (Contact)</a></p>
+      <% end %>
+
+      <% if current_user.role == 'vip' %>
+        <p><strong>Role: </strong> Super User </p>
+      <% end %>
+
+      <% if !@current_user_invited.blank? and !@current_user_invited.airwatch_user_id.nil? and @current_user_invited.airwatch_trial? %>
+        <p><strong>AirWatch Trial: </strong> Active </p>
+      <% elsif !@current_user_invited.blank? and !@current_user_invited.airwatch_user_id.nil? and !@current_user_invited.airwatch_trial? %>
+        <p><strong>AirWatch Trial: </strong> Inactive </p>
+      <% end %>
+    </div>
+  </div>
+</div>
