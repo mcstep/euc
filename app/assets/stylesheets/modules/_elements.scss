@@ -2,7 +2,7 @@
     outline: none;
 }
 
-a, 
+a,
 button,
 input[type="submit"] {
 	&:focus {
@@ -286,7 +286,7 @@ textarea {
 	}
 }
 
-/* 
+/*
 	Create a custom select by adding a [data-smart-select]
 	to any select. e.g. <select class="form-control" data-smart-select>
 	and it will automatically be converted into a customized select
@@ -407,26 +407,6 @@ form {
 
 
 /* ==============================================================================
-// Flot charts tooltip
-// ============================================================================== */
-#flotTip {
-	background-color: #000;
-	color: #fff;
-	/*border: 1px solid rgb(204, 204, 204);*/
-	/*box-shadow: rgba(0, 0, 0, 0.0980392) 0px 1px;*/
-	padding: 3px 11px 4px;
-	border-radius: 4px;
-	z-index: 9999;
-
-	.value {
-		display: block;
-		text-align: center;
-		font-weight: 600;
-	}
-}
-
-
-/* ==============================================================================
 // Skin Switcher
 // ============================================================================== */
 .skin-switcher {
@@ -446,11 +426,6 @@ form {
 		.ion-settings {
 			color: #666;
 			font-size: 21px;
-		}
-
-		.brankic-brush {
-			font-size: 25px;
-			color: #8C6DEC;
 		}
 	}
 
@@ -474,7 +449,7 @@ form {
 			opacity: 1;
 			@include transform(scale(1));
 		}
-		
+
 		&:before {
 			content: "";
 			position: absolute;
@@ -564,7 +539,7 @@ form {
 
 
 /* ==============================================================================
-// jQuery Datepicker 
+// jQuery Datepicker
 // ============================================================================== */
 .datepicker-dropdown {
 	z-index: 9999999 !important;

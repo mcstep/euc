@@ -13,10 +13,16 @@
  *= require_self
  *= require bootstrap/bootstrap
  *= require bootstrap-datepicker3
- *= require ../../../vendor/assets/stylesheets/select2
- *= require ../../../vendor/assets/stylesheets/select2-bootstrap
- *= require ../../../vendor/assets/stylesheets/messenger/messenger
- *= require ../../../vendor/assets/stylesheets/messenger/messenger-theme-flat
- *= require_tree ../../../vendor/assets/stylesheets/.
+ *
+ *= require messenger/messenger
+ *= require messenger/messenger-theme-flat
+ *= require bootstrap-progressbar-3.1.1
+ *= require datepicker
+ *= require font-awesome.min
+ *= require ionicons
+ *= require select2
+ *= require select2-bootstrap
+ *= require shepherd
+ *
  *= require theme
  */

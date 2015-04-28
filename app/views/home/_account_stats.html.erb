@@ -11,19 +11,12 @@
    <% progress_bar_theme = "progress-bar-danger" %>
  <% end %>
 
-          <h3> Invitation Usage Stats </h3>
-<div class="bs-example h-fill-basic">
-                        <div class="progress">
-    <div class="progress-bar <%= progress_bar_theme %>" role="progressbar" aria-valuetransitiongoal="<%= invites_used %>" aria-valuemax="<%= current_user.total_invitations %>"></div>
-</div>
-You have <%= pluralize(invitations_remaining, 'invite') %> remaining
-                        <script type="text/javascript">
-$('.progress-bar').progressbar({
-    display_text: 'center',
-    use_percentage: false,
-    amount_format: function(p, t) {return p + ' of ' + t;}
-});
-                        </script>
-                    </div>
+  <h3> Invitation Usage Stats </h3>
+  <div class="bs-example h-fill-basic">
+    <div class="progress">
+      <div class="progress-bar <%= progress_bar_theme %>" role="progressbar" aria-valuetransitiongoal="<%= invites_used %>" aria-valuemax="<%= current_user.total_invitations %>"></div>
+    </div>
+    You have <%= pluralize(invitations_remaining, 'invite') %> remaining
+  </div>
 <% end %>
 

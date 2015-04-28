@@ -436,7 +436,7 @@
 			}]
 		});
 
-		$('.start-tour').click(function(e) {
+		$('.start-tour').click(function (e) {
 			e.preventDefault();
 			tour.start();
 			$('html, body').animate({
@@ -446,7 +446,11 @@
 
 
 		$('.progress-bar').progressbar({
-			display_text: 'center'
+			display_text: 'center',
+			use_percentage: false,
+			amount_format: function (p, t) {
+				return p + ' of ' + t;
+			},
 		});
 
 

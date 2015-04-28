@@ -16,17 +16,14 @@
 //= require bootstrap/bootstrap
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB
-//= require ../../../vendor/assets/javascripts/webcamjs/webcam
-//= require ../../../vendor/assets/javascripts/jquery.flot/jquery.flot
-//= require ../../../vendor/assets/javascripts/jquery.flot/jquery.flot.time
-//= require ../../../vendor/assets/javascripts/jquery.flot/jquery.flot.categories
-//= require ../../../vendor/assets/javascripts/jquery.flot/jquery.flot.tooltip
-//= require ../../../vendor/assets/javascripts/messenger/messenger.min
-//= require ../../../vendor/assets/javascripts/messenger/messenger-theme-flat
-//= require ../../../vendor/assets/javascripts/moment.min
-//= require_directory ../../../vendor/assets/javascripts/.
+
+//= require messenger/messenger.min
+//= require messenger/messenger-theme-flat
+//= require webcamjs/webcam
+//= require bootstrap-progressbar
+//= require jquery.validate.min
+//= require moment.min
+//= require shepherd.min
 
 //= require theme
-//= require_directory ./pages/.
-
-//= require_tree .
+//= require_directory ./pages
