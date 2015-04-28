@@ -33,7 +33,7 @@
 
 	&.webcam-active {
 		& > .modal-dialog {
-			width: 390px;
+			width: 400px;
 		}
 
 		#edit-profile-general {
@@ -159,9 +159,8 @@
 	}
 
 	& > div {
-		display: table;
-		width: 350px;
-		height: 350px;
+		width: 360px;
+		height: 360px;
 		margin: 20px;
 
 		& > div {
