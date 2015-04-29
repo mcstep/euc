@@ -1,0 +1,16 @@
+<table id="features-table" class="table table-striped">
+	<thead>
+		<th>Feature Name</th>
+		<th>Status</th>
+	</thead>
+	<tbody>
+		<% features = FeatureToggle.select(:id, :name, :active).order(:name) %>
+		<% features.each do |feature| %>
+			<tr data-id="<%= feature.id %>">
+				<td><%= feature.name %></td>
+				<td><button type="button" class="btn btn-<%= feature.active ? 'success active' : 'danger' %>" aria-pressed="<%= feature.active ? 'true' : 'false' %>"></button></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<button type="button" id="features-flush" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="This will flush all caches and force a resynchronization with the backing database.">Flush all Caches</button>

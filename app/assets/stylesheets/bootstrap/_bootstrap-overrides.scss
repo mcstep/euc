@@ -3,18 +3,18 @@
 // ============================================================================== */
 .pagination>.active {
 	>a,
-	>span, 
-	>a:hover, 
-	>span:hover, 
-	>a:focus, 
-	>span:focus { 
+	>span,
+	>a:hover,
+	>span:hover,
+	>a:focus,
+	>span:focus {
 		background-color: #5585B3;
 		border-color: #4477A3;
 	}
 }
-.pagination >li>a, 
+.pagination >li>a,
 .pagination >li>span,
-.pager li>a, 
+.pager li>a,
 .pager li>span {
 	@include transition(all 0.25s linear);
 }
@@ -32,14 +32,14 @@
 
 .modal {
 	z-index: 10500;
-	
-	&.in { 
+
+	&.in {
 		.modal-dialog {
 			@include transform(translate(0,0) scale3d(1,1,1) !important);
 		}
 	}
 
-	&.fade { 
+	&.fade {
 		@include transition(all .1s ease-out);
 
 		.modal-dialog {
@@ -78,81 +78,21 @@
 // Buttons
 // ============================================================================== */
 .btn {
-	&.btn-default {
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+	@include transition(all .2s linear);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 
-		@include transition(all .2s linear);
-
-		&:focus,
-		&:active {
-			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.14);
-		}
-	}
-
-	&.btn-primary {
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-
-		@include transition(all .2s linear);
-
-		&:focus,
-		&:active {
-			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14);
-		}
+	&:active,
+	&.active {
+		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset !important;
 	}
 
 	&.btn-success {
 		border: 1px solid #63a042;
 		background-color: #76b852;
 
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-
-		@include transition(all .2s linear);
-
-		&:focus,
-		&:active {
-			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14);
-		}
-
 		&:hover {
 			background-color: #47a447;
-		}
-	}
-
-	&.btn-danger {
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-
-		@include transition(all .2s linear);
-
-		&:focus,
-		&:active {
-			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14);
-		}
-	}
-
-	&.btn-info {
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-
-		@include transition(all .2s linear);
-
-		&:focus,
-		&:active {
-			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14);
-		}
-	}
-
-	&.btn-warning {
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-
-		@include transition(all .2s linear);
-
-		&:focus,
-		&:active {
-			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14);
 		}
 	}
 }

@@ -5,7 +5,7 @@
       <a href="#" class="name">
         <img class="avatar" src="<%= current_user.avatar_url %>" alt="Profile Image">
         <span>
-          <div><%= current_user.display_name.split(" ")[0] %></div>
+          <div><%= current_user.display_name.split(" ").first %></div>
           <i class="fa fa-chevron-down"></i>
         </span>
       </a>
@@ -54,43 +54,49 @@
     </ul>
   </div>
 
-  <% if current_user && policy(current_user).admin? %>
-    <div class="menu-section">
-      <h3>Admin</h3>
-      <ul>
-        <li class="option">
-          <a href="#" data-toggle="sidebar">
-            <i class="ion-person-stalker"></i> <span>Accounts</span>
-            <i class="fa fa-chevron-down"></i>
-          </a>
-          <ul class="submenu">
-            <li><a href="<%= new_invitation_path %>">Send Invitation</a></li>
-            <li><a href="<%= invitations_path %>">Manage Accounts</a></li>
-          </ul>
-        </li>
-        <li class="option">
-          <a href="<%= domains_path %>" class="active">
-            <i class="ion-at"></i>
-            <span>Domains</span>
-          </a>
-        </li>
-        <li class="option">
-          <a href="<%= reports_seats_stats_path %>" class="active">
-            <i class="ion-stats-bars"></i>
-            <span>Reports</span>
-          </a>
-        </li>
-        <li class="option">
-          <a href="<%= reg_codes_path %>" class="active">
-            <i class="ion-filing"></i>
-            <span>Reg Codes</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  <% end %>
-
   <% if current_user %>
+    <% if policy(current_user).admin? %>
+      <div class="menu-section">
+        <h3>Admin</h3>
+        <ul>
+          <li class="option">
+            <a href="#" data-toggle="sidebar">
+              <i class="ion-person-stalker"></i> <span>Accounts</span>
+              <i class="fa fa-chevron-down"></i>
+            </a>
+            <ul class="submenu">
+              <li><a href="<%= new_invitation_path %>">Send Invitation</a></li>
+              <li><a href="<%= invitations_path %>">Manage Accounts</a></li>
+            </ul>
+          </li>
+          <li class="option">
+            <a href="<%= domains_path %>" class="active">
+              <i class="ion-at"></i>
+              <span>Domains</span>
+            </a>
+          </li>
+          <li class="option">
+            <a href="<%= features_path %>" class="active">
+              <i class="ion-bug"></i>
+              <span>Features</span>
+            </a>
+          </li>
+          <li class="option">
+            <a href="<%= reg_codes_path %>" class="active">
+              <i class="ion-filing"></i>
+              <span>Reg Codes</span>
+            </a>
+          </li>
+          <li class="option">
+            <a href="<%= reports_seats_stats_path %>" class="active">
+              <i class="ion-stats-bars"></i>
+              <span>Reports</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="bottom-menu hidden-sm">
       <ul>
         <li><a data-toggle="modal" data-target="#support-modal"><i class="ion-help"></i></a></li>

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
 
+  get '/features' => 'features#index'
   get 'dashboard' => 'home#index', :as => 'dashboard'
   get 'eula/accept'
   get 'forgotpassword' => 'sessions#new', :as => 'forgotpassword'
@@ -18,10 +19,12 @@ Rails.application.routes.draw do
   get 'support_request/create'
   get 'toggle' => 'domains#toggle', :as => 'toggle'
   get 'toggle_airwatch' => 'eula#toggle_airwatch', :as => 'toggle_airwatch'
+  patch 'features/:id' => 'features#update'
   post 'change_password' => 'password_change#change_password', :as => 'change_password'
   post 'edit_profile' => 'users#edit_profile', :as => 'edit_profile'
   post 'eula' => 'eula#create', :as => 'eula'
   post 'extend_invitation' => 'invitations#extend', :as => 'extend_invitation'
+  post 'features/flush' => 'features#flush'
   post 'impersonate_user' => 'invitations#impersonate', :as => 'impersonate_user'
   post 'password_reset' => 'password_reset#create', :as => 'password_reset'
   post 'support_request' => 'support_request#create', :as => 'support_request'

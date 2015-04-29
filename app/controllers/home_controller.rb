@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_action :require_login
-  
+
   def index
     @invitation = Invitation.new
   end

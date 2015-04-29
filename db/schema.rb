@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421162708) do
+ActiveRecord::Schema.define(version: 20150428174418) do
 
   create_table "accounts", force: true do |t|
     t.string   "first_name"
@@ -56,6 +56,13 @@ ActiveRecord::Schema.define(version: 20150421162708) do
     t.string   "reason"
     t.datetime "original_expires_at"
     t.datetime "revised_expires_at"
+  end
+
+  create_table "feature_toggles", force: true do |t|
+    t.string   "name"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "invitations", force: true do |t|
@@ -112,5 +119,13 @@ ActiveRecord::Schema.define(version: 20150421162708) do
   end
 
   add_index "users", ["invitation_id"], name: "index_users_on_invitation_id"
+
+  suppress(Exception) do
+    ##
+    # TODO: Add features here!
+    ##
+
+    #FeatureToggle.create!(name: "FeatureName", active: true)
+  end
 
 end
