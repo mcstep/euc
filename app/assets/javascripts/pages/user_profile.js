@@ -15,6 +15,12 @@
 				$webcamShot.prop('disabled', disabled);
 			}
 
+			function disableWebcam() {
+				if (Webcam.container) {
+					Webcam.reset();
+				}
+			}
+
 			// we manually append to file input to assert that it's value is unset
 			var $avatarFile = $('<input class="hidden" type="file"/>').appendTo($editProfileForm);
 
@@ -37,9 +43,7 @@
 				$editProfileModal.removeClass('webcam-active');
 			});
 
-			$editProfileModal.on('hide.bs.modal', function () {
-				Webcam.reset();
-			});
+			$editProfileModal.on('hide.bs.modal', disableWebcam);
 
 			$editProfileForm.on('submit', function () {
 				$editProfileModal.modal('hide');
@@ -61,7 +65,7 @@
 				});
 
 				Webcam.on('error', function (err) {
-					Webcam.reset();
+					disableWebcam();
 					$editProfileWebcamContainer.css('display', 'table').html('<div>' + err + '</div>');
 					$webcamShot.prop('disabled', true);
 				});
@@ -102,7 +106,7 @@
 			});
 
 			$editProfileWebcamCancel.on('click', function () {
-				Webcam.reset();
+				disableWebcam();
 				toggleEditProfileMode();
 			});
 		}
