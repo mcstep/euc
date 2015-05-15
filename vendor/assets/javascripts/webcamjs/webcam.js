@@ -26,16 +26,11 @@ var Webcam = {
 		image_format: 'jpeg', // image format (may be jpeg or png)
 		jpeg_quality: 90, // jpeg image quality from 0 (worst) to 100 (best)
 		force_flash: false, // force flash mode,
-		flip_horiz: false // flip image horiz (mirror mode)
+		flip_horiz: false, // flip image horiz (mirror mode)
+		fps: 30
 	},
 	
-	hooks: {
-		load: null,
-		live: null,
-		uploadcomplete: null,
-		uploadprogress: null,
-		error: function(msg) { alert("Webcam.js Error: " + msg); }
-	}, // callback hook functions
+	hooks: {}, // callback hook functions
 	
 	init: function() {
 		// initialize, check for getUserMedia support
@@ -78,6 +73,9 @@ var Webcam = {
 		// if force_flash is set, disable userMedia
 		if (this.params.force_flash) this.userMedia = null;
 		
+		// check for default fps
+		if (typeof this.params.fps !== "number") this.params.fps = 30;
+
 		// adjust scale if dest_width or dest_height is different
 		var scaleX = this.params.width / this.params.dest_width;
 		var scaleY = this.params.height / this.params.dest_height;
@@ -115,7 +113,11 @@ var Webcam = {
 					mandatory: {
 						minWidth: this.params.dest_width,
 						minHeight: this.params.dest_height
-					}
+					}/* ,
+					frameRate: {
+						ideal: this.params.fps,
+						max: this.params.fps
+					} */
 				}
 			}, 
 			function(stream) {
@@ -196,13 +198,25 @@ var Webcam = {
 	
 	on: function(name, callback) {
 		// set callback hook
-		// supported hooks: onLoad, onError, onLive
 		name = name.replace(/^on/i, '').toLowerCase();
-		
-		if (typeof(this.hooks[name]) == 'undefined')
-			throw "Event type not supported: " + name;
-		
-		this.hooks[name] = callback;
+		if (!this.hooks[name]) this.hooks[name] = [];
+		this.hooks[name].push( callback );
+	},
+	
+	off: function(name, callback) {
+		// remove callback hook
+		name = name.replace(/^on/i, '').toLowerCase();
+		if (this.hooks[name]) {
+			if (callback) {
+				// remove one selected callback from list
+				var idx = this.hooks[name].indexOf(callback);
+				if (idx > -1) this.hooks[name].splice(idx, 1);
+			}
+			else {
+				// no callback specified, so clear all
+				this.hooks[name] = [];
+			}
+		}
 	},
 	
 	dispatch: function() {
@@ -210,21 +224,30 @@ var Webcam = {
 		var name = arguments[0].replace(/^on/i, '').toLowerCase();
 		var args = Array.prototype.slice.call(arguments, 1);
 		
-		if (this.hooks[name]) {
-			if (typeof(this.hooks[name]) == 'function') {
-				// callback is function reference, call directly
-				this.hooks[name].apply(this, args);
-			}
-			else if (typeof(this.hooks[name]) == 'array') {
-				// callback is PHP-style object instance method
-				this.hooks[name][0][this.hooks[name][1]].apply(this.hooks[name][0], args);
-			}
-			else if (window[this.hooks[name]]) {
-				// callback is global function name
-				window[ this.hooks[name] ].apply(window, args);
-			}
+		if (this.hooks[name] && this.hooks[name].length) {
+			for (var idx = 0, len = this.hooks[name].length; idx < len; idx++) {
+				var hook = this.hooks[name][idx];
+				
+				if (typeof(hook) == 'function') {
+					// callback is function reference, call directly
+					hook.apply(this, args);
+				}
+				else if ((typeof(hook) == 'object') && (hook.length == 2)) {
+					// callback is PHP-style object instance method
+					hook[0][hook[1]].apply(hook[0], args);
+				}
+				else if (window[hook]) {
+					// callback is global function name
+					window[ hook ].apply(window, args);
+				}
+			} // loop
 			return true;
 		}
+		else if (name == 'error') {
+			// default error handler if no custom one specified
+			alert("Webcam.js Error: " + args[0]);
+		}
+		
 		return false; // no hook defined
 	},
 	
@@ -655,10 +678,12 @@ var Webcam = {
 Webcam.init();
 
 if (typeof define === 'function' && define.amd) {
-	define(function() { return Webcam });
-} else if (typeof module === 'object' && module.exports) {
+	define( function() { return Webcam } );
+} 
+else if (typeof module === 'object' && module.exports) {
 	module.exports = Webcam;
-} else {
+} 
+else {
 	window.Webcam = Webcam;
 }
 
