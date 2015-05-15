@@ -62,6 +62,14 @@
 
 				Webcam.on('live', function () {
 					$webcamShot.prop('disabled', false);
+
+					/*
+					 * If the user had to click on a button within the browser UI
+					 * to allow the access to the camera, the focus on the
+					 * browser content might be lost. This means that key events
+					 * like the escape key which closes the modal won't be triggered anymore.
+					 */
+					$webcamShot.focus();
 				});
 
 				Webcam.on('error', function (err) {
