@@ -27,7 +27,6 @@
 
 		// Focus first input when form modal is shown
 		$('#form-validation-modal').on('shown.bs.modal', function (e) {
-			alert("hello world");
 			$("#form-validation-modal").find("input:text:eq(0)").focus();
 		})
 
