@@ -10,7 +10,9 @@ task :extend_super_user => :environment do
 
   invitations = Invitation
     .joins('INNER JOIN users ON users.invitation_id = invitations.id')
-    .where("users.role = ? AND invitations.expires_at <= ?", User.roles["vip"], Date.today + extend_within.days)
+    .where("users.role = ? AND invitations.expires_at <= ? AND invitations.sender_id IS NULL", User.roles["vip"], Date.today + extend_within.days)
+
+  puts "Found #{invitations.count} super users that need their account extended"
 
   # WARNING:
   #   This code is copied over from InvitationsController::extend.
@@ -22,7 +24,7 @@ task :extend_super_user => :environment do
 
     begin
       response = RestClient.post(url="#{ENV['API_HOST']}/extendAccount",payload={:username => invitation.recipient_username, :expires_at => ((invitation.expires_at.to_i)*1000)}, headers={:token => ENV["API_KEY"]})
-      puts "Got response #{response} for account extension"
+      puts "Got response #{response} for account extension of super user #{invitation.recipient_email}"
 
       if response.code == 200
         invitation.save
