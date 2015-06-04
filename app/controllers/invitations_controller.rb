@@ -1,7 +1,7 @@
 class InvitationsController < ApplicationController
   before_action :set_invitation, only: [:show, :edit, :update, :destroy]
   before_action :require_login
-  before_action :require_admin
+  before_action :require_admin , except: [:unimpersonate]
 
   def check_invitation
     @invitation = Invitation.find_by_recipient_email(params[:invitation][:recipient_email].downcase)
