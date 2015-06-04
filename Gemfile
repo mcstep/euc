@@ -1,51 +1,48 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.0'
+gem 'rails', '4.2'
 
 
-gem 'bazaar'
-gem 'bootstrap-datepicker-rails'
+gem 'autoprefixer-rails'
+gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'carrierwave-data-uri'
 gem 'cloudinary'
-gem 'coffee-rails', '~> 4.0.0'
 gem 'feature'
 gem 'figaro'
 gem 'google-api-client'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'newrelic_rpm'
-gem 'paranoia', '~> 2.0'
+gem 'paranoia'
 gem 'pundit'
 gem 'rest-client'
 gem 'rqrcode_png'
-gem 'sass-rails', '~> 4.0.3'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'therubyracer', platform: :ruby
-gem 'turbolinks'
-gem 'uglifier', '>= 1.3.0'
-gem 'unicorn'
+gem 'uglifier'
+gem 'unicorn', platform: :ruby
 gem 'wannabe_bool'
 
 group :doc do
-  gem 'sdoc', '~> 0.4.0'
+  gem 'sdoc'
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'pry-rails'
   gem 'pry-rescue'
+  gem 'sqlite3'
 end
 
 group :development do
-  gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'rails_layout'
+  gem 'spring'
 end
 
 group :production, :staging do

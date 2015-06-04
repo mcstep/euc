@@ -1,0 +1,188 @@
+<div id="sidebar">
+	<div class="sidebar-usercontrols">
+		<img src="<%= current_user.avatar_url %>"/>
+		<p><span class="sidebar-username">First <strong>Last</strong></span></p>
+	</div>
+
+	<span class="sidebar-divider">General</span>
+	<ul class="sidebar-nav">
+		<li><a href="<%= dashboard_path %>">Dashboard</a></li>
+		<li><a href="#">News</a></li>
+		<li><a href="#">FAQ</a></li>
+	</ul>
+
+	<% if policy(current_user).admin? %>
+		<span class="sidebar-divider">Admin</span>
+		<ul class="sidebar-nav">
+			<li><a href="<%= new_invitation_path %>">Send Invitation</a></li>
+			<li><a href="<%= invitations_path %>">Manage Accounts</a></li>
+			<li><a href="<%= domains_path %>">Domains</a></li>
+			<li><a href="<%= features_path %>">Features</a></li>
+			<li><a href="<%= reg_codes_path %>">Reg Codes</a></li>
+			<li><a href="<%= reports_seats_stats_path %>">Reports</a></li>
+		</ul>
+	<% end %>
+
+	<span class="sidebar-divider">Your Account</span>
+	<ul class="sidebar-nav">
+		<li><a href="#" data-toggle="modal" data-target="#edit-profile-modal">Edit Profile</a></li>
+		<li><a href="#" data-toggle="modal" data-target="#password-change-modal">Change Password</a></li>
+		<li><a href="#" data-toggle="modal" data-target="#support-modal">Support</a></li>
+		<li><a href="<%= log_out_path %>">Log Out</a></li>
+	</ul>
+</div>
+
+<div class="modal fade" id="support-modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="support-form" method="post" action="/support_request" role="form">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Submit a support request</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>To:</label>
+						<% @current_user_invited = Invitation.find(current_user.invitation_id) %>
+						<% if !@current_user_invited.blank? && !@current_user_invited.sender.blank? && @current_user_invited.sender.email != 'admin@vmwdemo.com' %>
+							<input type="text" name="recipient" class="form-control" readonly="true" value="<%=  @current_user_invited.sender.email %>"/>
+						<% else %>
+							<input type="text" name="recipient" class="form-control" readonly="true" value="eucdemohelp@vmware.com"/>
+						<% end %>
+					</div>
+					<div class="form-group">
+						<label>Subject:</label>
+						<% if current_user.role == 'user' %>
+							<input type="text" name="subject" class="form-control" readonly="true" value="Support request from <%= current_user.display_name %> from the EUC Demo Portal"/>
+						<% else %>
+							<input type="text" name="subject" class="form-control"/>
+						<% end %>
+					</div>
+					<div class="form-group">
+						<label>Body:</label>
+						<textarea class="form-control" name="notes" rows="3" maxlength="1000"></textarea>
+					</div>
+					<% if current_user.role == 'vip' %>
+						<div class= "well sla">
+							<p style="text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: bold; line-height: 19px;" align="center">Portal SLA Information:</p>
+							<p style="text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px;" align="center">Super Users can expect to receive email support from the VMware Demo Team during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST. At the moment the response times are 4 hour response and 48 hours to resolution. Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.</p>
+						</div>
+					<% end %>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-success">Submit request</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog">
+	<form class="modal-dialog modal-lg" id="edit-profile-form" method="post" action="/edit_profile" enctype="multipart/form-data">
+		<input name="authenticity_token" value="<%= form_authenticity_token() %>" type="hidden"/>
+		<input class="hidden" id="edit-profile-remove-avatar" name="user[remove_avatar]" value="1" type="checkbox"/>
+		<div class="modal-content" id="edit-profile-general">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-3" id="edit-profile-left">
+						<div class="row">
+							<div class="col-md-12 col-xs-6">
+								<img class="img-circle img-responsive center-block" id="edit-profile-avatar" src="<%= current_user.avatar_url %>" alt="Profile Image"/>
+							</div>
+							<div class="col-md-12 col-xs-6" id="edit-profile-left-buttons">
+								<button class="btn btn-primary" type="button"><span>Take Photo</span></button>
+								<button class="btn btn-primary" type="button"><span>Upload Photo</span></button>
+								<button class="btn btn-danger" type="button"><span>Remove Photo</span></button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9" id="edit-profile-right">
+						<div class="row header">
+							<div class="col-xs-12">
+								<div class="email"><%= current_user.username %>@vmwdemo.com</div>
+								<h4 class="modal-title">Edit Profile</h4>
+							</div>
+						</div>
+						<div class="row body">
+							<div class="col-xs-12">
+								<label>Name</label>
+								<input class="form-control" name="user[display_name]" value="<%= current_user.display_name %>" type="text"/>
+							</div>
+						</div>
+						<div class="row body">
+							<div class="col-xs-12">
+								<label>Contact Email</label>
+								<input class="form-control" value="<%= current_user.email %>" type="text" readonly="readonly"/>
+							</div>
+						</div>
+						<div class="row body">
+							<div class="col-xs-6">
+								<label>Company</label>
+								<input class="form-control" name="user[company]" value="<%= current_user.company %>" type="text"/>
+							</div>
+							<div class="col-xs-6">
+								<label>Title</label>
+								<input class="form-control" name="user[title]" value="<%= current_user.title %>" type="text"/>
+							</div>
+						</div>
+						<div class="row footer">
+							<div class="col-xs-12">
+								<button class="btn btn-success" type="submit">Save Profile</button>
+								<button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+								<div id="edit-profile-region">
+									<label>Region</label>
+									<div><%= current_user.region %></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-content" id="edit-profile-webcam">
+			<header>
+				<h4>Take Photo</h4>
+			</header>
+			<div><div>Accessing Camera…</div></div>
+			<button class="btn btn-primary" id="edit-profile-webcam-shot" type="button" disabled="disabled"><span>Take Photo</span></button>
+			<footer>
+				<button class="btn btn-default" type="button">Cancel</button>
+				<button class="btn btn-success" type="submit" disabled="disabled">Use this Photo</button>
+			</footer>
+		</div>
+	</form>
+</div>
+
+<div class="modal fade" id="password-change-modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="password-change-form" method="post" action="/change_password" role="form">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Change Password</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Current Password:</label>
+						<input type="password" name="current_password" id="current_password"  class="form-control"/>
+					</div>
+					<div class="form-group">
+						<label>New Password:</label>
+						<input type="password" name="new_password" id="new_password" class="form-control"/>
+					</div>
+					<div class="form-group">
+						<label>Confirm New Password:</label>
+						<input type="password" name="new_password_confirm" id="new_password_confirm" class="form-control"/>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-success">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

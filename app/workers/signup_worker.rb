@@ -4,7 +4,7 @@ class SignupWorker
   def perform(invitation_id)
     @invitation = Invitation.find_by_id(invitation_id)
     puts "Will start working on Invitation ID#{invitation_id} for Recipient #{@invitation.recipient_email}"
-    
+
     region = "dldc"
     if !@invitation.region.nil?
       region = @invitation.region.downcase
@@ -27,7 +27,7 @@ class SignupWorker
     end
 
     puts "Done creating account. Response from AD #{json_body}"
-    
+
     if !Rails.env.development?
       puts "Calling ad replicate.."
       begin
@@ -41,6 +41,7 @@ class SignupWorker
       puts "AD replicate called successfully"
     end
 
+    # TODO: merge this and the following block?
     puts "Creating user profile directory in home region.."
     begin
       create_dir_url = "#{ENV['API_HOST']}/createdir"

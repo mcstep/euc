@@ -1,48 +1,25 @@
-<%= content_for :body_id, "dashboard" %>
-
-<div class="menubar">
-  <div class="sidebar-toggler visible-xs">
-    <i class="ion-navicon"></i>
-  </div>
-  <div class="page-title">
-    <header>
-      <h1><a href="/" class="home">EUC Demo Portal</a></h1>
-    </header>
-  </div>
-</div>
-
 <% if current_user %>
-  <% invitation_for_user = Invitation.find_by_recipient_email("#{current_user.email}") %>
+	<% invitation_for_user = Invitation.find_by_recipient_email("#{current_user.email}") %>
 
-  <% if invitation_for_user && invitation_for_user.eula_accept_date.nil? && invitation_for_user.airwatch_trial? %>
-    <%= render 'eula' %>
-  <% end %>
+	<% if invitation_for_user && invitation_for_user.eula_accept_date.nil? && invitation_for_user.airwatch_trial? %>
+		<%= render 'eula' %>
+	<% end %>
 
-  <% if !session[:impersonator_id].blank? %>
-    <div class="container-fluid container-left">
-      <div class="row">
-        <div class="col-lg-9">
-          <div class="alerts">
-            <div class= "well sla alert-message error">
-              <p>WARNING! You are now in Impersonator Mode. Any dashboard activity will happen as though it was initiated by the user you are impersonating.  Remember, with great power comes great responsibility! Click <%= link_to 'here', unimpersonate_path, method: :post %> to return to Normal Mode.<br/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
+	<% if !session[:impersonator_id].blank? %>
+		<div class="alert alert-warning" role="alert">WARNING! You are now in Impersonator Mode. Any dashboard activity will happen as though it was initiated by the user you are impersonating. Remember, with great power comes great responsibility! Click <%= link_to 'here', unimpersonate_path, method: :post %> to return to Normal Mode.</div>
+	<% end %>
 
-  <%= render 'header' %>
-  <%= render 'profile' %>
-  <%= render 'links' %>
+	<%= render 'header' %>
+	<%= render 'profile' %>
+	<%= render 'links' %>
 
-  <% if current_user.role != 'admin' %>
-    <%= render 'account_stats' %>
-  <% end %>
+	<% if current_user.role != 'admin' %>
+		<%= render 'account_stats' %>
+	<% end %>
 
-  <%= render 'invitations' %>
+	<%= render 'invitations' %>
 
-  <% if current_user.role == 'vip' %>
-    <%= render 'footer' %>
-  <% end %>
+	<% if current_user.role == 'vip' %>
+		<%= render 'footer' %>
+	<% end %>
 <% end %>

@@ -1,39 +1,22 @@
-    <div class="container-fluid container-left">
-    <div class="row">
-	<div class="col-lg-9">
-<div class="alerts">
-      <div class= "well sla alert-message info">
-<p> You have been provisioned an AirWatch trial account. Click <a href="#" data-toggle="modal" data-target="#eula-modal" class="eula-link"> here </a> to accept the EULA and activate the trial.
+<div class="alert alert-info" role="alert">
+	You have been provisioned an AirWatch trial account. Click <a href="#" data-toggle="modal" data-target="#eula-modal" class="eula-link">here</a> to accept the EULA and activate the trial.
 </div>
 
-      </div>
-</div>
-    </div>
-</div>
-
-	<div class="modal fade" id="eula-modal" tabindex="-1" role="dialog">
-	  	<div class="modal-dialog">
-		    <div class="modal-content">
-		    	<form id="eula-form" method="post" action="/eula" role="form">
-			      	<div class="modal-header">
-			        	<h4 class="modal-title">
-			        		AirWatch EULA
-			        	</h4>
-			      	</div>
-			      	<div class="modal-body">
-				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
-		                <div class="info" style="overflow-y: scroll; height:400px;">
-<iframe src="https://docs.google.com/gview?url=http://www.air-watch.com/downloads/legal/20140701_AirWatch_EULA.pdf&embedded=true"
-width="100%" height="800" >
-<p>Your browser does not support iframes.</p>
-</iframe>
-</div>
-			      	</div>
-			      	<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-				        <button type="submit" class="btn btn-success" id="accept_eula" >Yes, I accept</button>
-			      	</div>
-				</form>
-		    </div>
-	  	</div>
+<div id="eula-modal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="eula-form" method="post" action="/eula" role="form">
+				<div class="modal-header">
+					<h4 class="modal-title">AirWatch EULA</h4>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Decline</button>
+					<button type="submit" class="btn btn-success" id="accept_eula">Yes, I accept</button>
+				</div>
+			</form>
+		</div>
 	</div>
+</div>

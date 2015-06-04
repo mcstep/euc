@@ -1,0 +1,8 @@
+#eula-modal {
+	iframe {
+		min-height: 200px;
+		height: 50vh;
+		height: calc(100vh - 260px); // 260px equals approx. the margin + height of the rest of the modal container
+		border: none;
+	}
+}

@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   end
 
   def self.default_avatar_url
-    ActionController::Base.helpers.asset_path('default-user-icon-profile.png')
+    ActionController::Base.helpers.image_path('default_avatar.png')
   end
 
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id'

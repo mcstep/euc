@@ -1,22 +1,22 @@
- <% if policy(current_user).invites? %>
- <% invites_used = current_user.invitations_used %>
- <% percent_invites_used = (current_user.invitations_used.to_f/current_user.total_invitations.to_f*100) %>
- <% invitations_remaining = current_user.total_invitations - current_user.invitations_used %>
- <% progress_bar_theme = "progress-bar-info" %>
- <% if percent_invites_used < 50 %>
-   <% progress_bar_theme = "progress-bar-success" %>
- <% elsif percent_invites_used >= 50 %>
-   <% progress_bar_theme = "progress-bar-warning" %>
- <% elsif percent_invites_used > 75 %>
-   <% progress_bar_theme = "progress-bar-danger" %>
- <% end %>
+<% if policy(current_user).invites? %>
+	<% invites_used = current_user.invitations_used %>
+	<% percent_invites_used = (current_user.invitations_used.to_f/current_user.total_invitations.to_f*100) %>
+	<% invitations_remaining = current_user.total_invitations - current_user.invitations_used %>
+	<% progress_bar_theme = "progress-bar-info" %>
 
-  <h3> Invitation Usage Stats </h3>
-  <div class="bs-example h-fill-basic">
-    <div class="progress">
-      <div class="progress-bar <%= progress_bar_theme %>" role="progressbar" aria-valuetransitiongoal="<%= invites_used %>" aria-valuemax="<%= current_user.total_invitations %>"></div>
-    </div>
-    You have <%= pluralize(invitations_remaining, 'invite') %> remaining
-  </div>
+	<% if percent_invites_used < 50 %>
+		<% progress_bar_theme = "progress-bar-success" %>
+	<% elsif percent_invites_used >= 50 %>
+		<% progress_bar_theme = "progress-bar-warning" %>
+	<% elsif percent_invites_used > 75 %>
+		<% progress_bar_theme = "progress-bar-danger" %>
+	<% end %>
+
+	<h3> Invitation Usage Stats </h3>
+	<div class="bs-example h-fill-basic">
+		<div class="progress">
+			<div class="progress-bar <%= progress_bar_theme %>" role="progressbar" aria-valuetransitiongoal="<%= invites_used %>" aria-valuemax="<%= current_user.total_invitations %>"></div>
+		</div>
+		You have <%= pluralize(invitations_remaining, 'invite') %> remaining
+	</div>
 <% end %>
-

@@ -1,0 +1,68 @@
+@mixin varela-round {
+	font-family: 'Varela Round', sans-serif;
+	font-style: normal;
+	line-height: 1;
+}
+
+@mixin helvetica-light {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 300;
+}
+
+@mixin radius-none {
+	border-radius: 0 !important;
+}
+
+@mixin radius {
+	border-radius: $border-radius-base;
+}
+
+@mixin radius-large {
+	border-radius: $border-radius-base * 10;
+}
+
+@mixin radius-max {
+	border-radius: 110%;
+}
+
+@mixin radius-large-bottom {
+	border-radius: $border-radius-base * 5;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+@mixin radius-large-top {
+	border-radius: $border-radius-base * 10;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+@mixin radius-large-top-right {
+	border-radius: $border-radius-base * 20 !important;
+	border-bottom-left-radius: $border-radius-base !important;
+	border-bottom-right-radius: 0 !important;
+	border-top-left-radius: $border-radius-base !important;
+}
+
+@mixin animate {
+	transition-property: all;
+	transition-duration: 0.1s;
+}
+
+@mixin animate-long {
+	transition-property: all;
+	transition-duration: 0.65s;
+}
+
+
+@mixin animate-opacity {
+	/* Fade in animation keyframes */
+	@keyframes fadein {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+}

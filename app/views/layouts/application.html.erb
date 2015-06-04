@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>EUC Global Demo Portal</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<title>EUC Global Demo Portal</title>
+	<%= csrf_meta_tags %>
+	<%= stylesheet_link_tag "application", media: "all" %>
 </head>
+<body<%== ' class="content"' if current_user %>>
+	<% if current_user %>
+		<%= render "shared/sidebar" %>
+	<% end %>
 
-<body id="<%= yield :body_id %>">
-  <div class="top-bar"></div>
-  <div id="wrapper">
-    <%= render "shared/sidebar_menu" %>
-    <div id="content" class="content">
-      <%= render 'layouts/messages' %>
-      <%= yield %>
-    </div>
-  </div>
-  <%= yield :bottom_content %>
+	<%= render "shared/topbar" %>
+
+	<div id="content">
+		<%= yield %>
+	</div>
+
+<!--[if lt IE 9]>
+	<%= javascript_include_tag "jquery" %>
+<![endif]-->
+<!--[if gte IE 9]><!-->
+	<%= javascript_include_tag "jquery2" %>
+<!--<![endif]-->
+
+	<%= javascript_include_tag "application" %>
 </body>
-
-
 </html>
