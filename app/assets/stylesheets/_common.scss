@@ -55,6 +55,28 @@
 	background: #fff;
 }
 
+.form-content {
+	padding: 0;
+	background: #fff;
+
+	& > h1 {
+		margin: 0;
+		padding: 0.6em 0 0.5em;
+		background-color: $tf-lightblue;
+
+		@include varela-round;
+		color: #fff;
+		font-size: 150%;
+		text-align: center;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	& > form {
+		padding: 25px 50px 50px;
+	}
+}
+
 @media (max-width: $screen-xs-max) {
 	body {
 		background: #fff;

@@ -1,25 +1,23 @@
-<% if current_user %>
-	<% invitation_for_user = Invitation.find_by_recipient_email("#{current_user.email}") %>
+<% invitation_for_user = Invitation.find_by_recipient_email("#{current_user.email}") %>
 
-	<% if invitation_for_user && invitation_for_user.eula_accept_date.nil? && invitation_for_user.airwatch_trial? %>
-		<%= render 'eula' %>
-	<% end %>
+<% if invitation_for_user && invitation_for_user.eula_accept_date.nil? && invitation_for_user.airwatch_trial? %>
+	<%= render 'eula' %>
+<% end %>
 
-	<% if !session[:impersonator_id].blank? %>
-		<div class="alert alert-warning" role="alert">WARNING! You are now in Impersonator Mode. Any dashboard activity will happen as though it was initiated by the user you are impersonating. Remember, with great power comes great responsibility! Click <%= link_to 'here', unimpersonate_path, method: :post %> to return to Normal Mode.</div>
-	<% end %>
+<% if !session[:impersonator_id].blank? %>
+	<div class="alert alert-warning" role="alert">WARNING! You are now in Impersonator Mode. Any dashboard activity will happen as though it was initiated by the user you are impersonating. Remember, with great power comes great responsibility! Click <%= link_to 'here', unimpersonate_path, method: :post %> to return to Normal Mode.</div>
+<% end %>
 
-	<%= render 'header' %>
-	<%= render 'profile' %>
-	<%= render 'links' %>
+<%= render 'header' %>
+<%= render 'profile' %>
+<%= render 'links' %>
 
-	<% if current_user.role != 'admin' %>
-		<%= render 'account_stats' %>
-	<% end %>
+<% if current_user.role != 'admin' %>
+	<%= render 'account_stats' %>
+<% end %>
 
-	<%= render 'invitations' %>
+<%= render 'invitations' %>
 
-	<% if current_user.role == 'vip' %>
-		<%= render 'footer' %>
-	<% end %>
+<% if current_user.role == 'vip' %>
+	<%= render 'footer' %>
 <% end %>

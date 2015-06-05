@@ -1,25 +1,24 @@
 <div class="container">
 	<div class="row">
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 content">
-			<h3>Welcome to the VMware End User Computing Demo Portal</h3>
-			<h4>Please sign in</h4>
-				<%= form_tag sessions_path do %>
-					<div class="form-group">
-						<%= label_tag :username %><br />
-						<%= text_field_tag :username, params[:username], :class => "form-control" %>
-					</div>
-					<div class="form-group">
-						<%= label_tag :password %><br />
-						<%= password_field_tag :password, params[:password], :class => "form-control" %>
-					</div>
-					<div class="form-group">
-						<%= submit_tag "Log in", :class => "btn btn-lg btn-strong" %>
-					</div>
-				<% end %>
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 form-content">
+			<h1>Sign In</h1>
+			<%= form_tag sessions_path do %>
+			<h4>Welcome to the VMware End User Computing Demo Portal</h4>
+				<div class="form-group">
+					<%= label_tag :username %><br />
+					<%= text_field_tag :username, params[:username], :class => "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= label_tag :password %><br />
+					<%= password_field_tag :password, params[:password], :class => "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= submit_tag "Log in", :class => "btn btn-lg btn-strong" %>
+				</div>
 				<div class="help-block">
 					<a href="#" data-toggle="modal" data-target="#password-reset-modal">Forgot password? Click here to reset</a><br/>
 				</div>
-			</div>
+			<% end %>
 		</div>
 	</div>
 </div>

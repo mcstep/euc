@@ -4,11 +4,11 @@
 <% region_hash['APAC'] = 'Asia-Pacific' %>
 <% region_hash['DLDC'] = 'Dallas' %>
 
-<div class="container-fluid container-left container-top" id="user-profile">
+<div class="container-fluid container-flow" id="user-profile">
 	<div class="well clearfix">
 		<div class="col-md-4 col-md-push-8">
 			<figure class="top-margin">
-				<img class="img-circle img-responsive center-block" src="<%= current_user.avatar_url %>" alt="Profile Image">
+				<img class="img-circle img-responsive center-block" src="<%= current_user.avatar_url %>" alt="Profile Image" width="200" height="200"/>
 			</figure>
 			<hr/>
 			<figure id="avatar-figure">
