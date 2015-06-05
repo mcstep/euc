@@ -1,45 +1,38 @@
-<div class="bg clear">
-  <h3>User Details</h3>
-  <div class="content">
- 	<%= form_for(@invitation) do |f| %>
-	  <% if @invitation.errors.any? %>
-	    <div id="error_explanation">
-	      <h2><%= pluralize(@invitation.errors.count, "error") %> prohibited this invitation from being saved:</h2>
-
-	      <ul>
-	      <% @invitation.errors.full_messages.each do |message| %>
-		<li><%= message %></li>
-	      <% end %>
-	      </ul>
-	    </div>
-	  <% end %>
-
-	  <div class="fields">
-	    <%= f.text_field :recipient_email, placeholder: 'Email', class: "form-control" %>
-	    <%= f.text_field :recipient_firstname, placeholder: 'First Name', class: "form-control" %>
-	    <%= f.text_field :recipient_lastname, placeholder: 'Last Name', class: "form-control" %>
-	    <%= f.text_field :recipient_username, placeholder: 'Username (optional)', class: "form-control" %>
-	    <%= f.text_field :recipient_company, placeholder: 'Company', class: "form-control" %>
-	    <%= f.text_field :recipient_title, placeholder: 'Job Title', class: "form-control" %>
-            <%= f.text_field :expires_at, placeholder: '   Expires on (optional)', class: "form-control datepicker" %>
-	    <%= f.text_field :potential_seats, placeholder: 'Potential number of users', class: "form-control popoverPotentialSeats" %>
-            <%= f.select(:region, ["AMER", "EMEA","APAC", "DLDC"], {:prompt => "Select Home Region"}, { :class => 'form-control required' }) %>
-            <%= f.select(:airwatch_trial, [["Yes", "true"], ["No", "false"] ], {:prompt => "AirWatch Trial"}, { :class => 'form-control required' }) %>
-	  </div>
-
-          <div class="info">
-            A trial account will be setup for the user. After the trial ends, the <strong>user's account will automatically be deleted from the system.</strong>
-          </div>
-
-	  <div class="signup">
-	    <%= f.submit "Send Invitation", class: "btn btn-success btn-lg" %>
-	  </div>
+<div class="content">
+	<%= form_for(@invitation) do |f| %>
+		<div class="fields">
+			<div class="form-group">
+				<%= f.text_field :recipient_email, placeholder: 'Email', class: 'form-control' %>
+			</div>
+			<div class="form-group">
+				<%= f.text_field :recipient_firstname, placeholder: 'First Name', class: 'form-control' %>
+			</div>
+			<div class="form-group">
+				<%= f.text_field :recipient_lastname, placeholder: 'Last Name', class: 'form-control' %>
+			</div>
+			<div class="form-group">
+				<%= f.text_field :recipient_username, placeholder: 'Username (optional)', class: 'form-control' %>
+			</div>
+			<div class="form-group">
+				<%= f.text_field :recipient_company, placeholder: 'Company', class: 'form-control' %>
+			</div>
+			<div class="form-group">
+				<%= f.text_field :recipient_title, placeholder: 'Job Title', class: 'form-control' %>
+			</div>
+			<div class="form-group">
+				<%= f.text_field :expires_at, placeholder: 'Expires on (optional)', class: 'form-control datepicker' %>
+			</div>
+			<div class="form-group">
+				<%= f.text_field :potential_seats, placeholder: 'Potential number of users', class: 'form-control popoverPotentialSeats' %>
+			</div>
+			<div class="form-group">
+				<%= f.select(:region, ['AMER', 'EMEA','APAC', 'DLDC'], { :prompt => 'Select Home Region' }, { :class => 'form-control' }) %>
+			</div>
+			<div class="form-group">
+				<%= f.select(:airwatch_trial, [['Yes', 1], ['No', 0]], { :prompt => 'AirWatch Trial' }, { :class => 'form-control' }) %>
+			</div>
+		</div>
+		<div class="help-block">A trial account will be setup for the user. After the trial ends, the <strong>user's account will automatically be deleted from the system.</strong></div>
+		<%= f.submit 'Send Invitation', class: 'btn btn-success' %>
 	<% end %>
-  </div>
 </div>
-
-
-<div class="period-select hidden-xs">
-        <form class="input-daterange">
-        </form>
-    </div>

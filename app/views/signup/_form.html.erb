@@ -1,33 +1,46 @@
 <div class="bg clear">
-  <h4>Enter your information in the form below in order to have an account provisioned</h4>
-  <div class="content">
-    <%= form_tag signup_index_path, :class => 'signup_form' do |f| %>
-      <div class="fields">
-        <% unless @reg_code.blank? %>
-          <%= text_field_tag :reg_code, nil, placeholder: 'Reg Code', readonly: true, value: "#{@reg_code.code.upcase}", class: "form-control" %>
-        <% end %>
-        <%= text_field_tag :email, nil, placeholder: 'Email', class: "form-control" %>
-        <%= text_field_tag :firstname, nil, placeholder: 'First Name', class: "form-control" %>
-        <%= text_field_tag :lastname, nil, placeholder: 'Last Name', class: "form-control" %>
-        <%= text_field_tag :username, nil, placeholder: 'Username (optional)', class: "form-control" %>
-        <%= text_field_tag :company, nil, placeholder: 'Company', class: "form-control" %>
-        <%= text_field_tag :title, nil, placeholder: 'Job Title', class: "form-control" %>
-        <%= select_tag :region, options_for_select([ "AMER", "EMEA","APAC", ]), class: "form-control required", :prompt => "Select Home Region" %>
-      </div>
+	<h4>Enter your information in the form below in order to have an account provisioned</h4>
+	<div class="content">
+		<%= form_tag signup_index_path, :class => 'signup_form' do |f| %>
+			<% unless @reg_code.blank? %>
+				<div class="form-group">
+					<%= text_field_tag :reg_code, nil, placeholder: 'Reg Code', readonly: true, value: "#{@reg_code.code.upcase}", class: "form-control" %>
+				</div>
+			<% end %>
 
-      <div class="info info-center">
-        <% if @reg_code.blank? %>
-          <strong>Your account will be valid for 365 days</strong>
-        <% else %>
-          <%= hidden_field_tag "reg_code_text", @reg_code.code %>
-          <strong>Your account will be valid for <%= @reg_code.account_validity %> days</strong>
-        <% end %>
-      </div>
+			<div class="form-group">
+				<%= text_field_tag :email, nil, placeholder: 'Email', class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= text_field_tag :firstname, nil, placeholder: 'First Name', class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= text_field_tag :lastname, nil, placeholder: 'Last Name', class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= text_field_tag :username, nil, placeholder: 'Username (optional)', class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= text_field_tag :company, nil, placeholder: 'Company', class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= text_field_tag :title, nil, placeholder: 'Job Title', class: "form-control" %>
+			</div>
+			<div class="form-group">
+				<%= select_tag :region, options_for_select([ "AMER", "EMEA","APAC", ]), class: "form-control required", :prompt => "Select Home Region" %>
+			</div>
 
-      <div class="signup">
-        <%= submit_tag "Request Account", class: "btn btn-success btn-lg" %>
-      </div>
-    <% end %>
-  </div>
+			<div class="help-block">
+				<% if @reg_code.blank? %>
+					<strong>Your account will be valid for 365 days</strong>
+				<% else %>
+					<%= hidden_field_tag "reg_code_text", @reg_code.code %>
+					<strong>Your account will be valid for <%= @reg_code.account_validity %> days</strong>
+				<% end %>
+			</div>
+
+			<%= submit_tag "Request Account", class: "btn btn-success" %>
+		<% end %>
+	</div>
 </div>
 

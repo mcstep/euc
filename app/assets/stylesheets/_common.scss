@@ -1,22 +1,5 @@
-#content {
-	display: table;
-	width: 100%;
-	padding: 100px $content-padding $content-padding;
-	transition: padding $sidebar-transition-duration ease;
-}
-
 /*
- * The default body background color is the blue one.
- * => Add this class to the root element containing actual content.
- *
- * (On XS screen sizes the body background color will be white though.)
- */
-.content {
-	background: #fff;
-}
-
-/*
- * This prevents wrapping of buttons within button-
+ * This mod prevents wrapping of buttons within button-
  * groups for all browsers supporting flex boxes
  * (since white-space:nowrap won't work on float:left elements).
  */
@@ -45,6 +28,31 @@
 	&:active {
 		background: $brand-warning;
 	}
+}
+
+.container-flow {
+	margin: 0 ($grid-gutter-width / -2);
+}
+
+.field_with_errors {
+	@include form-control-validation($state-danger-text, $state-danger-text, $state-danger-bg);
+}
+
+#content {
+	display: table;
+	width: 100%;
+	padding: 100px $content-padding $content-padding;
+	transition: padding $sidebar-transition-duration ease;
+}
+
+/*
+ * The default body background color is the blue one.
+ * => Add this class to the root element containing actual content.
+ *
+ * (On XS screen sizes the body background color will be white though.)
+ */
+.content {
+	background: #fff;
 }
 
 @media (max-width: $screen-xs-max) {
