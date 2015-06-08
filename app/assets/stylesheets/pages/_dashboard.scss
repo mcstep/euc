@@ -6,3 +6,163 @@
 		border: none;
 	}
 }
+
+.dashboard-table {
+	& > table:first-child,
+	& > table:last-child {
+		@include helvetica-light;
+		@include animate;
+
+		min-height: 50px;
+		border: 0;
+		margin: 0;
+		@include helvetica-light;
+		font-weight: 300;
+
+		th {
+			font-size: 64%;
+			text-transform: uppercase;
+			font-weight: 300;
+			color: $white;
+			background: $tf-green;
+			border: 0;
+		}
+
+		tr {
+			border: 0;
+		}
+	}
+
+	& > table:first-child {
+		width: 100%;
+		box-shadow: 0 15px 0px rgba(0,0,0,0.1);
+		padding: 1em;
+		color: $white;
+		text-align: left;
+		background: $tf-orange;
+		@include animate;
+
+		tr {
+			height: 6em;
+			line-height: 6em;
+		}
+
+		td {
+			float: left;
+			margin-left: $grid-gutter-width;
+		}
+
+		td:last-child {
+			margin-right: $grid-gutter-width;
+		}
+
+		.logo {
+			max-width: 50px;
+		}
+
+		i {
+			font-size: 200%;
+			vertical-align: middle;
+		}
+
+		.orgname {
+			max-width: 200px;
+			font-size: 150%;
+			font-weight: 500;
+		}
+
+		.usercount {
+			line-height: 1em;
+			max-width: 200px;
+			margin: 2em 0 2em $grid-gutter-width;
+			margin: calc(2em - 1px) 0 calc(2em - 1px) $grid-gutter-width;
+			padding: 0.5em 0.75em;
+			border: 1px solid #fff;
+			color: #fff;
+			text-transform: uppercase;
+		}
+
+		.op {
+			float: right;
+			font-size: 150%;
+
+			& > span {
+				margin-right: ($grid-gutter-width / 2);
+				font-size: 50%;
+				text-transform: uppercase;
+			}
+		}
+
+		&:hover {
+			background: lighten($tf-green,10);
+
+			.usercount {
+				background: #fff;
+				color: rgba(0,0,0,0.8);
+			}
+		}
+	}
+
+	& > table:last-child {
+		width: 98%;
+		margin-left: 2%;
+		border: 1px solid $gray-light;
+		border-top: none;
+		font-size: 75%;
+
+		tr {
+			@include animate;
+			padding: 0;
+
+			&:nth-child(even) {
+				background: rgba(0,0,0,0.1);
+			}
+
+			&:hover {
+				color: $white;
+				background: lighten($tf-darkblue, 30) !important;
+			}
+		}
+
+		th {
+			line-height: $grid-gutter-width;
+		}
+
+		td {
+			line-height: round(1.5 * $grid-gutter-width);
+		}
+
+		.name {
+			font-size: 110%;
+			font-weight: 500;
+		}
+
+		img {
+			margin-left: ($grid-gutter-width / 2);
+		}
+
+		.avatar {
+			max-width: 35px;
+
+			img {
+				@include radius-max;
+				max-width: 35px;
+			}
+		}
+
+		.admin {
+			text-align: left;
+		}
+
+		i {
+			margin: 0;
+			color: $darkgrey;
+			@include animate;
+
+			&:hover {
+				color: $black;
+				font-weight: 800;
+			}
+		}
+	}
+}

@@ -30,6 +30,17 @@
 	}
 }
 
+.alert {
+	font-size: $font-size-small;
+	font-weight: 300;
+
+	.alert-link {
+		font-weight: normal;
+		color: inherit;
+		text-decoration: underline;
+	}
+}
+
 .container-flow {
 	margin: 0 ($grid-gutter-width / -2);
 }
