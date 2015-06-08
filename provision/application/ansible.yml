@@ -1,0 +1,20 @@
+- hosts: local:application
+  roles:
+    - name: Basic dependencies and default variables
+      role: application
+    - name: Main deployment and execution user
+      role: mivok0.users
+      users:
+        - username: "{{ rails_user }}"
+          name: Rails
+          uid: 1001
+          groups: ['sudo']
+          ssh_key:
+            - 'ssh-dss AAAAB3NzaC1kc3MAAACBAKDb1Rv2X1X8jY0FnGzxNRKX5St0If5HqSHpGBl3EuGjVhIENge627kWLWmtqO0ebRW2WYylI+CHtFYz6mN4+rlomPvrCO8pF5D6hqvEaZEzCWI6hqqHaAXQHZ9X6OEkQtsn2YAHIhF5VdnYhJtNSZZ4vrjC8AOEdSr1j74oIX1VAAAAFQCONQ+j0DF/D3RXSDtwS8RhMiysLQAAAIAxkLcaWrapqWvMAp8MOYhNClyomoq15pAr/12tdJo1ge5HzSXWYTzTBfBtFmGOrA0esBV6jEdnY2YfVwUEIJkHWBEXGZijmTkfVlmc+e3v6zrC3CavOlEwP22eC6CsKYtJu88r969i2FajW2+bjLDCAecvJo4B2GNxZvy/XqIADAAAAIAxxhrBNZQi+BtRZcFcvF0q1IkTWJjTAutMZ6BWolsYBeFUDkabnfKzY+9Joqtsjw6Q2+P+wWs6xGoDHUgT1oZFVAsdKEuAPYqmXnwbRz5rhMBs/a+W9IQKG8Sb6VeJM3SjAiuWjsOz9ZCHweTtJDLHyrkeMOnU2bUyDR1w0xKQEg== inossidabile@everywhere'
+    - name: MRI Ruby installed via RVM
+      role: rvm_io.rvm1-ruby
+      rvm1_rubies:
+        - 'ruby-2.2.1'
+      rvm1_gpg_key_server: 'hkp://pgp.mit.edu'
+    - name: node.js to assist rails assets pipeline
+      role: laggyluke.nodejs
