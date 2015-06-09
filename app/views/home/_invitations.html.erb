@@ -1,79 +1,73 @@
-<% current_user_invited = Invitation.find(current_user.invitation_id) %>
-<% if !current_user_invited.blank? && !current_user_invited.sender.blank? && !current_user_invited.sender.email == 'admin@vmwdemo.com' %>
+<% current_user_invitation = Invitation.find(current_user.invitation_id) %>
+<% if !current_user_invitation.blank? && !current_user_invitation.sender.blank? && !current_user_invitation.sender.email == 'admin@vmwdemo.com' %>
 	<br/>
 	<h3>Account Details</h3>
 	<div>
-		Your account was created by <strong><%= current_user_invited.sender.display_name %></strong> and their email is <strong><%= mail_to current_user_invited.sender.email %></strong>
+		Your account was created by <strong><%= current_user_invitation.sender.display_name %></strong> and their email is <strong><%= mail_to current_user_invitation.sender.email %></strong>
 	</div>
 <% end %>
 
-<% if policy(current_user).invites? %>
+<% if policy(current_user).invites? && current_user_invitation %>
 	<br/>
 	<h3>Organizations and Users</h3>
 
 	<%
-		invitations = Invitation.order(:recipient_company).each
-		invitation = invitations.next rescue nil
-		previous_recipient_company = invitation ? invitation.recipient_company : nil
-
-		while invitation
-	%>
-		<div class="dashboard-table">
-			<table>
-				<tbody>
-					<tr>
-						<td class="logo"><i class="icon-users"></i></td>
-						<td class="orgname"><%= previous_recipient_company %></td>
-						<td class="usercount">x Active Users</td>
-						<td class="op"><span>Opportunities</span>$xx,xxx</td>
-					</tr>
-				</tbody>
-			</table>
-			<table>
-				<thead>
-					<tr>
-						<th></th>
-						<th>Name</th>
-						<th>E-Mail</th>
-						<th>Last Login</th>
-						<th>Days Left</th>
-						<th>Admin</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% begin %>
-						<tr data-id="<%= invitation.id.to_s %>" data-recipient_firstname="<%= invitation.recipient_firstname %>" data-recipient_lastname="<%= invitation.recipient_lastname %>" data-expires_at="<%= invitation.expires_at.to_s(:iso8601) %>">
-							<td class="avatar"><img src="assets/default_avatar.png"/></td>
-							<td class="name"><%= invitation.recipient_firstname %> <%= invitation.recipient_lastname %></td>
-							<td><%= invitation.recipient_email %></td>
-							<td>3 days ago</td>
-
-							<% extension = Extension.where(recipient: invitation.id).last %>
-							<% if extension.nil? %>
-								<td>
-									<%= (invitation.expires_at).to_date.to_formatted_s(:long) %>
-									<a class="extend-account-link-ro" href="#" data-toggle="modal" data-target="#extend-account-modal" class="extend-user invite-user-link popoverExtendAccount" rel="popover" data-trigger="hover" data-placement="bottom"><span> (Extend)</span></a>
-								</td>
-							<% else %>
-								<td>
-									<span class="popoverExpiresAt" rel="popover" data-trigger="hover" data-placement="bottom" data-content="Reason: <%= extension.reason %>">
-										<%= (invitation.expires_at).to_date.to_formatted_s(:long) %> (Extended)
-									</span>
-								</td>
-							<% end %>
-
-							<td class="admin"></td>
+	Invitation.where(sender_id: current_user_invitation.id).order(:recipient_company)
+		.chunk { |invitation|
+			invitation.recipient_company
+		}
+		.each { |recipient_company, invitations|
+			%>
+			<div class="dashboard-table">
+				<table>
+					<tbody>
+						<tr>
+							<td class="logo"><i class="icon-users"></i></td>
+							<td class="orgname"><%= recipient_company %></td>
+							<td class="usercount"><%= invitations.count %> Active Users</td>
+							<td class="op"><span>Potential Seats</span><%= current_user_invitation.potential_seats %></td>
 						</tr>
-					<%
-							invitation = invitations.next rescue nil
-						end while invitation && previous_recipient_company == invitation.recipient_company
+					</tbody>
+				</table>
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th>E-Mail</th>
+							<th>Username</th>
+							<th>Days Left</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% invitations.each { |invitation| %>
+							<tr data-id="<%= invitation.id.to_s %>" data-recipient_firstname="<%= invitation.recipient_firstname %>" data-recipient_lastname="<%= invitation.recipient_lastname %>" data-expires_at="<%= invitation.expires_at.to_s(:iso8601) %>">
+								<td class="avatar"><img src="assets/default_avatar.png"/></td>
+								<td class="name"><%= invitation.recipient_firstname %> <%= invitation.recipient_lastname %></td>
+								<td><%= invitation.recipient_email %></td>
+								<td><%= invitation.recipient_username %></td>
 
-						previous_recipient_company = invitation ? invitation.recipient_company : nil
-					%>
-				</tbody>
-			</table>
-		</div>
-	<% end %>
+								<% extension = Extension.where(recipient: invitation.id).last %>
+								<% if extension.nil? %>
+									<td>
+										<%= invitation.expires_at.to_date.to_formatted_s(:long) %>
+										<a class="extend-account-link-ro" href="#" data-toggle="modal" data-target="#extend-account-modal" class="extend-user invite-user-link popoverExtendAccount" rel="popover" data-trigger="hover" data-placement="bottom"><span> (Extend)</span></a>
+									</td>
+								<% else %>
+									<td>
+										<span class="popoverExpiresAt" rel="popover" data-trigger="hover" data-placement="bottom" data-content="Reason: <%= extension.reason %>">
+											<%= invitation.expires_at.to_date.to_formatted_s(:long) %> (Extended)
+										</span>
+									</td>
+								<% end %>
+							</tr>
+						<% } %>
+					</tbody>
+				</table>
+			</div>
+			<%
+		}
+	%>
 
 	<br/><br/><br/>
 
