@@ -1,0 +1,9 @@
+#!/bin/sh
+chmod 600 ./provision/docker_ssh_key
+if [ -f /usr/local/bin/boot2docker ]
+then
+  echo "Connecting to `boot2docker ip`..."
+  exec ssh root@`boot2docker ip` -p30022 -i./provision/docker_ssh_key -oForwardAgent=yes $@
+else
+  exec ssh root@127.0.0.1 -p30022 -i./provision/docker_ssh_key -oForwardAgent=yes $@
+fi
