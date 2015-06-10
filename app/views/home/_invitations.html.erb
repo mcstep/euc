@@ -12,11 +12,12 @@
 	<h3>Organizations and Users</h3>
 
 	<%
-	Invitation.where(sender_id: current_user_invitation.id).order(:recipient_company)
+	Invitation.order(:recipient_company)
 		.chunk { |invitation|
 			invitation.recipient_company
 		}
 		.each { |recipient_company, invitations|
+			potential_seats_sum = invitations.reduce(0) { |sum, invitation| sum + invitation.potential_seats }
 			%>
 			<div class="dashboard-table">
 				<table>
@@ -25,7 +26,7 @@
 							<td class="logo"><i class="icon-users"></i></td>
 							<td class="orgname"><%= recipient_company %></td>
 							<td class="usercount"><%= invitations.count %> Active Users</td>
-							<td class="op"><span>Potential Seats</span><%= current_user_invitation.potential_seats %></td>
+							<td class="op"><span>Potential Seats</span><%= potential_seats_sum %></td>
 						</tr>
 					</tbody>
 				</table>
@@ -41,25 +42,22 @@
 					</thead>
 					<tbody>
 						<% invitations.each { |invitation| %>
-							<tr data-id="<%= invitation.id.to_s %>" data-recipient_firstname="<%= invitation.recipient_firstname %>" data-recipient_lastname="<%= invitation.recipient_lastname %>" data-expires_at="<%= invitation.expires_at.to_s(:iso8601) %>">
+							<tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>">
 								<td class="avatar"><img src="assets/default_avatar.png"/></td>
 								<td class="name"><%= invitation.recipient_firstname %> <%= invitation.recipient_lastname %></td>
 								<td><%= invitation.recipient_email %></td>
 								<td><%= invitation.recipient_username %></td>
-
-								<% extension = Extension.where(recipient: invitation.id).last %>
-								<% if extension.nil? %>
-									<td>
+								<td>
+									<% extension = Extension.where(recipient: invitation.id).last %>
+									<% if extension.nil? %>
 										<%= invitation.expires_at.to_date.to_formatted_s(:long) %>
-										<a class="extend-account-link-ro" href="#" data-toggle="modal" data-target="#extend-account-modal" class="extend-user invite-user-link popoverExtendAccount" rel="popover" data-trigger="hover" data-placement="bottom"><span> (Extend)</span></a>
-									</td>
-								<% else %>
-									<td>
-										<span class="popoverExpiresAt" rel="popover" data-trigger="hover" data-placement="bottom" data-content="Reason: <%= extension.reason %>">
+										<a href="#" class="extend-account-link-ro" data-toggle="modal" data-target="#extend-account-modal">(Extend)</a>
+									<% else %>
+										<span data-toggle="popover" data-placement="bottom" data-content="Reason: <%= extension.reason %>">
 											<%= invitation.expires_at.to_date.to_formatted_s(:long) %> (Extended)
 										</span>
-									</td>
-								<% end %>
+									<% end %>
+								</td>
 							</tr>
 						<% } %>
 					</tbody>
@@ -71,14 +69,12 @@
 
 	<br/><br/><br/>
 
-	<% invites_remaining = current_user.total_invitations - current_user.invitations_used %>
-	<% if invites_remaining > 0 || current_user.role == 'admin' %>
-		<a href="#" data-toggle="modal" data-target="#form-validation-modal" class="new-user btn btn-success pull-left invite-user-link popoverInviteUserLink" rel="popover" data-trigger="hover" data-placement="bottom">Invite user</a>
+	<% if current_user.role == 'admin' || current_user.invitations_used < current_user.total_invitations %>
+		<a href="#" data-toggle="modal" data-target="#dashboard-new-invite-modal" class="btn btn-success pull-left">Invite user</a>
 	<% else %>
-		<button type="button" class="btn btn-success" data-dismiss="modal" disabled="true">Invite user</button>
+		<button type="button" class="btn btn-success" disabled="true">Invite user</button>
 	<% end %>
 
-	<!-- Extend account Modal -->
 	<div class="modal fade" id="extend-account-modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -101,7 +97,7 @@
 						</div>
 						<div class="form-group">
 							<label>New Expiration Date:</label>
-							<input type="text" name="expiresAt" id="expiresAtRo" class="form-control" readonly="true"/>
+							<input type="date" name="expiresAt" id="expiresAtRo" class="form-control" readonly="true"/>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -113,8 +109,7 @@
 		</div>
 	</div>
 
-	<!-- Form with Validation Modal -->
-	<div class="modal fade" id="form-validation-modal" tabindex="-1" role="dialog">
+	<div class="modal fade" id="dashboard-new-invite-modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form id="new-invitation-form" method="post" action="/invitations" role="form">

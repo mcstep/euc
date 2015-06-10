@@ -1,9 +1,165 @@
-#eula-modal {
-	iframe {
-		min-height: 200px;
-		height: 50vh;
-		height: calc(100vh - 260px); // 260px equals approx. the margin + height of the rest of the modal container
+#dashboard-tiles {
+	.widget {
+		@include animate;
+		margin: 0 0 30px 0;
+		min-height: 100px;
+		color: #fff;
+
+		&:hover {
+			.progress {
+				background-color: rgba(0,0,0,0.1);
+			}
+		}
+	}
+
+	.widget-icon {
+		float: left;
+		display: block;
+		min-height: 100px;
+		margin-right: 15px;
+		padding-top: 35px;
+		width: 33%;
+		text-align: center;
+		background-color: rgba(0,0,0,0.1);
+
+		i {
+			font-size: 2.25em;
+			display: inline-block;
+			font-weight: 400;
+			position: relative;
+		}
+	}
+
+	h6 {
+		font-weight: normal;
+		padding: 0.5em 0 0 0;
+		margin: 0;
+	}
+
+	.value {
+		@include helvetica-light;
+		font-size: 185%;
+		padding-top: 20px;
+	}
+
+	.label {
+		@include helvetica-light;
+		position: relative;
+		top: -5px;
+		font-size: 80%;
+		text-transform: uppercase;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	.progress {
+		@include varela-round;
+		@include animate;
+		position: relative;
+		padding: 0;
+		height: 20px;
+		margin: -20px 0 0 0;
+		float: right;
+		width: 67%;
+		box-shadow: none;
+		background-color: rgba(0,0,0,0.05);
 		border: none;
+	}
+
+	.progress-bar {
+		min-width: 5px;
+		@include animate;
+		box-shadow: none;
+		line-height: 20px;
+		background-color: rgba(255,255,255,0.3);
+
+		& > span {
+			@include animate-long;
+			position: absolute;
+			left: 0;
+			right: 0;
+			text-transform: uppercase;
+			font-size: 80%;
+			font-weight: bold;
+			color: #fff;
+		}
+	}
+
+	.launcher {
+		color: #000;
+		text-align: center;
+		height: 100px;
+		overflow: auto;
+	}
+
+	.stats {
+		background-color: $tf-darkblue;
+
+		&:hover {
+			background-color: lighten($tf-darkblue, 10);
+		}
+	}
+
+	.app {
+		float: left;
+		height: 100px;
+		color: #fff;
+		width: 33.333333333333%;
+		@include animate;
+		text-align: center;
+		text-decoration: none;
+
+		div {
+			display: block;
+			font-size: 2.25em;
+			width: 100%;
+			padding-top: 25px;
+			height: 100px;
+			font-weight: 400;
+		}
+
+		h6 {
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 30%;
+			padding: 10px;
+		}
+	}
+
+	.app01 {
+		background-color: $tf-darkblue;
+
+		&:hover {
+			background-color: lighten($tf-darkblue, 10);
+
+			h6, i {
+				color: rgba(0,0,0,0.8);
+			}
+		}
+	}
+
+	.app02 {
+		background-color: lighten($tf-darkblue, 10);
+
+		&:hover {
+			background-color: lighten($tf-darkblue, 20);
+
+			h6, i {
+				color: rgba(0,0,0,0.8);
+			}
+		}
+	}
+
+	.app03 {
+		background-color: $tf-green;
+
+		&:hover {
+			background-color: lighten($tf-green, 10);
+
+			h6, i {
+				color: rgba(0,0,0,0.8);
+			}
+		}
 	}
 }
 
@@ -23,8 +179,8 @@
 			font-size: 64%;
 			text-transform: uppercase;
 			font-weight: 300;
-			color: $white;
-			background: $tf-green;
+			color: #fff;
+			background-color: $tf-green;
 			border: 0;
 		}
 
@@ -37,9 +193,9 @@
 		width: 100%;
 		box-shadow: 0 15px 0px rgba(0,0,0,0.1);
 		padding: 1em;
-		color: $white;
+		color: #fff;
 		text-align: left;
-		background: $tf-orange;
+		background-color: $tf-orange;
 		@include animate;
 
 		tr {
@@ -94,10 +250,10 @@
 		}
 
 		&:hover {
-			background: lighten($tf-green,10);
+			background-color: lighten($tf-green,10);
 
 			.usercount {
-				background: #fff;
+				background-color: #fff;
 				color: rgba(0,0,0,0.8);
 			}
 		}
@@ -115,12 +271,12 @@
 			padding: 0;
 
 			&:nth-child(even) {
-				background: rgba(0,0,0,0.1);
+				background-color: rgba(0,0,0,0.1);
 			}
 
 			&:hover {
-				color: $white;
-				background: lighten($tf-darkblue, 30) !important;
+				color: #fff;
+				background-color: lighten($tf-darkblue, 30) !important;
 			}
 		}
 
@@ -145,7 +301,7 @@
 			max-width: 35px;
 
 			img {
-				@include radius-max;
+				border-radius: 50%;
 				max-width: 35px;
 			}
 		}
@@ -160,9 +316,18 @@
 			@include animate;
 
 			&:hover {
-				color: $black;
+				color: #000;
 				font-weight: 800;
 			}
 		}
+	}
+}
+
+#eula-modal {
+	iframe {
+		min-height: 200px;
+		height: 50vh;
+		height: calc(100vh - 260px); // 260px equals approx. the margin + height of the rest of the modal container
+		border: none;
 	}
 }

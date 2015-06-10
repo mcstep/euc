@@ -3,8 +3,8 @@
 <% end %>
 
 <%= render 'header' %>
+<%= render 'tiles' %>
 <%= render 'profile' %>
-<%= render 'links' %>
 
 <% if current_user.role != 'admin' %>
 	<%= render 'account_stats' %>

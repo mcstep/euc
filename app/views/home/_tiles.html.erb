@@ -1,0 +1,52 @@
+<%
+current_user_invited = Invitation.find(current_user.invitation_id)
+
+if current_user_invited.nil? || current_user_invited.region.nil?
+	region = 'amer'
+else
+	region = current_user_invited.region.downcase
+end
+%>
+
+<div class="container-fluid container-flow" id="dashboard-tiles">
+	<div class="row">
+		<div class="col-sm-6 col-md-4 col-lg-4">
+			<div class="widget launcher">
+				<a href="https://workspace.vmwdemo.com" target="_blank" class="app app01">
+					<div class="icon-screen-desktop"><h6>Launch Workspace</h6></div>
+				</a>
+
+				<a href="https://hv6<%= region %>.vmwdemo.com/portal/webclient/index.html" target="_blank" class="app app02">
+					<div class="icon-screen-desktop"><h6>Launch Horizon</h6></div>
+				</a>
+
+				<a href="vmware-view://hv6<%= region %>.vmwdemo.com/" target="_blank" class="app app03">
+					<div class="icon-screen-smartphone"><h6>Launch App</h6></div>
+				</a>
+			</div>
+		</div>
+
+		<div class="col-sm-6 col-md-4 col-lg-4">
+			<div class="widget stats">
+				<div class="widget-icon"><i class="icon-envelope-letter"></i></div>
+				<div class="value"><%= current_user.total_invitations - current_user.invitations_used %></div>
+				<div class="label">Invites Remaining</div>
+
+				<div class="progress">
+					<% invites_used_percentage_s = (100.0 * current_user.invitations_used / current_user.total_invitations).round.to_s %>
+					<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= invites_used_percentage_s %>" style="width:<%= invites_used_percentage_s %>%">
+						<span><%= current_user.invitations_used %> out of <%= current_user.total_invitations %></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-6 col-md-4 col-lg-3">
+			<div class="widget stats">
+				<div class="widget-icon"><i class="icon-screen-desktop"></i></div>
+				<div class="value">15</div>
+				<div class="label">Expirations soon</div>
+			</div>
+		</div>
+	</div>
+</div>
