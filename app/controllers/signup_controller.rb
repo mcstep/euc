@@ -60,8 +60,15 @@ class SignupController < ApplicationController
         end
       else
         if @domain.nil? || @domain.status != 'active'
-          alerts << "Your email domain is currently not supported for registration."
+          alerts << "Your email domain is currently not supported for registrations."
         end
+      end
+    end
+
+    if alerts.blank?
+      existing_invitation = Invitation.find_by_recipient_email(params[:email].downcase)
+      if !existing_invitation.nil?
+        alerts << "Error! An account with that email already exists"
       end
     end
 
