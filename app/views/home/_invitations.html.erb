@@ -1,7 +1,7 @@
 <% current_user_invitation = Invitation.find(current_user.invitation_id) %>
 <% if !current_user_invitation.blank? && !current_user_invitation.sender.blank? && !current_user_invitation.sender.email == 'admin@vmwdemo.com' %>
 	<br/>
-	<h3>Account Details</h3>
+	<h1 class="lined"><span>Account Details</span></h1>
 	<div>
 		Your account was created by <strong><%= current_user_invitation.sender.display_name %></strong> and their email is <strong><%= mail_to current_user_invitation.sender.email %></strong>
 	</div>
@@ -9,7 +9,7 @@
 
 <% if policy(current_user).invites? && current_user_invitation %>
 	<br/>
-	<h3>Organizations and Users</h3>
+	<h1 class="lined"><span>Organizations and Users</span></h1>
 
 	<%
 	Invitation.order(:recipient_company)
