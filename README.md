@@ -41,14 +41,6 @@ After that the main application container can be easily accessed via ssh (run fo
 
 The installed server is provisioned by the same script that is used to provision production and staging servers so the environment is nearly identical. The project working dir is mirrored to `/app`.
 
-### Services
-
-The environment is configured to forward port 3000 from Docker host machine to application container. Rails however start development server that listens only to local connections. To make it accessible to you this is how it should be started:
-
-    rails s -b 0.0.0.0
-
-After that it can be accessed at `http://localhost:3000` (run `boot2docker ip` to get host ip and use it instead of localhost if you are not running Linux.
-
 ### Getting Started
 
 This project defines 4 groups: **development**, **test**, **staging**, and **production**.
@@ -59,9 +51,16 @@ E.g. in a development environment this might be installed using `bundle install 
 - `bundle exec rake db:migrate`
 - `bundle exec rake add_first_dev_user`
 - `bundle exec rake synchronize_users_with_invitations`
-- `rails server`
-- The server should be reachable under http://localhost:3000/
-- Login using `first.user` and the password given to you by the Administrator (Ashutosh Joshi)
+
+#### Services
+
+The environment is configured to forward port 3000 from Docker host machine to application container. Rails however start development server that listens only to local connections. To make it accessible to you this is how it should be started:
+
+    rails s -b 0.0.0.0
+
+After that it can be accessed at `http://localhost:3000` (run `boot2docker ip` to get host ip and use it instead of localhost if you are not running Linux.
+
+After that you can login using `first.user` and the password given to you by the Administrator (Ashutosh Joshi).
 
 ### Infrastructure provisioning
 
