@@ -1,0 +1,7 @@
+[local]
+localhost
+
+[local:vars]
+rails_environment=development
+rails_user=rails
+rails_path=/app

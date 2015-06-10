@@ -120,12 +120,4 @@ ActiveRecord::Schema.define(version: 20150428174418) do
 
   add_index "users", ["invitation_id"], name: "index_users_on_invitation_id"
 
-  suppress(Exception) do
-    ##
-    # TODO: Add features here!
-    ##
-
-    #FeatureToggle.create!(name: "FeatureName", active: true)
-  end
-
 end
