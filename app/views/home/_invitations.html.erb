@@ -17,7 +17,7 @@
 			invitation.recipient_company
 		}
 		.each { |recipient_company, invitations|
-			potential_seats_sum = invitations.reduce(0) { |sum, invitation| sum + invitation.potential_seats }
+			potential_seats_sum = invitations.reduce(0) { |sum, invitation| sum + invitation.potential_seats.to_i }
 			%>
 			<div class="dashboard-table">
 				<table>
