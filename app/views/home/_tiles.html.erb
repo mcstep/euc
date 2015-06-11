@@ -1,32 +1,53 @@
 <%
-current_user_invited = Invitation.find(current_user.invitation_id)
+current_user_invitation = Invitation.find(current_user.invitation_id)
+regions = ['amer', 'emea', 'apac']
 
-if current_user_invited.nil? || current_user_invited.region.nil?
-	region = 'amer'
-else
-	region = current_user_invited.region.downcase
+if !current_user_invitation.nil? && !current_user_invitation.region.nil?
+	regions.unshift(regions.delete_at(regions.index(current_user_invitation.region.downcase)))
 end
 %>
 
 <div class="container-fluid container-flow" id="dashboard-tiles">
 	<div class="row">
-		<div class="col-sm-6 col-md-4 col-lg-4">
+		<div class="col-sm-6 col-lg-4">
 			<div class="widget launcher">
 				<a href="https://workspace.vmwdemo.com" target="_blank" class="app app01">
-					<div class="icon-screen-desktop"><h6>Launch Workspace</h6></div>
+					<div class="icon-screen-desktop">
+						<h6>Launch Workspace</h6>
+					</div>
 				</a>
 
-				<a href="https://hv6<%= region %>.vmwdemo.com/portal/webclient/index.html" target="_blank" class="app app02">
-					<div class="icon-screen-desktop"><h6>Launch Horizon</h6></div>
-				</a>
+				<div target="_blank" class="app app02">
+					<div class="icon-screen-desktop" data-toggle="dropdown">
+						<h6>Launch Horizon</h6>
+					</div>
+					<ul class="dropdown-menu" role="menu">
+						<% regions.each_with_index do |region, idx| %>
+							<li><a href="https://hv6<%= region %>.vmwdemo.com/portal/webclient/index.html" target="_blank"><%= region.upcase %></a></li>
+							<% if idx == 0 %>
+								<li class="divider"></li>
+							<% end %>
+						<% end %>
+					</ul>
+				</div>
 
-				<a href="vmware-view://hv6<%= region %>.vmwdemo.com/" target="_blank" class="app app03">
-					<div class="icon-screen-smartphone"><h6>Launch App</h6></div>
-				</a>
+				<div target="_blank" class="app app03">
+					<div class="icon-screen-smartphone" data-toggle="dropdown">
+						<h6>Launch App</h6>
+					</div>
+					<ul class="dropdown-menu" role="menu">
+						<% regions.each_with_index do |region, idx| %>
+							<li><a href="vmware-view://hv6<%= region %>.vmwdemo.com/" target="_blank"><%= region.upcase %><%= ' (Home)' if idx == 0 %></a></li>
+							<% if idx == 0 %>
+								<li class="divider"></li>
+							<% end %>
+						<% end %>
+					</ul>
+				</div>
 			</div>
 		</div>
 
-		<div class="col-sm-6 col-md-4 col-lg-4">
+		<div class="col-sm-6 col-lg-4">
 			<div class="widget stats">
 				<div class="widget-icon"><i class="icon-envelope-letter"></i></div>
 				<div class="value"><%= current_user.total_invitations - current_user.invitations_used %></div>
@@ -59,6 +80,6 @@ end
 					<div class="label">Expirations soon</div>
 				</div>
 			</div>
-		</div>
+		<% end %>
 	</div>
 </div>
