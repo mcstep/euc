@@ -41,11 +41,23 @@ end
 			</div>
 		</div>
 
-		<div class="col-sm-6 col-md-4 col-lg-3">
-			<div class="widget stats">
-				<div class="widget-icon"><i class="icon-screen-desktop"></i></div>
-				<div class="value">15</div>
-				<div class="label">Expirations soon</div>
+		<% if policy(current_user).invites? %>
+			<div class="col-sm-6 col-lg-4">
+				<div class="widget stats">
+					<div class="widget-icon"><i class="icon-screen-desktop"></i></div>
+					<div class="value">
+						<%=
+							where = { expires_at: Time.now...(Time.now + 1.month) }
+
+							if !current_user.admin?
+								where[:sender_id] = current_user.invitation_id
+							end
+
+							Invitation.where(where).count
+						%>
+					</div>
+					<div class="label">Expirations soon</div>
+				</div>
 			</div>
 		</div>
 	</div>
