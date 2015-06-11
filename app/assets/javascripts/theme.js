@@ -482,12 +482,13 @@
 
 		$('.extend-account-link-ro').on('click', function() {
 			var data = getInvitationData(this);
+			var options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
 
 			data.expiresAt.addMonths(1);
 
 			$('#invitationId').val(data.id);
 			$('#invitationUser').val(data.firstname + ' ' + data.lastname);
-			$('#expiresAtRo').val(data.expiresAt.toLocaleDateString());
+			$('#expiresAtRo').val(data.expiresAt.toLocaleDateString('en-US', options));
 		});
 
 		/*
@@ -539,7 +540,7 @@
 
 		// Range Datepicker
 		$('.datepickerExpiresAt').datepicker({
-			format: 'D MM d yyyy',
+			format: 'D, MM d, yyyy',
 			autoclose: true,
 			orientation: 'right top',
 			startDate: new Date(),

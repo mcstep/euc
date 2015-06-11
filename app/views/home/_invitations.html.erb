@@ -27,7 +27,7 @@
         <tbody>
           <% @invitations = Invitation.where(sender_id: current_user.id) %>
           <% @invitations.each do |invitation| %>
-            <tr data-id="<%= invitation.id.to_s %>" data-recipient_firstname="<%= invitation.recipient_firstname %>" data-recipient_lastname="<%= invitation.recipient_lastname %>" data-expires_at="<%= invitation.expires_at.to_s(:iso8601) %>">
+            <tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>">
               <td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
               <td><%= invitation.recipient_email %></td>
               <td><%= invitation.recipient_company %></td>

@@ -144,8 +144,7 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.find_by_id(params[:invitationId])
 
     original_expires_at = @invitation.expires_at
-    #@invitation.expires_at = (@invitation.expires_at + 1.month)
-    @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A %B %d %Y')
+    @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A, %B %d, %Y')
 
     begin
       response = RestClient.post(url="#{ENV['API_HOST']}/extendAccount",payload={:username => @invitation.recipient_username,  :expires_at => ((@invitation.expires_at.to_i)*1000)}, headers= {:token => ENV["API_KEY"]})
