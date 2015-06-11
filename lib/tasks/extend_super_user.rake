@@ -34,9 +34,12 @@ task :extend_super_user => :environment do
       next
     end
 
+    # Find admin account
+    @user = User.find_by_username('portal.admin')
+
     #Add extension record
     @extension = Extension.new
-    @extension.extended_by = 0
+    @extension.extended_by = @user.id #All auto extensions performed by admin
     @extension.recipient = invitation.id
     @extension.original_expires_at = original_expires_at
     @extension.revised_expires_at = invitation.expires_at
