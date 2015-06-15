@@ -56,6 +56,13 @@
 	transition: padding $sidebar-transition-duration ease;
 }
 
+#footer {
+	width: 100%;
+	line-height: 100px;
+	text-align: center;
+	color: #fff;
+}
+
 /*
  * The default body background color is the blue one.
  * => Add this class to the root element containing actual content.

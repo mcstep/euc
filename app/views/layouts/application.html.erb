@@ -8,16 +8,18 @@
 	<%= csrf_meta_tags %>
 	<%= stylesheet_link_tag "application", media: "all" %>
 </head>
-<body<%== ' class="content"' if current_user %>>
+<body>
 	<% if current_user %>
 		<%= render "shared/sidebar" %>
 	<% end %>
 
 	<%= render "shared/topbar" %>
 
-	<div id="content">
+	<div id="content"<%== ' class="content"' if current_user %>>
 		<%= yield %>
 	</div>
+
+	<footer id="footer">© 2015 EUC Global Solutions Engineering Team</footer>
 
 <!--[if lt IE 9]>
 	<%= javascript_include_tag "jquery" %>
