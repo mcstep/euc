@@ -1,7 +1,7 @@
 class InvitationsController < ApplicationController
   before_action :set_invitation, only: [:show, :edit, :update, :destroy]
   before_action :require_login
-  before_action :require_admin
+  before_action :require_admin , except: [:unimpersonate, :check_invitation, :create, :destroy, :extend]
 
   def check_invitation
     @invitation = Invitation.find_by_recipient_email(params[:invitation][:recipient_email].downcase)
@@ -144,8 +144,7 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.find_by_id(params[:invitationId])
 
     original_expires_at = @invitation.expires_at
-    #@invitation.expires_at = (@invitation.expires_at + 1.month)
-    @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A %B %d %Y')
+    @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A, %B %d, %Y')
 
     begin
       response = RestClient.post(url="#{ENV['API_HOST']}/extendAccount",payload={:username => @invitation.recipient_username,  :expires_at => ((@invitation.expires_at.to_i)*1000)}, headers= {:token => ENV["API_KEY"]})

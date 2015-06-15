@@ -7,9 +7,49 @@
 	</div>
 <% end %>
 
-<% if policy(current_user).invites? && current_user_invitation %>
-	<br/>
-	<h1 class="lined"><span>Organizations and Users</span></h1>
+    <% if policy(current_user).invites? %>
+      <br/>
+      <h3> Manage Accounts </h3>
+      <table class="table table-striped table-bordered table-condense">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th>Title</th>
+            <th>Expires on</th>
+            <th>Region</th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @invitations = Invitation.where(sender_id: current_user.id) %>
+          <% @invitations.each do |invitation| %>
+            <tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>">
+              <td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
+              <td><%= invitation.recipient_email %></td>
+              <td><%= invitation.recipient_company %></td>
+              <td><%= invitation.recipient_title %></td>
+              <% @extension = Extension.where(recipient: invitation.id).last %>
+              <% if @extension.nil? %>
+                <td>
+                   <%= (invitation.expires_at).to_date.to_formatted_s(:long) %>
+                   <a class="extend-account-link-ro" href="#" data-toggle="modal" data-target="#extend-account-modal" class="extend-user invite-user-link popoverExtendAccount" rel="popover" data-trigger="hover" data-placement="bottom"><span> (Extend)</span></a>
+                </td>
+              <% else %>
+                <td>
+                  <span class="popoverExpiresAt" rel="popover" data-trigger="hover" data-placement="bottom" data-content="Reason: <%= @extension.reason %>">
+                    <%= (invitation.expires_at).to_date.to_formatted_s(:long) %><br/>(Extended)
+                  </span>
+                </td>
+              <% end %>
+              <td><%= invitation.region %></td>
+              <td class="text-center"><%= link_to 'Expire Account', invitation, method: :delete, data: { confirm: 'Do you want to delete this account? The users account will permanently be deleted.' }, class: "new-user btn btn-danger" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
 
 	<%
 	Invitation.where(sender_id: current_user_invitation.id).order(:recipient_company)

@@ -1,0 +1,23 @@
+application:
+  build: provision/application
+  working_dir: /app
+  volumes:
+    - .:/app
+  ports:
+    - "0.0.0.0:30022:22"
+    - "0.0.0.0:3000:3000"
+  links:
+    - db
+    - redis
+
+db:
+  image: postgres:9.4.1
+  environment:
+    POSTGRES_PASSWORD: password
+  ports:
+    - "0.0.0.0:5432:5432"
+
+redis:
+  image: redis:3.0.0
+  ports:
+    - "0.0.0.0:6379:6379"

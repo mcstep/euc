@@ -121,6 +121,15 @@
 		return date.toISOString().substring(0, 10);
 	}
 
+	function dateToLocalString(date) {
+		return date.toLocaleDateString('en-US', {
+			weekday: 'short',
+			year   : 'numeric',
+			month  : 'long',
+			day    : 'numeric',
+		});
+	}
+
 	$('.extend-account-link').on('click', function() {
 		var data = getInvitationData(this);
 
@@ -130,7 +139,7 @@
 		$('#invitationUser').val(data.firstname + ' ' + data.lastname);
 		$('#expiresAt')
 			.attr('min', dateToISOStringWithoutTime(new Date))
-			.val(dateToISOStringWithoutTime(data.expiresAt));
+			.val(dateToLocalString(data.expiresAt));
 	});
 
 	$('.extend-account-link-ro').on('click', function() {
@@ -140,8 +149,23 @@
 
 		$('#invitationId').val(data.id);
 		$('#invitationUser').val(data.firstname + ' ' + data.lastname);
-		$('#expiresAtRo').val(data.expiresAt.toLocaleDateString());
+		$('#expiresAtRo')
+			.attr('min', dateToISOStringWithoutTime(new Date))
+			.val(dateToLocalString(data.expiresAt));
 	});
+
+	if (!dateInputSupported) {
+		$('#extend-account-modal').one('show.bs.modal', function () {
+			$('#expiresAt')
+				.attr('readonly', true)
+				.datepicker({
+					format: 'D, MM d, yyyy',
+					startDate: '0',
+					todayBtn: 'linked',
+					todayHighlight: true,
+				});
+		});
+	}
 
 	/*
 	 * The PATCH request will be sent to an URL, created by joining

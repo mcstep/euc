@@ -18,7 +18,7 @@ gem 'kaminari'
 gem 'newrelic_rpm'
 gem 'paranoia'
 gem 'pundit'
-gem 'rest-client'
+gem 'rest-client', '1.6.7'
 gem 'rqrcode_png'
 gem 'sidekiq'
 gem 'sinatra', require: false

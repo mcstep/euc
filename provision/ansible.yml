@@ -1,0 +1,8 @@
+---
+- include: application/ansible.yml
+- hosts: database
+  roles:
+    - postgresql
+- hosts: redis
+  roles:
+    - redis
