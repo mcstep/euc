@@ -78,6 +78,10 @@ h1.lined {
 		overflow: hidden;
 	}
 
+	.dropdown-menu {
+		margin: 0;
+	}
+
 	.progress {
 		@include varela-round;
 		@include animate;
