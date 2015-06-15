@@ -1,0 +1,21 @@
+[staging]
+# Actual staging servers located here
+
+[application:children]
+staging
+
+[database:children]
+staging
+
+[redis:children]
+staging
+
+[all:children]
+application
+database
+redis
+
+[all:vars]
+rails_environment=staging
+rails_user=rails
+rails_path=/app

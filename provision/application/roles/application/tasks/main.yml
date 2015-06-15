@@ -1,0 +1,12 @@
+---
+- name: libpg-dev required to assist ruby pg gem
+  apt: name=libpq-dev state=latest
+- name: cURL required by RVM
+  apt: name=curl state=latest
+
+- name: Copy sidekiq upstart script
+  template: src=sidekiq.conf.j2
+            dest=/etc/init/sidekiq.conf
+            owner=root group=root mode=644
+  tags: sidekiq
+  sudo: yes
