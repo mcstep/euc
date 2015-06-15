@@ -1,11 +1,4 @@
 (function () {
-	$('[data-toggle="tooltip"]').tooltip();
-	$('[data-toggle="popover"]').popover();
-
-	$('#sidebar-toggle').on('click', function () {
-		$('#sidebar').toggleClass('show');
-	});
-
 	$.rails.allowAction = function(element) {
 		var message = element.data('confirm');
 
@@ -51,6 +44,21 @@
 		return false;
 	};
 
+
+
+	window.dateInputSupported = (function () {
+		var node = document.createElement('input');
+		var invalidVal = 'foo';
+
+		node.setAttribute('type','date');
+		node.setAttribute('value', invalidVal);
+
+		// A browser supporting date inputs won't let invalidVal get set as the value.
+		return node.value !== invalidVal;
+	}());
+
+
+
 	Number.prototype.formatMoney = function(c, d, t) {
 		var n = this;
 		var c = isNaN(c = Math.abs(c)) ? 2 : c;
@@ -78,9 +86,19 @@
 
 
 
+	$('[data-toggle="tooltip"]').tooltip();
+	$('[data-toggle="popover"]').popover();
+
+	$('#sidebar-toggle').on('click', function () {
+		$('#sidebar').toggleClass('show');
+	});
+
+
+
 	if (document.URL.indexOf('forgotpassword') > -1) {
 		$('#password-reset-modal').modal('show');
 	}
+
 
 
 	/**
@@ -99,6 +117,10 @@
 		};
 	}
 
+	function dateToISOStringWithoutTime(date) {
+		return date.toISOString().substring(0, 10);
+	}
+
 	$('.extend-account-link').on('click', function() {
 		var data = getInvitationData(this);
 
@@ -106,7 +128,9 @@
 
 		$('#invitationId').val(data.id);
 		$('#invitationUser').val(data.firstname + ' ' + data.lastname);
-		$('#expiresAt').datepicker('setDate', data.expiresAt);
+		$('#expiresAt')
+			.attr('min', dateToISOStringWithoutTime(new Date))
+			.val(dateToISOStringWithoutTime(data.expiresAt));
 	});
 
 	$('.extend-account-link-ro').on('click', function() {

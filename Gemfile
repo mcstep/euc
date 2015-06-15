@@ -4,6 +4,7 @@ gem 'rails', '4.2'
 
 
 gem 'autoprefixer-rails'
+gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'carrierwave-data-uri'
