@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150428174418) do
 
-  create_table "accounts", force: true do |t|
+  create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150428174418) do
 
   add_index "accounts", ["deleted_at"], name: "index_accounts_on_deleted_at"
 
-  create_table "airwatch_groups", force: true do |t|
+  create_table "airwatch_groups", force: :cascade do |t|
     t.string   "name"
     t.string   "group_id"
     t.integer  "group_id_num"
@@ -43,14 +43,14 @@ ActiveRecord::Schema.define(version: 20150428174418) do
     t.datetime "updated_at"
   end
 
-  create_table "domains", force: true do |t|
+  create_table "domains", force: :cascade do |t|
     t.string   "name"
     t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "extensions", force: true do |t|
+  create_table "extensions", force: :cascade do |t|
     t.integer  "extended_by"
     t.integer  "recipient"
     t.string   "reason"
@@ -58,14 +58,14 @@ ActiveRecord::Schema.define(version: 20150428174418) do
     t.datetime "revised_expires_at"
   end
 
-  create_table "feature_toggles", force: true do |t|
+  create_table "feature_toggles", force: :cascade do |t|
     t.string   "name"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "invitations", force: true do |t|
+  create_table "invitations", force: :cascade do |t|
     t.integer  "sender_id"
     t.string   "recipient_email"
     t.string   "token"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20150428174418) do
 
   add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at"
 
-  create_table "reg_codes", force: true do |t|
+  create_table "reg_codes", force: :cascade do |t|
     t.string   "code"
     t.datetime "valid_from"
     t.datetime "valid_to"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20150428174418) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "email"
     t.datetime "created_at"
@@ -119,13 +119,5 @@ ActiveRecord::Schema.define(version: 20150428174418) do
   end
 
   add_index "users", ["invitation_id"], name: "index_users_on_invitation_id"
-
-  suppress(Exception) do
-    ##
-    # TODO: Add features here!
-    ##
-
-    #FeatureToggle.create!(name: "FeatureName", active: true)
-  end
 
 end
