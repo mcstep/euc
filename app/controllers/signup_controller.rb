@@ -4,102 +4,37 @@ class SignupController < ApplicationController
   end
 
   def new
+    @invitation = Invitation.new
   end
 
   def reg_code
-    code = params[:reg_code].downcase
-    @reg_code = RegCode.find_by_code(code)
+    @invitation = Invitation.new
+    @reg_code = RegCode.find_by_code(params[:reg_code].downcase)
+
     puts "Reg#{@reg_code}"
+
     if @reg_code.nil?
       redirect_to register_path
       return
     end
+
     render "new" and return
   end
 
   def create
-    alerts = [];
+    @invitation = Invitation.new(invitation_params)
+    @reg_code = @invitation.reg_code
 
-    if params[:email].blank?
-      alerts << "Please enter a valid email address."
-    end
+    if @reg_code.nil?
+      recipient_email = invitation_params[:recipient_email]
 
-    if params[:firstname].blank?
-      alerts << "Please enter a valid firstname."
-    end
+      if !recipient_email.blank?
+        @domain = Domain.find_by_name(recipient_email.split("@").last.downcase)
 
-    if params[:lastname].blank?
-      alerts << "Please enter a valid lastname."
-    end
-
-    if params[:company].blank?
-      alerts << "Please enter a valid company."
-    end
-
-    if params[:title].blank?
-      alerts << "Please enter a valid title."
-    end
-
-    if alerts.blank?
-      user_domain = params[:email].split("@").last.downcase
-      @domain = Domain.find_by_name(user_domain)
-
-      reg_code_text = params[:reg_code_text]
-      reg_code = nil
-
-      if !reg_code_text.blank?
-        reg_code = RegCode.find_by_code(reg_code_text)
-      end
-
-      if !reg_code.nil?
-        current_reg_count = Invitation.where(reg_code_id: reg_code.id).count
-
-        if reg_code.status == false || (!(reg_code.valid_from..reg_code.valid_to).cover?(Time.now)) || (current_reg_count >= reg_code.registrations)
-          redirect_to registration_code_signup_path(reg_code.code), :flash => { :alert => "Sorry! The registration code you entered is no longer valid" }
-          return
-        end
-      else
         if @domain.nil? || @domain.status != 'active'
-          alerts << "Your email domain is currently not supported for registrations."
+          @invitation.errors[:recipient_email] << "Your email domain is currently not supported for registrations."
         end
       end
-    end
-
-    if alerts.blank?
-      existing_invitation = Invitation.find_by_recipient_email(params[:email].downcase)
-      if !existing_invitation.nil?
-        alerts << "Error! An account with that email already exists"
-      end
-    end
-
-    if !alerts.blank?
-      flash.now.alert = alerts;
-      render "new"
-      return
-    end
-
-    @invitation = Invitation.new
-    @invitation.recipient_email = params[:email].downcase
-    @invitation.recipient_firstname = params[:firstname]
-    @invitation.recipient_lastname = params[:lastname]
-    @invitation.recipient_company = params[:company]
-    @invitation.recipient_title = params[:title]
-    @invitation.expires_at = (Time.now + 1.year)
-    @invitation.region = params[:region]
-    @invitation.recipient_username = params[:username]
-    @invitation.airwatch_trial = true
-    @invitation.google_apps_trial = true
-    @invitation.reg_code_id = reg_code.id unless reg_code.nil?
-
-    # Check for whitespaces and remove them
-    if @invitation.recipient_username.blank?
-      @invitation.recipient_username = nil
-    end
-
-    # update the expires_at if the account was created using a reg code
-    if !reg_code.nil?
-      num_days = reg_code.account_validity
-      @invitation.expires_at = (Time.now + num_days.days)
     end
 
     puts params
@@ -111,9 +46,19 @@ class SignupController < ApplicationController
         flash.now.notice = "Account was successfully requested. Please check your email for login details."
         format.html { render :new }
       else
-        flash.now.alert = "An error happened. Please try again later."
-        format.html { render :new, :status => 500 }
+        if @invitation.invalid?
+          flash.now.alert = "Please fill out the form."
+        else
+          flash.now.alert = "An error happened. Please try again later."
+        end
+
+        format.html { render :new }
       end
     end
+  end
+
+private
+  def invitation_params
+    params.require(:invitation).permit(:recipient_email, :recipient_firstname, :recipient_lastname, :recipient_username, :recipient_company, :recipient_title, :region, :reg_code_id)
   end
 end

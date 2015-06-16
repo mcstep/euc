@@ -2,47 +2,50 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 form-content">
 			<h1>Sign Up</h1>
-			<%= form_tag signup_index_path do |f| %>
-				<h4>Enter your information in the form below in order to have an account provisioned</h4>
-
+			<%= form_for @invitation, url: signup_index_path, html: { id: "signup-form" } do |f| %>
 				<% unless @reg_code.blank? %>
 					<div class="form-group">
-						<%= text_field_tag :reg_code, nil, placeholder: 'Reg Code', readonly: true, value: "#{@reg_code.code.upcase}", class: "form-control" %>
+						<%= f.label :reg_code_id %>
+						<%= f.text_field :reg_code, class: "form-control", disabled: true, value: @reg_code.code %>
+						<%= f.hidden_field :reg_code_id, value: @reg_code.id %>
 					</div>
 				<% end %>
 
 				<div class="form-group">
-					<%= text_field_tag :email, nil, placeholder: 'Email', class: "form-control" %>
+					<%= f.label :recipient_email %>
+					<%= f.email_field :recipient_email, placeholder: 'Email', class: "form-control", required: true %>
 				</div>
 				<div class="form-group">
-					<%= text_field_tag :firstname, nil, placeholder: 'First Name', class: "form-control" %>
+					<%= f.label :recipient_firstname %>
+					<%= f.text_field :recipient_firstname, placeholder: 'First Name', class: "form-control", required: true %>
 				</div>
 				<div class="form-group">
-					<%= text_field_tag :lastname, nil, placeholder: 'Last Name', class: "form-control" %>
+					<%= f.label :recipient_lastname %>
+					<%= f.text_field :recipient_lastname, placeholder: 'Last Name', class: "form-control", required: true %>
 				</div>
 				<div class="form-group">
-					<%= text_field_tag :username, nil, placeholder: 'Username (optional)', class: "form-control" %>
+					<%= f.label :recipient_username, class: "optional" %>
+					<%= f.text_field :recipient_username, placeholder: 'Username (optional)', class: "form-control" %>
 				</div>
 				<div class="form-group">
-					<%= text_field_tag :company, nil, placeholder: 'Company', class: "form-control" %>
+					<%= f.label :recipient_company %>
+					<%= f.text_field :recipient_company, placeholder: 'Company', class: "form-control", required: true %>
 				</div>
 				<div class="form-group">
-					<%= text_field_tag :title, nil, placeholder: 'Job Title', class: "form-control" %>
+					<%= f.label :recipient_title %>
+					<%= f.text_field :recipient_title, placeholder: 'Job Title', class: "form-control", required: true %>
 				</div>
 				<div class="form-group">
-					<%= select_tag :region, options_for_select([ "AMER", "EMEA","APAC", ]), class: "form-control required", :prompt => "Select Home Region" %>
+					<%= f.label :region %>
+					<%= f.select :region, [ "AMER", "EMEA","APAC", ], { :prompt => "Select Home Region" }, { class: "form-control", required: true } %>
 				</div>
 
 				<div class="help-block">
-					<% if @reg_code.blank? %>
-						<strong>Your account will be valid for 365 days</strong>
-					<% else %>
-						<%= hidden_field_tag "reg_code_text", @reg_code.code %>
-						<strong>Your account will be valid for <%= @reg_code.account_validity %> days</strong>
-					<% end %>
+					<p>Fields with <strong>bold</strong> titles are mandatory</p>
+					<p>Your account will be valid for <strong><%= @reg_code.blank? ? 365 : @reg_code.account_validity %></strong> days</p>
 				</div>
 
-				<%= submit_tag "Request Account", class: "btn btn-success" %>
+				<%= f.submit "Request Account", class: "btn btn-lg btn-strong" %>
 			<% end %>
 		</div>
 	</div>
