@@ -20,23 +20,6 @@ class Invitation < ActiveRecord::Base
 
   paginates_per 150
 
-  def self.search(search)
-    if search
-      where = ''
-      if search.match(/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
-        where = 'recipient_email LIKE ?', "%#{search}%"
-      elsif search.match(/[a-z]+\s[a-z]+/i)
-        firstname,lastname = search.split(" ")
-        where = 'recipient_firstname LIKE ? and recipient_lastname LIKE ?', "%#{firstname}%", "%#{lastname}%"      
-      else
-        where = 'recipient_firstname LIKE ? or recipient_lastname LIKE ? or recipient_username LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"      
-      end
-      self.where(where)
-    else
-      self.all
-    end
-  end
-
 private
 
   def recipient_is_not_registered

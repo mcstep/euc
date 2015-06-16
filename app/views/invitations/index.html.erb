@@ -2,7 +2,7 @@
 	<div class="form-group">
 		<a href="<%= new_invitation_path %>" class="btn btn-success pull-left">Invite user</a>
 		<div class="input-group">
-			<input type="text" class="form-control" name="search" placeholder="Search users...">
+			<input type="text" class="form-control" name="search" placeholder="Search users..." value="<%= params[:search] %>"/>
 			<span class="input-group-btn">
 				<button class="btn btn-default" type="button">Search!</button>
 			</span>

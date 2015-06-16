@@ -13,13 +13,27 @@ class InvitationsController < ApplicationController
   # GET /invitations
   # GET /invitations.json
   def index
-    @invitations = Invitation
+    search = params[:search]
+
+    query = Invitation
       .select("invitations.*, users.role")
       .joins('LEFT OUTER JOIN users ON users.invitation_id = invitations.id')
       .order(:recipient_firstname)
       .page params[:page]
 
-    @invitations = @invitations.search(params[:search]) if params[:search].present?
+    if !search.blank?
+      if search.match(/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
+        query = query.where('recipient_email LIKE ?', "%#{search}%")
+      elsif search.match(/\w+ \w+/i)
+        firstname,lastname = search.split(" ")
+        query = query.where('recipient_firstname LIKE ? AND recipient_lastname LIKE ?', "%#{firstname}%", "%#{lastname}%")
+      else
+        needle = "%#{search}%"
+        query = query.where('recipient_firstname LIKE ? OR recipient_lastname LIKE ? OR recipient_username LIKE ? OR recipient_email LIKE ?', needle, needle, needle, needle)
+      end
+    end
+
+    @invitations = query
   end
 
   # GET /invitations/1
