@@ -7,9 +7,4 @@
 <h1 class="lined"><span>Dashboard</span></h1>
 <%= render 'tiles' %>
 <%= render 'profile' %>
-
-<% if current_user.role != 'admin' %>
-	<%= render 'account_stats' %>
-<% end %>
-
 <%= render 'invitations' %>
