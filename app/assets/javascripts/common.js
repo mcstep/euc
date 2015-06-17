@@ -45,8 +45,17 @@
 	};
 
 
+	/*
+	 * TODO:
+	 * Currently styling issues arise if <input type="date"> are used
+	 * (as the native alternative for the bootstrap-datepicker).
+	 * The simplest issue is that the date format is the local one and not en-US anymore.
+	 *
+	 * => Investigate those style issues and fix them.
+	 */
+	window.dateInputSupported = false;
 
-	window.dateInputSupported = (function () {
+	/*window.dateInputSupported = (function () {
 		var node = document.createElement('input');
 		var invalidVal = 'foo';
 
@@ -55,7 +64,7 @@
 
 		// A browser supporting date inputs won't let invalidVal get set as the value.
 		return node.value !== invalidVal;
-	}());
+	}());*/
 
 
 
@@ -165,6 +174,9 @@
 					todayHighlight: true,
 				});
 		});
+	} else {
+		$('#expiresAt')
+			.attr('type', 'date')
 	}
 
 	/*

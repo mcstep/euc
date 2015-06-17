@@ -74,7 +74,7 @@ class InvitationsController < ApplicationController
 
     @invitation.sender = current_user
     if !params[:invitation][:expires_at].blank?
-      @invitation.expires_at = DateTime.strptime(params[:invitation][:expires_at], '%B %d, %Y')
+      @invitation.expires_at = Date.parse(params[:invitation][:expires_at])
     else
       @invitation.expires_at = (Time.now + 1.month)
     end
@@ -158,7 +158,7 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.find_by_id(params[:invitationId])
 
     original_expires_at = @invitation.expires_at
-    @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A, %B %d, %Y')
+    @invitation.expires_at = Date.parse(params[:expiresAt])
 
     begin
       response = RestClient.post(url="#{ENV['API_HOST']}/extendAccount",payload={:username => @invitation.recipient_username,  :expires_at => ((@invitation.expires_at.to_i)*1000)}, headers= {:token => ENV["API_KEY"]})
