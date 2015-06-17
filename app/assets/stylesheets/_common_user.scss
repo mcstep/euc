@@ -2,6 +2,12 @@
  * The following CSS is written as XS size.
  * Using media queries this is then modified for SM/MD/LG sizes.
  */
+#sidebar,
+#topbar,
+#footer {
+	transition: left $sidebar-transition-duration ease;
+}
+
 #sidebar {
 	z-index: $zindex-navbar;
 	position: fixed;
@@ -11,12 +17,12 @@
 	width: $sidebar-width;
 	background: $navbg;
 	overflow-y: auto;
-	transition: left $sidebar-transition-duration ease;
 
 	&.show {
 		left: 0;
 
-		& ~ #topbar {
+		& ~ #topbar,
+		& ~ #content > #footer {
 			left: $sidebar-width;
 		}
 
@@ -117,7 +123,6 @@
 	padding: 12px 0 0 0;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
 	background-color: rgba(255, 255, 255, 0.8);
-	transition: left $sidebar-transition-duration ease;
 
 	& > img:first-child {
 		position: absolute;
@@ -137,7 +142,8 @@
 		left: 0;
 		width: $sidebar-width-desktop;
 
-		& ~ #topbar {
+		& ~ #topbar,
+		& ~ #content > #footer {
 			left: $sidebar-width-desktop !important;
 		}
 

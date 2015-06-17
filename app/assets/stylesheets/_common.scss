@@ -56,17 +56,25 @@
 }
 
 #content {
-	display: table;
+	position: relative;
+	display: inline-block;
 	width: 100%;
-	padding: 100px $content-padding $content-padding;
+	min-height: 100vh;
+	padding: 100px $content-padding (100px + $content-padding);
 	transition: padding $sidebar-transition-duration ease;
 }
 
 #footer {
-	width: 100%;
 	line-height: 100px;
 	text-align: center;
 	color: #fff;
+	background-color: $body-bg;
+
+    bottom: 0;
+    height: 100px;
+    left: 0;
+    position: absolute;
+    right: 0;
 }
 
 /*

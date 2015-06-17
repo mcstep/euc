@@ -18,9 +18,8 @@
 	<div id="content"<%== ' class="content"' if current_user %>>
 		<%= render 'layouts/messages' %>
 		<%= yield %>
+		<footer id="footer">© 2015 EUC Global Solutions Engineering Team</footer>
 	</div>
-
-	<footer id="footer">© 2015 EUC Global Solutions Engineering Team</footer>
 
 <!--[if lt IE 9]>
 	<%= javascript_include_tag "jquery" %>
