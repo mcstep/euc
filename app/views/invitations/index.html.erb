@@ -4,7 +4,7 @@
 		<div class="input-group">
 			<input type="text" class="form-control" name="search" placeholder="Search users..." value="<%= params[:search] %>"/>
 			<span class="input-group-btn">
-				<button class="btn btn-default" type="button">Search!</button>
+				<button class="btn btn-default" type="submit">Search!</button>
 			</span>
 		</div>
 		<span class="help-block">There are a total of <%= Invitation.all.count %> active users</span>
