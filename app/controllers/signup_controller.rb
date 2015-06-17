@@ -25,33 +25,20 @@ class SignupController < ApplicationController
     @invitation = Invitation.new(invitation_params)
     @reg_code = @invitation.reg_code
 
-    if @reg_code.nil?
-      recipient_email = invitation_params[:recipient_email]
-
-      if !recipient_email.blank?
-        @domain = Domain.find_by_name(recipient_email.split("@").last.downcase)
-
-        if @domain.nil? || @domain.status != 'active'
-          @invitation.errors[:recipient_email] << "Your email domain is currently not supported for registrations."
-        end
-      end
-    end
-
     puts params
 
-    respond_to do |format|
-      if @invitation.save
-        SignupWorker.perform_async(@invitation.id)
+    if @invitation.save
+      SignupWorker.perform_async(@invitation.id)
 
-        flash.now.notice = "Account was successfully requested. Please check your email for login details."
-        format.html { render :new }
+      redirect_to log_in_path, :flash => { :notice => "Account was successfully requested. Please check your email for login details." }
+    else
+      if @invitation.invalid?
+        flash.now.alert = "The data you submitted contains invalid fields. Please correct any errors and try again."
       else
-        if @invitation.invalid?
-          flash.now.alert = "Please fill out the form."
-        else
-          flash.now.alert = "An error happened. Please try again later."
-        end
+        flash.now.alert = "An error happened. Please try again later."
+      end
 
+      respond_to do |format|
         format.html { render :new }
       end
     end

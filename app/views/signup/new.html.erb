@@ -45,7 +45,7 @@
 					<p>Your account will be valid for <strong><%= @reg_code.blank? ? 365 : @reg_code.account_validity %></strong> days</p>
 				</div>
 
-				<%= f.submit "Request Account", class: "btn btn-lg btn-strong" %>
+				<%= f.button "Request Account", type: :submit, class: "btn btn-lg btn-strong" %>
 			<% end %>
 		</div>
 	</div>

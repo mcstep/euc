@@ -41,6 +41,12 @@
 	}
 }
 
+.alert-dismissible {
+	.close {
+		top: -6px;
+	}
+}
+
 .container-flow {
 	margin: 0 ($grid-gutter-width / -2);
 }

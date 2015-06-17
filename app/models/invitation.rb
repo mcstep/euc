@@ -8,8 +8,9 @@ class Invitation < ActiveRecord::Base
   enum invitation_status: [:pending, :active, :expired, :declined]
 
   validates_presence_of :recipient_email, :recipient_firstname, :recipient_lastname, :recipient_company, :recipient_title, :region
-  validate :reg_code_valid, :if => :reg_code, :on => :create
+  validate :valid_reg_code, :if => :reg_code, :on => :create
   validate :sender_has_invitations, :if => :sender, :on => :create
+  validate :valid_email_domain, :on => :create
 
   validates_uniqueness_of :recipient_email, :scope => [:deleted_at]
   #validates_uniqueness_of :recipient_email, :scope => [:invitation_status]
@@ -23,7 +24,7 @@ class Invitation < ActiveRecord::Base
   paginates_per 150
 
 private
-  def reg_code_valid
+  def valid_reg_code
     if reg_code.status != true || !(reg_code.valid_from..reg_code.valid_to).cover?(Time.now) || Invitation.where(reg_code_id: reg_code.id).count >= reg_code.registrations.to_i
       errors[:reg_code] << 'The registration code you entered is no longer valid.'
     end
@@ -32,6 +33,16 @@ private
   def sender_has_invitations
     if sender.invitations_used >= sender.total_invitations
       errors[:base] << 'You have reached your limit of invitations to send.'
+    end
+  end
+
+  def valid_email_domain
+    if !recipient_email.blank?
+      domain = Domain.find_by_name(recipient_email.split("@").last.downcase)
+
+      if domain.nil? || domain.status != 'active'
+        errors[:recipient_email] << "Your email domain is currently not supported for registrations."
+      end
     end
   end
 
