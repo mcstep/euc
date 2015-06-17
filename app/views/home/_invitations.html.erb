@@ -23,7 +23,7 @@
 				<header>
 					<div class="logo"><i class="icon-users"></i></div>
 					<div class="orgname"><%= recipient_company %></div>
-					<div class="usercount"><div><%= invitations.count %> Active Users</div></div>
+					<div class="usercount"><div><%= pluralize(invitations.count, "Active User") %></div></div>
 					<div class="op"><span>Potential Seats</span><%= potential_seats_sum %></div>
 				</header>
 				<table>
