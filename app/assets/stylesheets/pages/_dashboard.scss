@@ -195,8 +195,8 @@ h1.lined {
 }
 
 .dashboard-table {
-	& > table:first-child,
-	& > table:last-child {
+	& > header,
+	& > table {
 		@include helvetica-light;
 		@include animate;
 
@@ -220,31 +220,25 @@ h1.lined {
 		}
 	}
 
-	& > table:first-child {
+	& > header {
+		display: table-row;
 		width: 100%;
+		line-height: 4em;
 		box-shadow: 0 15px 0px rgba(0,0,0,0.1);
-		padding: 1em;
 		color: #fff;
 		text-align: left;
 		background-color: $tf-orange;
+		white-space: nowrap;
 		@include animate;
 
-		tr {
-			height: 6em;
-			line-height: 6em;
-		}
-
-		td {
-			float: left;
+		& > div {
+			display: table-cell;
+			padding: 0 1em;
 			margin-left: $grid-gutter-width;
 		}
 
-		td:last-child {
+		& > div:last-child {
 			margin-right: $grid-gutter-width;
-		}
-
-		.logo {
-			max-width: 50px;
 		}
 
 		i {
@@ -252,25 +246,44 @@ h1.lined {
 			vertical-align: middle;
 		}
 
-		.orgname {
-			max-width: 200px;
+		& > .logo {
+		}
+
+		& > .orgname {
 			font-size: 150%;
 			font-weight: 500;
-		}
+			overflow: hidden;
+			text-overflow: ellipsis;
 
-		.usercount {
-			line-height: 1em;
 			max-width: 200px;
-			margin: 2em 0 2em $grid-gutter-width;
-			margin: calc(2em - 1px) 0 calc(2em - 1px) $grid-gutter-width;
-			padding: 0.5em 0.75em;
-			border: 1px solid #fff;
-			color: #fff;
-			text-transform: uppercase;
+
+			@media (min-width: $screen-md-min) {
+				max-width: 500px;
+			}
+			@media (min-width: $screen-lg-min) {
+				max-width: 300px;
+			}
 		}
 
-		.op {
-			float: right;
+		& > .usercount {
+			width: 100%;
+
+			& > div {
+				display: table;
+
+				// the first version is for older browsers
+				margin: 2em 0 2em;
+				margin: calc(2em - 1px) 0 calc(2em - 1px);
+
+				line-height: 1em;
+				padding: 0.5em 0.75em;
+				border: 1px solid #fff;
+				color: #fff;
+				text-transform: uppercase;
+			}
+		}
+
+		& > .op {
 			font-size: 150%;
 
 			& > span {
@@ -283,14 +296,14 @@ h1.lined {
 		&:hover {
 			background-color: lighten($tf-green,10);
 
-			.usercount {
+			& > .usercount > div {
 				background-color: #fff;
 				color: rgba(0,0,0,0.8);
 			}
 		}
 	}
 
-	& > table:last-child {
+	& > table {
 		width: 98%;
 		margin-left: 2%;
 		border: 1px solid $gray-light;

@@ -20,16 +20,12 @@
 			potential_seats_sum = invitations.reduce(0) { |sum, invitation| sum + invitation.potential_seats.to_i }
 			%>
 			<div class="dashboard-table">
-				<table>
-					<tbody>
-						<tr>
-							<td class="logo"><i class="icon-users"></i></td>
-							<td class="orgname"><%= recipient_company %></td>
-							<td class="usercount"><%= invitations.count %> Active Users</td>
-							<td class="op"><span>Potential Seats</span><%= potential_seats_sum %></td>
-						</tr>
-					</tbody>
-				</table>
+				<header>
+					<div class="logo"><i class="icon-users"></i></div>
+					<div class="orgname"><%= recipient_company %></div>
+					<div class="usercount"><div><%= invitations.count %> Active Users</div></div>
+					<div class="op"><span>Potential Seats</span><%= potential_seats_sum %></div>
+				</header>
 				<table>
 					<thead>
 						<tr>
