@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    %title EUC Global Demo Portal
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", media: "all"
+  %body
+    = render "layouts/sidebar" if current_user
+    #topbar
+      %img{:height => "46", :src => image_path("testdrive.svg"), :width => "150"}/
+      - if current_user
+        %img#sidebar-toggle{:height => "36", :src => image_path("menu.svg"), :width => "42"}/
+    #content{class: ('content' if current_user)}
+      - flash.each do |name, entry|
+        - if entry.is_a?(Array)
+          - entry.each do |msg|
+            = render partial: 'layouts/message', locals: { name: name, msg: msg.to_s }
+        - else
+          = render partial: 'layouts/message', locals: { name: name, msg: entry.to_s }
+
+      - if session[:impersonator_id].present?
+        .alert.alert-warning{role: "alert"}
+          WARNING! You are now in Impersonator Mode.
+          Any dashboard activity will happen as though it was initiated by the user you are impersonating.
+          Remember, with great power comes great responsibility!
+          Click #{link_to 'here', unimpersonate_users_path} to return to Normal Mode.
+
+      = yield
+
+      %footer#footer © 2015 EUC Global Solutions Engineering Team
+    = javascript_include_tag "application"

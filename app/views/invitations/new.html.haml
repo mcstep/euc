@@ -1,0 +1,4 @@
+.content
+  = bootstrap_form_for(@invitation) do |f|
+    = render 'invitations/form', f: f
+    = f.submit 'Send Invitation', class: 'btn btn-success'

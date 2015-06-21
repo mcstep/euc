@@ -1,0 +1,76 @@
+%ul.list-group
+  %li.list-group-item
+    %strong Code:
+    = @registration_code.code
+  %li.list-group-item
+    %strong User role:
+    = I18n.t("roles.#{@registration_code.user_role}")
+  %li.list-group-item
+    %strong User validity:
+    = @registration_code.user_validity
+    days
+  %li.list-group-item
+    %strong Valid from:
+    = @registration_code.valid_from
+  %li.list-group-item
+    %strong Valid to:
+    = @registration_code.valid_to
+  %li.list-group-item
+    %strong Registrations:
+    = @registration_code.registrations_used
+    \/
+    = @registration_code.total_registrations
+
+%a.btn.btn-warning{href: edit_registration_code_path(@registration_code)} Edit
+%a.btn.btn-danger{href: registration_code_path(@registration_code), data:{method: :delete}} Delete
+%a.btn.btn-primary{href: registration_codes_path} Back
+
+%hr
+
+%h3
+  There are #{@registration_code.users.count} active users using this reg code
+%table.table.table-striped.table-bordered.table-condense{style: 'margin-top: 30px'}
+  %thead
+    %tr
+      %th Full Name
+      %th Email
+      %th Username
+      %th Title
+      %th Company
+      %th Region
+      %th Expires on
+      %th Reg Code
+      %th{:colspan => "2"}
+  %tbody
+    - @registration_code.users.each do |user|
+      %tr
+        %td= user.display_name
+        %td= user.email
+        %td= user.company_name
+        %td= user.job_title
+        %td= I18n.t "regions.#{user.home_region}"
+        %td
+          .expiration
+            = l user.authentication_user_integration.directory_expiration_date
+            - if prolongation = user.authentication_user_integration.directory_prolongations.last
+              %span{data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: 'hover'}}
+                (Prolonged)
+            - else
+              %a.prolong-account-link{href: '#', data: {target: "#prolong-account-modal", toggle: 'modal', id: user.authentication_user_integration.id, username: user.authentication_user_integration.directory_username, date: l(user.authentication_user_integration.directory_expiration_date+1.month), name: user.display_name}}
+                (Prolong)
+        %td
+          - if user.invited_by
+            = user.invited_by.display_name
+          - else
+            .help-block
+              N/A
+        %td
+          - if policy(user).destroy?
+            %a{href: user_path(user), class: 'btn btn-danger btn-xs', data: {confirm: "Do you want to delete this account? The users account will permanently be deleted.", method: "delete"}}
+              Delete
+          - if policy(user).impersonate?
+            %a{href: impersonate_user_path(user), class: 'btn btn-warning btn-xs', method: :post, data: { confirm: 'Do you want to impersonate this user?' }}
+              Impersonate
+          - if policy(user).invites?
+            %a.btn.btn-default.btn-xs.limit-account-link{href: '#', data:{target: "#limit-account-modal", toggle: 'modal', id: user.id, value: user.total_invitations }}
+              %span Edit Invitation Limit

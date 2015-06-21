@@ -20,4 +20,41 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  date:
+    formats:
+      default: '%B %d, %Y'
+
+  flash:
+    logged_in: Logged in!
+    logged_out: Logged out!
+    access_denied: Access denied!
+    bad_authentication: Incorrect email or password
+    invalid_current_password: Invalid current password. Please enter the correct password and try again
+    invalid_confirmation: Password confirmation does not match
+    password_changed: Password changed successfully
+    support_request_sent: Support request sent successfully.
+    extended: User was successfully extended.
+    extension_error: Could not extend the user's account
+
+  regions:
+    amer: Americas
+    emea: Europe
+    apac: Asia-Pacific
+    dldc: Dallas
+
+  roles:
+    basic: Regular
+    admin: Super
+    root: Root
+
+  activerecord:
+    errors:
+      models:
+        user:
+          not_enough_invites: can't be more than total invites allowed
+    attributes:
+      user:
+        integrations_username: Username
+        integrations_expiration_date: Expiration date
+      registration_code:
+        user_validity: User validity (in days)

@@ -1,0 +1,15 @@
+= f.fields_for :to_user do |uf|
+  = uf.text_field :first_name
+  = uf.text_field :last_name
+  = uf.email_field :email
+  = uf.text_field :company_name, label_class: "required"
+  = f.text_field :potential_seats
+  = uf.text_field :job_title
+  = uf.text_field :integrations_username
+  = uf.text_field :integrations_expiration_date, 'data-provide' => 'datepicker', value: uf.object.integrations_expiration_date.strftime('%d.%m.%')
+  - if current_user.root?
+    = uf.select :role, I18n.t('roles').invert
+  = uf.select :home_region, I18n.t('regions').invert, include_blank: true
+.help-block
+  A 30-day account will be setup for the user. After the 30-day trial ends, the user's
+  %strong account will automatically be deleted from the system.

@@ -1,0 +1,50 @@
+#dashboard-tiles.container-fluid.container-flow
+  .row
+
+    .col-sm-6.col-lg-4
+      #dashboard-launcher.widget.launcher
+        %a.app.app01{href: "https://workspace.vmwdemo.com", target: "_blank"}
+          .icon-screen-desktop
+            %h6 Launch Workspace
+        .app.app02{target: "_blank"}
+          .icon-screen-desktop{data: {toggle: "dropdown"}}
+            %h6 Launch Horizon
+          %ul.dropdown-menu{role: "menu"}
+            - sorted_regions.each_with_index do |region, i|
+              %li
+                %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html", target: "_blank"}
+                  = region.upcase
+              - if i == 0
+                %li.divider
+        .app.app03{target: "_blank"}
+          .icon-screen-smartphone{data: {toggle: "dropdown"}}
+            %h6 Launch App
+          %ul.dropdown-menu{role: "menu"}
+            - sorted_regions.each_with_index do |region, i|
+              %li
+                %a{href: "vmware-view://hv6#{region}.vmwdemo.com/", target: "_blank"}
+                  = region.upcase
+                  = ' (Home)' if i == 0
+              - if i == 0
+                %li.divider
+
+    .col-sm-6.col-lg-4
+      .widget.stats
+        .widget-icon
+          %i.icon-envelope-letter
+        .value= current_user.invitations_left
+        .label Invites Remaining
+        .progress
+          .progress-bar{role: "progressbar", style: "width:#{current_user.intitations_used_percents}%", aria: {valuemax: "100", valuemin: "0", valuenow: current_user.intitations_used_percents}}
+            %span
+              = current_user.invitations_used
+              out of #{current_user.total_invitations}
+
+    - if policy(current_user).invites?
+      .col-sm-6.col-lg-4
+        .widget.stats
+          .widget-icon
+            %i.icon-screen-desktop
+          .value
+            = current_user.expiring_invited_users.size
+          .label Expirations soon

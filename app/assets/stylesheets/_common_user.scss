@@ -1,0 +1,173 @@
+/*
+ * The following CSS is written as XS size.
+ * Using media queries this is then modified for SM/MD/LG sizes.
+ */
+#sidebar,
+#topbar,
+#footer {
+	transition: left $sidebar-transition-duration ease;
+}
+
+#sidebar {
+	z-index: $zindex-navbar;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: -$sidebar-width;
+	width: $sidebar-width;
+	background: $navbg;
+	overflow-y: auto;
+
+	&.show {
+		left: 0;
+
+		& ~ #topbar,
+		& ~ #content > #footer {
+			left: $sidebar-width;
+		}
+
+		& ~ #content {
+			padding-left: ($sidebar-width + $content-padding);
+		}
+	}
+}
+
+.sidebar-usercontrols {
+	margin: 2em 0 2em 0;
+	text-align: center;
+
+	img {
+		max-width: 50%;
+		@include radius-max;
+		margin-bottom: 2em;
+		border: 2px solid $black;
+		box-shadow: $black 0 0 5px;
+
+		&:hover {
+			box-shadow: $grey 0 0 5px;
+		}
+	}
+}
+
+.sidebar-username {
+	font-size: 150%;
+	color: $white;
+	margin: 50px 0 0 0 ;
+}
+
+.sidebar-logo {
+	display: none;
+	height: 70px;
+	padding: 15px 0 0 0;
+	text-align: center;
+	background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+
+	img {
+		max-width: 75%;
+	}
+}
+
+.sidebar-divider {
+	font-weight: normal;
+	text-transform: uppercase;
+	color: $grey;
+	font-size: 80%;
+	display: block;
+	margin: 1em 0 0.5em 1em;
+}
+
+.sidebar-nav {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sidebar-nav li {
+	width: 100%;
+	text-indent: 1em;
+	line-height: 30px;
+	background: url(divider.png) bottom repeat-x;
+
+	&:hover {
+		background: none;
+	}
+}
+
+.sidebar-nav li a {
+	display: block;
+	text-decoration: none;
+	color: $white;
+	font-weight: normal;
+}
+
+.sidebar-nav li a:hover {
+	text-decoration: none;
+	color: $black;
+	background: rgba(255,255,255,0.7);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+	text-decoration: none;
+}
+
+#topbar {
+	position: fixed;
+	z-index: $zindex-navbar;
+	top: 0;
+	left: 0;
+	right: 0;
+	min-width: 250px;
+	height: 70px;
+	padding: 12px 0 0 0;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	background-color: rgba(255, 255, 255, 0.8);
+
+	& > img:first-child {
+		position: absolute;
+		left: 50%;
+		margin-left: -75px;
+	}
+}
+
+#sidebar-toggle {
+	margin: 5px 0 0 5px;
+	padding: 10px;
+	float: left;
+}
+
+@media (min-width: $screen-sm-min) {
+	#sidebar {
+		left: 0;
+		width: $sidebar-width-desktop;
+
+		& ~ #topbar,
+		& ~ #content > #footer {
+			left: $sidebar-width-desktop !important;
+		}
+
+		& ~ #content {
+			padding-left: ($sidebar-width-desktop + $content-padding) !important;
+		}
+	}
+
+	.sidebar-divider {
+		font-weight: normal;
+		text-transform: uppercase;
+		color: $grey;
+		font-size: 80%;
+		display: block;
+		margin: 2em 0 0.5em 2em;
+	}
+
+	.sidebar-nav li {
+		width: 100%;
+		line-height: 60px;
+		text-indent: 2em;
+	}
+
+	#sidebar-toggle {
+		display: none;
+	}
+}

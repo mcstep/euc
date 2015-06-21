@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dbcrxxusf
+  api_key: '522663563917382'
+  api_secret: ubbJG-8qo-_g1sAQLWcjXoW_Nd0
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: dbcrxxusf
+  api_key: '522663563917382'
+  api_secret: ubbJG-8qo-_g1sAQLWcjXoW_Nd0
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: dbcrxxusf
+  api_key: '522663563917382'
+  api_secret: ubbJG-8qo-_g1sAQLWcjXoW_Nd0
+  enhance_image_tag: true
+  static_image_support: false
