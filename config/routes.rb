@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  resource :session
+  resource :session do
+    member do
+      post :recover
+    end
+  end
 
   resources :support_requests, only: [:create]
 
@@ -26,10 +30,4 @@ Rails.application.routes.draw do
     end
   end
   resources :registration_codes
-
-  resource :report, only: [] do
-    collection do
-      get :seats
-    end
-  end
 end

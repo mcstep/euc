@@ -42,6 +42,10 @@ class Integration < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def domain
+    google_apps_instance.domain
+  end
+
   def enabled_services
     attributes.select{|k,v| k.ends_with?('instance_id') && v}.keys.map{|k| k[0..-13]}
   end

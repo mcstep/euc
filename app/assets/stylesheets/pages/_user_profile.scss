@@ -137,6 +137,20 @@
 	}
 }
 
+#edit-profile-region {
+	position: relative;
+	top: -7px;
+	float: left;
+	line-height: 0;
+
+	& > div {
+		color: #4A90E2;
+		font-size: 24px;
+		font-weight: 300;
+		line-height: 42px;
+	}
+}
+
 #edit-profile-webcam {
 	display: none;
 	background-color: #e8eff6;

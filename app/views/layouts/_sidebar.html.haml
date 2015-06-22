@@ -29,7 +29,7 @@
         %li
           %a{href: registration_codes_path} Reg Codes
         %li
-          %a{href: seats_report_path} Reports
+          %a{href: '#'} Reports
 
   %span.sidebar-divider Your Account
   %ul.sidebar-nav
@@ -73,8 +73,8 @@
           %button.btn.btn-success{type: "submit"} Submit request
 
 #edit-profile-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  = form_for current_user, html: {class: 'modal-dialog modal-lg', multipart: true} do |f|
-    %input#edit-profile-remove-avatar.hidden{name: "user[remove_avatar]", type: "checkbox", value: "1"}/
+  = form_for current_user, html: {id: 'edit-profile-form', class: 'modal-dialog modal-lg', multipart: true} do |f|
+    %input#edit-profile-remove-avatar.hidden{name: "user[remove_avatar]", type: "checkbox", value: "1"}
     #edit-profile-general.modal-content
       .container-fluid
         .row
@@ -105,14 +105,19 @@
             .row.body
               .col-xs-6
                 %label Company
-                %input.form-control{readonly: true, type: "text", value: current_user.company.name}
+                %input.form-control{readonly: true, type: "text", value: current_user.company_name}
               .col-xs-6
-                %label Region
-                %input.form-control{readonly: true, type: 'text', value: I18n.t("regions.#{current_user.home_region}")}
+                %label Title
+                %input.form-control{readonly: true, type: "text", value: current_user.job_title}
             .row.footer
               .col-xs-12
                 %button.btn.btn-success{type: "submit"} Save Profile
                 %button.btn.btn-default{type: "button", data: {dismiss: 'modal'}} Cancel
+                #edit-profile-region
+                  %label Region
+                  %div= I18n.t "regions.#{current_user.home_region}"
+              .col-xs-12
+                
     #edit-profile-webcam.modal-content
       %header
         %h4 Take Photo

@@ -1,0 +1,85 @@
+%center{style: "width: 100%; min-width: 580px;"}
+  %table.row.header{bgcolor: "#405472", style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; background: #405472; padding: 0px;"}
+    %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+      %td.center{align: "center", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;", valign: "top"}
+        %center{style: "width: 100%; min-width: 580px;"}
+          %table.container{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; margin: 0 auto; padding: 0;"}
+            %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+              %td.wrapper.last{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 0px 0px;", valign: "top"}
+                %table.twelve.columns{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"}
+                  %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+                    %td{align: "center", style: "text-align: center; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;", valign: "top"}
+                      %span.logo{style: "color: #fff; text-align: center; font-size: 18px; text-shadow: 1px 1px rgba(0, 0, 0, 0.23); display: inline-block; padding: 10px 0;"}
+                        VMware End User Computing Demo Portal
+                    %td.expander{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;", valign: "top"}
+
+  %table.container{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; margin: 0 auto; padding: 0;"}
+    %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+      %td{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;", valign: "top"}
+        %table.row{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"}
+          %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+            %td.wrapper.last{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 0px 0px;", valign: "top"}
+              %table.twelve.columns{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"}
+                %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+                  %td{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;", valign: "top"}
+                    %h3{align: "left", style: "color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 30px; margin: 0; padding: 15px 0;"}
+                      Hi #{@user.display_name}!
+                    %p{align: "left", style: "color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 25px 0 10px; padding: 0;"}
+                      Welcome to the EUC Demo Portal! You have been provisioned a Super User account on our system. Your account expires on #{l @user.expires_at}.
+                    %p{align: "left", style: "color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 25px 0 10px; padding: 0;"}
+                      As a Super User you have the ability to generate new accounts for your customers.
+                      It is important to understand that you will be listed as the point of contact for any users you provision accounts for, and you will be expected to perform basic first line support and troubleshooting before escalating to the EUC Demo Team.
+                    %p{align: "left", style: "color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 25px 0 10px; padding: 0;"}
+                      Your login credentials are listed below:
+                    %table.twelve.columns{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"}
+                      %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+                        %td.panel{align: "left", bgcolor: "#F8F8F8", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #F8F8F8; margin: 0; padding: 10px; border: 1px solid #d9d9d9;", valign: "top"}
+                          %p{align: "center", style: "text-align: left; font-size: 14px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; margin: 0 0 10px; padding: 0;"}
+                            %b Email:
+                            = @user.email
+                          %p{align: "center", style: "text-align: left; font-size: 14px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; margin: 0; padding: 0;"}
+                            %b Password:
+                            = @password
+                        %td.expander{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;", valign: "top"}
+                    %br/
+                    %table.button.verify-button{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 300px; overflow: hidden; padding: 0;"}
+                      %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+                        %td{align: "center", bgcolor: "#48A4CF", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #ffffff; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; display: block; width: auto !important; border-radius: 4px; background: #48A4CF; margin: 0; padding: 13px 0 12px;", valign: "top"}
+                          %a{href: "https://portal.vmwdemo.com", style: "color: #ffffff; text-decoration: none; font-weight: bold; font-family: Helvetica, Arial, sans-serif; font-size: 15px;"} Login to the portal now
+                    %p{align: "left", style: "color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 25px 0 10px; padding: 0;"}
+                      Before provisioning any accounts, please familiarize yourself with the following troubleshooting information:
+                      %br/
+                    %ul
+                      %li
+                        %a{href: "http://pubs.vmware.com/view-52/index.jsp#com.vmware.view.administration.doc/GUID-6B20BD72-2BC3-41A0-A356-F85258EA5A08.html", :target => "_blank"} Troubleshooting View Components
+                      %li
+                        %a{href: "http://pubs.vmware.com/view-52/topic/com.vmware.view.administration.doc/GUID-D2A0D9E0-696D-4962-837C-2EC203F5F79B.html", :target => "_blank"} Troubleshooting Network Connection Problems
+                      %li
+                        %a{href: "http://pubs.vmware.com/view-52/topic/com.vmware.view.administration.doc/GUID-D6ABDC1E-1208-44AA-9048-4E7B9E995FCA.html", :target => "_blank"} Further Troubleshooting Information
+                    %p{align: "left", style: "font-weight: 500; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; text-align: left; line-height: 19px; font-size: 14px; margin: 30px 0 10px; padding: 0;"}
+                      \- The EUC Solutions Team at VMware
+                  %td.expander{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;", valign: "top"}
+
+        %table.row.callout{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"}
+          %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+            %td.wrapper.last{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 0px 0px;", valign: "top"}
+              %table.twelve.columns{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"}
+                %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+                  %td.panel{align: "left", bgcolor: "#F8F8F8", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #F8F8F8; margin: 0; padding: 10px; border: 1px solid #d9d9d9;", valign: "top"}
+                    %p{align: "center", style: "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: bold; line-height: 19px; margin: 0 0 10px; padding: 0;"}
+                      Portal SLA Information:
+                    %p{align: "center", style: "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; margin: 2px; padding: 0;"}
+                      Super Users can expect to receive email support for the service during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST.
+                      At the moment the response times are 4 hour response and 48 hours to resolution.
+                      Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.
+                  %td.expander{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;", valign: "top"}
+
+        %table.row{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"}
+          %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+            %td.wrapper.last{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 20px 0px 0px;", valign: "top"}
+              %table.twelve.columns{style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"}
+                %tr{align: "left", style: "vertical-align: top; text-align: left; padding: 0;"}
+                  %td{align: "center", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;", valign: "top"}
+                    %center{style: "width: 100%; min-width: 580px;"}
+                      %p{align: "center", style: "text-align: center; font-size: 12px; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; margin: 0 0 10px; padding: 0;"}
+                  %td.expander{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;", valign: "top"}

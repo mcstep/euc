@@ -28,13 +28,15 @@ en:
     logged_in: Logged in!
     logged_out: Logged out!
     access_denied: Access denied!
-    bad_authentication: Incorrect email or password
-    invalid_current_password: Invalid current password. Please enter the correct password and try again
-    invalid_confirmation: Password confirmation does not match
-    password_changed: Password changed successfully
+    bad_authentication: Incorrect email or password.
+    invalid_current_password: Invalid current password. Please enter the correct password and try again.
+    invalid_confirmation: Password confirmation does not match.
+    password_changed: Password changed successfully.
     support_request_sent: Support request sent successfully.
     extended: User was successfully extended.
-    extension_error: Could not extend the user's account
+    extension_error: Could not extend the user's account.
+    recovered: Password reset successfully requested. Please check your email for login details.
+    recover_error: Could not find use with the given email.
 
   regions:
     amer: Americas

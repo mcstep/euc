@@ -146,7 +146,7 @@ class User < ActiveRecord::Base
     true
   end
 
-  def update_password(password)
+  def update_password(password=nil)
     authentication_user_integration.directory.update_password(
       authentication_user_integration.directory_username,
       password

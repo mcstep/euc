@@ -34,9 +34,13 @@ class ApplicationController < ActionController::Base
     @support_request = SupportRequest.new(from: current_user)
   end
 
-  def redirect_back_or_default(*params)
+  def redirect_back_or_root(*params)
+    redirect_back_or_default root_path, *params
+  end
+
+  def redirect_back_or_default(path, *params)
     redirect_to :back, *params
   rescue ActionController::RedirectBackError
-    redirect_to root_path, *params
+    redirect_to path, *params
   end
 end

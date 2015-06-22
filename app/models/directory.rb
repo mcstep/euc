@@ -38,7 +38,7 @@ class Directory < ActiveRecord::Base
     end
   end
 
-  def update_password(username, password)
+  def update_password(username, password=nil)
     query 'changeUserPassword', username: username, password: password
   end
 

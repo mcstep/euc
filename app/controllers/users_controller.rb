@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     authorize @user
 
     @user.update_attributes(user_params)
-    redirect_to action: :index
+    redirect_back_or_default users_path
   end
 
   def update_password
@@ -72,6 +72,6 @@ class UsersController < ApplicationController
 protected
 
   def user_params
-    params.require(:user).permit(:total_invitations)
+    params.require(:user).permit(:total_invitations, :avatar, :avatar_data_uri, :remove_avatar)
   end
 end

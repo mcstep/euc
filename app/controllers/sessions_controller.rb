@@ -21,4 +21,22 @@ class SessionsController < ApplicationController
     session[:user_id] = session[:impersonator_id] = nil
     redirect_to root_path, notice: I18n.t('flash.logged_out')
   end
+
+  def recover
+    @user = User.where(email: params[:email]).first
+
+    if @user.blank?
+      redirect_to new_session_path, alert: I18n.t('flash.recover_error')
+      return
+    end
+
+    begin
+      PasswordResetWorker.perform_async @user.id, @user.update_password
+    rescue Exception => e
+      redirect_to new_session_path, alert: I18n.t('flash.recover_error')
+      return
+    end
+
+    redirect_to new_session_path, notice: I18n.t('flash.recovered')
+  end
 end
