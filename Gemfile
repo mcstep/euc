@@ -6,6 +6,7 @@ gem 'rails', '4.2'
 gem 'autoprefixer-rails'
 gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-sass'
+gem 'bootstrap_form'
 gem 'carrierwave'
 gem 'carrierwave-data-uri'
 gem 'cloudinary'
@@ -27,6 +28,7 @@ gem 'therubyracer', platform: :ruby
 gem 'uglifier'
 gem 'unicorn', platform: :ruby
 gem 'wannabe_bool'
+gem 'haml'
 
 group :doc do
   gem 'sdoc'

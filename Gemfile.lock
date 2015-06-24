@@ -57,6 +57,7 @@ GEM
     bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
+    bootstrap_form (2.3.0)
     builder (3.2.2)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
@@ -102,6 +103,8 @@ GEM
       memoist (~> 0.12)
       multi_json (= 1.11)
       signet (~> 0.6)
+    haml (4.0.6)
+      tilt
     hitimes (1.2.2)
     i18n (0.7.0)
     interception (0.5)
@@ -266,12 +269,14 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-datepicker-rails
   bootstrap-sass
+  bootstrap_form
   carrierwave
   carrierwave-data-uri
   cloudinary
   feature
   figaro
   google-api-client
+  haml
   jbuilder
   jquery-rails
   kaminari
@@ -297,3 +302,6 @@ DEPENDENCIES
   uglifier
   unicorn
   wannabe_bool
+
+BUNDLED WITH
+   1.10.3

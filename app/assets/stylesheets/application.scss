@@ -1,18 +1,21 @@
-@import "variables";
+@import 'fonts';
+@import 'variables';
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'bootstrap-datepicker3.css';
+@import 'mixins';
+@import 'globals';
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "bootstrap-datepicker3.css";
+@import 'pages/signup';
+@import 'pages/sidebar';
+@import 'pages/dashboard';
 
-@import "mixins";
-@import "fonts";
+.td-signup {
+  .form-group {
+    margin: 0px;
+  }
 
-@import "common";
-@import "common_anonymous";
-@import "common_user";
-
-@import "pages/dashboard";
-@import "pages/domains";
-@import "pages/invitations";
-@import "pages/signup";
-@import "pages/user_profile";
+  .help-block {
+    margin-bottom: 0px;
+  }
+}

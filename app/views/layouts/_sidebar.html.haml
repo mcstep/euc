@@ -1,0 +1,81 @@
+- regions = ['amer', 'emea', 'apac']
+- if !current_user.invitation.nil? && !current_user.invitation.region.nil?
+  - regions.unshift(regions.delete_at(regions.index(current_user.invitation.region.downcase)))
+
+.sidebar-usercontrols
+  .editprofile
+    %a{href: '#', "data-target" => "#avatar-modal", "data-toggle" => "modal"}
+      %span.icon-settings
+  %img{src: current_user.avatar_url}
+  %p
+    %span.sidebar-username
+      First
+      %strong Last
+
+%span.sidebar-divider.clear Launch
+
+.launcher
+  .btn-group-vertical{:role => "group"}
+    %a.btn.btn-primary.btn-sm{href: "https://workspace.vmwdemo.com", target: "_blank"}
+      vIDM
+    .btn-group-vertical{:role => "group"}
+      %button#horizonnative.btn.btn-info.dropdown-toggle.btn-sm{"data-container" => "body", "data-original-title" => "Make sure you have the latest Horizon Client installed!", "data-placement" => "right", "data-toggle" => "dropdown", :onclick => "$('#horizonnative').tooltip('hide')", :title => "", :type => "button"}
+        Horizon Native Client
+        %span.caret
+      %ul.dropdown-menu
+        - regions.each_with_index do |region, idx|
+          %li
+            %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html", target: "_blank"}
+              %span{style: ('font-weight: bold' if idx == 0)}
+                = region.upcase
+        %li.divider{:role => "separator"}
+        %li
+          %a{href: '#'}
+            Download
+            %br
+            Horizon
+    %button.btn.btn-info.dropdown-toggle.btn-sm{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      Horizon HTML Access
+      %span.caret
+    %ul.dropdown-menu
+      - regions.each_with_index do |region, idx|
+        %li
+          %a{href: "vmware-view://hv6<%= region %>.vmwdemo.com/"}
+            %span{style: ('font-weight: bold' if idx == 0)}
+              = region.upcase
+
+%span.sidebar-divider General
+%ul.sidebar-nav
+  %li
+    %a{:href => dashboard_path} Dashboard
+  %li
+    %a{:href => "#"} News
+  %li
+    %a{:href => "#"} FAQ
+
+- if policy(current_user).admin?
+  %span.sidebar-divider Admin
+  %ul.sidebar-nav
+    %li
+      %a{:href => new_invitation_path} Send Invitation
+    %li
+      %a{:href => invitations_path} Manage Accounts
+    %li
+      %a{:href => domains_path} Domains
+    %li
+      %a{:href => features_path} Features
+    %li
+      %a{:href => reg_codes_path} Reg Codes
+    %li
+      %a{:href => reports_seats_stats_path} Reports
+
+%span.sidebar-divider Your Account
+%ul.sidebar-nav
+  %li
+    %a{"data-target" => "#avatar-modal", "data-toggle" => "modal", :href => "#"} Edit Profile
+  %li
+    %a{"data-target" => "#password-change-modal", "data-toggle" => "modal", :href => "#"} Change Password
+  %li
+    %a{"data-target" => "#support-modal", "data-toggle" => "modal", :href => "#"} Support
+  %li
+    %a{:href => log_out_path} Log Out

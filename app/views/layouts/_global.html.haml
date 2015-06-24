@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}
+    %title EUC Global Demo Portal
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", media: "all"
+  %body
+    #wrapper{class: ('toggled' if content_for?(:sidebar))}
+      - if content_for?(:sidebar)
+        #sidebar-wrapper
+          = yield(:sidebar)
+      #td-topbar
+        - if content_for?(:sidebar)
+          %a#menu-toggle{href: "#menu-toggle"}
+            = image_tag 'menu.svg'
+      = yield(:content)
+
+    = javascript_include_tag "application"

@@ -1,0 +1,116 @@
+- content_for :content do
+  .container#fullwidth
+    = render 'layouts/messages'
+
+    - if session[:impersonator_id].present?
+      .alert.alert-warning{role: "alert"}
+        WARNING! You are now in Impersonator Mode.
+        Any dashboard activity will happen as though it was initiated by the user you are impersonating.
+        Remember, with great power comes great responsibility!
+        Click #{link_to 'here', unimpersonate_path, method: :post} to return to Normal Mode.
+
+    = yield
+    .col-sm-12.col-md-12.col-lg-12.footer
+      %p © 2015 EUC Global Solution Engineering Team
+
+    #avatar-modal.modal.fade{role: "dialog", tabindex: "-1"}
+      %form#avatar-form.modal-dialog{:action => "/edit_profile", :enctype => "multipart/form-data", :method => "post"}
+        %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token()}/
+        %input#avatar-remove-avatar.hidden{:name => "user[remove_avatar]", :type => "checkbox", :value => "1"}/
+        #avatar-general.modal-content
+          .td-dialog
+            %h1 Profile
+          .modal-body.usercard.td-dialog.editprofile
+            .btn-group-vertical.col-sm-5.col-md-5.col-lg-5
+              .avatar-img
+                %img{src: current_user.avatar_url}
+              #avatar-left-buttons.avatar-controls.btn-group-vertical
+                %button.btn.btn-default{:type => "button"} Take New Photo
+                %button.btn.btn-default{:type => "button"} Upload Photo
+                %button.btn.btn-danger{:type => "button"} Remove Photo
+            .col-sm-7.col-md-7.col-lg-7.user-details
+              .name
+                %span.firstname= current_user.first_name
+                %span.lastname= current_user.last_name
+              .company
+                %span.company_title= current_user.title
+                %br
+                %span.company_name= current_user.company
+                %br
+                %span= current_user.region
+              .contact
+                %span.email= current_user.email
+            .col-sm-12.col-lg-12.col-md-12.modal-footer.btn-group
+              %button.btn.btn-default.pull-left{"data-dismiss" => "modal", :type => "button"} Cancel
+              %button.btn.btn-success.pull-right{"data-dismiss" => "modal", :type => "button"} Save changes
+        #avatar-webcam.modal-content
+          %header
+            %h4 Take Photo
+          %div
+            %div Accessing Camera…
+          %button#avatar-webcam-shot.btn.btn-primary{:disabled => "disabled", :type => "button"}
+            %span Take Photo
+          %footer
+            %button.btn.btn-default{:type => "button"} Cancel
+            %button.btn.btn-success{:disabled => "disabled", :type => "submit"} Use this Photo
+
+
+  #support-modal.modal.fade{:role => "dialog", :tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        %form#support-form{:action => "/support_request", :method => "post", :role => "form"}
+          %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token()}/
+          .modal-header
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+            %h4.modal-title Submit a support request
+          .modal-body
+            .form-group
+              %label To:
+              - @current_user_invited = Invitation.find(current_user.invitation_id)
+              - if !@current_user_invited.blank? && !@current_user_invited.sender.blank? && @current_user_invited.sender.email != 'admin@vmwdemo.com'
+                %input.form-control{:name => "recipient", :readonly => "true", :type => "text", :value => @current_user_invited.sender.email}/
+              - else
+                %input.form-control{:name => "recipient", :readonly => "true", :type => "text", :value => "eucdemohelp@vmware.com"}/
+            .form-group
+              %label Subject:
+              - if current_user.role == 'user'
+                %input.form-control{:name => "subject", :readonly => "true", :type => "text", :value => "Support request from #{current_user.display_name} from the EUC Demo Portal"}/
+              - else
+                %input.form-control{:name => "subject", :type => "text"}/
+            .form-group
+              %label Body:
+              %textarea.form-control{:maxlength => "1000", :name => "notes", :rows => "3"}
+            - if current_user.role == 'vip'
+              .well.sla
+                %p{:align => "center", :style => "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: bold; line-height: 19px;"} Portal SLA Information:
+                %p{:align => "center", :style => "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px;"} Super Users can expect to receive email support from the VMware Demo Team during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST. At the moment the response times are 4 hour response and 48 hours to resolution. Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.
+          .modal-footer
+            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+            %button.btn.btn-success{:type => "submit"} Submit request
+
+  #password-change-modal.modal.fade{:role => "dialog", :tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        %form#password-change-form{:action => "/change_password", :method => "post", :role => "form"}
+          %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token()}/
+          .modal-header
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+            %h4.modal-title Change Password
+          .modal-body
+            .form-group
+              %label Current Password:
+              %input#current_password.form-control{:name => "current_password", :type => "password"}/
+            .form-group
+              %label New Password:
+              %input#new_password.form-control{:name => "new_password", :type => "password"}/
+            .form-group
+              %label Confirm New Password:
+              %input#new_password_confirm.form-control{:name => "new_password_confirm", :type => "password"}/
+          .modal-footer
+            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+            %button.btn.btn-success{:type => "submit"} Submit
+
+- content_for :sidebar do
+  = render 'layouts/sidebar'
+
+= render 'layouts/global'

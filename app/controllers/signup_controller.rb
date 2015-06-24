@@ -1,4 +1,6 @@
 class SignupController < ApplicationController
+  layout 'unauthorized'
+
   def index
     redirect_to register_path, :status => 301
   end

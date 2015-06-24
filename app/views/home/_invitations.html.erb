@@ -1,63 +1,61 @@
-<% current_user_invitation = Invitation.find(current_user.invitation_id) %>
-<% if !current_user_invitation.blank? && !current_user_invitation.sender.blank? && !current_user_invitation.sender.email == 'admin@vmwdemo.com' %>
-	<br/>
-	<h1 class="lined"><span>Account Details</span></h1>
-	<div>
-		Your account was created by <strong><%= current_user_invitation.sender.display_name %></strong> and their email is <strong><%= mail_to current_user_invitation.sender.email %></strong>
+<% if policy(current_user).invites? && current_user.invitation.present? %>
+	<div class="col-md-12 col-sm-12 col-lg-12">
+		<h1 class="lined"><span>Organizations and Users</span></h1>
 	</div>
-<% end %>
-
-<% if policy(current_user).invites? && current_user_invitation %>
-	<br/>
-	<h1 class="lined"><span>Organizations and Users</span></h1>
 
 	<%
-	Invitation.where(sender_id: current_user.id).order(:recipient_company)
-		.chunk { |invitation|
-			invitation.recipient_company
-		}
-		.each { |recipient_company, invitations|
-			potential_seats_sum = invitations.reduce(0) { |sum, invitation| sum + invitation.potential_seats.to_i }
-			%>
-			<div class="dashboard-table">
-				<header>
-					<div class="logo"><i class="icon-users"></i></div>
-					<div class="orgname"><%= recipient_company %></div>
-					<div class="usercount"><div><%= pluralize(invitations.count, "Active User") %></div></div>
-					<div class="op"><span>Potential Seats</span><%= potential_seats_sum %></div>
-				</header>
-				<table>
+		Invitation.where(sender_id: current_user.id).order(:recipient_company)
+			.chunk { |invitation|
+				invitation.recipient_company
+			}
+			.each { |recipient_company, invitations|
+				potential_seats_sum = invitations.reduce(0) { |sum, invitation| sum + invitation.potential_seats.to_i }
+				%>
+		<div class="orgviews col-sm-12 col-md-12 col-lg-12">
+			<div class="td-org col-sm-12 col-md-12 col-lg-12">
+				<table class="table">
+					<tbody>
+						<tr>
+							<td class="logo"><em class="icon-users"></em></td>
+							<td class="orgname"><%= recipient_company %></td>
+							<td class="usercount"><%= pluralize(invitations.count, "Active User") %></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="td-users zero-space col-sm-12 col-md-12 col-lg-12">
+				<table class="table">
 					<thead>
 						<tr>
-							<th></th>
-							<th>Name</th>
-							<th>E-Mail</th>
-							<th>Username</th>
+							<th class="avatar"></th>
+							<th class="name">Name</th>
+							<th class="mobilehide">E-Mail</th>
+							<th class="mobilehide">Username</th>
 							<th>Days Left</th>
 							<th>Admin</th>
 						</tr>
 					</thead>
+
 					<tbody>
 						<% invitations.each { |invitation| %>
 							<tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>">
-								<td class="avatar"><img src="assets/default_avatar.png"/></td>
+								<td class="avatar"><img src="<%= invitation.recipient.try(:avatar_url) || User.default_avatar_url %>"></td>
 								<td class="name"><%= invitation.recipient_firstname %> <%= invitation.recipient_lastname %></td>
-								<td><%= invitation.recipient_email %></td>
-								<td><%= invitation.recipient_username %></td>
-								<td>
+								<td class="mobilehide"><%= invitation.recipient_email %></td>
+								<td class="mobilehide"><%= invitation.recipient_username %></td>
+								<td><%= invitation.expires_at.to_date.to_formatted_s(:long) %></td>
+								<td class="admin">
 									<% extension = Extension.where(recipient: invitation.id).last %>
-									<% if extension.nil? %>
-										<%= invitation.expires_at.to_date.to_formatted_s(:long) %>
-										<a href="#" class="extend-account-link-ro" data-toggle="modal" data-target="#extend-account-modal">(Extend)</a>
+									<% if !extension.nil? %>
+										<a href="#" class="btn btn-xs btn-warning extend-account-link-ro" data-toggle="modal" data-target="#extend-account-modal">Extend</a>
 									<% else %>
-										<span data-toggle="popover" data-placement="bottom" data-content="Reason: <%= extension.reason %>">
-											<%= invitation.expires_at.to_date.to_formatted_s(:long) %> (Extended)
+										<span class="btn btn-xs btn-warning" disabled="disabled" data-toggle="popover" data-placement="bottom" data-content="Reason: <%= extension.try :reason %>">
+											Extended
 										</span>
 									<% end %>
-								</td>
-								<td>
-									<a href="<%= invitation_path(invitation) %>" data-method="delete" rel="nofollow" data-confirm="Do you want to delete this account? The users account will permanently be deleted.">
-										<i class="icon-ban"></i>
+									<a class="btn btn-xs btn-danger" href="<%= invitation_path(invitation) %>" data-method="delete" rel="nofollow" data-confirm="Do you want to delete this account? The users account will permanently be deleted.">
+										Delete
 									</a>
 								</td>
 							</tr>
@@ -65,17 +63,8 @@
 					</tbody>
 				</table>
 			</div>
-			<%
-		}
-	%>
-
-	<br/><br/><br/>
-
-	<% if current_user.role == 'admin' || current_user.invitations_used < current_user.total_invitations %>
-		<a href="#" data-toggle="modal" data-target="#dashboard-new-invite-modal" class="btn btn-success pull-left">Invite user</a>
-	<% else %>
-		<button type="button" class="btn btn-success" disabled="true">Invite user</button>
-	<% end %>
+		</div>
+	<% } %>
 
 	<div class="modal fade" id="extend-account-modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
@@ -105,75 +94,6 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 						<button type="submit" class="btn btn-success">Submit request</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="dashboard-new-invite-modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form id="new-invitation-form" method="post" action="/invitations" role="form">
-					<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
-
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Invite User</h4>
-					</div>
-
-					<div class="modal-body">
-						<div class="form-group">
-							<label>First name:</label>
-							<input type="text" name="invitation[recipient_firstname]" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label>Last name:</label>
-							<input type="text" name="invitation[recipient_lastname]" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label>Email:</label>
-							<input type="email" name="invitation[recipient_email]" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label>Username:</label>
-							<input type="text" name="invitation[recipient_username]" placeholder="(optional)" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label>Company:</label>
-							<input type="text" name="invitation[recipient_company]" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label>Job Title:</label>
-							<input type="text" name="invitation[recipient_title]" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label>Potential number of users:</label>
-							<input type="text" name="invitation[potential_seats]" class="form-control popoverPotentialSeatsModal" />
-						</div>
-						<div class="form-group">
-							<label>Region:</label>
-							<select class="form-control required" name="invitation[region]">
-								<option value="">Select Region</option><option value="AMER">AMER</option>
-								<option value="EMEA">EMEA</option>
-								<option value="APAC">APAC</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label>AirWatch Trial:</label>
-							<select class="form-control required" name="invitation[airwatch_trial]">
-								<option value="">AirWatch Trial</option>
-								<option value="true">Yes</option>
-								<option value="false">No</option>
-							</select>
-						</div>
-						<div class="info">
-							A 30-day account will be setup for the user. After the 30-day trial ends, the user's <strong>account will automatically be deleted from the system.</strong>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn btn-success" id="send-invite" >Send Invite</button>
 					</div>
 				</form>
 			</div>

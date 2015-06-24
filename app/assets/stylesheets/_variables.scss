@@ -1,19 +1,13 @@
 $bootstrap-sass-asset-helper: false;
 
-$sidebar-width: 150px;
-$sidebar-width-desktop: 200px;
-$sidebar-transition-duration: 0.5s;
-
-$content-padding: 25px;
-
 
 // TestDrive Colors
-$tf-lightblue:      #00c6ff;
-$tf-darkblue:       #3376a7;
-$tf-orange:         #2c8ac1;
-$tf-green:          #86bd25;
-$tf-darkgreen:      #47601b;
-$tf-red:            #ff5a6a;
+$td-lightblue:      #00c6ff;
+$td-darkblue:       #3376a7;
+$td-orange:         #2c8ac1;
+$td-green:          #86bd25;
+$td-darkgreen:      #47601b;
+$td-red:            #ff5a6a;
 
 $white:             #fff;
 $body:              #697785;
@@ -43,22 +37,24 @@ $brand-info:    #00c6ff;
 $brand-warning: #ff7307;
 $brand-danger:  #ff1833;
 
+$dashboard-bg: lighten($gray-lighter,5);
+
 
 //== Scaffolding
 //
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #697785;
+$body-bg:               #fff;
 //** Global text color on `<body>`.
 $text-color:            $gray-darker;
 
 //** Global textual link color.
 $link-color:            $brand-primary;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      $brand-info;
+$link-hover-color:      $link-color;
 //** Link hover decoration.
-$link-hover-decoration: none;
+$link-hover-decoration: underline;
 
 
 
@@ -66,7 +62,7 @@ $link-hover-decoration: none;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif:  'Open Sans', Helvetica, Arial, sans-serif;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif;
 
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
@@ -345,17 +341,17 @@ $grid-float-breakpoint-max: ($grid-float-breakpoint - 1);
 //## Define the maximum width of `.container` for different screen sizes.
 
 // Small screen / tablet
-$container-tablet:             (720px + $grid-gutter-width - 2 * $content-padding);
+$container-tablet:             (720px + $grid-gutter-width);
 //** For `$screen-sm-min` and up.
 $container-sm:                 $container-tablet;
 
 // Medium screen / desktop
-$container-desktop:            (940px + $grid-gutter-width - 2 * $content-padding);
+$container-desktop:            (940px + $grid-gutter-width);
 //** For `$screen-md-min` and up.
 $container-md:                 $container-desktop;
 
 // Large screen / wide desktop
-$container-large-desktop:      (1140px + $grid-gutter-width - 2 * $content-padding);
+$container-large-desktop:      (1140px + $grid-gutter-width);
 //** For `$screen-lg-min` and up.
 $container-lg:                 $container-large-desktop;
 
@@ -631,20 +627,20 @@ $alert-padding:               15px;
 $alert-border-radius:         $border-radius-base;
 $alert-link-font-weight:      bold;
 
-$alert-success-bg:            $brand-success;
-$alert-success-text:          #fff;
+$alert-success-bg:            none;
+$alert-success-text:          $gray;
 $alert-success-border:        $state-success-border;
 
-$alert-info-bg:               $brand-info;
-$alert-info-text:             #fff;
+$alert-info-bg:               none;
+$alert-info-text:             $gray;
 $alert-info-border:           $state-info-border;
 
-$alert-warning-bg:            $brand-warning;
-$alert-warning-text:          #fff;
+$alert-warning-bg:            none;
+$alert-warning-text:          $gray;
 $alert-warning-border:        $state-warning-border;
 
-$alert-danger-bg:             $brand-danger;
-$alert-danger-text:           #fff;
+$alert-danger-bg:             none;
+$alert-danger-text:           $gray;
 $alert-danger-border:         $state-danger-border;
 
 

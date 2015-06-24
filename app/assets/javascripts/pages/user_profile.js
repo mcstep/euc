@@ -1,9 +1,9 @@
 (function () {
-	var $editProfileForm = $('#edit-profile-form');
+	var $editProfileForm = $('#avatar-form');
 
 	if ($editProfileForm.length) {
 		function setRemoveAvatar(remove) {
-			document.getElementById('edit-profile-remove-avatar').checked = remove;
+			document.getElementById('avatar-remove-avatar').checked = remove;
 		}
 
 		function toggleEditProfileMode() {
@@ -23,14 +23,14 @@
 		// we manually append to file input to assert that it's value is unset
 		var $avatarFile = $('<input class="hidden" type="file"/>').appendTo($editProfileForm);
 
-		var $editProfileModal = $('#edit-profile-modal');
-		var $generalAvatarButtons = $('#edit-profile-left-buttons').children();
+		var $editProfileModal = $('#avatar-modal');
+		var $generalAvatarButtons = $('#avatar-left-buttons').children();
 		var $generalTakePhoto = $generalAvatarButtons.eq(0);
 		var $generalUploadPhoto = $generalAvatarButtons.eq(1);
 		var $generalRemovePhoto = $generalAvatarButtons.eq(2);
 
-		var $editProfileWebcam = $('#edit-profile-webcam');
-		var $webcamShot = $('#edit-profile-webcam-shot');
+		var $editProfileWebcam = $('#avatar-webcam');
+		var $webcamShot = $('#avatar-webcam-shot');
 		var $editProfileWebcamContainer = $('div', $editProfileWebcam);
 		var $editProfileWebcamSave = $('.btn-success', $editProfileWebcam);
 		var $editProfileWebcamCancel = $('.btn-default', $editProfileWebcam);

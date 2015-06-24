@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  layout 'unauthorized'
+
   def new
   end
 
