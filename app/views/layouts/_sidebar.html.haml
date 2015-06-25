@@ -25,7 +25,7 @@
       %ul.dropdown-menu
         - regions.each_with_index do |region, idx|
           %li
-            %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html", target: "_blank"}
+            %a{href: "vmware-view://hv6#{region}.vmwdemo.com/", target: "_blank"}
               %span{style: ('font-weight: bold' if idx == 0)}
                 = region.upcase
         %li.divider{:role => "separator"}
@@ -40,7 +40,7 @@
     %ul.dropdown-menu
       - regions.each_with_index do |region, idx|
         %li
-          %a{href: "vmware-view://hv6<%= region %>.vmwdemo.com/"}
+          %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html"}
             %span{style: ('font-weight: bold' if idx == 0)}
               = region.upcase
 
