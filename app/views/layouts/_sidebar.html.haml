@@ -49,9 +49,7 @@
   %li
     %a{:href => dashboard_path} Dashboard
   %li
-    %a{:href => "#"} News
-  %li
-    %a{:href => "#"} FAQ
+    %a{:href => dashboard_path} FAQ
 
 - if policy(current_user).admin?
   %span.sidebar-divider Admin
