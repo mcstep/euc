@@ -3,8 +3,9 @@
 	<%= render 'eula' %>
 <% end %>
 
-<% if policy(current_user).invites? %>
-	<div class="alert alert-danger" role="alert">
+<% if policy(current_user).invites? && !cookies[:super_user_notification_closed] %>
+	<div class="alert alert-danger alert-dismissible" role="alert" id="super-user-notifcation">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		As a Super User you have the ability to generate new accounts for your customers. It is important to understand that you will be listed as the point of contact for any users you provision accounts for, and you will be expected to perform basic first line support and troubleshooting before escalating to the EUC Demo Team.
 	</div>
 <% end%>

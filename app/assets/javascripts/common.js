@@ -110,6 +110,10 @@
 	}
 
 
+	$('#super-user-notifcation .close').click(function() {
+		$.cookie("super_user_notification_closed", 1);
+	});
+
 
 	/**
 	 * Returns the data-* attached to the <tr> within the table of invitations.
