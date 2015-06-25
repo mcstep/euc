@@ -38,8 +38,8 @@
 					</thead>
 
 					<tbody>
-						<% invitations.each { |invitation| %>
-							<tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>">
+						<% invitations.each_with_index { |invitation, i| %>
+							<tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>" class="<%= 'alt' if i % 2 == 1 %>">
 								<td class="avatar"><img src="<%= invitation.recipient.try(:avatar_url) || User.default_avatar_url %>"></td>
 								<td class="name"><%= invitation.recipient_firstname %> <%= invitation.recipient_lastname %></td>
 								<td class="mobilehide"><%= invitation.recipient_email %></td>
