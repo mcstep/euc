@@ -14,7 +14,7 @@
         = f.text_field :recipient_title, hide_label: true, placeholder: 'Title', required: true
         = f.text_field :recipient_company, hide_label: true, placeholder: 'Company', required: true
         %h2 Region
-        = f.select :region, [ "AMER", "EMEA", "APAC" ], { hide_label: true }, { class: "form-control", required: true }
+        = f.select :region, [ "AMER", "EMEA", "APAC" ], { hide_label: true, include_blank: 'Select your Home Region' }, { class: "form-control", required: true }
       .col-lg-12.eula-check{style: 'margin-top: 20px'}
         By submitting this form I agree to the
         %a{"data-target" => "#EULA", "data-toggle" => "modal", :href => "#"} VMware End User License Agreement
