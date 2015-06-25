@@ -1,6 +1,8 @@
 
 .td-signup {
   margin-top: 8em;
+  
+  
 }
 
 .td-dialog {
@@ -70,7 +72,10 @@
     min-height: 100px;
     display: inline-block;
   }
-
+  .form-horizontal .form-group {
+    margin: 0.75em 0 0 0 !important;
+    
+  }
   .form {
     padding: 15px;
     margin: 15px 0;
@@ -107,7 +112,7 @@
 
     .eula-check {
       text-align: center;
-      margin-bottom: 2em;
+      margin: 1.5em 0;
       input[type="checkbox"] {
         margin: 1em;
       }
@@ -122,11 +127,8 @@
       margin: 25px 0 25px 0;
       text-align: center;
     }
+    
 
-    ::placeholder {
-      color: $lightgrey;
-      opacity: 1;
-    }
 
     input {
       display: inline-block;
@@ -134,18 +136,18 @@
       font-size: 110%;
     }
 
-    input[type="text"] {
+    /*input[type="text"] {
       width: 100%;
       color: $black;
       border: 1px solid $lightgrey;
-      margin: 1.5em 0 0 0;
+      margin: 1.5em 0 0 0 ;
       &:hover {
         @include animate;
         border: 1px solid $black;
       }
-    }
+    } */
 
-    input[type="submit"] {
+    .register {
       @include animate;
       @include varela-round;
       letter-spacing: 0.1em;

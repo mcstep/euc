@@ -1,11 +1,10 @@
 .col-sm-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.td-dialog.td-signup
   %h1 Sign up
-  = bootstrap_form_for @invitation, url: signup_index_path, html: { id: "signup-form" } do |f|
-    .form
+  = bootstrap_form_for @invitation, url: signup_index_path, html: { class: 'form form-horizontal', id: "signup-form" } do |f|
+    %fieldset
       .col-md-12.col-sm-12.col-lg-12
-        .bs-component
-          .alert.alert-info
-            %center Welcome to VMware® TestDrive. Please fill in your details to begin the signup process.
+        .alert.alert-info
+          %center Welcome to VMware® TestDrive. Please fill in your details to begin the signup process.
 
         = f.text_field :recipient_firstname, hide_label: true, placeholder: 'First Name', required: true
         = f.text_field :recipient_lastname, hide_label: true, placeholder: 'Last Name', required: true
@@ -29,4 +28,6 @@
                 = render 'eula'
             .modal-footer
               %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
-      %input{:type => "submit", :value => "Register"}
+      .col-lg-12
+        .form-group
+          %button#submit.btn.btl-lg.btn-success.register{:name => "submit"} REGISTER
