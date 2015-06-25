@@ -1,3 +1,6 @@
+
+
+
 #td-topbar {
   background: image-url('testdrive.svg') top 25px center / 125px no-repeat rgba(255,255,255,1);
   opacity: 0.9;
@@ -10,7 +13,7 @@
   border-top: 0;
   &:hover {
   }
-  ;
+  
 }
 
 
@@ -33,7 +36,7 @@
   background: $dashboard-bg;
   min-width: 250px;
   padding: 80px 0 25px 0;
-  min-height: 1000px;
+  min-height: 100vh;
   .container {
     padding: 0;
     margin: 0;
@@ -940,15 +943,25 @@
       text-align: center;
       color: $gray-light;
     }
-    
+    .modal-header {
+      border: none;
+      padding: 0;
+      .td-dialog {
+        min-height: 0 !important;
+        margin-bottom: 2em;
+      }
+      
+    }
     .modal-content {
       text-align: center;
       .user-details {
         padding-left: 3em;
-        font-size: 80%;
-        margin-top: 25px !important;
+        font-size: 75%;
+      
+        margin-bottom: 5em;
         @media(min-width: 768px){
         text-align: left;
+        margin-top: 5em !important;
       }
         .partner_id {
           margin-left: 0;
@@ -962,17 +975,38 @@
         margin-bottom: 0;
       }
       
-      .btn-group-vertical, {
+      .modal-body {
+      .btn-group-vertical {
+        
+        @media(max-width: 768px){
+        max-width: 80%;
+      }
+        .btn {
+        font-size: 70%;
+      }
         text-align: center;
         margin-bottom: 1.25em !important;
       }
+    }
+      .modal-footer {
+        clear: both;
+      }
       
-      m
       
       h1 {
         
       }
-      
+      .avatar-img {
+        
+        margin: 0 auto 1em auto;
+        img {
+          max-width: 150px;
+        @media(max-width: 768px) {
+          max-width: 125px !important;
+          
+        }
+      }
+      }
       .avatar-controls a { max-width: 150px; }
     }
     

@@ -18,13 +18,17 @@
       %small
   %small
 
+
+
 #password-reset-modal.modal.fade{:role => "dialog", :tabindex => "-1"}
   .modal-dialog
     .modal-content
       = form_tag '/password_reset' do
         .modal-header
-          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-          %h4.modal-title Reset Password
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          .td-dialog
+            %h1 Reset Password
         .modal-body
           .form-group
             %label Email:
@@ -32,5 +36,5 @@
           .info
             %strong A new password will be sent to the email.
         .modal-footer
-          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+          %button.btn.btn-default.pull-left{"data-dismiss" => "modal", :type => "button"} Cancel
           %button#send-invite.btn.btn-success{:type => "submit"} Reset Password

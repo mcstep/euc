@@ -6,14 +6,17 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form id="eula-form" method="post" action="/eula" role="form">
-				<div class="modal-header">
-					<h4 class="modal-title">AirWatch EULA</h4>
-				</div>
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  	      	<div class="td-dialog">
+  	      	  <h1>AirWatch EULA</h1>
+  	      	</div>
+	      </div>
 				<div class="modal-body">
 					<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Decline</button>
+					<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Decline</button>
 					<button type="submit" class="btn btn-success" id="accept_eula">Yes, I accept</button>
 				</div>
 			</form>

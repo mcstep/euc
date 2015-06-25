@@ -39,6 +39,19 @@ a {
 }
 
 
+
+.modal-header {
+  padding: 0 !important;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: $white;
+}
+
+
 /* Testdrive Page Framework */
 #td-topbar {
   background: $topbar;
@@ -55,6 +68,8 @@ a {
 .clear {
   clear: both;
 }
+
+
 
 
 // Login 

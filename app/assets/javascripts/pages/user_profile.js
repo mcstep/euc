@@ -31,7 +31,7 @@
 
 		var $editProfileWebcam = $('#avatar-webcam');
 		var $webcamShot = $('#avatar-webcam-shot');
-		var $editProfileWebcamContainer = $('div', $editProfileWebcam);
+		var $editProfileWebcamContainer = $('.canvas', $editProfileWebcam);
 		var $editProfileWebcamSave = $('.btn-success', $editProfileWebcam);
 		var $editProfileWebcamCancel = $('.btn-default', $editProfileWebcam);
 		var $avatarDataField = null;

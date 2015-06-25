@@ -68,14 +68,16 @@
 
 	<div class="modal fade" id="extend-account-modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content" style="text-align: left">
 				<form id="extend-account-form" method="post" action="/extend_invitation" role="form">
 					<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
 					<input type="hidden" name="invitationId" id="invitationId"/>
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Extend Account</h4>
-					</div>
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  	      	<div class="td-dialog">
+	  	      	  <h1>Extend Account</h1>
+	  	      	</div>
+		      </div>
 					<div class="modal-body">
 						This action will extend the user's account by a month. This will be a one-time extension and the users account will be deleted from the system once the expiration date has been reached. <br/><br/>
 						<div class="form-group">
@@ -92,7 +94,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
 						<button type="submit" class="btn btn-success">Submit request</button>
 					</div>
 				</form>
