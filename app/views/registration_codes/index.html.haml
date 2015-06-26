@@ -1,34 +1,40 @@
-%h1 Registration Codes
-%br/
-%table.table.table-striped.table-bordered.table-condense
-  %thead
-    %tr
-      %th Code
-      %th User role
-      %th User validity
-      %th Valid From
-      %th Valid To
-      %th Registrations Allowed
-      %th Registrations Used
-      %th
-  %tbody
-    - @registration_codes.each do |registration_code|
-      %tr
-        %td= registration_code.code
-        %td= I18n.t "roles.#{registration_code.user_role}"
-        %td
-          = registration_code.user_validity
-          days
-        %td= registration_code.valid_from
-        %td= registration_code.valid_to
-        %td
-          = registration_code.registrations_used
-          \/
-          = registration_code.total_registrations
-        %td= registration_code.users.count
-        %td{style: 'white-space: nowrap'}
-          = link_to 'Show', registration_code, class: 'btn btn-primary btn-xs'
-          = link_to 'Edit', edit_registration_code_path(registration_code), class: 'btn btn-warning btn-xs'
-          = link_to 'Destroy', registration_code, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+.col-md-12.col-sm-12.col-lg-12
+  .panel.panel-default
+    .panel-body
+      = link_to 'New Reg code', new_registration_code_path, class: 'btn btn-success'
 
-= link_to 'New Reg code', new_registration_code_path, class: 'btn btn-success'
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        = pluralize @registration_codes.size, 'code'
+        found
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Code
+          %th User role
+          %th User validity
+          %th Valid From
+          %th Valid To
+          %th Registrations Allowed
+          %th Registrations Used
+          %th
+      %tbody
+        - @registration_codes.each do |registration_code|
+          %tr
+            %td= registration_code.code
+            %td= I18n.t "roles.#{registration_code.user_role}"
+            %td
+              = registration_code.user_validity
+              days
+            %td= registration_code.valid_from
+            %td= registration_code.valid_to
+            %td
+              = registration_code.registrations_used
+              \/
+              = registration_code.total_registrations
+            %td= registration_code.users.count
+            %td{style: 'white-space: nowrap'}
+              = link_to 'Show', registration_code, class: 'btn btn-primary btn-xs'
+              = link_to 'Edit', edit_registration_code_path(registration_code), class: 'btn btn-warning btn-xs'
+              = link_to 'Destroy', registration_code, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs'

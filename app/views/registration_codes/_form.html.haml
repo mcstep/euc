@@ -4,4 +4,4 @@
   = f.number_field :total_registrations
   = f.text_field :valid_from, 'data-provide' => 'datepicker', value: f.object.valid_from.try(:strftime, '%d.%m.%Y')
   = f.text_field :valid_to, 'data-provide' => 'datepicker', value: f.object.valid_to.try(:strftime, '%d.%m.%Y')
-  = f.submit
+  = f.submit class: 'btn btn-success', style: 'width: 100%; margin-bottom: 30px'

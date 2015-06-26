@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  layout 'unauthorized'
+  
   skip_before_action :require_login
   skip_after_action :verify_authorized
 

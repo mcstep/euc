@@ -1,0 +1,121 @@
+#avatar-modal.modal.fade{role: "dialog", tabindex: "-1"}
+  = form_for current_user, html: {id: 'avatar-form', class: 'modal-dialog', multipart: true} do |f|
+    %input#avatar-remove-avatar.hidden{name: "user[remove_avatar]", type: "checkbox", value: "1"}
+    #avatar-general.modal-content
+      .modal-header
+        %button.close{type: "button", data: {dismiss: 'modal'}}
+          %span ×
+        .td-dialog
+          %h1 Profile
+      .modal-body.usercard.td-dialog.editprofile
+        .btn-group.col-sm-5.col-md-5.col-lg-5
+          .avatar-img
+            %img{src: current_user.avatar_url}
+          #avatar-left-buttons.avatar-controls.btn-group-vertical
+            %button.btn.btn-sm.btn-default{type: "button"} Take Photo
+            %button.btn.btn-sm.btn-default{type: "button"} Upload Photo
+            %button.btn.btn-sm.btn-danger{type: "button"} Remove Photo
+        .col-sm-7.col-md-7.col-lg-7.user-details
+          .name
+            %span.firstname= current_user.first_name
+            %span.lastname= current_user.last_name
+          .company
+            %span.company_title= current_user.job_title
+            –
+            %span.company_name= current_user.company_name
+          .contact
+            %span.email= current_user.email
+      .modal-footer
+        %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
+        %button.btn.btn-success{type: "button", data: {dismiss: 'modal'}} Save changes
+    #avatar-webcam.modal-content
+      .canvas
+        %div Accessing Camera…
+      %button#avatar-webcam-shot.btn.btn-primary{disabled: true, type: "button"}
+        %span Take Photo
+      %footer
+        %button.btn.btn-default{type: "button"} Cancel
+        %button.btn.btn-success{disabled: true, type: "submit"} Use this Photo
+
+#support-modal.modal.fade{role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      = form_for @support_request do |f|
+        .modal-header
+          %button.close{type: "button", data: {dismiss: 'modal'}}
+            %span ×
+          .td-dialog
+            %h1 Submit a support request
+        .modal-body
+          - if current_user.invited_by
+            %input{type: 'hidden', name: 'support_request[recipient_id]', value: current_user.invited_by.id}
+            .form-group
+              %label To
+              %input.form-control{readonly: true, type: "text", value:current_user.invited_by.email}
+          .form-group
+            %label Subject
+            - if current_user.basic?
+              %input.form-control{readonly: true, type: "text", value: @support_request.default_subject}
+            - else
+              %input.form-control{name: "subject", type: "text"}
+          .form-group
+            %label Body
+            %textarea.form-control{name: 'support_request[body]', maxlength: "1000", rows: "3"}
+          - if current_user.admin?
+            .well.sla
+              %p{align: "center", style: "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: bold; line-height: 19px;"} Portal SLA Information:
+              %p{align: "center", style: "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px;"} Super Users can expect to receive email support from the VMware Demo Team during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST. At the moment the response times are 4 hour response and 48 hours to resolution. Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.
+        .modal-footer
+          %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
+          %button.btn.btn-success{type: "submit"} Submit request
+
+#password-change-modal.modal.fade{role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      = form_tag update_password_user_path(current_user) do |f|
+        .modal-header
+          %button.close{type: "button", data: {dismiss: 'modal'}}
+            %span ×
+          .td-dialog
+            %h1 Change Password
+        .modal-body
+          .form-group
+            %label Current Password:
+            %input.form-control{name: "old_password", type: "password"}
+          .form-group
+            %label New Password:
+            %input.form-control{name: "new_password", type: "password"}
+          .form-group
+            %label Confirm New Password:
+            %input.form-control{name: "password_confirmation", type: "password"}
+        .modal-footer
+          %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
+          %button.btn.btn-success{type: "submit"} Submit
+
+#prolong-account-modal.modal.fade{role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      = form_tag(nil, id: 'prolong-account-form') do
+        .modal-header
+          %button.close{type: 'button', data: {dismiss: 'modal'}}
+            %span ×
+          .td-dialog
+            %h1 Extend Account
+        .modal-body
+          %p
+            This action will prolong the user's account by a month. This will be a one-time extension and the users account will be deleted from the system once the expiration date has been reached.
+          .form-group
+            %label Name:
+            %input.invitation-name.form-control{readonly: "true", type: "text"}
+          .form-group
+            %label Username:
+            %input.invitation-username.form-control{readonly: "true", type: "text"}
+          .form-group
+            %label Reason:
+            %input.form-control{name: "reason", placeholder: "Please enter reason for extension", type: "text"}
+          .form-group
+            %label New Expiration Date:
+            %input.expires-at.form-control{readonly: "true", type: "text"}
+        .modal-footer
+          %button.btn.btn-default.pull-left{type: 'button', data: {dismiss: 'modal'}} Cancel
+          %button.btn.btn-success{type: 'submit'} Submit request

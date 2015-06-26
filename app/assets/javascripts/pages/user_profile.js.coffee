@@ -1,6 +1,8 @@
 $ ->
+  $editProfileForm = $('#avatar-form')
+
   setRemoveAvatar = (remove) ->
-    document.getElementById('edit-profile-remove-avatar').checked = remove
+    document.getElementById('avatar-remove-avatar').checked = remove
     return
 
   toggleEditProfileMode = ->
@@ -16,19 +18,17 @@ $ ->
       Webcam.reset()
     return
 
-  $editProfileForm = $('#edit-profile-form')
-
   if $editProfileForm.length
     # we manually append to file input to assert that it's value is unset
     $avatarFile = $('<input class="hidden" type="file"/>').appendTo($editProfileForm)
-    $editProfileModal = $('#edit-profile-modal')
-    $generalAvatarButtons = $('#edit-profile-left-buttons').children()
+    $editProfileModal = $('#avatar-modal')
+    $generalAvatarButtons = $('#avatar-left-buttons').children()
     $generalTakePhoto = $generalAvatarButtons.eq(0)
     $generalUploadPhoto = $generalAvatarButtons.eq(1)
     $generalRemovePhoto = $generalAvatarButtons.eq(2)
-    $editProfileWebcam = $('#edit-profile-webcam')
-    $webcamShot = $('#edit-profile-webcam-shot')
-    $editProfileWebcamContainer = $('div', $editProfileWebcam)
+    $editProfileWebcam = $('#avatar-webcam')
+    $webcamShot = $('#avatar-webcam-shot')
+    $editProfileWebcamContainer = $('.canvas', $editProfileWebcam)
     $editProfileWebcamSave = $('.btn-success', $editProfileWebcam)
     $editProfileWebcamCancel = $('.btn-default', $editProfileWebcam)
     $avatarDataField = null

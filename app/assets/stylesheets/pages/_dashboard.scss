@@ -1,381 +1,886 @@
-h1.lined {
-	position: relative;
-	z-index: 1;
-	color: $gray-dark;
-	font-size: 150%;
-	margin: 0 0 $grid-gutter-width;
 
-	&::before {
-		content: "";
-		position: absolute;
-		z-index: -1;
-		top: 50%;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		width: 100%;
-		margin: 0 auto;
-		border-top: 1px dotted $gray-light;
-	}
 
-	& > span {
-		background-color: #fff;
-		padding-right: 1em;
-	}
+
+#td-topbar {
+  background: image-url('testdrive.svg') top 25px center / 125px no-repeat rgba(255,255,255,1);
+  opacity: 0.9;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  height: 70px;
+  padding: 12px 0 0 0 ;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  border-top: 0;
+  &:hover {
+  }
+  
 }
 
-#dashboard-tiles {
-	.widget {
-		@include animate;
-		margin: 0 0 $grid-gutter-width 0;
-		min-height: 100px;
-		color: #fff;
 
-		&:hover {
-			.progress {
-				background-color: rgba(0,0,0,0.1);
-			}
-		}
-	}
+#menu-toggle {
 
-	.widget-icon {
-		float: left;
-		display: block;
-		min-height: 100px;
-		margin-right: 15px;
-		padding-top: 35px;
-		width: 33%;
-		text-align: center;
-		background-color: rgba(0,0,0,0.1);
+  img {
+    max-width: 20px;
+    float: left;
+    margin: 1em;
 
-		i {
-			font-size: 2.25em;
-			display: inline-block;
-			font-weight: 400;
-			position: relative;
-		}
-	}
+    @media (min-width: 768px) {
+      
+    }
 
-	h6 {
-		font-weight: normal;
-		padding: 0.5em 0 0 0;
-		margin: 0;
-	}
+  }
 
-	.value {
-		@include helvetica-light;
-		font-size: 185%;
-		padding-top: 20px;
-	}
-
-	.label {
-		@include helvetica-light;
-		position: relative;
-		top: -5px;
-		font-size: 80%;
-		text-transform: uppercase;
-		padding: 0;
-		overflow: hidden;
-	}
-
-	.dropdown-menu {
-		margin: 0;
-	}
-
-	.progress {
-		@include varela-round;
-		@include animate;
-		position: relative;
-		padding: 0;
-		height: 20px;
-		margin: -20px 0 0 0;
-		float: right;
-		width: 67%;
-		box-shadow: none;
-		background-color: rgba(0,0,0,0.05);
-		border: none;
-	}
-
-	.progress-bar {
-		min-width: 5px;
-		@include animate;
-		box-shadow: none;
-		line-height: 20px;
-		background-color: rgba(255,255,255,0.3);
-
-		& > span {
-			@include animate-long;
-			position: absolute;
-			left: 0;
-			right: 0;
-			text-transform: uppercase;
-			font-size: 80%;
-			font-weight: bold;
-			color: #fff;
-		}
-	}
-
-	.launcher {
-		color: #000;
-		text-align: center;
-		height: 100px;
-		cursor: pointer;
-	}
-
-	.stats {
-		background-color: $tf-darkblue;
-
-		&:hover {
-			background-color: lighten($tf-darkblue, 10);
-		}
-	}
-
-	.app {
-		position: relative; // for the dropdown menu
-		float: left;
-		height: 100px;
-		color: #fff;
-		width: 33.333333333333%;
-		@include animate;
-		text-align: center;
-		text-decoration: none;
-
-		div {
-			display: block;
-			font-size: 2.25em;
-			width: 100%;
-			padding-top: 25px;
-			height: 100px;
-			font-weight: 400;
-		}
-
-		h6 {
-			text-transform: uppercase;
-			font-weight: bold;
-			font-size: 30%;
-			padding: 10px;
-		}
-	}
-
-	.app01 {
-		background-color: $tf-darkblue;
-
-		&:hover {
-			background-color: lighten($tf-darkblue, 10);
-
-			h6, i {
-				color: rgba(0,0,0,0.8);
-			}
-		}
-	}
-
-	.app02 {
-		background-color: lighten($tf-darkblue, 10);
-
-		&:hover {
-			background-color: lighten($tf-darkblue, 20);
-
-			h6, i {
-				color: rgba(0,0,0,0.8);
-			}
-		}
-	}
-
-	.app03 {
-		background-color: $tf-green;
-
-		&:hover {
-			background-color: lighten($tf-green, 10);
-
-			h6, i {
-				color: rgba(0,0,0,0.8);
-			}
-		}
-	}
 }
 
-.dashboard-table {
-	& > header,
-	& > table {
-		@include helvetica-light;
-		@include animate;
+#fullwidth {
+  background: $dashboard-bg;
+  min-width: 250px;
+  padding: 80px 0 25px 0;
+  min-height: 100vh;
+  .container {
+    padding: 0;
+    margin: 0;
+    clear: both;
+  }
 
-		min-height: 50px;
-		border: 0;
-		margin: 0;
-		@include helvetica-light;
-		font-weight: 300;
+  @media (min-width: 768px) {
+    padding: 100px 25px 25px 25px;
+  }
 
-		th {
-			font-size: 64%;
-			text-transform: uppercase;
-			font-weight: 300;
-			color: #fff;
-			background-color: $tf-green;
-			border: 0;
-		}
+  @media (min-width: 768px) {
+  
+      width: 100%;
+  
 
-		tr {
-			border: 0;
-		}
-	}
+  }
 
-	& > header {
-		display: table-row;
-		width: 100%;
-		line-height: 4em;
-		box-shadow: 0 15px 0px rgba(0,0,0,0.1);
-		color: #fff;
-		text-align: left;
-		background-color: $tf-orange;
-		white-space: nowrap;
-		@include animate;
+  @media (min-width: 992px) {
+  
+      width: 100%;
+  
 
-		& > div {
-			display: table-cell;
-			padding: 0 1em;
-			margin-left: $grid-gutter-width;
-		}
+  }
 
-		& > div:last-child {
-			margin-right: $grid-gutter-width;
-		}
+  @media (min-width: 1200px) {
 
-		i {
-			font-size: 200%;
-			vertical-align: middle;
-		}
+      width: 100%;
 
-		& > .logo {
-		}
 
-		& > .orgname {
-			font-size: 150%;
-			font-weight: 500;
-			overflow: hidden;
-			text-overflow: ellipsis;
+  }
+  .alert p {
+    margin-bottom: 0.25em;
+  }
+  .alert .alert-link {
+    
+    &:hover {
+      @include animate;
+      color: $black !important;
+      
+    };
+  }
+  /* Section Divider Style */
 
-			max-width: 200px;
+  h1 {
+    @include open-sans;
+    margin: 0 0 30px 0;
+    font-weight: 300;
+    padding: 0;
 
-			@media (min-width: $screen-md-min) {
-				max-width: 500px;
-			}
-			@media (min-width: $screen-lg-min) {
-				max-width: 300px;
-			}
-		}
+    @media (max-width: 768px) {
+      padding: 0 0 0 0;
+    }
 
-		& > .usercount {
-			width: 100%;
+    &.lined {
+      font-size: 150%;
+      color: $grey;
+      position: relative;
+      z-index: 1;
+      @media(max-width: 768px) {
+        margin-left: 0.5em;
+      }
+      &:before {
+        border-top: 1px dotted $gray-light;
+        content: "";
+        margin: 0 auto;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: -1;
+      }
 
-			& > div {
-				display: table;
+      span {
+        background: $dashboard-bg;
+        padding: 0 1em 0 0;
+      }
 
-				// the first version is for older browsers
-				margin: 2em 0 2em;
-				margin: calc(2em - 1px) 0 calc(2em - 1px);
+    }
 
-				line-height: 1em;
-				padding: 0.5em 0.75em;
-				border: 1px solid #fff;
-				color: #fff;
-				text-transform: uppercase;
-			}
-		}
+  }
+  
+  .no-margins {
+    margin: 0 ;
+  }
+  
+  .ibox {
+    clear: both;
+    margin-bottom: 25px;
+    margin-top: 0;
+    padding: 0 0 1em 0;
+    border: 1px solid $gray-lighter;
+    min-height: 180px;
+    background: $white;
+    
+    h1 {
+      margin-bottom: 0.25em;
+    }
+    
+    
+    
+  }
 
-		& > .op {
-			font-size: 150%;
+  .ibox.collapsed .ibox-content{
+    display: none;
+  }
+  .ibox.collapsed .fa.fa-chevron-up:before {
+    content: "\f078";
+  }
+  .ibox.collapsed .fa.fa-chevron-down:before {
+    content: "\f077";
+  }
 
-			& > span {
-				margin-right: ($grid-gutter-width / 2);
-				font-size: 50%;
-				text-transform: uppercase;
-			}
-		}
+  .ibox:after, .ibox:before {
+    display: table;
+  }
 
-		&:hover {
-			background-color: lighten($tf-green,10);
+  .ibox-title {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: $white;
+    border-color: $gray-lighter;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 4px 0px 0;
+    color: inherit;
+    margin-bottom: 0;
+    padding: 14px 15px 7px;
+    min-height: 48px;
+    
+    .btn {
+      margin: -7px -7px 0 4px;
+    }
+  }
+  
+  .ibox-content {
+    background-color: $white;
+    color: inherit;
+    padding: 15px 20px 0 20px;
 
-			& > .usercount > div {
-				background-color: #fff;
-				color: rgba(0,0,0,0.8);
-			}
-		}
-	}
+    border-color: $gray-lighter;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0px;
+  }
 
-	& > table {
-		width: 98%;
-		margin-left: 2%;
-		border: 1px solid $gray-light;
-		border-top: none;
-		font-size: 75%;
+  .ibox-footer {
+    color: inherit;
+    border-top: 1px solid $gray-light;
+    font-size: 90%;
+    background: #ffffff;
+    padding: 10px 15px;
+  }
 
-		tr {
-			@include animate;
-			padding: 0;
 
-			&:nth-child(even) {
-				background-color: rgba(0,0,0,0.1);
-			}
+  .ibox-content {
+    clear: both;
+  }
 
-			&:hover {
-				color: #fff;
-				background-color: lighten($tf-darkblue, 30) !important;
-			}
-		}
+  .ibox-heading {
+    background-color: #f3f6fb;
+    border-bottom: none;
+  }
 
-		th {
-			line-height: $grid-gutter-width;
-		}
+  .ibox-heading h3 {
+    font-weight: 200;
+    font-size: 24px;
+  }
 
-		td {
-			line-height: round(1.5 * $grid-gutter-width);
-		}
+  .ibox-title h5 {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 0 7px;
+    padding: 0;
+    text-overflow: ellipsis;
+    float: left;
+  }
 
-		.name {
-			font-size: 110%;
-			font-weight: 500;
-		}
+  .ibox-title .label {
+    float: left;
+    margin: -4px -4px 0 4px;
 
-		img {
-			margin-left: ($grid-gutter-width / 2);
-		}
+    padding: 0.5em;
 
-		.avatar {
-			max-width: 35px;
+  }
 
-			img {
-				border-radius: 50%;
-				max-width: 35px;
-			}
-		}
+  .ibox-tools {
+    display: inline-block;
+    float: right;
+    margin-top: 0;
+    position: relative;
+    padding: 0;
+  }
 
-		.admin {
-			text-align: left;
-		}
+  .ibox-tools a {
+    cursor: pointer;
+    margin-left: 5px;
+    color: #c4c4c4;
+  }
 
-		i {
-			margin: 0;
-			color: $darkgrey;
-			@include animate;
+  .ibox-tools a.btn-primary {
+    color: #fff;
+  }
 
-			&:hover {
-				color: #000;
-				font-weight: 800;
-			}
-		}
+  .ibox-tools .dropdown-menu > li > a {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
 
-		.expiration {
-			line-height: 15px
-		}
-	}
-}
+  .ibox .open > .dropdown-menu {
+    left: auto;
+    right: 0;
+  }
+  
+  .ibox .progress {
+    
+    margin: 0.5em 0 0 0;
+    height: 15px;
+    .progress-bar {
+    
+    
+    }
+    span {
+    position: relative;
+    top: -3px;
+    }
+  }
+  
+  
+  
+  
+  
+  
 
-#eula-modal {
-	iframe {
-		min-height: 200px;
-		height: 50vh;
-		height: calc(100vh - 260px); // 260px equals approx. the margin + height of the rest of the modal container
-		border: none;
-	}
+
+  .widget {
+    @include animate;
+    @include radius;
+    margin: 0 0 30px 0;
+    min-height: 100px;
+    text-align: left;
+    color: $white;
+    position: relative;
+    height: auto !important;
+    
+
+    p {
+      font-weight: normal;
+      padding: 0.5em 0 0 0 ;
+      margin: 0;
+    }
+
+    .value {
+      @include open-sans;
+      font-size: 185%;
+      padding-top: 20px;
+    }
+
+    .label {
+      position: relative;
+      top: -5px;
+      @include open-sans;
+      font-size: 80%;
+      text-transform: uppercase;
+      padding: 0 !important;
+      overflow: hidden;
+    }
+
+    &:hover {
+      .progress {
+        background: rgba(0,0,0,0.1);
+        
+        .progress-bar {
+          p {
+            color: rgba(255,255,255,1);
+          }
+
+        }
+
+      }
+
+    }
+    
+    
+    
+    .progress {
+      @include varela-round;
+      @include animate;
+      display: block;
+      padding: 0;
+      height: 20px;
+      margin: -20px 0 0 0;
+      @include radius-none;
+      float: right;
+      width: 67%;
+      box-shadow: none;
+      background: rgba(0,0,0,0.05);
+      border: none !important;
+    }
+
+    .progress-bar {
+      min-width: 5px;
+      @include animate;
+      box-shadow: none!important;
+      line-height: 20px;
+      background: rgba(255,255,255,0.3);
+      text-align: left;
+
+      p {
+        @include animate-long;
+        padding: 0 1em 0 15px;
+        text-transform: uppercase;
+        margin: 0;
+        font-size: 80%;
+        font-weight: bold;
+        color: rgba(255,255,255,1);
+      }
+
+    }
+
+  }
+
+
+  
+  .widget-icon {
+    float: left;
+    display: block;
+    min-height: 100px;
+    margin-right: 15px;
+    padding-top: 35px;
+    width: 33%;
+    @include radius;
+    text-align: center;
+    background: rgba(0,0,0,0.1);
+
+    em {
+      font-size: 2.25em;
+      display: inline-block;
+      font-weight: 400;
+      position: relative;
+    }
+
+  }
+
+  .widget.launcher {
+    outline: 3px solid $gray-lighter;
+    outline-offset: 3px;
+
+    color: $black;
+    text-align: center;
+    height: 100px;
+
+    @include radius;
+    
+
+    .app {
+      float: left;
+      height: 100px;
+      color: $white;
+      width: 33.333333333333%;
+      @include animate;
+      text-align: center;
+
+      div {
+        display: block;
+        font-size: 2.25em;
+        width: 100%;
+        padding-top: 25px;
+        height: 100px;
+        font-weight: 400;
+      }
+
+      p {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 30%;
+        padding: 10px;
+      }
+      
+      .dropdown-menu {
+        
+      }
+
+    }
+
+    .app01 {
+      background: $td-darkblue;
+
+      &:hover {
+        background: lighten($td-darkblue, 10);
+
+        p, em {
+          color: rgba(0,0,0,0.8);
+        }
+
+      }
+
+    }
+
+    .app02 {
+      background: lighten($td-darkblue, 10);
+      &:hover {
+        background: lighten($td-darkblue, 20);
+
+        p, em {
+          color: rgba(0,0,0,0.8);
+        }
+
+      }
+
+    }
+
+    .app03 {
+      background: $td-green;
+      &:hover {
+        background: lighten($td-green, 10);
+
+        p, em {
+          color: rgba(0,0,0,0.8);
+        }
+
+      }
+
+    }
+    
+    
+    .app-menu {
+      color: rgba(255,255,255,0.75);
+      text-align: right;
+      position: relative;
+      top: -40px;
+      right: 5px;
+      font-size: 85% !important;
+      @media (min-width: 992px) {
+        display: none !important;
+      }
+    }
+
+  }
+
+  .widget.users {
+    background: $td-orange;
+
+    &:hover {
+      background: lighten($td-orange, 10);
+    }
+
+  }
+
+  .widget.activity {
+    background: $td-green;
+
+    &:hover {
+      background: lighten($td-green, 10);
+    }
+
+  }
+
+  .widget.stats {
+    background: $td-darkblue;
+
+    &:hover {
+      background: lighten($td-darkblue, 10);
+    }
+
+  }
+
+  .widget.other {
+    background: $td-lightblue;
+
+    &:hover {
+      background: lighten($td-lightblue, 10);
+    }
+    ;
+  }
+
+  .widget.invites {
+    background: $td-red;
+
+    &:hover {
+      background: lighten($td-red, 10);
+    }
+
+  }
+
+  .widget.notice {
+    background: none;
+    border: 2px solid $gray-light;
+
+    p {
+      color: $black;
+    }
+
+    &:hover {
+      border: 2px solid $black;
+    }
+
+  }
+
+  .widget.graph {
+    @include animate;
+    background: $white;
+    height: 250px;
+    border: 1px solid $gray-lighter;
+    padding: 15px;
+    box-shadow: 0px -4px 0px $gray-lighter;
+
+    h1 {
+      display: block;
+      color: $gray;
+      text-align: left;
+      font-size: 110%;
+      padding: 10px;
+      margin-bottom: 0;
+    
+    
+    }
+
+    p {
+      color: $black;
+    }
+
+    &:hover {
+      box-shadow: 0px -4px 0px $gray-light;
+      border: 1px solid $gray-light;
+      background: $white;
+    };
+
+  }
+
+  
+
+  .orgviews {
+    margin-bottom: 2em !important;
+  }
+
+  .td-org, .td-users {
+
+    @include open-sans;
+    @include animate;
+    min-height: 50px;
+    
+    .table {
+      border: 0;
+
+      thead, th {
+        font-size: 90%;
+        text-transform: uppercase;
+        font-weight: 300;
+        color: $gray;
+        background: $gray-lighter;
+        border: 0;
+      }
+
+      tr {
+        border: 0 !important;
+      }
+
+      padding-left: 2em !important;
+      margin: 0;
+      @include open-sans;
+      font-weight: 300;
+    }
+
+  }
+
+  .td-org {
+    box-shadow: 0 15px 0px rgba(0,0,0,0.1);
+    min-height: 50px;
+    padding: 0.5em;
+    font-size: 140% !important;
+    color: $white;
+    text-align: left;
+    
+    tr {
+      font-size: 150%;
+    }
+    
+    em {
+      font-size: 150%;
+      padding: 0;
+      margin: 0;
+    }
+
+    .orgname {
+      @media(min-width: 992px) {
+      float: left;
+    }
+      max-width: 400px;
+      font-size: 125% !important;
+      font-weight: 500;
+    }
+
+    .logo {
+      float: left;
+      max-width: 50px;
+    }
+
+    .usercount {
+      @include radius;
+      border: 1px solid rgba(255,255,255,1) !important;
+      color: rgba(255,255,255,1);
+      float: left;
+      max-width: 200px;
+      margin: 0.75em 0 0 1em;
+      padding: 0.5em 0.75em;
+      font-size: 80%;
+      text-transform: uppercase;
+      line-height: 1em;
+    }
+
+    .op {
+      float: right;
+      font-size: 125%;
+      font-weight: 300;
+      padding: 0.2em 0 0 0;
+
+      .label {
+        font-size: 50%;
+        font-weight: 300 !important;
+        text-transform: uppercase;
+      }
+
+    }
+
+
+
+    @include radius;
+    @include animate;
+    background: $td-orange;
+
+    &:hover {
+      background: lighten($td-darkblue,20);
+
+      .usercount {
+        background: rgba(255,255,255,1);
+        color: rgba(0,0,0,0.8);
+      }
+
+    }
+
+    td {
+      border: 0 !important;
+    }
+
+  }
+
+  .td-users {
+    padding: 0;
+    
+    table {
+      border: 1px solid $gray-light !important;
+      border-top: none !important;
+      padding-right: 0;
+    }
+
+    @media(min-width: 992px) {
+      padding-left: 2em;
+    }
+
+    td {
+      padding-top: 1em;
+
+      @media(max-width: 992px) {
+        padding-top: 0.75em !important;
+      }
+        
+    }
+
+    tr {
+      @include animate;
+      padding: 0;
+      background: $white;
+      &:hover {
+        color: $white;
+        background: lighten($td-darkblue, 30) !important;
+      }
+
+      &.alt {
+        background: rgba(0,0,0,0.1);
+      }
+
+    }
+    
+    .mobilehide {
+      @media(max-width: 768px){
+        color: $gray-lighter !important;
+      max-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    }
+
+    .name {
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    .avatar {
+      max-width: 35px !important;
+      min-width: 35px !important; 
+      padding: 0.5em 0 0.5em 0.75em !important;
+
+      @media(max-width: 992px) {
+        padding: 0;
+      }
+      
+      
+
+      img {
+        @include radius-max;
+        max-width: 35px !important;
+        min-width: 35px !important; 
+
+        @media(max-width: 992px) {
+          max-width: 30px !important;
+          min-width: 30px !important; 
+        }
+
+      }
+
+    }
+    
+
+    
+    .name {
+      font-size: 110%;
+      padding-top: 1em !important;
+      min-width: 8em !important;
+      max-width: 8em !important;
+    
+      @media(max-width: 992px) {
+        padding-top: 1em !important;
+      }
+      @media(max-width: 768px) {
+        padding-left: 1em;
+      }
+
+    }
+
+    .admin {
+      text-align: left;
+
+
+      @media(max-width: 768px) {
+        .btn-xs {
+          font-size: 70%;
+        }
+      }
+      
+      }
+
+    
+
+  }
+
+  table, tbody {
+    border: 0 !important;
+  }
+
+  .information {
+    margin: 0px 0 20px 0;
+
+    .information-content {
+      display: none;
+    }
+
+    .information-box {
+      @include animate;
+      margin: 0 0 1em 0;
+      padding: 2em 2em 1em 2em;
+      background: image-url('close.svg') top 10px right 10px / 10px no-repeat lighten($td-orange, 30);
+
+      &:hover {
+        background-color: lighten($td-orange, 20);
+      }
+
+      p {
+        margin: 0 0 1em 0;
+      }
+
+    }
+
+  }
+  
+  
+  /* User Edit View */
+  .usercard {
+    padding: 0 ;
+    overflow: hidden;
+    margin-bottom: 2em;
+  }
+  
+  
+
+    .user-admin {
+      
+  
+      
+      
+      
+      ul {
+        list-style: none;
+
+      padding: 1em;
+      text-align: center;
+      margin: 1em;
+      }
+      
+      li {
+        @media(min-width: 992px) {
+        display: inline-block;
+        }
+        display: block;
+        
+        text-transform: uppercase;
+        margin: 0 0 0.5em 0;
+        .btn {
+          width: 100%;
+        }
+        a {
+          font-size: 90% !important;
+          margin: 0;
+        }
+      }
+      
+      .label {
+        color: $gray-light;
+
+        position: relative;
+        letter-spacing: 0.1em;
+  
+      }
+    }
+  
+    .footer {
+      text-align: center;
+      color: $gray-light;
+    }
+    
+    
+
 }

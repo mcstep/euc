@@ -1,190 +1,74 @@
-#sidebar
-  .sidebar-usercontrols
-    %img{:src => current_user.avatar_url}
-    %p
-      %span.sidebar-username
-        = current_user.first_name
-        %strong= current_user.last_name
+.sidebar-usercontrols
+  .editprofile
+    %a{href: '#', data:{target: '#avatar-modal', toggle: 'modal'}}
+      %span.icon-settings
+  %img{src: current_user.avatar_url}
+  %p
+    %span.sidebar-username
+      First
+      %strong Last
 
-  %span.sidebar-divider General
+%span.sidebar-divider.clear Launch
+
+.launcher
+  .btn-group-vertical{role: "group"}
+    %a.btn.btn-primary.btn-sm{href: "https://workspace.vmwdemo.com", target: "_blank"}
+      vIDM
+    .btn-group-vertical{role: "group"}
+      %button.btn.btn-sm.btn-info.dropdown-toggle{data: {container: 'body', placement: 'right', toggle: 'dropdown'}}
+        Horizon Native Client
+        %span.caret
+      %ul.dropdown-menu
+        - sorted_regions.each_with_index do |region, i|
+          %li
+            %a{href: "vmware-view://hv6#{region}.vmwdemo.com/", target: "_blank"}
+              %span{style: ('font-weight: bold' if i == 0)}
+                = region.upcase
+        %li.divider{role: "separator"}
+        %li
+          %a{href: '#'}
+            Download
+            %br
+            Horizon
+    %button.btn.btn-sm.btn-info.dropdown-toggle{type: "button", data: {toggle: 'dropdown'}}
+      Horizon HTML Access
+      %span.caret
+    %ul.dropdown-menu
+      - sorted_regions.each_with_index do |region, i|
+        %li
+          %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html"}
+            %span{style: ('font-weight: bold' if i == 0)}
+              = region.upcase
+
+%span.sidebar-divider General
+%ul.sidebar-nav
+  %li
+    %a{href: root_path} Dashboard
+  %li
+    %a{href: "#"} News
+  %li
+    %a{href: "#"} FAQ
+
+- if policy(current_user).system?
+  %span.sidebar-divider Admin
   %ul.sidebar-nav
     %li
-      %a{href: root_path} Dashboard
+      %a{href: new_invitation_path} Send Invitation
     %li
-      %a{href: "#"} News
+      %a{href: users_path} Users
     %li
-      %a{href: "#"} FAQ
-
-  - if policy(current_user).system? || policy(current_user).invites?
-    %span.sidebar-divider Admin
-    %ul.sidebar-nav
-      - if policy(current_user).invites?
-        %li
-          %a{href: '#', data: {target: "#new-invite-modal", toggle: "modal"}} Send Invitation
-        %li
-          %a{href: users_path} Manage Accounts
-      - if policy(current_user).system?
-        %li
-          %a{href: domains_path} Domains
-        %li
-          %a{href: registration_codes_path} Reg Codes
-        %li
-          %a{href: '#'} Reports
-
-  %span.sidebar-divider Your Account
-  %ul.sidebar-nav
+      %a{href: domains_path} Domains
     %li
-      %a{href: '#', data: {toggle: 'modal', target: '#edit-profile-modal'}} Edit Profile
-    %li
-      %a{href: '#', data: {toggle: 'modal', target: "#password-change-modal"}} Change Password
-    %li
-      %a{href: '#', data: {toggle: 'modal', target: "#support-modal"}} Support
-    %li
-      = link_to 'Log Out', session_path, method: :delete
+      %a{href: registration_codes_path} Reg Codes
 
-#support-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  .modal-dialog
-    .modal-content
-      = form_for @support_request do |f|
-        .modal-header
-          %button.close{type: "button", data: {dismiss: 'modal'}} ×
-          %h4.modal-title Submit a support request
-        .modal-body
-          - if current_user.invited_by
-            %input{type: 'hidden', name: 'support_request[recipient_id]', value: current_user.invited_by.id}
-            .form-group
-              %label To
-              %input.form-control{readonly: true, type: "text", value:current_user.invited_by.email}
-          .form-group
-            %label Subject
-            - if current_user.basic?
-              %input.form-control{readonly: true, type: "text", value: @support_request.default_subject}
-            - else
-              %input.form-control{name: "subject", type: "text"}
-          .form-group
-            %label Body
-            %textarea.form-control{name: 'support_request[body]', maxlength: "1000", rows: "3"}
-          - if current_user.admin?
-            .well.sla
-              %p{align: "center", style: "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: bold; line-height: 19px;"} Portal SLA Information:
-              %p{align: "center", style: "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px;"} Super Users can expect to receive email support from the VMware Demo Team during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST. At the moment the response times are 4 hour response and 48 hours to resolution. Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.
-        .modal-footer
-          %button.btn.btn-default{type: "button", data: {dismiss: 'modal'}} Cancel
-          %button.btn.btn-success{type: "submit"} Submit request
-
-#edit-profile-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  = form_for current_user, html: {id: 'edit-profile-form', class: 'modal-dialog modal-lg', multipart: true} do |f|
-    %input#edit-profile-remove-avatar.hidden{name: "user[remove_avatar]", type: "checkbox", value: "1"}
-    #edit-profile-general.modal-content
-      .container-fluid
-        .row
-          #edit-profile-left.col-md-3
-            .row
-              .col-md-12.col-xs-6
-                %img#edit-profile-avatar.img-circle.img-responsive.center-block{alt: "Profile Image", src: current_user.avatar_url}
-              #edit-profile-left-buttons.col-md-12.col-xs-6
-                %button.btn.btn-primary{type: "button"}
-                  %span Take Photo
-                %button.btn.btn-primary{type: "button"}
-                  %span Upload Photo
-                %button.btn.btn-danger{type: "button"}
-                  %span Remove Photo
-          #edit-profile-right.col-md-9
-            .row.header
-              .col-xs-12
-                .email= current_user.email
-                %h4.modal-title Edit Profile
-            .row.body
-              .col-xs-12
-                %label Name
-                %input.form-control{readonly: true, type: "text", value: current_user.display_name}
-            .row.body
-              .col-xs-12
-                %label Contact Email
-                %input.form-control{readonly: true, type: "text", value: current_user.email}
-            .row.body
-              .col-xs-6
-                %label Company
-                %input.form-control{readonly: true, type: "text", value: current_user.company_name}
-              .col-xs-6
-                %label Title
-                %input.form-control{readonly: true, type: "text", value: current_user.job_title}
-            .row.footer
-              .col-xs-12
-                %button.btn.btn-success{type: "submit"} Save Profile
-                %button.btn.btn-default{type: "button", data: {dismiss: 'modal'}} Cancel
-                #edit-profile-region
-                  %label Region
-                  %div= I18n.t "regions.#{current_user.home_region}"
-              .col-xs-12
-                
-    #edit-profile-webcam.modal-content
-      %header
-        %h4 Take Photo
-      %div
-        %div Accessing Camera...
-      %button#edit-profile-webcam-shot.btn.btn-primary{disabled: true, type: "button"}
-        %span Take Photo
-      %footer
-        %button.btn.btn-default{type: "button"} Cancel
-        %button.btn.btn-success{disabled: true, type: "submit"} Use this Photo
-
-#password-change-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  .modal-dialog
-    .modal-content
-      = form_tag update_password_user_path(current_user) do |f|
-        .modal-header
-          %button.close{type: "button", data: {dismiss: 'modal'}} ×
-          %h4.modal-title Change Password
-        .modal-body
-          .form-group
-            %label Current Password:
-            %input#current_password.form-control{name: "old_password", type: "password"}
-          .form-group
-            %label New Password:
-            %input#new_password.form-control{name: "password", type: "password"}
-          .form-group
-            %label Confirm New Password:
-            %input#new_password_confirm.form-control{name: "password_confirmation", type: "password"}
-        .modal-footer
-          %button.btn.btn-default{type: "button", data: {dismiss: 'modal'}} Cancel
-          %button.btn.btn-success{type: "submit"} Submit
-
-#new-invite-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  .modal-dialog
-    .modal-content
-      = bootstrap_form_for(@invitation) do |f|
-        .modal-header
-          %button.close{type: "button", data: {dismiss: 'modal'}} ×
-          %h4.modal-title Invite User
-        .modal-body
-          = render 'invitations/form', f: f
-        .modal-footer
-          %button.btn.btn-default{type: "button", data: {dismiss: 'modal'}} Cancel
-          %button#send-invite.btn.btn-success{type: "submit"} Send Invite
-
-#prolong-account-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  .modal-dialog
-    .modal-content
-      = form_tag(nil, id: 'prolong-account-form') do
-        .modal-header
-          %button.close{type: "button", data: {dismiss: 'modal'}} ×
-          %h4.modal-title Prolong Account
-        .modal-body
-          %p
-            This action will prolong the user's account by a month. This will be a one-time extension and the users account will be deleted from the system once the expiration date has been reached.
-          .form-group
-            %label Name:
-            %input.invitation-name.form-control{readonly: "true", type: "text"}
-          .form-group
-            %label Username:
-            %input.invitation-username.form-control{readonly: "true", type: "text"}
-          .form-group
-            %label Reason:
-            %input.form-control{name: "reason", placeholder: "Please enter reason for extension", type: "text"}
-          .form-group
-            %label New Expiration Date:
-            %input.expires-at.form-control{readonly: "true", type: "text"}
-        .modal-footer
-          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Cancel
-          %button.btn.btn-success{type: "submit"} Submit request
+%span.sidebar-divider Your Account
+%ul.sidebar-nav
+  %li
+    %a{href: '#', data: {target: '#avatar-modal', toggle: 'modal'}}
+      Edit Profile
+  %li
+    %a{href: '#', data: {target: '#password-change-modal', toggle: 'modal'}} Change Password
+  %li
+    %a{href: '#', data: {target: '#support-modal', toggle: 'modal'}} Support
+  %li
+    %a{href: session_path, data: {method: 'post'}} Log Out

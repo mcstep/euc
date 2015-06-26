@@ -1,74 +1,73 @@
-= form_tag users_path, method: :get, id: 'invitations-search-form' do |f|
-  .form-group
-    %a.btn.btn-success.pull-left{href: '#', data: {target: "#new-invite-modal", toggle: "modal"}}
-      Invite user
-    .input-group
-      %input.form-control{name: "search", placeholder: "Search users...", type: "text", value: params[:search]}
-      %span.input-group-btn
-        %button.btn.btn-default{type: "submit"} Search!
-    %span.help-block
-      There are
-      = pluralize @users.size, 'user'
-      found
+.col-md-12.col-sm-12.col-lg-12
+  .panel.panel-default
+    = form_tag users_path, method: :get, id: 'invitations-search-form', class: 'panel-body' do |f|
+      %a.btn.btn-success.pull-left{href: '#', data: {target: "#new-invite-modal", toggle: "modal"}}
+        Invite user
+      .input-group
+        %input.form-control{name: "search", placeholder: "Search users...", type: "text", value: params[:search]}
+        %span.input-group-btn
+          %button.btn.btn-default{type: "submit"} Search!
 
-= paginate @users, theme: 'twitter-bootstrap-3'
+  .panel.panel-default{style: 'margin-bottom: 0px'}
+    .panel-heading
+      %h3.panel-title
+        = pluralize @users.size, 'user'
+        found
 
-%table.table.table-striped.table-bordered
-  %thead
-    %tr
-      %th Full Name
-      %th Email
-      %th Company
-      %th Title
-      %th Region
-      %th Expires on
-      %th Invited by
-      %th{:colspan => "3"}
-  %tbody
-    - @users.each do |user|
-      %tr
-        %td= user.display_name
-        %td= user.email
-        %td= user.company_name
-        %td= user.job_title
-        %td= I18n.t "regions.#{user.home_region}"
-        %td
-          .expiration
-            = l user.authentication_user_integration.directory_expiration_date
-            - if prolongation = user.authentication_user_integration.directory_prolongations.last
-              %span{data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: 'hover'}}
-                (Prolonged)
-            - else
-              %a.prolong-account-link{href: '#', data: {target: "#prolong-account-modal", toggle: 'modal', id: user.authentication_user_integration.id, username: user.authentication_user_integration.directory_username, date: l(user.authentication_user_integration.directory_expiration_date+1.month), name: user.display_name}}
-                (Prolong)
-        %td
-          - if user.invited_by
-            = user.invited_by.display_name
-          - else
-            .help-block
-              N/A
-        %td
-          - if policy(user).destroy?
-            %a{href: user_path(user), class: 'btn btn-danger btn-xs', data: {confirm: "Do you want to delete this account? The users account will permanently be deleted.", method: "delete"}}
-              Delete
-          - if policy(user).impersonate?
-            %a{href: impersonate_user_path(user), class: 'btn btn-warning btn-xs', method: :post, data: { confirm: 'Do you want to impersonate this user?' }}
-              Impersonate
-          - if policy(user).invites?
-            %a.btn.btn-default.btn-xs.limit-account-link{href: '#', data:{target: "#limit-account-modal", toggle: 'modal', id: user.id, value: user.total_invitations }}
-              %span Edit Invitation Limit
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Full Name
+          %th Email
+          %th Company
+          %th Title
+          %th Region
+          %th Expires on
+          %th Invited by
+          %th
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td= user.display_name
+            %td= user.email
+            %td= user.company_name
+            %td= user.job_title
+            %td= I18n.t "regions.#{user.home_region}"
+            %td= l user.authentication_user_integration.directory_expiration_date
+            %td
+              - if user.invited_by
+                = user.invited_by.display_name
+              - else
+                .help-block
+                  N/A
+            %td{style: 'width: 1%; white-space: nowrap'}
+              %a.prolong-account-link.btn.btn-primary.btn-xs{href: '#', data: {target: "#prolong-account-modal", toggle: 'modal', id: user.authentication_user_integration.id, username: user.authentication_user_integration.directory_username, date: l(user.authentication_user_integration.directory_expiration_date+1.month), name: user.display_name}}
+                Prolong
+              - if policy(user).destroy?
+                %a{href: user_path(user), class: 'btn btn-danger btn-xs', data: {confirm: "Do you want to delete this account? The users account will permanently be deleted.", method: "delete"}}
+                  Delete
+              - if policy(user).impersonate?
+                %a{href: impersonate_user_path(user), class: 'btn btn-warning btn-xs', method: :post, data: { confirm: 'Do you want to impersonate this user?' }}
+                  Impersonate
+              - if policy(user).invites?
+                %a.btn.btn-default.btn-xs.limit-account-link{href: '#', data:{target: "#limit-account-modal", toggle: 'modal', id: user.id, value: user.total_invitations }}
+                  %span Edit Invitation Limit
 
-#limit-account-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  .modal-dialog
-    .modal-content
-      = form_tag(nil, method: :patch, id: 'limit-account-form') do
-        .modal-header
-          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
-          %h4.modal-title Limit Invitations
-        .modal-body
-          .form-group
-            %label Total Invitations Allowed:
-            %input.form-control{min: 0, name: "user[total_invitations]", required: true, type: "number"}
-        .modal-footer
-          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Cancel
-          %button.btn.btn-success{type: "submit"} Submit
+  = paginate @users, theme: 'twitter-bootstrap-3'
+
+  #limit-account-modal.modal.fade{role: "dialog", tabindex: "-1"}
+    .modal-dialog
+      .modal-content
+        = form_tag(nil, method: :patch, id: 'limit-account-form') do
+          .modal-header
+            %button.close{type: "button", data: {dismiss: 'modal'}}
+              %span ×
+            .td-dialog
+              %h1 Limit Invitations
+          .modal-body
+            .form-group
+              %label Total Invitations Allowed:
+              %input.form-control{min: 0, name: "user[total_invitations]", required: true, type: "number"}
+          .modal-footer
+            %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
+            %button.btn.btn-success{type: "submit"} Submit

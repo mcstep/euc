@@ -1,19 +1,25 @@
-@import "variables";
+@import 'fonts';
+@import 'variables';
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'bootstrap-datepicker3.css';
+@import 'mixins';
+@import 'globals';
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "bootstrap-datepicker3.css";
-@import "rails_bootstrap_forms";
+@import 'pages/signup';
+@import 'pages/sidebar';
+@import 'pages/dashboard';
 
-@import "mixins";
-@import "fonts";
+.td-signup {
+  .help-block {
+    margin-bottom: 0px;
+  }
+}
 
-@import "common";
-@import "common_anonymous";
-@import "common_user";
+.pagination {
+  margin: 10px 0;
+}
 
-@import "pages/dashboard";
-@import "pages/domains";
-@import "pages/invitations";
-@import "pages/signup";
-@import "pages/user_profile";
+#avatar-webcam {
+  text-align: center;
+}

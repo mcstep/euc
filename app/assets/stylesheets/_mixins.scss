@@ -1,13 +1,5 @@
-@mixin varela-round {
-	font-family: 'Varela Round', sans-serif;
-	font-style: normal;
-	line-height: 1;
-}
+/* Mixins */
 
-@mixin helvetica-light {
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	font-weight: 300;
-}
 
 @mixin radius-none {
 	border-radius: 0 !important;

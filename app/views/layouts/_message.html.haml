@@ -1,0 +1,4 @@
+%div.alert.alert-dismissible{role: "alert", class: "alert-#{name.to_s == 'notice' ? 'info' : 'danger'}"}
+  %button.close{type: "button", data: {dismiss: 'alert'}}
+    %span ×
+  = content_tag :div, msg

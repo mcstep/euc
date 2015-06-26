@@ -1,50 +1,39 @@
-#dashboard-tiles.container-fluid.container-flow
-  .row
+.col-md-12.col-lg-8.col-sm-12
+  .ibox
+    .ibox-title
+      %a.btn.btn-success.btn-xs.pull-right{href: '#', data: {target: "#dashboard-invite-modal", toggle: "modal"}}
+        Invite user
+      %h5 Invitation Statistics
+    .ibox-content
+      .row
+        .col-sm-6.col-md-6
+          %h1.no-margins= current_user.total_invitations
+          .font-bold.text-navy Total Invitations
+        .col-sm-6.col-md-6
+          %h1.no-margins= current_user.invitations_left
+          %div Remaining Invitations
+          .progress
+            .progress-bar.progress-bar-warning{role: "progressbar", style: "width:#{current_user.intitations_used_percents}%"}
+.col-sm-6.col-md-6.col-lg-4
+  .ibox
+    .ibox-title
+      %h5 Accounts
+    .ibox-content
+      %h1.no-margins
+        = current_user.expiring_invited_users.size
+      Accounts Expiring Soon
 
-    .col-sm-6.col-lg-4
-      #dashboard-launcher.widget.launcher
-        %a.app.app01{href: "https://workspace.vmwdemo.com", target: "_blank"}
-          .icon-screen-desktop
-            %h6 Launch Workspace
-        .app.app02{target: "_blank"}
-          .icon-screen-desktop{data: {toggle: "dropdown"}}
-            %h6 Launch Horizon
-          %ul.dropdown-menu{role: "menu"}
-            - sorted_regions.each_with_index do |region, i|
-              %li
-                %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html", target: "_blank"}
-                  = region.upcase
-              - if i == 0
-                %li.divider
-        .app.app03{target: "_blank"}
-          .icon-screen-smartphone{data: {toggle: "dropdown"}}
-            %h6 Launch App
-          %ul.dropdown-menu{role: "menu"}
-            - sorted_regions.each_with_index do |region, i|
-              %li
-                %a{href: "vmware-view://hv6#{region}.vmwdemo.com/", target: "_blank"}
-                  = region.upcase
-                  = ' (Home)' if i == 0
-              - if i == 0
-                %li.divider
-
-    .col-sm-6.col-lg-4
-      .widget.stats
-        .widget-icon
-          %i.icon-envelope-letter
-        .value= current_user.invitations_left
-        .label Invites Remaining
-        .progress
-          .progress-bar{role: "progressbar", style: "width:#{current_user.intitations_used_percents}%", aria: {valuemax: "100", valuemin: "0", valuenow: current_user.intitations_used_percents}}
-            %span
-              = current_user.invitations_used
-              out of #{current_user.total_invitations}
-
-    - if policy(current_user).invites?
-      .col-sm-6.col-lg-4
-        .widget.stats
-          .widget-icon
-            %i.icon-screen-desktop
-          .value
-            = current_user.expiring_invited_users.size
-          .label Expirations soon
+#dashboard-invite-modal.modal.fade{role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content{style: "text-align: left"}
+      = bootstrap_form_for(@invitation) do |f|
+        .modal-header
+          %button.close{type: 'button', data: {dismiss: 'modal'}}
+            %span ×
+          .td-dialog
+            %h1 Invite User
+        .modal-body
+          = render 'invitations/form', f: f
+        .modal-footer
+          %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
+          %button#send-invite.btn.btn-success{type: "submit"} Send Invite

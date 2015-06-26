@@ -1,37 +1,61 @@
-- if current_user.has_airwatch? && current_user.airwatch_eula_accept_date.nil?
-  = render 'eula'
+.col-md-12.col-sm-12.col-lg-12
+  - if current_user.has_airwatch? && current_user.airwatch_eula_accept_date.nil?
+    .alert.alert-warning{role: "alert"}
+      You have been provisioned an AirWatch trial account. Click
+      %a.alert-link{href: '#', data: {target: "#eula-modal", toggle: "modal"}}
+        here
+      to accept the EULA and activate the trial.
 
-- if policy(current_user).invites?
-  .alert.alert-warning{role: "alert"}
-    As a Super User you have the ability to generate new accounts for your customers. It is important to understand that you will be listed as the point of contact for any users you provision accounts for, and you will be expected to perform basic first line support and troubleshooting before escalating to the EUC Demo Team.
+    #eula-modal.modal.fade{role: "dialog", tabindex: "-1"}
+      .modal-dialog
+        .modal-content
+          = form_tag '/eula' do
+            .modal-header
+              %button.close{type: 'button', data: {dismiss: 'modal'}}
+                %span
+              .td-dialog
+                %h1 AirWatch EULA
+            .modal-body
+            .modal-footer
+              %button.btn.btn-default.pull-left{type: 'button', data: {dismiss: 'modal'}} Decline
+              %button#accept_eula.btn.btn-success{type: "submit"} Yes, I accept
 
-.alert.alert-info{role: "alert"}
-  %p
-    We've created a few Walkthrough Videos for you to get started:
-    %a.alert-link{href: "http://help.vmwdemo.com/videos", target: "_blank"} VMware EUC Demo Portal Walkthrough Videos
-  %p
-    You can also find an HTML based step-by-step Walkthrough Guide here:
-    %a.alert-link{href: "http://guides.co/g/vmware-end-user-computing-global-demo-environment-walkthrough-guide-1521947/", target: "_blank"} VMware EUC Demo Portal Walkthrough Guide
-  %p
-    Here's a link to the VMware Horizon YouTube Playlist:
-    %a.alert-link{href: "https://www.youtube.com/playlist?list=PLfr3uvmY7hBzbwkxXkJcbKR-3EZ6ED-N1", target: "_blank"} VMware Horizon YouTube PlayList
+  - if policy(current_user).invites? && !cookies[:super_user_notification_closed]
+    #super-user-notifcation.alert.alert-danger.alert-dismissible{role: "alert"}
+      %button.close{type: 'button', data: {dismiss: 'alert'}}
+        %span ×
+      As a Super User you have the ability to generate new accounts for your customers. It is important to understand that you will be listed as the point of contact for any users you provision accounts for, and you will be expected to perform basic first line support and troubleshooting before escalating to the EUC Demo Team.
 
-- if policy(current_user).invites?
-  .alert.alert-info{role: "alert"}
+  .alert.alert-info
+    %h4 Walkthroughs & Troubleshooting
     %p
-      %span Before provisioning any accounts, please familiarize yourself with the following troubleshooting information:
-    %ul
-      %li
-        %a.alert-link{href: "https://pubs.vmware.com/horizon-view-60/index.jsp?topic=%2Fcom.vmware.horizon-view.administration.doc%2FGUID-6B20BD72-2BC3-41A0-A356-F85258EA5A08.html", target: "_blank"} Troubleshooting View
-      %li
-        %a.alert-link{href: "https://pubs.vmware.com/horizon-view-60/index.jsp?topic=%2Fcom.vmware.horizon-view.desktops.doc%2FGUID-D2A0D9E0-696D-4962-837C-2EC203F5F79B.html", target: "_blank"} Troubleshooting Network Connection Problems
-      %li
-        %a.alert-link{href: "https://pubs.vmware.com/horizon-view-60/topic/com.vmware.horizon-view.desktops.doc/GUID-D6ABDC1E-1208-44AA-9048-4E7B9E995FCA.html", target: "_blank"} Further Troubleshooting Information
+      We've created a few Walkthroughs guides for you to get started:
+      %br
+      %a{href: "http://help.vmwdemo.com/videos",target: "_blank"} VMware EUC Demo Portal Walkthrough Videos
+      •
+      %a{href: "http://guides.co/g/vmware-end-user-computing-global-demo-environment-walkthrough-guide-1521947/",target: "_blank"} VMware EUC Demo Portal Walkthrough Guide
+      •
+      %a{href: "https://www.youtube.com/playlist?list=PLfr3uvmY7hBzbwkxXkJcbKR-3EZ6ED-N1",target: "_blank"} VMware Horizon YouTube PlayList
 
-- if policy(current_user).invites?
-  .alert.alert-info{role: "alert"}
-    %h4 Portal SLA Information:
-    %p
-      Super Users can expect to receive email support from the VMware Demo Team during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST.
-      At the moment the response times are 4 hour response and 48 hours to resolution.
-      Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.
+    - if policy(current_user).invites?
+      %p
+        Before provisioning any accounts, please familiarize yourself with the following troubleshooting information:
+        %br
+        %a{href: "https://pubs.vmware.com/horizon-view-60/index.jsp?topic=%2Fcom.vmware.horizon-view.administration.doc%2FGUID-6B20BD72-2BC3-41A0-A356-F85258EA5A08.html",target: "_blank"}
+          Troubleshooting View
+        •
+        %a{href: "https://pubs.vmware.com/horizon-view-60/index.jsp?topic=%2Fcom.vmware.horizon-view.desktops.doc%2FGUID-D2A0D9E0-696D-4962-837C-2EC203F5F79B.html",target: "_blank"}
+          Troubleshooting Network Connection Problems
+        •
+        %a{href: "https://pubs.vmware.com/horizon-view-60/topic/com.vmware.horizon-view.desktops.doc/GUID-D6ABDC1E-1208-44AA-9048-4E7B9E995FCA.html",target: "_blank"}
+          Further Troubleshooting Information
+
+  - if policy(current_user).invites?
+    .alert.alert-info{role: "alert"}
+      %h4 Portal SLA Information:
+      %p
+        Super Users can expect to receive email support from the VMware Demo Team during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST.
+        %br/
+        At the moment the response times are 4 hour response and 48 hours to resolution.
+        %br/
+        Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.

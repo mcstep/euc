@@ -11,19 +11,19 @@
      .html('Continue');
 
     var $modalHtml = $(
-      '<div class="modal fade" tabindex="-1" role="dialog">'
+        '<div class="modal fade" tabindex="-1" role="dialog">'
       +     '<div class="modal-dialog">'
       +         '<div class="modal-content">'
       +             '<form method="post" action="#" role="form">'
       +                 '<div class="modal-header">'
-      +                     '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
-      +                     '<h4 class="modal-title">Are you sure?</h4>'
+      +                     '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+      +                     '<div class="td-dialog"><h1>Are you sure?</h1></div>'
       +                 '</div>'
       +                 '<div class="modal-body">'
       +                     message
       +                 '</div>'
       +                 '<div class="modal-footer">'
-      +                     '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+      +                     '<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>'
       +                 '</div>'
       +             '</form>'
       +         '</div>'
@@ -46,8 +46,13 @@
   $('[data-toggle="popover"]').popover();
   $('[data-provide="datepicker"]').datepicker({format: 'dd.mm.yyyy'});
 
-  $('#sidebar-toggle').on('click', function () {
-    $('#sidebar').toggleClass('show');
+  $('#super-user-notifcation .close').click(function() {
+    $.cookie("super_user_notification_closed", 1);
+  });
+
+  $('#menu-toggle').on('click', function () {
+    $('#wrapper').toggleClass('toggled');
+    return false;
   });
 
   if (document.URL.indexOf('forgotpassword') > -1) {

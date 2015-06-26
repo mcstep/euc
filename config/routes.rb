@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :registration, only: [:new, :create]
+
   resources :support_requests, only: [:create]
 
   resources :users do
