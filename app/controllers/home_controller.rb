@@ -7,6 +7,6 @@ class HomeController < ApplicationController
 
   private
   def require_login
-    redirect_to log_in_path, notice: "Please sign in" unless current_user
+    redirect_to log_in_path unless current_user
   end
 end

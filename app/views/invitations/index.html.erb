@@ -1,154 +1,145 @@
-<%= content_for :body_id, "users" %>
-
-<div class="menubar fixed">
-  <div class="sidebar-toggler visible-xs">
-    <i class="ion-navicon"></i>
-  </div>
-  <div class="page-title">
-    Invitations
-  </div>
-  <form id="search-invitation-form" method="get" action="/invitations" class="search hidden-xs">
-    <i class="fa fa-search"></i>
-    <input type="text" name="search" placeholder="Search users..." />
-    <input type="submit" />
-  </form>
-  <a href="<%= new_invitation_path %>" class="new-user btn btn-success pull-right">
-    <span>Invite user</span>
-  </a>
-</div>
-
-<div> There are a total of <%= Invitation.all.count %> active users</div>
-<br/>
+<%= form_tag invitations_path, method: :get, id: 'invitations-search-form' do |f| %>
+	<div class="form-group">
+		<a href="<%= new_invitation_path %>" class="btn btn-success pull-left">Invite user</a>
+		<div class="input-group">
+			<input type="text" class="form-control" name="search" placeholder="Search users..." value="<%= params[:search] %>"/>
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit">Search!</button>
+			</span>
+		</div>
+		<span class="help-block">There are a total of <%= Invitation.all.count %> active users</span>
+	</div>
+<% end %>
 
 <%= paginate @invitations %>
-<table class="table table-striped table-bordered table-condense">
-  <thead>
-    <tr>
-      <th>Full Name</th>
-      <th>Email</th>
-      <th>Username</th>
-      <th>Title</th>
-      <th>Company</th>
-      <th>Region</th>
-      <th>Expires on</th>
-      <th>Sender</th>
-      <th>AirWatch</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @invitations.each do |invitation| %>
-      <% is_vip_invitation = invitation.role == User.roles["vip"] %>
-      <tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>">
-        <td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
-        <td><%= invitation.recipient_email %></td>
-        <td><%= invitation.recipient_username %></td>
-        <td><%= invitation.recipient_title %></td>
-        <td><%= invitation.recipient_company %></td>
-        <td><%= invitation.region %></td>
-        <td>
-          <%= (invitation.expires_at).to_date.to_formatted_s(:long) %>
-          <a class="extend-account-link popoverExtendAccount" href="#" data-toggle="modal" data-target="#extend-account-modal"><span> (Extend)</span></a>
-        </td>
-        <td>
-          <% if invitation.sender.blank? %>
-            <strong>N/A</strong>
-          <% else %>
-            <%= invitation.sender.display_name unless invitation.sender.blank? %>
-          <% end %>
-        </td>
-        <td class="text-center">
-          <div class="btn-group btn-toggle">
-            <% if invitation.airwatch_trial == true %>
-              <%= link_to "ON", toggle_airwatch_path(id: invitation.id),  class: "btn btn-default btn-sm btn-success active btn-active" %>
-              <%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: "btn btn-default btn-sm btn-inactive" %>
-            <% else %>
-              <%= link_to "ON", toggle_airwatch_path(id: invitation.id), class: "btn btn-default btn-sm btn-active" %>
-              <%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: "btn btn-default btn-sm btn-danger active btn-inactive" %>
-            <% end %>
-          </div>
-        </td>
-        <td>
-          <%= link_to 'Delete', invitation, class: "btn btn-default btn-sm", method: :delete, data: { confirm: 'Do you want to delete this account? The users account will permanently be deleted.' } %>
-        </td>
-        <td <%= 'colspan="2"' unless is_vip_invitation %>>
-          <%= link_to 'Impersonate', impersonate_user_path(invitation.id), class: "btn btn-default btn-sm", method: :post, data: { confirm: 'Do you want to impersonate this user?' } %>
-        </td>
-        <% if is_vip_invitation %>
-          <td><a href="#" class="btn btn-default btn-sm limit-account-link"><span> Edit Invitation Limit</span></a></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
+<table class="table table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>Full Name</th>
+			<th>Email</th>
+			<th>Username</th>
+			<th>Title</th>
+			<th>Company</th>
+			<th>Region</th>
+			<th>Expires on</th>
+			<th>Sender</th>
+			<th>AirWatch</th>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @invitations.each do |invitation| %>
+			<% is_vip_invitation = invitation.role == User.roles["vip"] %>
+			<tr data-id="<%= invitation.id.to_s %>" data-firstname="<%= invitation.recipient_firstname %>" data-lastname="<%= invitation.recipient_lastname %>" data-expires-at="<%= invitation.expires_at.to_s(:iso8601) %>">
+				<td><%= invitation.recipient_firstname + " " + invitation.recipient_lastname %></td>
+				<td><%= invitation.recipient_email %></td>
+				<td><%= invitation.recipient_username %></td>
+				<td><%= invitation.recipient_title %></td>
+				<td><%= invitation.recipient_company %></td>
+				<td><%= invitation.region %></td>
+				<td>
+					<%= (invitation.expires_at).to_date.to_formatted_s(:long) %>
+					<a class="extend-account-link popoverExtendAccount" href="#" data-toggle="modal" data-target="#extend-account-modal"><span> (Extend)</span></a>
+				</td>
+				<td>
+					<% if invitation.sender.blank? %>
+						<strong>N/A</strong>
+					<% else %>
+						<%= invitation.sender.display_name unless invitation.sender.blank? %>
+					<% end %>
+				</td>
+				<td class="text-center">
+					<div class="btn-group btn-toggle" style="min-width: 69px">
+						<% if invitation.airwatch_trial == true %>
+							<%= link_to 'ON',  toggle_airwatch_path(id: invitation.id), class: 'btn btn-xs btn-success active' %>
+							<%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: 'btn btn-xs btn-default' %>
+						<% else %>
+							<%= link_to 'ON',  toggle_airwatch_path(id: invitation.id), class: 'btn btn-xs btn-default' %>
+							<%= link_to 'OFF', toggle_airwatch_path(id: invitation.id), class: 'btn btn-xs btn-danger active' %>
+						<% end %>
+					</div>
+				</td>
+				<td>
+					<%= link_to 'Delete', invitation, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Do you want to delete this account? The users account will permanently be deleted.' } %>
+				</td>
+				<td <%= 'colspan="2"' unless is_vip_invitation %>>
+					<%= link_to 'Impersonate', impersonate_user_path(invitation.id), class: "btn btn-warning btn-xs", method: :post, data: { confirm: 'Do you want to impersonate this user?' } %>
+				</td>
+				<% if is_vip_invitation %>
+					<td><a href="#" class="btn btn-default btn-xs limit-account-link"><span> Edit Invitation Limit</span></a></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
 
-<br/>
-
-<%= link_to 'New Invitation', new_invitation_path %>
-
 <% if params[:search].present? %>
-  <br/>
-  <%= link_to 'View All', invitations_path %>
+	<br/>
+	<%= link_to 'View All', invitations_path %>
 <% end %>
 
 <!-- Extend account Modal -->
 <div class="modal fade" id="extend-account-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="extend-account-form" method="post" action="/extend_invitation" role="form">
-        <input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
-        <input type="hidden" name="invitationId" id="invitationId"/>
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Extend Account</h4>
-        </div>
-        <div class="modal-body">
-          This action will extend the user's account until the specified date.<br/><br/>
-          <div class="form-group">
-            <label>User:</label>
-            <input type="text" name="user" id="invitationUser" class="form-control" readonly="true" />
-          </div>
-          <div class="form-group">
-            <label>Reason:</label>
-            <input type="text" name="reason" class="form-control" placeholder="Please enter reason for extension" />
-          </div>
-          <div class="form-group">
-            <label>New Expiration Date:</label>
-            <input type="text" name="expiresAt" id="expiresAt" class="form-control datepickerExpiresAt"/>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-success">Submit request</button>
-        </div>
-      </form>
-    </div>
-  </div>
+	<div class="modal-dialog">
+		<div class="modal-content" style="text-align: left">
+			<form id="extend-account-form" method="post" action="/extend_invitation" role="form">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+				<input type="hidden" name="invitationId" id="invitationId"/>
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  	      	<div class="td-dialog">
+  	      	  <h1>Extend Account</h1>
+  	      	</div>
+	      </div>
+				<div class="modal-body">
+					This action will extend the user's account until the specified date.<br/><br/>
+					<div class="form-group">
+						<label>User:</label>
+						<input type="text" name="user" id="invitationUser" class="form-control" readonly="true" />
+					</div>
+					<div class="form-group">
+						<label>Reason:</label>
+						<input type="text" name="reason" class="form-control" placeholder="Please enter reason for extension" />
+					</div>
+					<div class="form-group">
+						<label>New Expiration Date:</label>
+						<input type="text" name="expiresAt" id="expiresAt" class="form-control"/>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-success">Submit request</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 <!-- Limit account Modal -->
 <div class="modal fade" id="limit-account-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="limit-account-form" method="post" action="/users/">
-        <input type="hidden" name="_method" value="PATCH">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token() %>"/>
-        <input type="hidden" name="id"/>
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Limit Invitations</h4>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Total Invitations Allowed:</label>
-            <input type="number" required="required" min="0" step="1" name="total_invitations" class="form-control"/>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-success">Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="limit-account-form" method="post" action="/users/">
+				<input type="hidden" name="_method" value="PATCH">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token() %>"/>
+				<input type="hidden" name="id"/>
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  	      	<div class="td-dialog">
+  	      	  <h1>Limit Invitations</h1>
+  	      	</div>
+	      </div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Total Invitations Allowed:</label>
+						<input type="number" required="required" min="0" step="1" name="total_invitations" class="form-control"/>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-success">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>

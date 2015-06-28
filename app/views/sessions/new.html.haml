@@ -1,0 +1,40 @@
+.middle-box.td-dialog
+  %h1 Login
+  .login
+    = form_tag sessions_path do
+      = render "layouts/messages"
+      .form-group
+        = text_field_tag :username, params[:username], :class => "form-control", placeholder: 'Username'
+      .form-group
+        = password_field_tag :password, params[:password], :class => "form-control", placeholder: 'Password'
+      %button.btn.btn-info.loginbutton{:type => "submit"} Login
+      %p
+        %a.text-muted{"data-target" => "#password-reset-modal", "data-toggle" => "modal", :href => "#"}
+          %small Forgot password?
+      %p.text-muted
+        %small
+          Don't have an account?
+          %a{:href => "/register"} Sign up here
+      %small
+  %small
+
+
+
+#password-reset-modal.modal.fade{:role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      = form_tag '/password_reset' do
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          .td-dialog
+            %h1 Reset Password
+        .modal-body
+          .form-group
+            %label Email:
+            %input.form-control{:name => "email", :type => "text"}
+          .info
+            %strong A new password will be sent to the email.
+        .modal-footer
+          %button.btn.btn-default.pull-left{"data-dismiss" => "modal", :type => "button"} Cancel
+          %button#send-invite.btn.btn-success{:type => "submit"} Reset Password

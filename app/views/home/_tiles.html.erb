@@ -1,0 +1,125 @@
+<div class="col-md-12 col-lg-8 col-sm-12">
+	<div class="ibox">
+		<div class="ibox-title">
+			<a href="#" data-toggle="modal" data-target="#dashboard-new-invite-modal" class="btn btn-success btn-xs pull-right">Invite user</a>
+			<h5>Invitation Statistics</h5>
+		</div>
+		<div class="ibox-content">
+
+			<div class="row">
+				<div class="col-sm-6 col-md-6">
+					<h1 class="no-margins"><%= current_user.total_invitations %></h1>
+					<div class="font-bold text-navy">Total Invitations</div>
+				</div>
+				<div class="col-sm-6  col-md-6">
+					<h1 class="no-margins"><%= current_user.total_invitations - current_user.invitations_used %></h1>
+
+					<div>Remaining Invitations</div>
+					<div class="progress">
+						<% invites_used_percentage_s = (100.0 * current_user.invitations_used / current_user.total_invitations).round.to_s %>
+						<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= invites_used_percentage_s %>" style="width:<%= invites_used_percentage_s %>%">
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+<div class="col-sm-6 col-md-6 col-lg-4">
+	<div class="ibox">
+		<div class="ibox-title">
+			<h5>Accounts</h5>
+		</div>
+		<div class="ibox-content">
+			<h1 class="no-margins">
+				<%=
+					where = { expires_at: Time.now...(Time.now + 1.month) }
+
+					if !current_user.admin?
+						where[:sender_id] = current_user.id
+					end
+
+					Invitation.where(where).count
+				%>
+			</h1>
+			Accounts Expiring Soon
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="dashboard-new-invite-modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content" style="text-align: left">
+			<form id="new-invitation-form" method="post" action="/invitations" role="form">
+				<input type="hidden" value="<%= form_authenticity_token() %>" name="authenticity_token"/>
+
+
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  	      	<div class="td-dialog">
+  	      	  <h1>Invite User</h1>
+  	      	</div>
+	      </div>
+
+				<div class="modal-body">
+					<div class="form-group">
+						<label>First name:</label>
+						<input type="text" name="invitation[recipient_firstname]" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>Last name:</label>
+						<input type="text" name="invitation[recipient_lastname]" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>Email:</label>
+						<input type="email" name="invitation[recipient_email]" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>Username:</label>
+						<input type="text" name="invitation[recipient_username]" placeholder="(optional)" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>Company:</label>
+						<input type="text" name="invitation[recipient_company]" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>Job Title:</label>
+						<input type="text" name="invitation[recipient_title]" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>Potential number of users:</label>
+						<input type="text" name="invitation[potential_seats]" class="form-control popoverPotentialSeatsModal" />
+					</div>
+					<div class="form-group">
+						<label>Region:</label>
+						<select class="form-control required" name="invitation[region]">
+							<option value="">Select Region</option><option value="AMER">AMER</option>
+							<option value="EMEA">EMEA</option>
+							<option value="APAC">APAC</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>AirWatch Trial:</label>
+						<select class="form-control required" name="invitation[airwatch_trial]">
+							<option value="">AirWatch Trial</option>
+							<option value="true">Yes</option>
+							<option value="false">No</option>
+						</select>
+					</div>
+					<div class="info">
+						A 30-day account will be setup for the user. After the 30-day trial ends, the user's <strong>account will automatically be deleted from the system.</strong>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-success" id="send-invite" >Send Invite</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

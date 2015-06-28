@@ -1,0 +1,33 @@
+.col-sm-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2.td-dialog.td-signup
+  %h1 Sign up
+  = bootstrap_form_for @invitation, url: signup_index_path, html: { class: 'form form-horizontal', id: "signup-form" } do |f|
+    %fieldset
+      .col-md-12.col-sm-12.col-lg-12
+        .alert.alert-info
+          %center Welcome to VMware® TestDrive. Please fill in your details to begin the signup process.
+
+        = f.text_field :recipient_firstname, hide_label: true, placeholder: 'First Name', required: true
+        = f.text_field :recipient_lastname, hide_label: true, placeholder: 'Last Name', required: true
+        = f.text_field :recipient_username, hide_label: true, placeholder: 'Username (optional)', required: true
+        = f.text_field :recipient_email, hide_label: true, placeholder: 'E-Mail', required: true
+        = f.text_field :recipient_title, hide_label: true, placeholder: 'Title', required: true
+        = f.text_field :recipient_company, hide_label: true, placeholder: 'Company', required: true
+        %h2 Region
+        = f.select :region, [ "AMER", "EMEA", "APAC" ], { hide_label: true, include_blank: 'Select your Home Region' }, { class: "form-control", required: true }
+      .col-lg-12.eula-check{style: 'margin-top: 20px'}
+        By submitting this form I agree to the
+        %a{"data-target" => "#EULA", "data-toggle" => "modal", :href => "#"} VMware End User License Agreement
+      #EULA.modal.fade{"aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+        .modal-dialog.modal-lg{:role => "document"}
+          .modal-content
+            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+              %span{"aria-hidden" => "true"} ×
+            %h1 VMware EULA
+            .modal-body
+              .eula
+                = render 'eula'
+            .modal-footer
+              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+      .col-lg-12
+        .form-group
+          %button#submit.btn.btl-lg.btn-success.register{:name => "submit"} REGISTER

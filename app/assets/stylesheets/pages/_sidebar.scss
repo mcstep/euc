@@ -1,0 +1,258 @@
+$sidebar-width: 150px;
+$sidebar-width-desktop: 200px;
+
+/* Toggle Styles */
+
+#wrapper {
+  padding-left: 0;
+  transition: all 0.5s ease;
+
+  hr {
+    border: none;
+    background: image-url('divider.svg') repeat-x;
+    height: 20px;
+  }
+}
+
+#wrapper.toggled {
+  padding-left: 150px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: $sidebar-width;
+  width: 0;
+  height: 100%;
+  margin-left: -$sidebar-width;
+  overflow-y: auto;
+  background: $navbg;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: $sidebar-width;
+}
+
+#fullwidth {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #fullwidth {
+  position: absolute;
+  margin-right: -$sidebar-width;
+}
+
+/* Sidebar Styles */
+
+.sidebar-usercontrols {
+  
+  
+  background: -moz-linear-gradient(top,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+  
+  
+  
+  padding-top: 2em;
+  margin: 0 0 1em 0;
+  text-align: center;
+  
+
+  .editprofile {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 110%;
+  
+    
+    
+    a {
+      color: $white;
+      &:hover {
+        text-decoration: none;
+        font-weight: bold;
+        color: $brand-success;
+      };
+    }
+  }
+
+  img {
+    max-width: 50%;
+    @include radius-max;
+    margin-bottom: 1.5em;
+    border: 2px solid $black;
+    box-shadow: $black 0px 0px 5px;
+
+    &:hover {
+      box-shadow: $grey 0px 0px 5px;
+    }
+  }
+}
+
+.sidebar-username {
+  clear: both;
+  font-size: 150%;
+  color: $white;
+  margin: 50px 0 0 0 ;
+}
+
+
+
+.launcher {
+  
+  width: 80%;
+  margin: 0 auto 1.5em auto ;
+  padding: 0.4em 0;
+  .btn-group-vertical {
+    display: block;
+    
+  }
+  
+  .btn {
+    text-align: left;
+    margin: 0.5em 0;
+  }
+}
+
+.sidebar-divider {
+  font-weight: normal;
+  text-transform: uppercase;
+  color: $grey;
+  font-size: 80%;
+  display: block;
+  margin: 1em 0 0.5em 1em;
+}
+
+.sidebar-nav {
+  width: $sidebar-width;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 90%;
+}
+
+.sidebar-nav li {
+  width: 100%;
+  text-indent: 1em;
+  line-height: 40px;
+  background: image-url('divider.png') bottom repeat-x;
+
+  &:hover {
+    background: none;
+  }
+}
+
+.sidebar-nav li a {
+  @include animate;
+  display: block;
+  text-decoration: none;
+  color: $white;
+  font-weight: normal;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: $black;
+  background: rgba(255,255,255,0.7);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+
+@media(min-width:768px) {
+  
+  #wrapper {
+    padding-left: 0;
+  }
+  
+  #wrapper #fullwidth {
+
+  }
+
+  #wrapper.toggled {
+    padding-left: $sidebar-width-desktop;
+  }
+
+  #sidebar-wrapper {
+    width: 0;
+  }
+
+  .sidebar-nav {
+    width: $sidebar-width-desktop;
+  }
+
+  .sidebar-divider {
+    font-weight: normal;
+    text-transform: uppercase;
+    color: $grey;
+    font-size: 80%;
+    display: block;
+    margin: 2em 0 0.5em 2em;
+  }
+
+  .sidebar-nav li {
+    width: 100%;
+    line-height: 40px;
+    text-indent: 2em;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    width: $sidebar-width-desktop;
+  }
+
+  #fullwidth {
+    padding: 20px;
+    position: relative;
+  }
+
+  #wrapper.toggled #fullwidth {
+    position: relative;
+    margin-right: 0;
+  }
+}
+
+#avatar-modal {
+  #avatar-webcam {
+    display: none;
+
+    & > div {
+      width: 360px;
+      height: 360px;
+      margin: 20px;
+
+      & > div {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+    }
+
+    footer {
+      margin-bottom: 20px;
+    }
+  }
+
+  &.webcam-active {
+    & > .modal-dialog {
+      width: 400px;
+    }
+
+    #avatar-general {
+      display: none;
+    }
+
+    #avatar-webcam {
+      display: block;
+    }
+  }
+}

@@ -13,13 +13,27 @@ class InvitationsController < ApplicationController
   # GET /invitations
   # GET /invitations.json
   def index
-    @invitations = Invitation
+    search = params[:search]
+
+    query = Invitation
       .select("invitations.*, users.role")
       .joins('LEFT OUTER JOIN users ON users.invitation_id = invitations.id')
       .order(:recipient_firstname)
       .page params[:page]
 
-    @invitations = @invitations.search(params[:search]) if params[:search].present?
+    if !search.blank?
+      if search.match(/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
+        query = query.where('recipient_email LIKE ?', "%#{search}%")
+      elsif search.match(/\w+ \w+/i)
+        firstname,lastname = search.split(" ")
+        query = query.where('recipient_firstname LIKE ? AND recipient_lastname LIKE ?', "%#{firstname}%", "%#{lastname}%")
+      else
+        needle = "%#{search}%"
+        query = query.where('recipient_firstname LIKE ? OR recipient_lastname LIKE ? OR recipient_username LIKE ? OR recipient_email LIKE ?', needle, needle, needle, needle)
+      end
+    end
+
+    @invitations = query
   end
 
   # GET /invitations/1
@@ -60,7 +74,7 @@ class InvitationsController < ApplicationController
 
     @invitation.sender = current_user
     if !params[:invitation][:expires_at].blank?
-      @invitation.expires_at = DateTime.strptime(params[:invitation][:expires_at], '%B %d, %Y')
+      @invitation.expires_at = Date.parse(params[:invitation][:expires_at])
     else
       @invitation.expires_at = (Time.now + 1.month)
     end
@@ -144,7 +158,7 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.find_by_id(params[:invitationId])
 
     original_expires_at = @invitation.expires_at
-    @invitation.expires_at = DateTime.strptime(params[:expiresAt], '%A, %B %d, %Y')
+    @invitation.expires_at = Date.parse(params[:expiresAt])
 
     begin
       response = RestClient.post(url="#{ENV['API_HOST']}/extendAccount",payload={:username => @invitation.recipient_username,  :expires_at => ((@invitation.expires_at.to_i)*1000)}, headers= {:token => ENV["API_KEY"]})
@@ -224,7 +238,7 @@ class InvitationsController < ApplicationController
     end
 
     def require_login
-      redirect_to log_in_path, notice: "Please sign in" unless current_user
+      redirect_to log_in_path unless current_user
     end
 
     def require_admin

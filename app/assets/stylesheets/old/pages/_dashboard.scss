@@ -1,0 +1,377 @@
+h1.lined {
+	position: relative;
+	z-index: 1;
+	color: $gray-dark;
+	font-size: 150%;
+	margin: 0 0 $grid-gutter-width;
+
+	&::before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 50%;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+		margin: 0 auto;
+		border-top: 1px dotted $gray-light;
+	}
+
+	& > span {
+		background-color: #fff;
+		padding-right: 1em;
+	}
+}
+
+#dashboard-tiles {
+	.widget {
+		@include animate;
+		margin: 0 0 $grid-gutter-width 0;
+		min-height: 100px;
+		color: #fff;
+
+		&:hover {
+			.progress {
+				background-color: rgba(0,0,0,0.1);
+			}
+		}
+	}
+
+	.widget-icon {
+		float: left;
+		display: block;
+		min-height: 100px;
+		margin-right: 15px;
+		padding-top: 35px;
+		width: 33%;
+		text-align: center;
+		background-color: rgba(0,0,0,0.1);
+
+		i {
+			font-size: 2.25em;
+			display: inline-block;
+			font-weight: 400;
+			position: relative;
+		}
+	}
+
+	h6 {
+		font-weight: normal;
+		padding: 0.5em 0 0 0;
+		margin: 0;
+	}
+
+	.value {
+		@include helvetica-light;
+		font-size: 185%;
+		padding-top: 20px;
+	}
+
+	.label {
+		@include helvetica-light;
+		position: relative;
+		top: -5px;
+		font-size: 80%;
+		text-transform: uppercase;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	.dropdown-menu {
+		margin: 0;
+	}
+
+	.progress {
+		@include varela-round;
+		@include animate;
+		position: relative;
+		padding: 0;
+		height: 20px;
+		margin: -20px 0 0 0;
+		float: right;
+		width: 67%;
+		box-shadow: none;
+		background-color: rgba(0,0,0,0.05);
+		border: none;
+	}
+
+	.progress-bar {
+		min-width: 5px;
+		@include animate;
+		box-shadow: none;
+		line-height: 20px;
+		background-color: rgba(255,255,255,0.3);
+
+		& > span {
+			@include animate-long;
+			position: absolute;
+			left: 0;
+			right: 0;
+			text-transform: uppercase;
+			font-size: 80%;
+			font-weight: bold;
+			color: #fff;
+		}
+	}
+
+	.launcher {
+		color: #000;
+		text-align: center;
+		height: 100px;
+		cursor: pointer;
+	}
+
+	.stats {
+		background-color: $tf-darkblue;
+
+		&:hover {
+			background-color: lighten($tf-darkblue, 10);
+		}
+	}
+
+	.app {
+		position: relative; // for the dropdown menu
+		float: left;
+		height: 100px;
+		color: #fff;
+		width: 33.333333333333%;
+		@include animate;
+		text-align: center;
+		text-decoration: none;
+
+		div {
+			display: block;
+			font-size: 2.25em;
+			width: 100%;
+			padding-top: 25px;
+			height: 100px;
+			font-weight: 400;
+		}
+
+		h6 {
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 30%;
+			padding: 10px;
+		}
+	}
+
+	.app01 {
+		background-color: $tf-darkblue;
+
+		&:hover {
+			background-color: lighten($tf-darkblue, 10);
+
+			h6, i {
+				color: rgba(0,0,0,0.8);
+			}
+		}
+	}
+
+	.app02 {
+		background-color: lighten($tf-darkblue, 10);
+
+		&:hover {
+			background-color: lighten($tf-darkblue, 20);
+
+			h6, i {
+				color: rgba(0,0,0,0.8);
+			}
+		}
+	}
+
+	.app03 {
+		background-color: $tf-green;
+
+		&:hover {
+			background-color: lighten($tf-green, 10);
+
+			h6, i {
+				color: rgba(0,0,0,0.8);
+			}
+		}
+	}
+}
+
+.dashboard-table {
+	& > header,
+	& > table {
+		@include helvetica-light;
+		@include animate;
+
+		min-height: 50px;
+		border: 0;
+		margin: 0;
+		@include helvetica-light;
+		font-weight: 300;
+
+		th {
+			font-size: 64%;
+			text-transform: uppercase;
+			font-weight: 300;
+			color: #fff;
+			background-color: $tf-green;
+			border: 0;
+		}
+
+		tr {
+			border: 0;
+		}
+	}
+
+	& > header {
+		display: table-row;
+		width: 100%;
+		line-height: 4em;
+		box-shadow: 0 15px 0px rgba(0,0,0,0.1);
+		color: #fff;
+		text-align: left;
+		background-color: $tf-orange;
+		white-space: nowrap;
+		@include animate;
+
+		& > div {
+			display: table-cell;
+			padding: 0 1em;
+			margin-left: $grid-gutter-width;
+		}
+
+		& > div:last-child {
+			margin-right: $grid-gutter-width;
+		}
+
+		i {
+			font-size: 200%;
+			vertical-align: middle;
+		}
+
+		& > .logo {
+		}
+
+		& > .orgname {
+			font-size: 150%;
+			font-weight: 500;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			max-width: 200px;
+
+			@media (min-width: $screen-md-min) {
+				max-width: 500px;
+			}
+			@media (min-width: $screen-lg-min) {
+				max-width: 300px;
+			}
+		}
+
+		& > .usercount {
+			width: 100%;
+
+			& > div {
+				display: table;
+
+				// the first version is for older browsers
+				margin: 2em 0 2em;
+				margin: calc(2em - 1px) 0 calc(2em - 1px);
+
+				line-height: 1em;
+				padding: 0.5em 0.75em;
+				border: 1px solid #fff;
+				color: #fff;
+				text-transform: uppercase;
+			}
+		}
+
+		& > .op {
+			font-size: 150%;
+
+			& > span {
+				margin-right: ($grid-gutter-width / 2);
+				font-size: 50%;
+				text-transform: uppercase;
+			}
+		}
+
+		&:hover {
+			background-color: lighten($tf-green,10);
+
+			& > .usercount > div {
+				background-color: #fff;
+				color: rgba(0,0,0,0.8);
+			}
+		}
+	}
+
+	& > table {
+		width: 98%;
+		margin-left: 2%;
+		border: 1px solid $gray-light;
+		border-top: none;
+		font-size: 75%;
+
+		tr {
+			@include animate;
+			padding: 0;
+
+			&:nth-child(even) {
+				background-color: rgba(0,0,0,0.1);
+			}
+
+			&:hover {
+				color: #fff;
+				background-color: lighten($tf-darkblue, 30) !important;
+			}
+		}
+
+		th {
+			line-height: $grid-gutter-width;
+		}
+
+		td {
+			line-height: round(1.5 * $grid-gutter-width);
+		}
+
+		.name {
+			font-size: 110%;
+			font-weight: 500;
+		}
+
+		img {
+			margin-left: ($grid-gutter-width / 2);
+		}
+
+		.avatar {
+			max-width: 35px;
+
+			img {
+				border-radius: 50%;
+				max-width: 35px;
+			}
+		}
+
+		.admin {
+			text-align: left;
+		}
+
+		i {
+			margin: 0;
+			color: $darkgrey;
+			@include animate;
+
+			&:hover {
+				color: #000;
+				font-weight: 800;
+			}
+		}
+	}
+}
+
+#eula-modal {
+	iframe {
+		min-height: 200px;
+		height: 50vh;
+		height: calc(100vh - 260px); // 260px equals approx. the margin + height of the rest of the modal container
+		border: none;
+	}
+}

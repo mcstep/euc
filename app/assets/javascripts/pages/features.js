@@ -1,5 +1,7 @@
 (function () {
-	function page_scripts() {
+	var $featuresFlushButton = $('#features-flush');
+
+	if ($featuresFlushButton.length) {
 		$('#features-table').on('click', 'button', function (e) {
 			var $button = $(this);
 			var id = $button.closest('tr').data('id');
@@ -37,7 +39,7 @@
 				});
 		});
 
-		var $featuresFlushButton = $('#features-flush').on('click', function () {
+		$featuresFlushButton.on('click', function () {
 			var previousVal = $featuresFlushButton.text();
 
 			$featuresFlushButton
@@ -58,7 +60,4 @@
 				});
 		});
 	}
-
-	$(page_scripts);
-	$(document).on('page:load', page_scripts);
 })();

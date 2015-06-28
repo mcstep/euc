@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_uniqueness_of :username
 
+  belongs_to :invitation
+
   def self.authenticate(username, password)
     user = find_by_username(username)
     if user
@@ -12,7 +14,7 @@ class User < ActiveRecord::Base
   end
 
   def self.default_avatar_url
-    ActionController::Base.helpers.asset_path('default-user-icon-profile.png')
+    ActionController::Base.helpers.image_path('default_avatar.png')
   end
 
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
@@ -26,6 +28,14 @@ class User < ActiveRecord::Base
   after_initialize :set_default_role, :if => :new_record?
   before_save :to_lower
   before_save :destroy_previous_avatar
+
+  def first_name
+    display_name.split(' ', 2).first
+  end
+
+  def last_name
+    display_name.split(' ', 2).last
+  end
 
   def set_default_role
     self.role ||= :user

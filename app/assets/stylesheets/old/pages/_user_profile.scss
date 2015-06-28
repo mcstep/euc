@@ -1,0 +1,23 @@
+#user-profile {
+	display: table;
+}
+
+#avatar-modal {
+	#avatar-webcam {
+		display: none;
+	}
+
+	&.webcam-active {
+		& > .modal-dialog {
+			width: 400px;
+		}
+
+		#avatar-general {
+			display: none;
+		}
+
+		#avatar-webcam {
+			display: block;
+		}
+	}
+}

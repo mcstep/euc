@@ -1,0 +1,17 @@
+@import 'fonts';
+@import 'variables';
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'bootstrap-datepicker3.css';
+@import 'mixins';
+@import 'globals';
+
+@import 'pages/signup';
+@import 'pages/sidebar';
+@import 'pages/dashboard';
+
+.td-signup {
+  .help-block {
+    margin-bottom: 0px;
+  }
+}

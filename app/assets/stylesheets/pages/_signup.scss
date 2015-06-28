@@ -1,0 +1,571 @@
+
+.td-signup {
+  margin-top: 8em;
+  
+  
+}
+
+.td-dialog {
+  @include open-sans;
+  background: $modalbg;
+  padding: 0;
+  font-size: 100%;
+  min-width: 250px;
+
+  /* For desktop forms  */
+  @media (min-width: 1200px) {
+    .left {
+      padding-right: 15px;
+    }
+
+    .right {
+      padding-left: 15px;
+    }
+  }
+  .modal-content {
+    .close {
+      margin-top: 12px;
+      margin-right: 15px;
+      color: $white;
+    }
+  }
+  .eula {
+    background: $white;
+    
+    h2 {
+      font-size: 175% !important;
+      margin: 2.5em 0 2em 0;
+      border-bottom: 1px dotted $gray-light;
+    }
+    p {
+      margin-bottom: 3em !important;
+      line-height: 2em !important;
+      padding: 0 2em !important;
+      text-align: left !important;
+      strong {
+        font-weight: 700;
+      }
+    }
+  }
+
+  h1 {
+    @include varela-round;
+    font-size: 150%;
+    text-align: center;
+    min-width: 100%;
+    display: block;
+    background: $td-lightblue;
+    margin: 0 !important;
+    padding: 0.6em 0em 0.5em 0em !important;
+    color: $white;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Provisioning spinner position */
+  #spin {
+    position: relative;
+    top: 50px;
+    left: 50%;
+    margin: 50px 0 0 0;
+    min-height: 100px;
+    display: inline-block;
+  }
+  .form-horizontal .form-group {
+    margin: 0.75em 0 0 0 !important;
+    
+  }
+  .form {
+    padding: 15px;
+    margin: 15px 0;
+
+    /* Adjust form padding for smaller devices */
+    @media (min-width: 768px) {
+      padding: 25px 50px 50px 50px;
+    }
+
+    h2 {
+      @include open-sans;
+      font-weight: bold;
+      color: $grey;
+      font-size: 90%;
+      text-transform: uppercase;
+    }
+
+    .light {
+      font-weight: normal;
+      color: $lightgrey;
+    }
+
+    .verify-code {
+      input {
+        height: 1.5em;
+        font-size: 350%;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 0 !important;
+      }
+    }
+
+    .eula-check {
+      text-align: center;
+      margin: 1.5em 0;
+      input[type="checkbox"] {
+        margin: 1em;
+      }
+    }
+    
+    p {
+      text-align: center;
+      margin: 0;
+    }
+
+    .note {
+      margin: 25px 0 25px 0;
+      text-align: center;
+    }
+    
+
+
+    input {
+      display: inline-block;
+      padding: 5px 10px 5px 10px;
+      font-size: 110%;
+    }
+
+    /*input[type="text"] {
+      width: 100%;
+      color: $black;
+      border: 1px solid $lightgrey;
+      margin: 1.5em 0 0 0 ;
+      &:hover {
+        @include animate;
+        border: 1px solid $black;
+      }
+    } */
+
+    .register {
+      @include animate;
+      @include varela-round;
+      letter-spacing: 0.1em;
+      font-size: 150%;
+      width: 100%;
+      color: $white;
+      background: $td-green;
+      border: none;
+      box-shadow: 0 3px 0 0 darken($td-green, 10);
+      padding: 12px 10px 10px 10px;
+      text-transform: uppercase;
+
+      &:hover {
+        background: lighten($td-green,5);
+      }
+
+      &:active {
+        background: $brand-warning;
+      }
+    }
+
+    select {
+      @include radius-none;
+      border: 1px solid $lightgrey;
+      background: transparent;
+      width: 100%;
+      padding: 5px 10px 5px 10px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background: image-url('select.svg') 98% / 15px no-repeat $white;
+    }
+
+    /*target Internet Explorer 9 and Internet Explorer 10:*/
+    @media screen and (min-width: 0\0) {
+      select {
+        background: none;
+        padding: 5px;
+      }
+    }
+
+    .radiogroup {
+      height: 75px;
+    }
+
+    .radiobutton {
+      display: inline;
+      float: left;
+      width: 50%;
+
+      label {
+        font-weight: normal;
+        text-transform: uppercase;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+
+
+.usercard {
+  overflow: auto;
+  padding: 0 ;
+  margin: 0;
+
+  @media (min-width: 768px) {
+    @include radius-large-top;
+    padding: 0 25px 0 25px;
+  }
+
+  background: $white;
+  min-height: 300px;
+  min-width: 250px;
+
+  .user-inviter {
+  
+    max-width: 50%;
+    min-width: 175px;
+    border: 1px dotted $gray-lighter;
+    margin: 0 auto;
+    padding: 1em;
+    min-height: 60px;
+    @include animate;
+    
+    @media (max-width: 1200px) {
+    max-width: 33%;
+    }
+    
+    &:hover {
+      border: 1px solid $gray ;
+    };
+    p {
+      padding: 0;
+      margin: 0;
+  
+      text-align: left;
+      
+      }
+    
+    .lastname {
+      font-weight: bold;
+    }
+
+    
+    .user-inviter-img {
+      float: left;
+      display: block;
+      margin-right: 1em;
+      img {
+        @include radius-max;
+        max-width: 30px;
+      }
+    }
+  }
+
+
+  .avatar {
+    text-align: center;
+  }
+
+  .avatar-controls {
+    a {
+      @include radius;
+      @include animate;
+      color: $grey;
+      width: 150px;
+      display: block;
+      margin: 0 auto 0.25em auto;
+      text-transform: uppercase;
+      border: 1px solid $lightgrey;
+      padding: 0.25em;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: none;
+        background: $grey;
+        color: $white;
+        border: 1px solid $grey;
+      }
+
+      &:active {
+        background: $td-lightblue;
+        border: 1px solid $td-darkblue;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .avatar-img {
+    max-width: 100%;
+    margin: 0;
+
+    @media (max-width: 767px) {
+      margin: 1em auto 2em auto;
+    }
+
+    img {
+      @include animate-long;
+      @include radius-max;
+      width: 150px;
+      border: 1px solid $lightgrey;
+
+      &:hover {
+        border: 1px solid $black;
+      }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .avatar-img {
+      margin: 50px 0 25px 0;
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .avatar-img {
+      margin: 50px auto 25px auto;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .avatar-img {
+      margin: 50px 0 25px 0;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+
+
+  
+
+  /* REGION TAG */
+  .region {
+    color: $white;
+    font-weight: bold;
+    font-size: 120%;
+    margin: 0;
+  }
+
+  /* Mobile  */
+  @media (max-width: 767px) {
+    .region {
+      @include radius-none;
+
+      text-align: center;
+      width: 100%;
+      font-size: 80%;
+      margin: 0 0 1em 0;
+      padding: 1em 0 0.25em 1em;
+      text-align: left;
+
+      img {
+        display: none;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 768px) {
+    .region {
+      @include radius-large-bottom;
+      float: right;
+      position: absolute;
+      right: 7%;
+      min-height: 50px;
+      padding: 50px 1em 0.25em 1em;
+
+      img {
+        max-width: 90%;
+        margin: 0 0 1em 0;
+        opacity: 0.9;
+      }
+    }
+  }
+
+
+  .amer {
+    background: $td-lightblue;
+  }
+
+  .emea {
+    background: $td-green;
+  }
+
+  .apac {
+    background: $td-orange;
+  }
+
+
+  .user-details {
+    margin: 25px 0 0 0 ;
+
+    div {
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 1200px) {
+      margin: 50px 0 0 0;
+    }
+
+    .name {
+      font-size: 250%;
+      .lastname {
+        font-weight: bold;
+      }
+    }
+
+    .company {
+      color: $darkgrey;
+      font-size: 200%;
+
+      .address {
+        font-size: 75%;
+      }
+    }
+
+    .contact {
+      color: $black;
+      font-size: 150%;
+    }
+
+    .partner_id {
+      @include radius;
+      position: relative;
+      top: -1px;
+      font-size: 60%;
+      color: $grey;
+      text-transform: uppercase;
+      border: 1px $lightgrey solid;
+      padding: 2px 7px 2px 7px;
+
+      @media (min-width: 992px) {
+        margin-left: 1em;
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .user-details {
+      text-align: center
+    }
+  }
+}
+
+.checkin {
+  .checkin-product {
+    @include animate;
+    animation: fadein 2s;
+    text-align: center;
+    color: $lightgrey;
+    border: 1px solid $lightgrey;
+    margin: 50px 25px 15px 25px;
+    padding: 25px;
+    min-height: 100px;
+    @include radius;
+    box-shadow: $lightgrey 0 1px 5px;
+
+    @media (max-width: 992px) {
+      font-size: 90%;
+    }
+
+    &:hover {
+      color: $black;
+      background: lighten($lightgrey, 5);
+    }
+
+    img {
+      max-width: 50%;
+      @include radius;
+
+      @media (max-width: 992px) {
+        max-width: 25%;
+      }
+    }
+  }
+}
+
+
+.checkin-features {
+  padding: 25px;
+  text-align: center;
+  line-height: 5.2em;
+  color: $grey;
+
+  h2 {
+    color: $lightgrey;
+    font-weight: normal;
+    font-size: 100%;
+    text-transform: uppercase;
+    margin: 25px 0 1em 0;
+  }
+
+  h2.lined {
+    position: relative;
+    z-index: 1;
+    animation: fadein 2s;
+
+    &:before {
+      border-top: 1px solid $lightgrey;
+      content: "";
+      margin: 0 auto;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 95%;
+      z-index: -1;
+    }
+
+    span {
+      background: $white;
+      padding: 0 15px;
+    }
+  }
+
+
+  ul {
+    list-style: none;
+    margin: 50px 0 0 0;
+    padding: 0;
+  }
+
+  li {
+    @include radius;
+    @include animate;
+
+    /* Fade in */
+    animation: fadein 2s;
+    border: 1px dotted $lightgrey;
+    margin: 0 0 -1px 0;
+    padding: 0;
+
+    @media (min-width: 768px) {
+      display: inline;
+      padding: 15px;
+      margin: 15px;
+    }
+
+    &:hover {
+      color: $black;
+      border: 1px solid $darkgrey;
+    }
+
+    &.active {
+      color: darken($td-lightblue, 10);
+      border: 1px solid $td-darkblue;
+      background: lighten($td-lightblue, 50);
+      box-shadow: $td-lightblue 0 0 1px;
+    }
+  }
+}

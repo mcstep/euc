@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  get '/features' => 'features#index'
   get 'dashboard' => 'home#index', :as => 'dashboard'
   get 'eula/accept'
+  get 'features' => 'features#index'
   get 'forgotpassword' => 'sessions#new', :as => 'forgotpassword'
   get 'home/index'
   get 'invitation_search' => 'invitations#search', :as => 'invitation_search'

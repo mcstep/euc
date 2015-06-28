@@ -1,53 +1,60 @@
 class Invitation < ActiveRecord::Base
   acts_as_paranoid
 
+  belongs_to :reg_code
   belongs_to :sender, :class_name => 'User'
   has_one :recipient, :class_name => 'User'
 
-  validates_presence_of :recipient_email, :recipient_firstname, :recipient_lastname
-  validate :recipient_is_not_registered, :on => :create
-  validate :sender_has_invitations, :if => :sender, :on => :create
+  enum invitation_status: [:pending, :active, :expired, :declined]
 
+  validates_presence_of :recipient_email, :recipient_firstname, :recipient_lastname, :recipient_company, :recipient_title, :region
+  validate :valid_reg_code, :if => :reg_code, :on => :create
+  validate :sender_has_invitations, :if => :sender, :on => :create
+  validate :valid_email_domain, :on => :create
+
+  validates_uniqueness_of :recipient_email, :scope => [:deleted_at]
+  #validates_uniqueness_of :recipient_email, :scope => [:invitation_status]
+
+  before_validation :strip_whitespace
+
+  before_create :set_defaults
   before_create :generate_token
   before_create :decrement_sender_count, :if => :sender
 
-  validates_uniqueness_of :recipient_email, :case_sensitive => false, :scope => [:deleted_at]
-  #validates_uniqueness_of :recipient_email
-  #validates_uniqueness_of :recipient_email, :scope => [:invitation_status]
-  enum invitation_status: [:pending, :active, :expired, :declined]
-
-  before_save :to_lower
-
   paginates_per 150
 
-  def self.search(search)
-    if search
-      where = ''
-      if search.match(/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
-        where = 'recipient_email LIKE ?', "%#{search}%"
-      elsif search.match(/[a-z]+\s[a-z]+/i)
-        firstname,lastname = search.split(" ")
-        where = 'recipient_firstname LIKE ? and recipient_lastname LIKE ?', "%#{firstname}%", "%#{lastname}%"      
-      else
-        where = 'recipient_firstname LIKE ? or recipient_lastname LIKE ? or recipient_username LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"      
-      end
-      self.where(where)
-    else
-      self.all
-    end
-  end
-
 private
-
-  def recipient_is_not_registered
-    errors.add :recipient_email, 'is already registered' if Invitation.find_by_recipient_email(recipient_email)
+  def valid_reg_code
+    if reg_code.status != true || !(reg_code.valid_from..reg_code.valid_to).cover?(Time.now) || Invitation.where(reg_code_id: reg_code.id).count >= reg_code.registrations.to_i
+      errors[:reg_code] << 'The registration code you entered is no longer valid.'
+    end
   end
 
   def sender_has_invitations
-    invites_remaining = sender.total_invitations - sender.invitations_used
-    unless invites_remaining > 0
-      errors.add_to_base 'You have reached your limit of invitations to send.'
+    if sender.invitations_used >= sender.total_invitations
+      errors[:base] << 'You have reached your limit of invitations to send.'
     end
+  end
+
+  def valid_email_domain
+    if !recipient_email.blank?
+      domain = Domain.find_by_name(recipient_email.split("@").last.downcase)
+
+      if domain.nil? || domain.status != 'active'
+        errors[:recipient_email] << "Your email domain is currently not supported for registrations."
+      end
+    end
+  end
+
+  def set_defaults
+    if self.reg_code.nil?
+      self.expires_at = (Time.now + 1.year)
+    else
+      self.expires_at = (Time.now + reg_code.account_validity.days)
+    end
+
+    self.airwatch_trial    = true if self.airwatch_trial.nil?
+    self.google_apps_trial = true if self.google_apps_trial.nil?
   end
 
   def generate_token
@@ -59,8 +66,13 @@ private
     sender.increment! :invitations_used unless !self.sender.blank? && self.sender.admin?
   end
 
-  def to_lower
-    self.recipient_email = self.recipient_email.downcase unless self.recipient_email.blank?
-    self.recipient_username = self.recipient_username.downcase unless self.recipient_username.blank?
+  def strip_whitespace
+    self.recipient_email     = self.recipient_email.strip.downcase    unless self.recipient_email.nil?
+    self.recipient_firstname = self.recipient_firstname.strip         unless self.recipient_firstname.nil?
+    self.recipient_lastname  = self.recipient_lastname.strip          unless self.recipient_lastname.nil?
+    self.recipient_username  = self.recipient_username.strip.downcase unless self.recipient_username.nil?
+    self.recipient_company   = self.recipient_company.strip           unless self.recipient_company.nil?
+    self.recipient_title     = self.recipient_title.strip             unless self.recipient_title.nil?
+    self.region              = self.region.strip                      unless self.region.nil?
   end
 end

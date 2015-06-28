@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  layout 'unauthorized'
+
   def new
   end
 
@@ -34,7 +36,7 @@ class SessionsController < ApplicationController
           user.company = user_json['company'] if user_json['company'] != nil
           user.save
           session[:user_id] = user.id
-          redirect_to dashboard_path, :notice => "Logged in!"
+          redirect_to dashboard_path
         else
           usr = User.new
           usr.username = user_json['username']
@@ -72,7 +74,7 @@ class SessionsController < ApplicationController
 
           puts "User ID#{usr.id}"
           session[:user_id] = usr.id
-          redirect_to dashboard_path, :notice => "Logged in!"
+          redirect_to dashboard_path
         end
       else
         flash.now.alert = "Invalid username or password"
@@ -87,14 +89,11 @@ class SessionsController < ApplicationController
        flash.now.alert = "Unable to login at this time. Please try again later"
        render "new"
      end
-
-    #session[:user_id] = 1
-    #redirect_to root_path, :notice => "Logged in!"
   end
 
   def destroy
     session[:user_id] = nil
     session[:impersonator_id] = nil
-    redirect_to root_path, :notice => "Logged out!"
+    redirect_to root_path
   end
 end
