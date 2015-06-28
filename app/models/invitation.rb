@@ -13,7 +13,7 @@ class Invitation < ActiveRecord::Base
   validate :valid_email_domain, :on => :create
 
   validates_uniqueness_of :recipient_email, :scope => [:deleted_at]
-  #validates_uniqueness_of :recipient_email, :scope => [:invitation_status]
+  validates_uniqueness_of :recipient_username, :scope => [:deleted_at]
 
   before_validation :strip_whitespace
 
