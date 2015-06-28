@@ -30,7 +30,17 @@ class SignupController < ApplicationController
     puts params
 
     if @invitation.save
-      SignupWorker.perform_async(@invitation.id)
+        user_domain = @invitation.recipient_email.split("@").last.downcase
+        custom_domains = [] 
+        if ENV['CUSTOM_DOMAINS']
+          custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+        end
+
+        if custom_domains.include? user_domain
+          CustomProvisionWorker.perform_async(@invitation.id)
+        else
+          SignupWorker.perform_async(@invitation.id)
+        end 
 
       redirect_to log_in_path, :flash => { :notice => "Account was successfully requested. Please check your email for login details." }
     else

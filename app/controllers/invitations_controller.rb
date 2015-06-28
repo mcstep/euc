@@ -81,7 +81,17 @@ class InvitationsController < ApplicationController
     puts "Region: #{@invitation.region}"
     respond_to do |format|
       if @invitation.save
-        SignupWorker.perform_async(@invitation.id)
+        user_domain = params[:invitation][:recipient_email].split("@").last.downcase
+        custom_domains = [] 
+        if ENV['CUSTOM_DOMAINS']
+          custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+        end
+
+        if custom_domains.include? user_domain
+          CustomProvisionWorker.perform_async(@invitation.id)
+        else
+          SignupWorker.perform_async(@invitation.id)
+        end
         format.html { redirect_to dashboard_path, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation }
       else
@@ -111,7 +121,10 @@ class InvitationsController < ApplicationController
     #Remove the AD account
     account_removed = false
     begin
-      response = RestClient.post(url="#{ENV['API_HOST']}/unregister",payload={:username => @invitation.recipient_username}, headers= {:token => ENV["API_KEY"]})
+      response = RestClient.post( url="#{ENV['API_HOST']}/unregister",
+                                  payload={:username => @invitation.recipient_username,
+                                           :domain_suffix => get_domain_suffix(@invitation.recipient_email)}, 
+                                  headers= {:token => ENV["API_KEY"]})
       puts "Got response #{response} for account deletion"
 
       if response.code == 200
@@ -122,7 +135,18 @@ class InvitationsController < ApplicationController
         AccountExpireEmailWorker.perform_async(@invitation.id)
         # Remove AirWatch account if the user is already enrolled
         if !@invitation.airwatch_user_id.nil?
-          AirwatchUnprovisionWorker.perform_async(@invitation.id)
+          user_domain = @invitation.recipient_email.split("@").last.downcase
+          custom_domains = [] 
+          if ENV['CUSTOM_DOMAINS']
+            custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+          end
+          domain_suffix = ENV['CUSTOM_DOMAINS_SUFFIX']
+
+          if custom_domains.include? user_domain
+            CustomUnprovisionWorker.perform_async(@invitation.id)
+          else
+            AirwatchUnprovisionWorker.perform_async(@invitation.id)
+          end
         end
       end
     rescue RestClient::Exception
@@ -161,7 +185,11 @@ class InvitationsController < ApplicationController
     @invitation.expires_at = Date.parse(params[:expiresAt])
 
     begin
-      response = RestClient.post(url="#{ENV['API_HOST']}/extendAccount",payload={:username => @invitation.recipient_username,  :expires_at => ((@invitation.expires_at.to_i)*1000)}, headers= {:token => ENV["API_KEY"]})
+      response = RestClient.post( url="#{ENV['API_HOST']}/extendAccount",
+                                  payload={:username => @invitation.recipient_username,  
+                                           :expires_at => ((@invitation.expires_at.to_i)*1000),
+                                           :domain_suffix => get_domain_suffix(@invitation.recipient_email)}, 
+                                  headers= {:token => ENV["API_KEY"]})
       puts "Got response #{response} for account extension"
 
       if response.code == 200

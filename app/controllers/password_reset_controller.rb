@@ -6,7 +6,11 @@ class PasswordResetController < ApplicationController
     if !@invitation.nil? && !@invitation.recipient_username.nil? && (@invitation.recipient_email == email)
       puts "Password reset requested for Email #{email}"
       begin
-        response = RestClient.post(url="#{ENV['API_HOST']}/changePassword",payload={:username => @invitation.recipient_username, :email => email}, headers= {:token => ENV["API_KEY"]})
+        response = RestClient.post( url="#{ENV['API_HOST']}/changePassword",
+                                    payload={ :username => @invitation.recipient_username, 
+                                              :email => email,
+                                              :domain_suffix => get_domain_suffix(@invitation.recipient_email),}, 
+                                    headers= {:token => ENV["API_KEY"]})
         if response.code == 200
           puts "New Password #{response}"
           PasswordResetWorker.perform_async(@invitation.id, response)

@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
 
     begin
       username = (params[:username][/[^@]+/]).downcase
+      password = params[:password]
 
       inv_for_user = Invitation.find_by_recipient_username(username)
 
@@ -21,7 +22,14 @@ class SessionsController < ApplicationController
         return
       end
 
-      response = RestClient.post(url="#{ENV['API_HOST']}/authenticate",payload={:username => username, :password => params[:password]}, headers= {:token => ENV["API_KEY"]})
+      payload_data={  :username => username, 
+                      :password => password,
+                      :domain_suffix => get_domain_suffix(inv_for_user.recipient_email),
+                     }
+
+      response = RestClient.post( url="#{ENV['API_HOST']}/authenticate",
+                                  payload=payload_data, 
+                                  headers= {:token => ENV["API_KEY"]})
       puts response
       if response.code == 200
         user_json = JSON.parse response

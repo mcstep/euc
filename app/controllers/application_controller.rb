@@ -21,4 +21,17 @@ class ApplicationController < ActionController::Base
       @domain = Domain.find_by_name(domain_name)
       !@domain.nil? && @domain.status == 'active'
     end
+
+    def get_domain_suffix(user_email)
+      user_domain = user_email.split("@").last.downcase
+      custom_domains = [] 
+      if ENV['CUSTOM_DOMAINS']
+       custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+      end
+      if custom_domains.include? user_domain
+        return ENV['CUSTOM_DOMAINS_SUFFIX']
+      else
+        return ENV['DOMAIN']
+      end
+    end
 end

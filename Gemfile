@@ -30,6 +30,7 @@ gem 'uglifier'
 gem 'unicorn', platform: :ruby
 gem 'wannabe_bool'
 gem 'haml'
+gem 'azure-directory'
 
 group :doc do
   gem 'sdoc'
