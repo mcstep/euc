@@ -7,5 +7,7 @@ class CreateProfileIntegrations < ActiveRecord::Migration
       t.boolean       :allow_sharing,           null: false, default: false
       t.timestamps                              null: false
     end
+
+    add_index :profile_integrations, [:profile_id, :integration_id], unique: true
   end
 end

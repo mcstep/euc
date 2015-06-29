@@ -18,6 +18,8 @@ class CreateUserIntegrations < ActiveRecord::Migration
       t.belongs_to  :airwatch_group,            index: true
       t.datetime    :deleted_at,                index: true
       t.timestamps                              null: false
+
+      add_index :user_integrations, [:user_id, :integration_id], unique: true
     end
   end
 end

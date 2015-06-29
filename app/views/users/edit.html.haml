@@ -1,0 +1,26 @@
+= bootstrap_form_for @user do |f|
+  .modal-header
+    %button.close{type: "button", data: {dismiss: 'modal'}}
+      %span ×
+    .td-dialog
+      %h1 Manage User
+  .modal-body
+    = f.text_field :first_name
+    = f.text_field :last_name
+    = f.email_field :email
+    = f.text_field :company_name, label_class: "required"
+    = f.text_field :job_title
+    - if current_user.root?
+      = f.select :role, I18n.t('roles').invert
+    = f.select :home_region, I18n.t('regions').invert, include_blank: true
+    = f.text_field :total_invitations
+    = f.fields_for :user_integrations do |uif|
+      %fieldset
+        %legend{style: 'margin-bottom: 15px'}= uif.object.integration.name
+        = uif.hidden_field :id
+        - uif.object.integration.enabled_services.each do |s|
+          .col-lg-6
+            = uif.check_box :"#{s}_disabled"
+  .modal-footer
+    %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
+    %button.btn.btn-success{type: "submit"} Submit

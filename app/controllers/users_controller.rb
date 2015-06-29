@@ -22,30 +22,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+    authorize @user
+
+    render layout: false
+  end
+
   def update
     @user = User.find(params[:id])
     authorize @user
 
     @user.update_attributes(user_params)
-    redirect_back_or_default users_path
-  end
-
-  def update_password
-    @user = User.find(params[:id])
-    authorize @user
-
-    unless current_user.authenticate(params[:old_password])
-      redirect_to root_path, alert: I18n.t('flash.invalid_current_password')
-      return
-    end
-
-    if params[:password] != params[:password_confirmation]
-      redirect_to root_path, alert: I18n.t('flash.invalid_confirmation')
-      return
-    end
-
-    current_user.update_password(params[:password])
-    redirect_to root_path, notice: I18n.t('flash.password_changed')
+    redirect_to users_path, notice: I18n.t('flash.user_updated')
   end
 
   def impersonate
@@ -72,6 +61,10 @@ class UsersController < ApplicationController
 protected
 
   def user_params
-    params.require(:user).permit(:total_invitations, :avatar, :avatar_data_uri, :remove_avatar)
+    params.require(:user).permit(
+      :first_name, :last_name, :email, :company_name, :job_title,
+      :role, :home_region, :total_invitations,
+      user_integrations_attributes: [:id, *Integration::SERVICES.map{|s| :"#{s}_disabled"}]
+    )
   end
 end

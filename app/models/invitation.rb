@@ -41,4 +41,11 @@ class Invitation < ActiveRecord::Base
     from_user.invitations_used += 1
     from_user.save!
   end
+
+  def self.from(user)
+    invitation = Invitation.new(from_user: user)
+    invitation.build_to_user
+    invitation.to_user.user_integrations = user.profile.profile_integrations.map(&:to_user_integration)
+    invitation
+  end
 end

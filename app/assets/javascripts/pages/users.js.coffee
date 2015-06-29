@@ -1,7 +1,8 @@
 $ ->
-  $('.limit-account-link').on 'click', ->
-    $link = $(@)
-    $form = $('#limit-account-form')
+  $('.manage-link').on 'click', ->
+    $canvas = $('#manage-modal .modal-content')
+    $canvas.html('').css('min-height', '200px').spin()
 
-    $form.attr('action', "/users/#{$link.data('id')}")
-    $('input.form-control', $form).val $link.data('value')
+    $.get $(@).data('url'), (data) ->
+      $canvas.spin(false)
+      $canvas.html(data)

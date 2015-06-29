@@ -1,5 +1,7 @@
 //= require jquery
+//= require spin
 //= require jquery.cookie
+//= require jquery.spin
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core

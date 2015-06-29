@@ -29,8 +29,6 @@ class ApplicationController < ActionController::Base
   end
 
   def setup_global_forms
-    @invitation = Invitation.new
-    @invitation.build_to_user
     @support_request = SupportRequest.new(from: current_user)
   end
 

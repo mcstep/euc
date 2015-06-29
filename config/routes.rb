@@ -11,9 +11,14 @@ Rails.application.routes.draw do
 
   resources :support_requests, only: [:create]
 
-  resources :users do
+  resource :profile do
     member do
       post :update_password
+    end
+  end
+
+  resources :users do
+    member do
       get  :impersonate
     end
     collection do

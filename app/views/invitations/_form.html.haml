@@ -10,6 +10,14 @@
   - if current_user.root?
     = uf.select :role, I18n.t('roles').invert
   = uf.select :home_region, I18n.t('regions').invert, include_blank: true
-.help-block
+  = uf.fields_for :user_integrations do |uif|
+    %fieldset
+      %legend{style: 'margin-bottom: 15px'}= uif.object.integration.name
+      = uif.hidden_field :integration_id
+      = uif.hidden_field :authentication_priority
+      - uif.object.integration.enabled_services.each do |s|
+        .col-lg-3
+          = uif.check_box :"#{s}_disabled"
+.help-block{style: 'margin-top: 20px'}
   A 30-day account will be setup for the user. After the 30-day trial ends, the user's
   %strong account will automatically be deleted from the system.

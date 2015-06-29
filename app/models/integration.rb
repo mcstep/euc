@@ -32,13 +32,12 @@
 class Integration < ActiveRecord::Base
   acts_as_paranoid
 
+  SERVICES = %w(
+    horizon_air horizon_workspace horizon_rds horizon_view airwatch office365 google_apps
+  )
+
   belongs_to :directory
-  belongs_to :office365_instance
-  belongs_to :google_apps_instance
-  belongs_to :airwatch_instance
-  belongs_to :horizon_air_instance
-  belongs_to :horizon_view_instance
-  belongs_to :horizon_rds_instance
+  SERVICES.each{|s| belongs_to :"#{s}_instance"}
 
   validates :name, presence: true
 
@@ -47,6 +46,6 @@ class Integration < ActiveRecord::Base
   end
 
   def enabled_services
-    attributes.select{|k,v| k.ends_with?('instance_id') && v}.keys.map{|k| k[0..-13]}
+    SERVICES.select{|k| self["#{k}_instance_id"]}
   end
 end

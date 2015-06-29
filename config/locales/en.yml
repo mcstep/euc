@@ -37,6 +37,7 @@ en:
     extension_error: Could not extend the user's account.
     recovered: Password reset successfully requested. Please check your email for login details.
     recover_error: Could not find use with the given email.
+    user_updated: User has been updated
 
   regions:
     amer: Americas

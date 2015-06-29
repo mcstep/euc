@@ -17,10 +17,6 @@ class UserPolicy < ApplicationPolicy
     @user.root?
   end
 
-  def update_password?
-    @user.id == @record.id
-  end
-
   def destroy?
     @user.root? || @record.invited_by.id == @user.id
   end

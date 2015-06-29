@@ -22,4 +22,11 @@ class ProfileIntegration < ActiveRecord::Base
 
   validates :profile,     presence: true
   validates :integration, presence: true
+
+  def to_user_integration
+    UserIntegration.new(
+      authentication_priority: authentication_priority,
+      integration: integration
+    )
+  end
 end

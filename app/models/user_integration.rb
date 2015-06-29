@@ -41,18 +41,38 @@ class UserIntegration < ActiveRecord::Base
   has_many :directory_prolongations
 
   statuses = {disabled: -1, not_provisioned: 0, provisioned: 1}
-  as_enum :horizon_air_status, statuses, prefix: 'horizon_air'
-  as_enum :horizon_workspace_status, statuses, prefix: 'horizon_workspace'
-  as_enum :horizon_rds_status, statuses, prefix: 'horizon_rds'
-  as_enum :horizon_view_status, statuses, prefix: 'horizon_view'
-  as_enum :airwatch_status, statuses, prefix: 'airwatch'
-  as_enum :office365_status, statuses, prefix: 'office365'
-  as_enum :google_apps_status, statuses, prefix: 'google_apps'
+  Integration::SERVICES.each do |s|
+    as_enum :"#{s}_status", {disabled: -1, not_provisioned: 0, provisioned: 1}, prefix: s
+  end
 
   validates :user, presence: true
   validates :integration, presence: true
   validates :directory_username, presence: true
   validates :directory_expiration_date, presence: true
+
+  Integration::SERVICES.each do |s|
+    define_method :"#{s}_disabled" do
+      self["#{s}_status"] < 0
+    end
+
+    define_method :"#{s}_disabled=" do |value|
+      if ActiveRecord::Type::Boolean.new.type_cast_from_database(value)
+        send :"#{s}_disabled!"
+      else
+        send :"#{s}_not_provisioned!" if send(:"#{s}_disabled?")
+      end
+    end
+  end
+
+  def adapt(user_integration)
+    if user_integration.authentication_priority.present?
+      self.authentication_priority = user_integration.authentication_priority
+    end
+
+    Integration::SERVICES.each do |s|
+      send :"#{s}_disabled=", user_integration.send(:"#{s}_disabled")
+    end
+  end
 
   def directory
     integration.directory
