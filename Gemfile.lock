@@ -305,6 +305,3 @@ DEPENDENCIES
   uglifier
   unicorn
   wannabe_bool
-
-BUNDLED WITH
-   1.10.3
