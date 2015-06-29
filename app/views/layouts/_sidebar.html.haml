@@ -1,6 +1,10 @@
 - regions = ['amer', 'emea', 'apac']
 - if !current_user.invitation.nil? && !current_user.invitation.region.nil?
   - regions.unshift(regions.delete_at(regions.index(current_user.invitation.region.downcase)))
+- custom_domains = []
+- if ENV['CUSTOM_DOMAINS']
+  - custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+- user_domain = current_user.email.split("@").last.downcase
 
 .sidebar-usercontrols
   .editprofile
@@ -18,31 +22,32 @@
   .btn-group-vertical{:role => "group"}
     %a.btn.btn-primary.btn-sm{href: "https://workspace.vmwdemo.com", target: "_blank"}
       vIDM
-    .btn-group-vertical{:role => "group"}
-      %button#horizonnative.btn.btn-info.dropdown-toggle.btn-sm{"data-container" => "body", "data-original-title" => "Make sure you have the latest Horizon Client installed!", "data-placement" => "right", "data-toggle" => "dropdown", :onclick => "$('#horizonnative').tooltip('hide')", :title => "", :type => "button"}
-        Horizon Native Client
+    - if !custom_domains.include? user_domain
+      .btn-group-vertical{:role => "group"}
+        %button#horizonnative.btn.btn-info.dropdown-toggle.btn-sm{"data-container" => "body", "data-original-title" => "Make sure you have the latest Horizon Client installed!", "data-placement" => "right", "data-toggle" => "dropdown", :onclick => "$('#horizonnative').tooltip('hide')", :title => "", :type => "button"}
+          Horizon Native Client
+          %span.caret
+        %ul.dropdown-menu
+          - regions.each_with_index do |region, idx|
+            %li
+              %a{href: "vmware-view://hv6#{region}.vmwdemo.com/", target: "_blank"}
+                %span{style: ('font-weight: bold' if idx == 0)}
+                  = region.upcase
+          %li.divider{:role => "separator"}
+          %li
+            %a{href: 'https://my.vmware.com/web/vmware/info/slug/desktop_end_user_computing/vmware_horizon_clients/3_0', target: "_blank"}
+              Download
+              %br
+              Horizon Client
+      %button.btn.btn-info.dropdown-toggle.btn-sm{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Horizon HTML Access
         %span.caret
       %ul.dropdown-menu
         - regions.each_with_index do |region, idx|
           %li
-            %a{href: "vmware-view://hv6#{region}.vmwdemo.com/", target: "_blank"}
+            %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html"}
               %span{style: ('font-weight: bold' if idx == 0)}
                 = region.upcase
-        %li.divider{:role => "separator"}
-        %li
-          %a{href: 'https://my.vmware.com/web/vmware/info/slug/desktop_end_user_computing/vmware_horizon_clients/3_0', target: "_blank"}
-            Download
-            %br
-            Horizon Client
-    %button.btn.btn-info.dropdown-toggle.btn-sm{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Horizon HTML Access
-      %span.caret
-    %ul.dropdown-menu
-      - regions.each_with_index do |region, idx|
-        %li
-          %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html"}
-            %span{style: ('font-weight: bold' if idx == 0)}
-              = region.upcase
 
 %span.sidebar-divider General
 %ul.sidebar-nav
