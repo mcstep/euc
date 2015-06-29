@@ -36,7 +36,7 @@ class CustomHorizonSyncWorker
     end
 
     puts "Sending welcome email for user #{@invitation.recipient_username} to #{@invitation.recipient_email}...."
-    WelcomeUserMailer.custom_welcome_email_invited(@invitation,password,domain_suffix).deliver
+    WelcomeUserMailer.custom_welcome_email(@invitation,password,domain_suffix).deliver
     puts "Email sent successfully for user #{@invitation.recipient_username} to #{@invitation.recipient_email}"
 
     AccountActiveDirectoryReplicateWorker.perform_async
