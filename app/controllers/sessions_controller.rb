@@ -65,10 +65,18 @@ class SessionsController < ApplicationController
 
           usr.invitation_id = inv_for_user.id;
 
+          custom_domains = [] 
+          if ENV['CUSTOM_DOMAINS']
+            custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+          end
+          user_domain = usr.email.split("@").last.downcase
+
           if !inv_for_user.reg_code_id.nil?
             reg_code = RegCode.find_by_id(inv_for_user.reg_code_id)
             #TODO: NUll check for reg_code
             usr.role =  reg_code.account_type
+          elsif custom_domains.include? user_domain
+            usr.role = 'user' #All custom domains get regular user role
           else
             # If the user is in one of the whitelisted domains -> assign a vip role
             if is_domain_whitelisted?(usr.email.split("@").last)
