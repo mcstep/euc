@@ -9,7 +9,6 @@
 				invitation.recipient_company
 			}
 			.each { |recipient_company, invitations|
-				potential_seats_sum = invitations.reduce(0) { |sum, invitation| sum + invitation.potential_seats.to_i }
 				%>
 		<div class="orgviews col-sm-12 col-md-12 col-lg-12">
 			<div class="td-org col-sm-12 col-md-12 col-lg-12">
