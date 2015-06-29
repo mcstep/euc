@@ -119,3 +119,18 @@
         .modal-footer
           %button.btn.btn-default.pull-left{type: 'button', data: {dismiss: 'modal'}} Cancel
           %button.btn.btn-success{type: 'submit'} Submit request
+
+#invite-modal.modal.fade{role: "dialog", tabindex: "-1"}
+  .modal-dialog.modal-lg
+    .modal-content{style: "text-align: left"}
+      = bootstrap_form_for(@invitation) do |f|
+        .modal-header
+          %button.close{type: 'button', data: {dismiss: 'modal'}}
+            %span ×
+          .td-dialog
+            %h1 Invite User
+        .modal-body
+          = render 'invitations/form', f: f
+        .modal-footer
+          %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
+          %button#send-invite.btn.btn-success{type: "submit"} Send Invite

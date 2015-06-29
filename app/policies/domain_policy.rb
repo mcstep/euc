@@ -1,4 +1,8 @@
 class DomainPolicy < ApplicationPolicy
+  def permitted_attributes
+    [:name]
+  end
+
   def index?
     @user.root?
   end

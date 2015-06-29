@@ -24,20 +24,22 @@ module User::IntegrationsDelegations
   end
 
   def setup_integrations
-    effective_integrations = profile.profile_integrations.to_a
-    effective_integrations = effective_integrations.select{|ei| ei.allow_sharing} if received_invitation.present?
-    effective_integrations.map!(&:to_user_integration)
+    if profile.present?
+      effective_integrations = profile.profile_integrations.to_a
+      effective_integrations = effective_integrations.select{|ei| ei.allow_sharing} if received_invitation.present?
+      effective_integrations.map!(&:to_user_integration)
 
-    effective_integrations.each do |ei|
-      ei.user                      = self
-      ei.directory_username        = integrations_username
-      ei.directory_expiration_date = integrations_expiration_date
+      effective_integrations.each do |ei|
+        ei.user                      = self
+        ei.directory_username        = integrations_username
+        ei.directory_expiration_date = integrations_expiration_date
 
-      if original = user_integrations.select{|ui| ui.integration_id == ei.integration_id}.first
-        ei.adapt(original)
+        if original = user_integrations.select{|ui| ui.integration_id == ei.integration_id}.first
+          ei.adapt(original)
+        end
       end
-    end
 
-    self.user_integrations = effective_integrations
+      self.user_integrations = effective_integrations
+    end
   end
 end

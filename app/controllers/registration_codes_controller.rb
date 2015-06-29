@@ -5,23 +5,20 @@ class RegistrationCodesController < ApplicationController
   end
 
   def show
-    @registration_code = RegistrationCode.find(params[:id])
-    authorize @registration_code
+    authorize @registration_code = RegistrationCode.find(params[:id])
   end
 
   def new
-    @registration_code = RegistrationCode.new
-    authorize @registration_code
+   authorize @registration_code = RegistrationCode.new
   end
 
   def edit
-    @registration_code = RegistrationCode.find(params[:id])
-    authorize @registration_code
+    authorize @registration_code = RegistrationCode.find(params[:id])
   end
 
   def create
-    @registration_code = RegistrationCode.new(registration_code_params)
-    authorize @registration_code
+    authorize @registration_code = RegistrationCode.new
+    @registration_code.assign_attributes(permitted_attributes(@registration_code))
 
     if @registration_code.save
       redirect_to @registration_code
@@ -31,10 +28,9 @@ class RegistrationCodesController < ApplicationController
   end
 
   def update
-    @registration_code = RegistrationCode.find(params[:id])
-    authorize @registration_code
+    authorize @registration_code = RegistrationCode.find(params[:id])
 
-    if @registration_code.update_attributes(registration_code_params)
+    if @registration_code.update_attributes(permitted_attributes(@registration_code))
       redirect_to @registration_code
     else
       render :edit
@@ -42,18 +38,9 @@ class RegistrationCodesController < ApplicationController
   end
 
   def destroy
-    @registration_code = RegistrationCode.find(params[:id])
-    authorize @registration_code
+    authorize @registration_code = RegistrationCode.find(params[:id])
     @registration_code.destroy
 
     redirect_to action: :index
-  end
-
-private
-
-  def registration_code_params
-    params.require(:registration_code).permit(
-      :user_role, :user_validity, :valid_from, :valid_to, :total_registrations
-    )
   end
 end

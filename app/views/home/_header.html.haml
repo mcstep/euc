@@ -20,7 +20,7 @@
               %button.btn.btn-default.pull-left{type: 'button', data: {dismiss: 'modal'}} Decline
               %button#accept_eula.btn.btn-success{type: "submit"} Yes, I accept
 
-  - if policy(current_user).invites? && !cookies[:super_user_notification_closed]
+  - if policy(:invitation).create? && !cookies[:super_user_notification_closed]
     #super-user-notifcation.alert.alert-danger.alert-dismissible{role: "alert"}
       %button.close{type: 'button', data: {dismiss: 'alert'}}
         %span ×
@@ -37,7 +37,7 @@
       •
       %a{href: "https://www.youtube.com/playlist?list=PLfr3uvmY7hBzbwkxXkJcbKR-3EZ6ED-N1",target: "_blank"} VMware Horizon YouTube PlayList
 
-    - if policy(current_user).invites?
+    - if policy(:invitation).create?
       %p
         Before provisioning any accounts, please familiarize yourself with the following troubleshooting information:
         %br
@@ -50,7 +50,7 @@
         %a{href: "https://pubs.vmware.com/horizon-view-60/topic/com.vmware.horizon-view.desktops.doc/GUID-D6ABDC1E-1208-44AA-9048-4E7B9E995FCA.html",target: "_blank"}
           Further Troubleshooting Information
 
-  - if policy(current_user).invites?
+  - if policy(:invitation).create?
     .alert.alert-info{role: "alert"}
       %h4 Portal SLA Information:
       %p

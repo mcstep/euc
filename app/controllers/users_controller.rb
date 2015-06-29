@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   def index
     authorize :user
-
     @users = policy_scope(User).order(:first_name).page(params[:page])
 
     if params[:search].present?
@@ -23,23 +22,19 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
-    authorize @user
-
+    authorize @user = User.find(params[:id])
     render layout: false
   end
 
   def update
-    @user = User.find(params[:id])
-    authorize @user
+    authorize @user = User.find(params[:id])
 
-    @user.update_attributes(user_params)
+    @user.update_attributes(permitted_attributes(@user))
     redirect_to users_path, notice: I18n.t('flash.user_updated')
   end
 
   def impersonate
-    @user = User.find(params[:id])
-    authorize @user
+    authorize @user = User.find(params[:id])
 
     session[:impersonator_id] = current_user.id
     @current_user             = @user
@@ -56,15 +51,5 @@ class UsersController < ApplicationController
     session[:impersonator_id] = nil
 
     redirect_to root_path
-  end
-
-protected
-
-  def user_params
-    params.require(:user).permit(
-      :first_name, :last_name, :email, :company_name, :job_title,
-      :role, :home_region, :total_invitations,
-      user_integrations_attributes: [:id, *Integration::SERVICES.map{|s| :"#{s}_disabled"}]
-    )
   end
 end

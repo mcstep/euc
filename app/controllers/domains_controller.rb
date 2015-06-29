@@ -5,29 +5,22 @@ class DomainsController < ApplicationController
   end
 
   def destroy
-    @domain = Domain.find(params[:id])
-    authorize @domain
+    authorize @domain = Domain.find(params[:id])
     @domain.destroy
     redirect_to domains_path
   end
 
   def toggle
-    @domain = Domain.find_by_id(params[:id])
-    authorize @domain
+    authorize @domain = Domain.find_by_id(params[:id])
     @domain.status = @domain.active? ? 'inactive' : 'active'
     @domain.save!
     redirect_to domains_path
   end
 
   def create
-    authorize :domain
-    @domain = Domain.create(domain_params)
+    authorize @domain = Domain.new
+    @domain.assign_attributes(permitted_attributes(@domain))
+    @domain.save
     redirect_to domains_path
-  end
- 
-protected
-
-  def domain_params
-    params.require(:domain).permit(:name)
   end
 end

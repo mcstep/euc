@@ -9,6 +9,20 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
+  def permitted_attributes
+    attributes = [
+      :first_name, :last_name, :email, :company_name, :job_title, :home_region, :total_invitations,
+      :integrations_username, :integrations_expiration_date,
+      user_integrations_attributes: [
+        :id, :integration_id, :authentication_priority, *Integration::SERVICES.map{|s| :"#{s}_disabled"}
+      ]
+    ]
+
+    attributes << :role if @user.root?
+
+    attributes
+  end
+
   def index?
     @user.root?
   end
@@ -27,15 +41,5 @@ class UserPolicy < ApplicationPolicy
 
   def unimpersonate?
     true
-  end
-
-  # Global restrictions
-
-  def system?
-    @user.root?
-  end
-
-  def invites?
-    InvitationPolicy.new(@user).create?
   end
 end

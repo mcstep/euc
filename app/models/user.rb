@@ -54,9 +54,13 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :company
   accepts_nested_attributes_for :user_integrations
 
+  delegate :can_assign_roles?, to: :policy
+
   before_save :normalize!
   before_save :cleanup_avatar!
-  after_validation { errors[:company_name] = errors[:company] if errors[:company].any? }
+  after_validation do
+    errors[:company].each{|e| errors.add(:company_name, e)}
+  end
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -69,8 +73,8 @@ class User < ActiveRecord::Base
     errors.add :invitations_used, :not_enough_invites if invitations_left < 0
   end
 
-  validate do
-    errors.add :role, :is_invalid if !basic? && invited_by && !UserPolicy.new(invited_by).system?
+  def policy
+    UserPolicy.new(self)
   end
 
   def display_name

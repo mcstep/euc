@@ -1,7 +1,6 @@
 class UserIntegrationsController < ApplicationController
   def prolong
-    @user_integration = UserIntegration.find(params[:id])
-    authorize @user_integration
+    authorize @user_integration = UserIntegration.find(params[:id])
 
     begin
       @user_integration.prolong!(current_user, params[:reason])

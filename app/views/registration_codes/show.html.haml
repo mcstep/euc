@@ -74,6 +74,3 @@
               - if policy(user).impersonate?
                 %a{href: impersonate_user_path(user), class: 'btn btn-warning btn-xs', method: :post, data: { confirm: 'Do you want to impersonate this user?' }}
                   Impersonate
-              - if policy(user).invites?
-                %a.btn.btn-default.btn-xs.limit-account-link{href: '#', data:{target: "#limit-account-modal", toggle: 'modal', id: user.id, value: user.total_invitations }}
-                  %span Edit Invitation Limit}

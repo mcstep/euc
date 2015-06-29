@@ -10,7 +10,7 @@
     = f.email_field :email
     = f.text_field :company_name, label_class: "required"
     = f.text_field :job_title
-    - if current_user.root?
+    - if writable?(f.object, :role)
       = f.select :role, I18n.t('roles').invert
     = f.select :home_region, I18n.t('regions').invert, include_blank: true
     = f.text_field :total_invitations

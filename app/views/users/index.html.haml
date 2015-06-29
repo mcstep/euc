@@ -1,7 +1,7 @@
 .col-md-12.col-sm-12.col-lg-12
   .panel.panel-default
     = form_tag users_path, method: :get, id: 'invitations-search-form', class: 'panel-body' do |f|
-      %a.btn.btn-success.pull-left{href: '#', data: {target: "#new-invite-modal", toggle: "modal"}}
+      %a.btn.btn-success.pull-left{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
         Invite user
       .input-group
         %input.form-control{name: "search", placeholder: "Search users...", type: "text", value: params[:search]}
@@ -49,9 +49,8 @@
               - if policy(user).impersonate?
                 %a.btn.btn-info.btn-xs{href: impersonate_user_path(user), method: :post, data: { confirm: 'Do you want to impersonate this user?' }}
                   Impersonate
-              - if policy(user).invites?
-                %a.btn.btn-warning.btn-xs.manage-link{href: '#', data:{target: "#manage-modal", toggle: 'modal', url: edit_user_path(user) }}
-                  %span Manage
+              %a.btn.btn-warning.btn-xs.manage-link{href: '#', data:{target: "#manage-modal", toggle: 'modal', url: edit_user_path(user) }}
+                %span Manage
     - if @users.num_pages > 1
       .panel-footer
         = paginate @users, theme: 'twitter-bootstrap-3'

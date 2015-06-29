@@ -1,4 +1,4 @@
-- if policy(current_user).invites?
+- if policy(:invitation).create?
   .col-md-12.col-sm-12.col-lg-12
     %h1.lined
       %span Organizations and Users

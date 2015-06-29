@@ -49,17 +49,21 @@
   %li
     %a{href: "#"} FAQ
 
-- if policy(current_user).system?
-  %span.sidebar-divider Admin
+- if policy(:invitation).create? || policy(:user).index? || policy(:domain).index? || policy(:registration_code).index?
+  %span.sidebar-divider Manage
   %ul.sidebar-nav
-    %li
-      %a{href: new_invitation_path} Send Invitation
-    %li
-      %a{href: users_path} Users
-    %li
-      %a{href: domains_path} Domains
-    %li
-      %a{href: registration_codes_path} Reg Codes
+    - if policy(:invitation).create?
+      %li
+        %a{href: new_invitation_path} Send Invitation
+    - if policy(:user).index?
+      %li
+        %a{href: users_path} Users
+    - if policy(:domain).index?
+      %li
+        %a{href: domains_path} Domains
+    - if policy(:registration_code).index?
+      %li
+        %a{href: registration_codes_path} Reg Codes
 
 %span.sidebar-divider Your Account
 %ul.sidebar-nav

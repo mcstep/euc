@@ -1,7 +1,7 @@
 .col-md-12.col-lg-8.col-sm-12
   .ibox
     .ibox-title
-      %a.btn.btn-success.btn-xs.pull-right{href: '#', data: {target: "#dashboard-invite-modal", toggle: "modal"}}
+      %a.btn.btn-success.btn-xs.pull-right{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
         Invite user
       %h5 Invitation Statistics
     .ibox-content
@@ -22,18 +22,3 @@
       %h1.no-margins
         = current_user.expiring_invited_users.size
       Accounts Expiring Soon
-
-#dashboard-invite-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  .modal-dialog
-    .modal-content{style: "text-align: left"}
-      = bootstrap_form_for(@invitation) do |f|
-        .modal-header
-          %button.close{type: 'button', data: {dismiss: 'modal'}}
-            %span ×
-          .td-dialog
-            %h1 Invite User
-        .modal-body
-          = render 'invitations/form', f: f
-        .modal-footer
-          %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
-          %button#send-invite.btn.btn-success{type: "submit"} Send Invite
