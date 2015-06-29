@@ -9,6 +9,13 @@ class WelcomeUserMailer < ActionMailer::Base
     mail(to: @user.recipient_email, subject: 'Your Account Information')
   end
 
+  def custom_welcome_email(invitation, password, domain)
+    @invitation = invitation
+    @password = password
+    @domain = domain
+    mail(to: @invitation.recipient_email, subject: 'Your Account Information')
+  end
+
   def welcome_email_invited(invitation, password, domain)
     @invitation = invitation
     @password = password

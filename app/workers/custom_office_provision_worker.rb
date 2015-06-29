@@ -89,6 +89,6 @@ class CustomOfficeProvisionWorker
       puts "Azure AD password reset disabled. Won't reset password for user #{@invitation.recipient_username}@#{domain_suffix}"
     end
 
-    CustomAirwatchProvisionWorker.perform_async(invitation_id)
+    CustomAirwatchProvisionWorker.perform_async(invitation_id, password)
  end
 end

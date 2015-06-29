@@ -5,7 +5,7 @@ require 'rqrcode_png'
 class CustomAirwatchProvisionWorker
   include Sidekiq::Worker
 
-  def perform(invitation_id)
+  def perform(invitation_id, password)
     @invitation = Invitation.find(invitation_id)
     
     puts "Will start AirWatch provisioning for #{@invitation.recipient_username}:#{@invitation.recipient_email}"
@@ -100,6 +100,6 @@ class CustomAirwatchProvisionWorker
       puts e
     end
 
-    CustomHorizonSyncWorker.perform_async(invitation_id)
+    CustomHorizonSyncWorker.perform_async(invitation_id, password)
   end
 end
