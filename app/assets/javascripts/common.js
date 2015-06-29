@@ -42,6 +42,9 @@
     return false;
   };
 
+  $('#horizonnative').tooltip('toggle')
+  $('#horizonnative').tooltip('hide')
+  $('[data-toggle="dropdown"]').dropdown();
   $('[data-toggle="tooltip"]').tooltip();
   $('[data-toggle="popover"]').popover();
   $('[data-provide="datepicker"]').datepicker({format: 'dd.mm.yyyy'});

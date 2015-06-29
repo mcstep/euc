@@ -15,7 +15,7 @@
     %a.btn.btn-primary.btn-sm{href: "https://workspace.vmwdemo.com", target: "_blank"}
       vIDM
     .btn-group-vertical{role: "group"}
-      %button.btn.btn-sm.btn-info.dropdown-toggle{data: {container: 'body', placement: 'right', toggle: 'dropdown'}}
+      %button#horizonnative.btn.btn-sm.btn-info.dropdown-toggle{onclick: "$(this).tooltip('hide')", data: {container: 'body', placement: 'right', toggle: 'dropdown', "original-title" => "Make sure you have the latest Horizon Client installed!"}}
         Horizon Native Client
         %span.caret
       %ul.dropdown-menu
