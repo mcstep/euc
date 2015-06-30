@@ -9,7 +9,7 @@
         = f.text_field :recipient_firstname, hide_label: true, placeholder: 'First Name', required: true
         = f.text_field :recipient_lastname, hide_label: true, placeholder: 'Last Name', required: true
         = f.text_field :recipient_username, hide_label: true, placeholder: 'Username (optional)', required: false
-        = f.text_field :recipient_email, hide_label: true, placeholder: 'E-Mail', required: true
+        = f.email_field :recipient_email, hide_label: true, placeholder: 'E-Mail', required: true
         = f.text_field :recipient_title, hide_label: true, placeholder: 'Title', required: true
         = f.text_field :recipient_company, hide_label: true, placeholder: 'Company', required: true
         %h2 Region
