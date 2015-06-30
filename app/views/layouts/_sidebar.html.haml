@@ -19,8 +19,8 @@
   %img{src: current_user.avatar_url}
   %p
     %span.sidebar-username
-      First
-      %strong Last
+      current_user.display_name.split(" ")[0]
+      %strong current_user.display_name.split(" ")[1]
 
 %span.sidebar-divider.clear Launch
 
