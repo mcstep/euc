@@ -36,6 +36,7 @@
 #
 
 class User < ActiveRecord::Base
+  include Authentication
   include IntegrationsDelegations
 
   acts_as_paranoid
@@ -155,16 +156,6 @@ class User < ActiveRecord::Base
     else
       Cloudinary::Utils.cloudinary_url(self.avatar, :width => 200, :height => 200, :crop => :thumb)
     end
-  end
-
-  def authenticate(password)
-    return false unless data = authentication_integration.directory.authenticate(
-      authentication_integration.directory_username,
-      password
-    )
-    update_from_ad!(data)
-
-    true
   end
 
   def update_password(password=nil)

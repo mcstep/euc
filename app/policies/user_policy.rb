@@ -42,4 +42,8 @@ class UserPolicy < ApplicationPolicy
   def unimpersonate?
     true
   end
+
+  def sidekiq?
+    @user.root?
+  end
 end

@@ -21,6 +21,7 @@ gem 'kaminari'
 gem 'micromachine'
 gem 'google-api-client'
 gem 'rqrcode_png'
+gem 'sinatra', require: nil
 
 gem 'paranoia', '~> 2.0'
 gem 'simple_enum'

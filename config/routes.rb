@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq', constraints: User::Authentication::Constraint.new(:sidekiq?)
+
   root 'home#index'
 
   resource :session do
