@@ -28,7 +28,11 @@
   .btn-group-vertical{:role => "group"}
     %a.btn.btn-primary.btn-sm{href: "#{workspace_url}", target: "_blank"}
       #{workspace_text}
-    - if !custom_domains.include? user_domain
+    - if custom_domains.include? user_domain
+      .btn-group-vertical{:role => "group"}
+        %a.btn.btn-primary.btn-sm{href: "https://apple.awmdm.com", target: "_blank"}
+          AW Admin Console
+    - else
       .btn-group-vertical{:role => "group"}
         %button#horizonnative.btn.btn-info.dropdown-toggle.btn-sm{"data-container" => "body", "data-original-title" => "Make sure you have the latest Horizon Client installed!", "data-placement" => "right", "data-toggle" => "dropdown", :onclick => "$('#horizonnative').tooltip('hide')", :title => "", :type => "button"}
           Horizon Native Client
