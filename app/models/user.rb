@@ -20,6 +20,7 @@
 #  total_invitations             :integer          default(5), not null
 #  home_region                   :string
 #  airwatch_eula_accept_date     :date
+#  last_authorized_at            :datetime
 #  deleted_at                    :datetime
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null

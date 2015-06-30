@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user
   before_action :require_login
-  before_action :setup_global_forms
+  before_action :setup_global_forms, if: :current_user
   after_action  :verify_authorized
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized

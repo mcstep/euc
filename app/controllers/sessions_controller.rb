@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
     user = User.where(email: params[:email]).first
 
     if user && user.authenticate(params[:password])
+      user.update_attributes(last_authorized_at: DateTime.now)
       @current_user = user
       session[:user_id] = user.id
       redirect_to root_path, notice: I18n.t('flash.logged_in')

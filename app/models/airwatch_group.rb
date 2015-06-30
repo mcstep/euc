@@ -2,19 +2,19 @@
 #
 # Table name: airwatch_groups
 #
-#  id         :integer          not null, primary key
-#  text_id    :string
-#  numeric_id :string
-#  type       :string
-#  parent_id  :integer
-#  deleted_at :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                   :integer          not null, primary key
+#  airwatch_instance_id :integer
+#  company_id           :integer
+#  text_id              :string
+#  numeric_id           :string
+#  type                 :string
+#  deleted_at           :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #
 # Indexes
 #
 #  index_airwatch_groups_on_deleted_at  (deleted_at)
-#  index_airwatch_groups_on_parent_id   (parent_id)
 #
 
 class AirwatchGroup < ActiveRecord::Base
@@ -30,8 +30,8 @@ class AirwatchGroup < ActiveRecord::Base
 
   def self.instantiate(user_integration)
     condition = {
-      company_id:           user_integration.user.company_id
-      airwatch_instance_id: user_integration.integration.airwatch_instance_id,
+      company_id:           user_integration.user.company_id,
+      airwatch_instance_id: user_integration.integration.airwatch_instance_id
     }
 
     return attempt if attempt = where(condition).first

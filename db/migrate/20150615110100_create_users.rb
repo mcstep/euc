@@ -18,6 +18,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer           :total_invitations,           null: false, default: 5
       t.string            :home_region
       t.date              :airwatch_eula_accept_date
+      t.datetime          :last_authorized_at
       t.datetime          :deleted_at,                  index: true
       t.timestamps                                      null: false
     end

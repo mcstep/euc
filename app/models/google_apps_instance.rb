@@ -4,6 +4,7 @@
 #
 #  id               :integer          not null, primary key
 #  group_name       :string
+#  group_region     :string
 #  key_base64       :text
 #  key_password     :string
 #  initial_password :string

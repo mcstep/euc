@@ -4,6 +4,7 @@
 #
 #  id            :integer          not null, primary key
 #  group_name    :string
+#  group_region  :string
 #  instance_url  :string
 #  instance_port :string
 #  api_key       :string

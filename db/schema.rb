@@ -14,20 +14,21 @@
 ActiveRecord::Schema.define(version: 20150615150031) do
 
   create_table "airwatch_groups", force: :cascade do |t|
+    t.integer  "airwatch_instance_id"
+    t.integer  "company_id"
     t.string   "text_id"
     t.string   "numeric_id"
     t.string   "type"
-    t.integer  "parent_id"
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   add_index "airwatch_groups", ["deleted_at"], name: "index_airwatch_groups_on_deleted_at"
-  add_index "airwatch_groups", ["parent_id"], name: "index_airwatch_groups_on_parent_id"
 
   create_table "airwatch_instances", force: :cascade do |t|
     t.string   "group_name"
+    t.string   "group_region"
     t.string   "api_key"
     t.string   "host"
     t.string   "user"
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 20150615150031) do
 
   create_table "google_apps_instances", force: :cascade do |t|
     t.string   "group_name"
+    t.string   "group_region"
     t.text     "key_base64"
     t.string   "key_password"
     t.string   "initial_password"
@@ -115,6 +117,7 @@ ActiveRecord::Schema.define(version: 20150615150031) do
 
   create_table "horizon_air_instances", force: :cascade do |t|
     t.string   "group_name"
+    t.string   "group_region"
     t.string   "instance_url"
     t.string   "instance_port"
     t.string   "api_key"
@@ -128,7 +131,8 @@ ActiveRecord::Schema.define(version: 20150615150031) do
   create_table "horizon_instances", force: :cascade do |t|
     t.string   "rds_group_name"
     t.string   "workspace_group_name"
-    t.string   "desktops_group_name"
+    t.string   "view_group_name"
+    t.string   "group_region"
     t.string   "api_host"
     t.string   "api_port"
     t.string   "api_key"
@@ -182,9 +186,10 @@ ActiveRecord::Schema.define(version: 20150615150031) do
 
   create_table "office365_instances", force: :cascade do |t|
     t.string   "group_name"
+    t.string   "group_region"
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "office365_instances", ["deleted_at"], name: "index_office365_instances_on_deleted_at"
@@ -285,6 +290,7 @@ ActiveRecord::Schema.define(version: 20150615150031) do
     t.integer  "total_invitations",             default: 5, null: false
     t.string   "home_region"
     t.date     "airwatch_eula_accept_date"
+    t.datetime "last_authorized_at"
     t.datetime "deleted_at"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false

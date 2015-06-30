@@ -2,11 +2,12 @@
 #
 # Table name: office365_instances
 #
-#  id         :integer          not null, primary key
-#  group_name :string
-#  deleted_at :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  group_name   :string
+#  group_region :string
+#  deleted_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 # Indexes
 #

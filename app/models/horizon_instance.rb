@@ -5,7 +5,8 @@
 #  id                   :integer          not null, primary key
 #  rds_group_name       :string
 #  workspace_group_name :string
-#  desktops_group_name  :string
+#  view_group_name      :string
+#  group_region         :string
 #  api_host             :string
 #  api_port             :string
 #  api_key              :string

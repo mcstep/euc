@@ -4,6 +4,7 @@
 #
 #  id              :integer          not null, primary key
 #  group_name      :string
+#  group_region    :string
 #  api_key         :string
 #  host            :string
 #  user            :string
