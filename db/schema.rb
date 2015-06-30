@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615150031) do
+ActiveRecord::Schema.define(version: 20150630021239) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.datetime "expiration_date"
+    t.string   "username"
+    t.string   "company"
+    t.string   "job_title"
+    t.integer  "account_source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.string   "home_region"
+    t.string   "uuid"
+    t.string   "country_code"
+  end
+
+  add_index "accounts", ["deleted_at"], name: "index_accounts_on_deleted_at"
 
   create_table "airwatch_groups", force: :cascade do |t|
     t.integer  "airwatch_instance_id"

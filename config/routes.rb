@@ -42,4 +42,22 @@ Rails.application.routes.draw do
     end
   end
   resources :registration_codes
+
+  scope '/api' do
+    scope '/trygrid' do
+      scope '/v1' do
+        scope '/accounts' do
+          get '/' => 'ghetto/accounts#index'
+          post '/' => 'ghetto/accounts#create'
+          scope '/:uuid' do
+            get '/' => 'ghetto/accounts#show'
+            delete '/' => 'ghetto/accounts#delete'
+            put '/' => 'ghetto/accounts#update'
+            post '/password_reset' => 'ghetto/accounts#reset_password'
+            post '/password_change' => 'ghetto/accounts#change_password'
+          end
+        end
+      end
+    end
+  end
 end
