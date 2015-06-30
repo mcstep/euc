@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   layout 'unauthorized'
 
   def new
+    @small_footer = true
   end
 
   def create
