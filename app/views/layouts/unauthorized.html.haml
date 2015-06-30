@@ -2,6 +2,10 @@
   .container
     = yield
   .container
-    = render 'layouts/footer'
+    - haml_tag(@small_footer ? 'small' : 'div') do
+      .container
+        #footer.col-sm-12.col-md-12.col-lg-12
+          %p © 2015 EUC Global Solution Engineering Team
+
 
 = render 'layouts/global'

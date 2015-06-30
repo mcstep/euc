@@ -4,7 +4,9 @@ class SessionsController < ApplicationController
   skip_before_action :require_login
   skip_after_action :verify_authorized
 
-  def new; end
+  def new
+    @small_footer = true
+  end
 
   def create
     user = User.where(email: params[:email]).first
