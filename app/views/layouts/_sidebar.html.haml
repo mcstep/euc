@@ -2,13 +2,15 @@
 - if !current_user.invitation.nil? && !current_user.invitation.region.nil?
   - regions.unshift(regions.delete_at(regions.index(current_user.invitation.region.downcase)))
 - custom_domains = []
-- workspace_url  = "https://workspace.vmwdemo.com"
-- workspace_text = "Workspace"
 - if ENV['CUSTOM_DOMAINS']
   - custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+- user_domain = current_user.email.split("@").last.downcase
+
+- workspace_url  = "https://workspace.vmwdemo.com"
+- workspace_text = "Workspace"
+- if custom_domains.include? user_domain
   - workspace_url  = "https://vidm.vmtestdrive.com"
   - workspace_text = "vIDM"
-- user_domain = current_user.email.split("@").last.downcase
 
 .sidebar-usercontrols
   .editprofile
