@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resource :profile do
     member do
+      post :accept_airwatch_eula
       post :update_password
     end
   end

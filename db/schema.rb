@@ -103,7 +103,6 @@ ActiveRecord::Schema.define(version: 20150615150031) do
     t.string   "group_name"
     t.text     "key_base64"
     t.string   "key_password"
-    t.string   "domain"
     t.string   "initial_password"
     t.string   "service_account"
     t.string   "act_on_behalf"
@@ -142,6 +141,7 @@ ActiveRecord::Schema.define(version: 20150615150031) do
 
   create_table "integrations", force: :cascade do |t|
     t.string   "name"
+    t.string   "domain"
     t.integer  "directory_id"
     t.integer  "office365_instance_id"
     t.integer  "google_apps_instance_id"
@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(version: 20150615150031) do
   end
 
   add_index "profile_integrations", ["integration_id"], name: "index_profile_integrations_on_integration_id"
+  add_index "profile_integrations", ["profile_id", "integration_id"], name: "index_profile_integrations_on_profile_id_and_integration_id", unique: true
   add_index "profile_integrations", ["profile_id"], name: "index_profile_integrations_on_profile_id"
 
   create_table "profiles", force: :cascade do |t|
@@ -243,8 +244,8 @@ ActiveRecord::Schema.define(version: 20150615150031) do
     t.integer  "user_id"
     t.integer  "integration_id"
     t.string   "directory_username"
-    t.integer  "directory_status"
-    t.integer  "authentication_priority",   default: 0, null: false
+    t.date     "directory_expiration_date",             null: false
+    t.integer  "directory_status",          default: 0, null: false
     t.integer  "horizon_air_status",        default: 0, null: false
     t.integer  "horizon_workspace_status",  default: 0, null: false
     t.integer  "horizon_rds_status",        default: 0, null: false
@@ -252,7 +253,6 @@ ActiveRecord::Schema.define(version: 20150615150031) do
     t.integer  "airwatch_status",           default: 0, null: false
     t.integer  "office365_status",          default: 0, null: false
     t.integer  "google_apps_status",        default: 0, null: false
-    t.date     "directory_expiration_date",             null: false
     t.integer  "airwatch_user_id"
     t.integer  "airwatch_group_id"
     t.datetime "deleted_at"
@@ -264,13 +264,15 @@ ActiveRecord::Schema.define(version: 20150615150031) do
   add_index "user_integrations", ["airwatch_user_id"], name: "index_user_integrations_on_airwatch_user_id"
   add_index "user_integrations", ["deleted_at"], name: "index_user_integrations_on_deleted_at"
   add_index "user_integrations", ["integration_id"], name: "index_user_integrations_on_integration_id"
+  add_index "user_integrations", ["user_id", "integration_id"], name: "index_user_integrations_on_user_id_and_integration_id", unique: true
   add_index "user_integrations", ["user_id"], name: "index_user_integrations_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.integer  "company_id"
     t.integer  "profile_id"
     t.integer  "registration_code_id"
-    t.string   "email",                                 null: false
+    t.integer  "authentication_integration_id"
+    t.string   "email",                                     null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "avatar"
@@ -279,15 +281,16 @@ ActiveRecord::Schema.define(version: 20150615150031) do
     t.integer  "role"
     t.integer  "status"
     t.string   "job_title"
-    t.integer  "invitations_used",          default: 0, null: false
-    t.integer  "total_invitations",         default: 5, null: false
+    t.integer  "invitations_used",              default: 0, null: false
+    t.integer  "total_invitations",             default: 5, null: false
     t.string   "home_region"
     t.date     "airwatch_eula_accept_date"
     t.datetime "deleted_at"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
+  add_index "users", ["authentication_integration_id"], name: "index_users_on_authentication_integration_id"
   add_index "users", ["company_id"], name: "index_users_on_company_id"
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at"
   add_index "users", ["email"], name: "index_users_on_email"

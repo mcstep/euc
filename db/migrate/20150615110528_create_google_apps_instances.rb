@@ -2,6 +2,7 @@ class CreateGoogleAppsInstances < ActiveRecord::Migration
   def change
     create_table :google_apps_instances do |t|
       t.string      :group_name
+      t.string      :group_region
       t.text        :key_base64
       t.string      :key_password
       t.string      :initial_password

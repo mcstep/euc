@@ -33,19 +33,23 @@ class Invitation < ActiveRecord::Base
   validates :to_user, presence: true, uniqueness: {scope: :from_user_id}
   validates :to_user_id, inclusion: {in: [nil]}, on: :create
 
-  before_validation do
-    to_user.profile_id = from_user.profile_id if to_user
-  end
-
-  after_create do
-    from_user.invitations_used += 1
-    from_user.save!
-  end
+  before_validation { to_user.profile_id = from_user.profile_id if to_user }
+  after_create      :use_invitation_point
 
   def self.from(user)
     invitation = Invitation.new(from_user: user)
     invitation.build_to_user
     invitation.to_user.user_integrations = user.profile.profile_integrations.map(&:to_user_integration)
     invitation
+  end
+
+  def use_invitation_point
+    from_user.invitations_used += 1
+    from_user.save!
+  end
+
+  def free_invitation_point
+    from_user.invitations_used -= 1
+    from_user.save!
   end
 end

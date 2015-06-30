@@ -26,7 +26,7 @@ class Directory < ActiveRecord::Base
 
   def query(action, payload, params={})
     response = RestClient.post url(action), payload, params.merge(token: api_key)
-    raise Exception unless response.code == 200
+    raise "Directory request returned #{response.code}" unless response.code == 200
     JSON.parse response
   end
 
@@ -42,6 +42,10 @@ class Directory < ActiveRecord::Base
     query 'changeUserPassword', username: username, password: password
   end
 
+  def prolong(username, expires_at)
+    query 'extendAccount', username: username, expires_at: expires_at.to_i*1000
+  end
+
   def signup(user_integration)
     query 'signup',
       fname: user_integration.user.first_name,
@@ -54,11 +58,27 @@ class Directory < ActiveRecord::Base
       region: user_integration.user.home_region
   end
 
-  def prolong(username, expires_at)
-    query 'extendAccount', username: username, expires_at: expires_at.to_i*1000
-  end
-
   def replicate
     query 'ad/replicate', {uname: 'demo.user'}, timeout: 200, open_timeout: 10
+  end
+
+  def create_profile(username, region)
+    query 'createdir', username: username, region: region
+  end
+
+  def sync(region)
+    query "sync/#{region}", uname: 'demo.user'
+  end
+
+  def unregister(username)
+    query 'unregister', {username: username}
+  end
+
+  def add_group(username, group)
+    query 'addUserToGroup', username: username, group: group
+  end
+
+  def remove_group(username, group)
+    query 'removeUserFromGroup', username: username, group: group
   end
 end

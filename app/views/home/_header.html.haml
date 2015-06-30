@@ -2,14 +2,14 @@
   - if current_user.has_airwatch? && current_user.airwatch_eula_accept_date.nil?
     .alert.alert-warning{role: "alert"}
       You have been provisioned an AirWatch trial account. Click
-      %a.alert-link{href: '#', data: {target: "#eula-modal", toggle: "modal"}}
+      %a.alert-link{href: '#', data: {target: "#airwatch-eula-modal", toggle: "modal"}}
         here
       to accept the EULA and activate the trial.
 
-    #eula-modal.modal.fade{role: "dialog", tabindex: "-1"}
+    #airwatch-eula-modal.modal.fade{role: "dialog", tabindex: "-1"}
       .modal-dialog
         .modal-content
-          = form_tag '/eula' do
+          = form_tag accept_airwatch_eula_profile_path do
             .modal-header
               %button.close{type: 'button', data: {dismiss: 'modal'}}
                 %span

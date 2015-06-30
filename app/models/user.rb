@@ -2,34 +2,36 @@
 #
 # Table name: users
 #
-#  id                        :integer          not null, primary key
-#  company_id                :integer
-#  profile_id                :integer
-#  registration_code_id      :integer
-#  email                     :string           not null
-#  first_name                :string
-#  last_name                 :string
-#  avatar                    :string
-#  country_code              :string
-#  phone                     :string
-#  role                      :integer
-#  status                    :integer
-#  job_title                 :string
-#  invitations_used          :integer          default(0), not null
-#  total_invitations         :integer          default(5), not null
-#  home_region               :string
-#  airwatch_eula_accept_date :date
-#  deleted_at                :datetime
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
+#  id                            :integer          not null, primary key
+#  company_id                    :integer
+#  profile_id                    :integer
+#  registration_code_id          :integer
+#  authentication_integration_id :integer
+#  email                         :string           not null
+#  first_name                    :string
+#  last_name                     :string
+#  avatar                        :string
+#  country_code                  :string
+#  phone                         :string
+#  role                          :integer
+#  status                        :integer
+#  job_title                     :string
+#  invitations_used              :integer          default(0), not null
+#  total_invitations             :integer          default(5), not null
+#  home_region                   :string
+#  airwatch_eula_accept_date     :date
+#  deleted_at                    :datetime
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
 #
 # Indexes
 #
-#  index_users_on_company_id            (company_id)
-#  index_users_on_deleted_at            (deleted_at)
-#  index_users_on_email                 (email)
-#  index_users_on_profile_id            (profile_id)
-#  index_users_on_registration_code_id  (registration_code_id)
+#  index_users_on_authentication_integration_id  (authentication_integration_id)
+#  index_users_on_company_id                     (company_id)
+#  index_users_on_deleted_at                     (deleted_at)
+#  index_users_on_email                          (email)
+#  index_users_on_profile_id                     (profile_id)
+#  index_users_on_registration_code_id           (registration_code_id)
 #
 
 class User < ActiveRecord::Base
@@ -39,9 +41,22 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  scope :expiring_soon, lambda {
+    joins(:authentication_integration).where(
+      'user_integrations.expires_at > ? and expires_at < ?', DateTime.now, DateTime.now + 72.hours
+    )
+  }
+
+  scope :expired, lambda {
+    joins(:authentication_integration).where(
+      'user_integrations.expires_at < ?', DateTime.now - 24.hour # 24 hour grace period
+    )
+  }
+
   ROLES = {basic: 0, admin: 1, root: 2}
   REGIONS = %w(amer emea apac dldc)
 
+  belongs_to :authentication_integration, class_name: "UserIntegration"
   belongs_to :company
   belongs_to :profile
   has_many :user_integrations, -> { includes(:directory_prolongations) }
@@ -56,11 +71,11 @@ class User < ActiveRecord::Base
 
   delegate :can_assign_roles?, to: :policy
 
-  before_save :normalize!
-  before_save :cleanup_avatar!
-  after_validation do
-    errors[:company].each{|e| errors.add(:company_name, e)}
-  end
+  before_save      :normalize!
+  before_save      :cleanup_avatar!
+  after_validation :normalize_errors
+  after_create     { SignupWorker.perform_async(id) }
+  after_destroy    { received_invitation.try(:free_invitation_point) }
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -70,7 +85,11 @@ class User < ActiveRecord::Base
   validates :profile, presence: true
 
   validate do
-    errors.add :invitations_used, :not_enough_invites if invitations_left < 0
+    errors.add :invitations_used, :invalid if invitations_left < 0
+
+    if authentication_integration_id && !user_integration_ids.include?(authentication_integration_id)
+      errors.add :authentication_integration_id, :invalid 
+    end
   end
 
   def policy
@@ -97,8 +116,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def domain
+    email.split("@", 2).last
+  end
+
   def expiration_date
-    user_integrations.map(&:directory_expiration_date).min
+    authentication_integration.directory_expiration_date
   end
 
   def invited_users
@@ -125,13 +148,6 @@ class User < ActiveRecord::Base
     user_integrations.select{|ui| !ui.airwatch_disabled? && ui.integration.airwatch_instance}.any?
   end
 
-  def authentication_user_integration
-    @authentication_user_integration ||= user_integrations.includes(:integration)
-      .where.not(integrations: {directory_id: nil})
-      .order("authentication_priority DESC")
-      .first
-  end
-
   def avatar_url
     if avatar.blank?
       ActionController::Base.helpers.image_path('default_avatar.png')
@@ -141,8 +157,8 @@ class User < ActiveRecord::Base
   end
 
   def authenticate(password)
-    return false unless data = authentication_user_integration.directory.authenticate(
-      authentication_user_integration.directory_username,
+    return false unless data = authentication_integration.directory.authenticate(
+      authentication_integration.directory_username,
       password
     )
     update_from_ad!(data)
@@ -151,14 +167,18 @@ class User < ActiveRecord::Base
   end
 
   def update_password(password=nil)
-    authentication_user_integration.directory.update_password(
-      authentication_user_integration.directory_username,
+    authentication_integration.directory.update_password(
+      authentication_integration.directory_username,
       password
     )
   end
 
   def normalize!
     email.downcase!
+  end
+
+  def normalize_errors
+    errors[:company].each{|e| errors.add(:company_name, e)}
   end
 
   def cleanup_avatar!
@@ -178,5 +198,22 @@ class User < ActiveRecord::Base
     end
 
     save!
+  end
+
+  def accept_airwatch_eula!
+    self.airwatch_eula_accept_date = Date.today
+    save!
+
+    user_integrations.airwatch_not_approveds.each do |ui|
+      ui.airwatch.approve
+      ui.save!
+    end
+  end
+
+  def expire!
+    authentication_integration.directory.unregister(
+      authentication_integration.directory_username
+    )
+    destroy!
   end
 end

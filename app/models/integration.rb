@@ -4,6 +4,7 @@
 #
 #  id                            :integer          not null, primary key
 #  name                          :string
+#  domain                        :string
 #  directory_id                  :integer
 #  office365_instance_id         :integer
 #  google_apps_instance_id       :integer
@@ -40,12 +41,13 @@ class Integration < ActiveRecord::Base
   SERVICES.each{|s| belongs_to :"#{s}_instance"}
 
   validates :name, presence: true
-
-  def domain
-    google_apps_instance.domain
-  end
+  validates :domain, presence: true
 
   def enabled_services
     SERVICES.select{|k| self["#{k}_instance_id"]}
+  end
+
+  def disabled_services
+    SERVICES - enabled_services
   end
 end

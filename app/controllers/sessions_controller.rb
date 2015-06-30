@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
     end
 
     begin
-      PasswordResetWorker.perform_async @user.id, @user.update_password
+      PasswordRecoverWorker.perform_async @user.id, @user.update_password
     rescue Exception => e
       redirect_to new_session_path, alert: I18n.t('flash.recover_error')
       return

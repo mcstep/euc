@@ -20,5 +20,6 @@ class HorizonAirInstance < ActiveRecord::Base
   acts_as_paranoid
 
   validates :group_name,   presence: true
+  validates :group_region, presence: true
   validates :instance_url, presence: true
 end

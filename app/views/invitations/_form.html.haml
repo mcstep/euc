@@ -14,7 +14,6 @@
     %fieldset
       %legend{style: 'margin-bottom: 15px'}= uif.object.integration.name
       = uif.hidden_field :integration_id
-      = uif.hidden_field :authentication_priority
       - uif.object.integration.enabled_services.each do |s|
         .col-lg-3
           = uif.check_box :"#{s}_disabled"

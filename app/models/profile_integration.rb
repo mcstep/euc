@@ -12,8 +12,9 @@
 #
 # Indexes
 #
-#  index_profile_integrations_on_integration_id  (integration_id)
-#  index_profile_integrations_on_profile_id      (profile_id)
+#  index_profile_integrations_on_integration_id                 (integration_id)
+#  index_profile_integrations_on_profile_id                     (profile_id)
+#  index_profile_integrations_on_profile_id_and_integration_id  (profile_id,integration_id) UNIQUE
 #
 
 class ProfileIntegration < ActiveRecord::Base
@@ -25,7 +26,6 @@ class ProfileIntegration < ActiveRecord::Base
 
   def to_user_integration
     UserIntegration.new(
-      authentication_priority: authentication_priority,
       integration: integration
     )
   end

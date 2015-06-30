@@ -1,5 +1,10 @@
-class ProfileController < ApplicationController
+class ProfilesController < ApplicationController
   skip_after_action :verify_authorized
+
+  def accept_airwatch_eula
+    current_user.accept_airwatch_eula!
+    redirect_back_or_root
+  end
 
   def update
     current_user.update_attributes(profile_params)
@@ -23,7 +28,7 @@ class ProfileController < ApplicationController
 
 protected
 
-  def profile_params do
+  def profile_params
     params.require(:user).permit(
       :avatar, :avatar_data_uri, :remove_avatar
     )

@@ -13,7 +13,7 @@ class GeneralMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Your Account Information')
   end
 
-  def password_reset_email(user, password)
+  def password_recover_email(user, password)
     @user     = user
     @password = password
 
@@ -42,11 +42,10 @@ class GeneralMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Account Expiration Reminder')
   end
 
-  def account_prolongation_email(user, prolongation)
-    @user = user
+  def directory_prolongation_email(prolongation)
     @prolongation = prolongation
 
-    mail(to: @user.email, subject: 'Account Extension')
+    mail(to: @prolongation.user_integration.user.email, subject: 'Account Prolongation')
   end
 
   def portal_upgrades_email(user)
@@ -55,12 +54,26 @@ class GeneralMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Demo Portal Upgrades')
   end
 
-  def airwatch_activation_email(user_integration, qr)
+  def airwatch_activation_email(user_integration)
+    instance  = user_integration.integration.airwatch_instance
     @user     = user_integration.user
     @username = user_integration.directory_username
-    @group    = user_integration.integration.airwatch_instance.parent_group_id
+    @group    = instance.parent_group_id
     @domain   = user_integration.integration.domain
-    @qr       = qr
+    path      = Rails.root.join 'tmp', Dir::Tmpname.make_tmpname('qr', nil)
+
+    begin
+      RQRCode::QRCode.new(
+        "https://awagent.com/Home/Welcome?gid=#{user_integration.airwatch_group.text_id}&serverurl=#{host}",
+        size: 10
+      ).to_img.resize(200, 200).save(path)
+
+      result = Cloudinary::Uploader.upload(path)
+    ensure
+      File.delete(path) if File.exist?(path)
+    end
+
+    @qr = result['url']
 
     mail(to: @user.email, subject: 'AirWatch Account Activation and Enrollment Instructions')
   end

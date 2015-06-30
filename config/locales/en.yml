@@ -51,10 +51,6 @@ en:
     root: Root
 
   activerecord:
-    errors:
-      models:
-        user:
-          not_enough_invites: can't be more than total invites allowed
     attributes:
       user:
         integrations_username: Username

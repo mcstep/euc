@@ -14,7 +14,7 @@ class UserPolicy < ApplicationPolicy
       :first_name, :last_name, :email, :company_name, :job_title, :home_region, :total_invitations,
       :integrations_username, :integrations_expiration_date,
       user_integrations_attributes: [
-        :id, :integration_id, :authentication_priority, *Integration::SERVICES.map{|s| :"#{s}_disabled"}
+        :id, :integration_id, *Integration::SERVICES.map{|s| :"#{s}_disabled"}
       ]
     ]
 

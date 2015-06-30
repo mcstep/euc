@@ -6,7 +6,6 @@
 #  group_name       :string
 #  key_base64       :text
 #  key_password     :string
-#  domain           :string
 #  initial_password :string
 #  service_account  :string
 #  act_on_behalf    :string
@@ -23,10 +22,10 @@ class GoogleAppsInstance < ActiveRecord::Base
   acts_as_paranoid
 
   validates :key_base64, presence: true
-  validates :domain, presence: true
   validates :initial_password, presence: true
   validates :service_account, presence: true
   validates :act_on_behalf, presence: true
+  validates :group_region, presence: true, if: lambda{ group_name.present? }
 
   def key=(value)
     self.key_base64 = Base64.encode64(value)
@@ -34,5 +33,13 @@ class GoogleAppsInstance < ActiveRecord::Base
 
   def key
     Base64.decode64(key_base64) if key_base64.present?
+  end
+
+  def key_file
+    file = Tempfile.new('google_apps_key')
+    file.binmode
+    file.write(key)
+    file.rewind
+    file.path
   end
 end

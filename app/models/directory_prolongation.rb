@@ -27,5 +27,6 @@ class DirectoryProlongation < ActiveRecord::Base
 
   after_create do
     user_integration.integration.directory.prolong(user_integration.directory_username, expiration_date_new)
+    DirectoryProlongationWorker.perform_async(id)
   end
 end

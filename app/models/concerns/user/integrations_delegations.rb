@@ -2,7 +2,8 @@ module User::IntegrationsDelegations
   extend ActiveSupport::Concern
 
   included do
-    before_validation :setup_integrations
+    before_validation :setup_integrations, on: :create
+    after_save :setup_authentication
   end
 
   def integrations_username
@@ -40,6 +41,13 @@ module User::IntegrationsDelegations
       end
 
       self.user_integrations = effective_integrations
+    end
+  end
+
+  def setup_authentication
+    if authentication_integration_id.blank?
+      self.authentication_integration_id = user_integrations.sort_by(&:authentication_priority).first.id
+      save!
     end
   end
 end

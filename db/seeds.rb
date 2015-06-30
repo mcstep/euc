@@ -13,13 +13,15 @@ company = Company.create!(name: 'Company')
 
 integration = Integration.create!(
   name: 'Integrations',
+  domain: 'vmwdemo.com',
   directory: Directory.create!(
     host: 'staging.vmwdemo.com',
     port: '8080',
     api_key: '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
   ),
   airwatch_instance: AirwatchInstance.create!(
-    group_name: 'VMWDEMOUsers',
+    group_name: 'AirWatchUsers',
+    group_region: 'dldc',
     host: 'testdrive.awmdm.com',
     api_key: '1SYEHIBAAAG6A7PQAEQA',
     user: 'api.admin',
@@ -27,10 +29,8 @@ integration = Integration.create!(
     parent_group_id: '570'
   ),
   google_apps_instance: GoogleAppsInstance.create!(
-    group_name: 'VMWDEMOUsers',
     key: File.open(Rails.root.join 'config','privatekey.p12').read,
     key_password: 'notasecret',
-    domain: 'vmwdemo.com',
     initial_password: 'Passw0rd1',
     service_account: '1022878145273-bbsae5pdlpj4mh0f49icrvcgtfo78a6u@developer.gserviceaccount.com',
     act_on_behalf: 'admin@vmwdemo.com'

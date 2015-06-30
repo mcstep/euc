@@ -16,5 +16,5 @@
 class Office365Instance < ActiveRecord::Base
   acts_as_paranoid
 
-  validates :group_name,   presence: true
+  validates :group_region, presence: true, if: lambda{ group_name.present? }
 end

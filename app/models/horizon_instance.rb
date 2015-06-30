@@ -24,5 +24,6 @@ class HorizonInstance < ActiveRecord::Base
   validates :rds_group_name,       presence: true
   validates :workspace_group_name, presence: true
   validates :desktops_group_name,  presence: true
+  validates :group_region,         presence: true
   validates :api_host,             presence: true
 end

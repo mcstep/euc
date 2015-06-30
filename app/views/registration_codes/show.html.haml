@@ -54,12 +54,12 @@
             %td= I18n.t "regions.#{user.home_region}"
             %td
               .expiration
-                = l user.authentication_user_integration.directory_expiration_date
-                - if prolongation = user.authentication_user_integration.directory_prolongations.last
+                = l user.expiration_date
+                - if prolongation = user.authentication_integration.directory_prolongations.last
                   %span{data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: 'hover'}}
                     (Prolonged)
                 - else
-                  %a.prolong-account-link{href: '#', data: {target: "#prolong-account-modal", toggle: 'modal', id: user.authentication_user_integration.id, username: user.authentication_user_integration.directory_username, date: l(user.authentication_user_integration.directory_expiration_date+1.month), name: user.display_name}}
+                  %a.prolong-account-link{href: '#', data: {target: "#prolong-account-modal", toggle: 'modal', id: user.authentication_integration.id, username: user.authentication_integration.directory_username, date: l(user.expiration_date+1.month), name: user.display_name}}
                     (Prolong)
             %td
               - if user.invited_by
