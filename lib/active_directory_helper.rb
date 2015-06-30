@@ -208,32 +208,33 @@ module ActiveDirectoryHelper
     end
   end
 
-  private
-    def create_user_dummy (username)
-      response_json = {}
+private
+
+  def create_user_dummy (username)
+    response_json = {}
+    response_json['username']   = username
+    response_json['password']   = 'FakePassword'
+
+    return response_json
+  end
+
+  def reset_user_password_dummy (username, email)
+    return 'FakePasswordReset'
+  end
+
+  def does_user_exist_dummy (username)
+    existing_user = Account.find_by_username(username)
+    response_json = {}
+
+    if existing_user
       response_json['username']   = username
-      response_json['password']   = 'FakePassword'      
-
+      response_json['name']   = existing_user.first_name + " " + existing_user.last_name
+      response_json['company']   = existing_user.company
+      response_json['email']   = existing_user.email
+      response_json['last_login']   = Time.now - 1.day
       return response_json
+    else
+      return nil
     end
-
-    def reset_user_password_dummy (username, email)
-      return 'FakePasswordReset'
-    end
-
-    def does_user_exist_dummy (username)
-      existing_user = Account.find_by_username(username)
-      response_json = {}
-
-      if existing_user
-        response_json['username']   = username
-        response_json['name']   = existing_user.first_name + " " + existing_user.last_name      
-        response_json['company']   = existing_user.company
-        response_json['email']   = existing_user.email      
-        response_json['last_login']   = Time.now - 1.day
-        return response_json
-      else
-        return nil
-      end
-    end
+  end
 end
