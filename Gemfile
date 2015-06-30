@@ -31,6 +31,7 @@ gem 'unicorn', platform: :ruby
 gem 'wannabe_bool'
 gem 'haml'
 gem 'azure-directory'
+gem 'webshims-rails'
 
 group :doc do
   gem 'sdoc'
