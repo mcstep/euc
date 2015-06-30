@@ -2,8 +2,12 @@
 - if !current_user.invitation.nil? && !current_user.invitation.region.nil?
   - regions.unshift(regions.delete_at(regions.index(current_user.invitation.region.downcase)))
 - custom_domains = []
+- workspace_url  = "https://workspace.vmwdemo.com"
+- workspace_text = "Workspace"
 - if ENV['CUSTOM_DOMAINS']
   - custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+  - workspace_url  = "https://vidm.vmtestdrive.com"
+  - workspace_text = "vIDM"
 - user_domain = current_user.email.split("@").last.downcase
 
 .sidebar-usercontrols
@@ -20,8 +24,8 @@
 
 .launcher
   .btn-group-vertical{:role => "group"}
-    %a.btn.btn-primary.btn-sm{href: "https://workspace.vmwdemo.com", target: "_blank"}
-      vIDM
+    %a.btn.btn-primary.btn-sm{href: "#{workspace_url}", target: "_blank"}
+      #{workspace_text}
     - if !custom_domains.include? user_domain
       .btn-group-vertical{:role => "group"}
         %button#horizonnative.btn.btn-info.dropdown-toggle.btn-sm{"data-container" => "body", "data-original-title" => "Make sure you have the latest Horizon Client installed!", "data-placement" => "right", "data-toggle" => "dropdown", :onclick => "$('#horizonnative').tooltip('hide')", :title => "", :type => "button"}
