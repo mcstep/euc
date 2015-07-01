@@ -95,7 +95,7 @@ class InvitationsController < ApplicationController
         format.html { redirect_to dashboard_path, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation }
       else
-        format.html { render :new }
+        format.html { redirect_to dashboard_path, alert: 'Invitation cannot be created at this time. Please try again later' }
         format.json { render json: @invitation.errors, status: :unprocessable_entity }
       end
     end

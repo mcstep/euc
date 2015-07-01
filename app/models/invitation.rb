@@ -10,7 +10,7 @@ class Invitation < ActiveRecord::Base
   validates_presence_of :recipient_email, :recipient_firstname, :recipient_lastname, :recipient_company, :recipient_title, :region
   validate :valid_reg_code, :if => :reg_code, :on => :create
   validate :sender_has_invitations, :if => :sender, :on => :create
-  validate :valid_email_domain, :on => :create
+  validate :valid_email_domain, :on => :create, unless: :sender_id
 
   validates_uniqueness_of :recipient_email, :scope => [:deleted_at]
   validates_uniqueness_of :recipient_username, :allow_blank => true, :scope => [:deleted_at]

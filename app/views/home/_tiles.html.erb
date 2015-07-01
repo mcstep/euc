@@ -2,7 +2,11 @@
 	<div class="col-md-12 col-lg-8 col-sm-12">
 		<div class="ibox">
 			<div class="ibox-title">
-				<a href="#" data-toggle="modal" data-target="#dashboard-new-invite-modal" class="btn btn-success btn-xs pull-right">Invite user</a>
+				<% if current_user.invitations_used >= current_user.total_invitations && !current_user.admin? %>
+				      <button type="button" class="btn btn-success btn-xs pull-right" data-dismiss="modal" disabled="true">Invite user</button>
+    			<% else %>
+						<a href="#" data-toggle="modal" data-target="#dashboard-new-invite-modal" class="btn btn-success btn-xs pull-right">Invite user</a>
+    			<% end %>
 				<h5>Invitation Statistics</h5>
 			</div>
 			<div class="ibox-content">
@@ -70,15 +74,15 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label>First name:</label>
-							<input type="text" name="invitation[recipient_firstname]" class="form-control" />
+							<input type="text" name="invitation[recipient_firstname]" class="form-control" required="required"/>
 						</div>
 						<div class="form-group">
 							<label>Last name:</label>
-							<input type="text" name="invitation[recipient_lastname]" class="form-control" />
+							<input type="text" name="invitation[recipient_lastname]" class="form-control" required="required"/>
 						</div>
 						<div class="form-group">
 							<label>Email:</label>
-							<input type="email" name="invitation[recipient_email]" class="form-control" />
+							<input type="email" name="invitation[recipient_email]" class="form-control" required="required"/>
 						</div>
 						<div class="form-group">
 							<label>Username:</label>
@@ -86,19 +90,19 @@
 						</div>
 						<div class="form-group">
 							<label>Company:</label>
-							<input type="text" name="invitation[recipient_company]" class="form-control" />
+							<input type="text" name="invitation[recipient_company]" class="form-control" required="required"/>
 						</div>
 						<div class="form-group">
 							<label>Job Title:</label>
-							<input type="text" name="invitation[recipient_title]" class="form-control" />
+							<input type="text" name="invitation[recipient_title]" class="form-control" required="required" />
 						</div>
 						<div class="form-group">
 							<label>Potential number of users:</label>
-							<input type="text" name="invitation[potential_seats]" class="form-control popoverPotentialSeatsModal" />
+							<input type="number" name="invitation[potential_seats]" class="form-control popoverPotentialSeatsModal" required="required"/>
 						</div>
 						<div class="form-group">
 							<label>Region:</label>
-							<select class="form-control required" name="invitation[region]">
+							<select class="form-control required" name="invitation[region]" required="required">
 								<option value="">Select Region</option><option value="AMER">AMER</option>
 								<option value="EMEA">EMEA</option>
 								<option value="APAC">APAC</option>
@@ -106,7 +110,7 @@
 						</div>
 						<div class="form-group">
 							<label>AirWatch Trial:</label>
-							<select class="form-control required" name="invitation[airwatch_trial]">
+							<select class="form-control required" name="invitation[airwatch_trial]" required="required">
 								<option value="">AirWatch Trial</option>
 								<option value="true">Yes</option>
 								<option value="false">No</option>
