@@ -103,13 +103,13 @@
           .modal-body
             .form-group
               %label Current Password:
-              %input#current_password.form-control{:name => "current_password", :type => "password"}/
+              %input#current_password.form-control{:name => "current_password", :type => "password", :required => "true"}/
             .form-group
               %label New Password:
-              %input#new_password.form-control{:name => "new_password", :type => "password"}/
+              %input#new_password.form-control{:name => "new_password", :type => "password", :required => "true"}/
             .form-group
               %label Confirm New Password:
-              %input#new_password_confirm.form-control{:name => "new_password_confirm", :type => "password"}/
+              %input#new_password_confirm.form-control{:name => "new_password_confirm", :type => "password", :required => "true"}/
           .modal-footer
             %button.btn.btn-default.pull-left{"data-dismiss" => "modal", :type => "button"} Cancel
             %button.btn.btn-success{:type => "submit"} Submit
