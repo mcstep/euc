@@ -96,6 +96,10 @@ class CustomAirwatchProvisionWorker
                                              :payload => payload.to_json)
       response_json = JSON.parse(response.body)
       puts "Successfully called AW API to provision Admin User for #{@invitation.recipient_username}. AirWatch Response Value: #{response_json['Value']}"
+
+      #Update invitation with AirWatch user id
+      @invitation.airwatch_admin_user_id = response_json['Value']
+      @invitation.save
     rescue => e
       puts e
     end

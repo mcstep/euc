@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428174418) do
+ActiveRecord::Schema.define(version: 20150701182401) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20150428174418) do
     t.datetime "eula_accept_date"
     t.boolean  "acc_expiration_reminder_email"
     t.integer  "reg_code_id"
+    t.integer  "airwatch_admin_user_id"
   end
 
   add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at"
