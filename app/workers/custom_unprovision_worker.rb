@@ -79,7 +79,7 @@ class CustomUnprovisionWorker
     end
     #Done calling AirWatch API
 
-    if !airwatch_admin_user_id.nil?
+    if !airwatch_admin_id.nil?
       begin
         delete_url = "https://apple.awmdm.com/API/v1/system/admins/{airwatch_admin_id}/delete"
       response = RestClient::Request.execute( :method => :delete, 
