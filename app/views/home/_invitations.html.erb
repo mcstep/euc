@@ -46,7 +46,7 @@
 								<td><%= invitation.expires_at.to_date.to_formatted_s(:long) %></td>
 								<td class="admin">
 									<% extension = Extension.where(recipient: invitation.id).last %>
-									<% if !extension.nil? %>
+									<% if extension.nil? %>
 										<a href="#" class="btn btn-xs btn-warning extend-account-link-ro" data-toggle="modal" data-target="#extend-account-modal">Extend</a>
 									<% else %>
 										<span class="btn btn-xs btn-warning" disabled="disabled" data-toggle="popover" data-placement="bottom" data-content="Reason: <%= extension.try :reason %>">
