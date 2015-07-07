@@ -44,7 +44,10 @@
 								<td class="name"><%= invitation.recipient_firstname %> <%= invitation.recipient_lastname %></td>
 								<td class="mobilehide"><%= invitation.recipient_email %></td>
 								<td class="mobilehide"><%= invitation.recipient_username %></td>
-								<td><%= invitation.expires_at.to_date.to_formatted_s(:long) %></td>
+								<td>
+									<%= invitation.expires_at.to_date.to_formatted_s(:long) %>
+									<% if invitation.expires_at <= Time.now %> (Expired)<% end %>
+								</td>
 								<td class="admin">
 									<% extension = Extension.where(recipient: invitation.id).last %>
 									<% if extension.nil? %>
