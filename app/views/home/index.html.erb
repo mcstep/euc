@@ -1,3 +1,13 @@
-<%= render 'header' %>
-<%= render 'tiles' %>
-<%= render 'invitations' %>
+<% if ENV['CUSTOM_DOMAINS']
+      custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+   end
+   user_domain = current_user.email.split("@").last.downcase
+%>
+
+<% if custom_domains.include? user_domain %>
+	<%= render 'dashboard_custom' %>
+<% else %>
+	<%= render 'header' %>
+	<%= render 'tiles' %>
+	<%= render 'invitations' %>
+<% end %>

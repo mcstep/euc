@@ -32,6 +32,12 @@
       .btn-group-vertical{:role => "group"}
         %a.btn.btn-primary.btn-sm{href: "https://apple.awmdm.com", target: "_blank"}
           AW Admin Console
+      .btn-group-vertical{:role => "group"}
+        %a.btn.btn-primary.btn-sm{href: "https://apple.awmdm.com/mydevice", target: "_blank"}
+          AW SSP
+      .btn-group-vertical{:role => "group"}
+        %a.btn.btn-primary.btn-sm{href: "http://my.air-watch.com", target: "_blank"}
+          myAirwatch
     - else
       .btn-group-vertical{:role => "group"}
         %button#horizonnative.btn.btn-info.dropdown-toggle.btn-sm{"data-container" => "body", "data-original-title" => "Make sure you have the latest Horizon Client installed!", "data-placement" => "right", "data-toggle" => "dropdown", :onclick => "$('#horizonnative').tooltip('hide')", :title => "", :type => "button"}
@@ -63,8 +69,6 @@
 %ul.sidebar-nav
   %li
     %a{:href => dashboard_path} Dashboard
-  %li
-    %a{:href => dashboard_path} FAQ
 
 - if policy(current_user).admin?
   %span.sidebar-divider Admin
