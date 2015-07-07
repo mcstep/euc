@@ -84,7 +84,7 @@
             .form-group
               %label Subject:
               - if current_user.role == 'user'
-                %input.form-control{:name => "subject", :readonly => "true", :type => "text", :value => "Support request from #{current_user.display_name} from VMware Testdrive", :required=> "true"}/
+                %input.form-control{:name => "subject", :readonly => "true", :type => "text", :value => "Support request from #{current_user.display_name} on VMware Testdrive", :required=> "true"}/
               - else
                 %input.form-control{:name => "subject", :type => "text", :required=> "true"}/
             .form-group
