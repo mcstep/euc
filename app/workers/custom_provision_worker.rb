@@ -47,7 +47,7 @@ class CustomProvisionWorker
       puts "Exception during custom AD provisioning for #{@invitation.recipient_username}:#{@invitation.recipient_email} - Exception: #{e}"
     end
 
-    if account_created?
+    if account_created == true
       puts "AD account created for #{@invitation.recipient_email}. Response from AD #{json_body}"
       
       puts "Creating user profile directory in home region for #{@invitation.recipient_username}.."
