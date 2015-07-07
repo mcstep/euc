@@ -36,7 +36,7 @@ module UserIntegration::StateMachines
 
   included do
     before_validation { airwatch.normalize_and_store! }
-    before_validation { integration.disabled_services.each{|s| send("#{s}_status=", :disabled)} }
+    before_validation { integration.disabled_services.each{|s| send("#{s}_status=", :disabled)} if integration }
     after_save        { @machines = {} }
   end
 

@@ -36,7 +36,7 @@ class UserIntegration < ActiveRecord::Base
 
   acts_as_paranoid
 
-  belongs_to :user
+  belongs_to :user, inverse_of: :user_integrations
   belongs_to :integration
   belongs_to :airwatch_group
 
@@ -48,7 +48,9 @@ class UserIntegration < ActiveRecord::Base
   #   }
   # end
 
-  after_save :handle_provisioning_changes
+  after_create    :init_provisioning
+  after_update    :apply_provisioning
+  before_destroy  :drop_provisioning
 
   as_enum :directory_status, {
     not_provisioned: 0,
@@ -91,6 +93,8 @@ class UserIntegration < ActiveRecord::Base
     Integration::SERVICES.each do |s|
       send "#{s}_disabled=", user_integration.send("#{s}_disabled")
     end
+
+    self
   end
 
   def authentication_priority
@@ -118,7 +122,23 @@ class UserIntegration < ActiveRecord::Base
     )
   end
 
-  def handle_provisioning_changes
+  def replace_status(service, value)
+    @disable_provisioning = true
+    update_attribute("#{service}_status", value)
+    @disable_provisioning = false
+  end
+
+  def init_provisioning
+    return if @disable_provisioning
+
+    Integration::SERVICES.select{|s| send("#{s}_status") == :not_provisioned}.each do |s|
+      ProvisionerWorker[s].provision_async(id)
+    end
+  end
+
+  def apply_provisioning
+    return if @disable_provisioning
+
     Integration::SERVICES.each do |s|
       if change = changes["#{s}_status"]
         from   = send("#{s}_status_was")
@@ -131,6 +151,20 @@ class UserIntegration < ActiveRecord::Base
         elsif to == :not_provisioned
           ProvisionerWorker[s].provision_async(id)
         end
+      end
+    end
+  end
+
+  def drop_provisioning
+    return false if Integration::SERVICES.any?{|s| send("#{s}_status") == :not_provisioned}
+
+    Integration::SERVICES.each do |s|
+      status = send("#{s}_status")
+
+      if status == :provisioned
+        ProvisionerWorker[s].deprovision_async(id)
+      elsif status == :revoked
+        ProvisionerWorker[s].cleanup_async(id)
       end
     end
   end

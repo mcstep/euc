@@ -5,7 +5,7 @@ class ProvisionerWorker
     "Provisioners::#{service.camelize}Worker".constantize
   end
 
-  %w(provision deprovision revoke resume).each do |action|
+  %w(provision deprovision revoke resume cleanup).each do |action|
     define_singleton_method "#{action}_async" do |user_integration_id|
       perform_async(user_integration_id, action)
     end
@@ -22,6 +22,9 @@ class ProvisionerWorker
 
   def resume(user_integration)
     provision(user_integration)
+  end
+
+  def cleanup(user_integration)
   end
 
   def add_group(user_integration, group_name, group_region)

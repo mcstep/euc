@@ -2,8 +2,9 @@ module User::IntegrationsDelegations
   extend ActiveSupport::Concern
 
   included do
+    before_validation :ensure_profile
     before_validation :setup_integrations, on: :create
-    after_save :setup_authentication
+    after_save        :setup_authentication
   end
 
   def integrations_username
@@ -22,6 +23,16 @@ module User::IntegrationsDelegations
     return if date.blank?
     date = Date.parse(date) unless date.is_a?(Date)
     @expiration_date = date
+  end
+
+  def ensure_profile
+    if profile.blank?
+      if received_invitation.present?
+        self.profile = received_invitation.from_user.profile
+      elsif domain = Domain.where(name: email.split('@', 2).last).first
+        self.profile = domain.profile
+      end
+    end
   end
 
   def setup_integrations
@@ -45,8 +56,8 @@ module User::IntegrationsDelegations
   end
 
   def setup_authentication
-    if authentication_integration_id.blank?
-      self.authentication_integration_id = user_integrations.sort_by(&:authentication_priority).first.id
+    if authentication_integration.blank? && user_integrations.any?
+      self.authentication_integration = user_integrations.sort_by(&:authentication_priority).first
       save!
     end
   end

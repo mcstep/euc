@@ -1,0 +1,133 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://staging.vmwdemo.com:8080/signup
+    body:
+      encoding: US-ASCII
+      string: fname=Ubaldo&lname=West&org=Mraz%20and%20Sons&username=bradford_trantow&email=jeramie.zboncak%40greenfelderryan.biz&title=Customer%20Interactions%20Supervisor&expires_at=2015-07-08&region=dldc
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '192'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '66'
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+      Date:
+      - Tue, 07 Jul 2015 10:12:56 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "username": "bradford_trantow",
+          "password": "Shall5manner"
+        }
+    http_version: 
+  recorded_at: Tue, 07 Jul 2015 10:12:56 GMT
+- request:
+    method: post
+    uri: http://staging.vmwdemo.com:8080/addUserToGroup
+    body:
+      encoding: US-ASCII
+      string: username=bradford_trantow&group=magicgroup
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '42'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '21'
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+      Date:
+      - Tue, 07 Jul 2015 10:12:56 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: Internal Server Error
+    http_version: 
+  recorded_at: Tue, 07 Jul 2015 10:12:56 GMT
+- request:
+    method: post
+    uri: http://staging.vmwdemo.com:8080/unregister
+    body:
+      encoding: US-ASCII
+      string: username=bradford_trantow
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '25'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '2'
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+      Date:
+      - Tue, 07 Jul 2015 10:12:57 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: OK
+    http_version: 
+  recorded_at: Tue, 07 Jul 2015 10:12:57 GMT
+recorded_with: VCR 2.9.3

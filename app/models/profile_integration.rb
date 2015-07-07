@@ -5,7 +5,7 @@
 #  id                      :integer          not null, primary key
 #  profile_id              :integer
 #  integration_id          :integer
-#  authentication_priority :integer          default(0), not null
+#  authentication_priority :integer          default(100), not null
 #  allow_sharing           :boolean          default(FALSE), not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null

@@ -20,6 +20,7 @@ class DomainsController < ApplicationController
   def create
     authorize @domain = Domain.new
     @domain.assign_attributes(permitted_attributes(@domain))
+    @domain.profile = Profile.where(name: 'Default').first
     @domain.save
     redirect_to domains_path
   end

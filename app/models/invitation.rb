@@ -6,7 +6,6 @@
 #  from_user_id    :integer
 #  to_user_id      :integer
 #  sent_at         :datetime
-#  status          :integer          default(0), not null
 #  potential_seats :integer
 #  deleted_at      :datetime
 #  created_at      :datetime         not null
@@ -23,18 +22,19 @@ class Invitation < ActiveRecord::Base
   acts_as_paranoid
 
   belongs_to :from_user, class_name: 'User'
-  belongs_to :to_user,   class_name: 'User'
-
-  as_enum :status, {pending: 0, active: 1, expired: 2, declined: 3}
+  belongs_to :to_user,   class_name: 'User', inverse_of: :received_invitation
 
   accepts_nested_attributes_for :to_user
 
   validates :from_user, presence: true
   validates :to_user, presence: true, uniqueness: {scope: :from_user_id}
   validates :to_user_id, inclusion: {in: [nil]}, on: :create
+  # validates :from_user_role, inclusion: {in: [:admin, :root]}, allow_blank: true, on: :create
 
-  before_validation { to_user.profile_id = from_user.profile_id if to_user }
   after_create      :use_invitation_point
+  after_destroy     :free_invitation_point
+
+  delegate :role, to: :from_user, prefix: true
 
   def self.from(user)
     invitation = Invitation.new(from_user: user)

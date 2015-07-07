@@ -2,7 +2,7 @@
   .panel.panel-default
     = form_tag domains_path, method: :post, id: 'domains-add-form', class: 'panel-body' do |f|
       .input-group
-        %input.form-control{:name => "domain[name]", :placeholder => "Domain name...", :type => "text"}/
+        %input#domain-name.form-control{:name => "domain[name]", :placeholder => "Domain name...", :type => "text"}/
         %span.input-group-btn
           %button.btn.btn-success{:type => "submit"} Add
 

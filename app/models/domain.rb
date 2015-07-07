@@ -26,4 +26,5 @@ class Domain < ActiveRecord::Base
   as_enum :status, {active: 0, inactive: 1}
 
   validates :name, presence: true, uniqueness: true
+  validates :profile, presence: true
 end

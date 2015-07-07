@@ -4,7 +4,6 @@ class CreateInvitations < ActiveRecord::Migration
       t.belongs_to    :from_user,       index: true
       t.belongs_to    :to_user,         index: true
       t.datetime      :sent_at
-      t.integer       :status,          null: false, default: 0
       t.integer       :potential_seats
       t.datetime      :deleted_at,      index: true
       t.timestamps                      null: false

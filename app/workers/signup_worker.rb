@@ -33,9 +33,9 @@ class SignupWorker
     password ||= user.update_password
 
     if user.basic?
-      GeneralMailer.welcome_basic_email(user, password)
+      GeneralMailer.welcome_basic_email(user, password).deliver
     else
-      GeneralMailer.welcome_admin_email(user, password)
+      GeneralMailer.welcome_admin_email(user, password).deliver
     end
   end
 end

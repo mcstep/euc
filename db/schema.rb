@@ -192,11 +192,10 @@ ActiveRecord::Schema.define(version: 20150630021239) do
     t.integer  "from_user_id"
     t.integer  "to_user_id"
     t.datetime "sent_at"
-    t.integer  "status",          default: 0, null: false
     t.integer  "potential_seats"
     t.datetime "deleted_at"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at"
@@ -230,7 +229,7 @@ ActiveRecord::Schema.define(version: 20150630021239) do
   create_table "profile_integrations", force: :cascade do |t|
     t.integer  "profile_id"
     t.integer  "integration_id"
-    t.integer  "authentication_priority", default: 0,     null: false
+    t.integer  "authentication_priority", default: 100,   null: false
     t.boolean  "allow_sharing",           default: false, null: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false

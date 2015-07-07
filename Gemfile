@@ -33,6 +33,13 @@ gem 'cloudinary'
 gem 'sidekiq'
 
 group :development, :test do
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'ffaker'
+  gem 'factory_girl_rails'
+  gem 'spring-commands-rspec'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-collection_matchers'
   gem 'quiet_assets'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
@@ -40,3 +47,9 @@ group :development, :test do
   gem 'pry-rails'
 end
 
+group :test do
+  gem 'vcr'
+  gem 'webmock'
+  gem 'rack_session_access'
+  gem 'show_me_the_cookies'
+end

@@ -8,7 +8,7 @@ GoogleAppsInstance.delete_all
 Company.delete_all
 Profile.delete_all
 
-profile = Profile.create!(name: 'Profile')
+profile = Profile.create!(name: 'Default')
 company = Company.create!(name: 'Company')
 
 integration = Integration.create!(

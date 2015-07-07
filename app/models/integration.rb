@@ -44,7 +44,7 @@ class Integration < ActiveRecord::Base
   validates :domain, presence: true
 
   def enabled_services
-    SERVICES.select{|k| self["#{k}_instance_id"]}
+    SERVICES.select{|k| self["#{k}_instance_id"] || send(:"#{k}_instance")}
   end
 
   def disabled_services

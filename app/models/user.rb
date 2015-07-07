@@ -61,10 +61,10 @@ class User < ActiveRecord::Base
   belongs_to :authentication_integration, class_name: "UserIntegration"
   belongs_to :company
   belongs_to :profile
-  has_many :user_integrations, -> { includes(:directory_prolongations) }
+  has_many :user_integrations, -> { includes(:directory_prolongations) }, dependent: :destroy, inverse_of: :user
   belongs_to :registration_code
   has_many :sent_invitations, -> { includes(:to_user) }, class_name: "Invitation", foreign_key: "from_user_id"
-  has_one :received_invitation, class_name: "Invitation", foreign_key: "to_user_id"
+  has_one :received_invitation, class_name: "Invitation", foreign_key: "to_user_id", inverse_of: :to_user
 
   as_enum :role, ROLES
 
@@ -73,11 +73,11 @@ class User < ActiveRecord::Base
 
   delegate :can_assign_roles?, to: :policy
 
-  before_save      :normalize!
-  before_save      :cleanup_avatar!
-  after_validation :normalize_errors
-  after_create     { SignupWorker.perform_async(id) }
-  after_destroy    { received_invitation.try(:free_invitation_point) }
+  before_save       :normalize!
+  before_save       :cleanup_avatar!
+  after_validation  :normalize_errors
+  after_create      { SignupWorker.perform_async(id) }
+  after_destroy     { received_invitation.try(:free_invitation_point) }
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -118,12 +118,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def domain
-    email.split("@", 2).last
-  end
-
   def expiration_date
-    authentication_integration.directory_expiration_date
+    authentication_integration.try :directory_expiration_date
   end
 
   def invited_users
@@ -154,7 +150,7 @@ class User < ActiveRecord::Base
     if avatar.blank?
       ActionController::Base.helpers.image_path('default_avatar.png')
     else
-      Cloudinary::Utils.cloudinary_url(self.avatar, :width => 200, :height => 200, :crop => :thumb)
+      Cloudinary::Utils.cloudinary_url(self.avatar, width: 200, height: 200, crop: :thumb)
     end
   end
 
@@ -171,6 +167,7 @@ class User < ActiveRecord::Base
 
   def normalize_errors
     errors[:company].each{|e| errors.add(:company_name, e)}
+    errors.add(:email, :incorrect_domain) if errors[:profile].any? && !email.blank?
   end
 
   def cleanup_avatar!

@@ -27,7 +27,7 @@ class Directory < ActiveRecord::Base
   def query(action, payload, params={})
     response = RestClient.post url(action), payload, params.merge(token: api_key)
     raise "Directory request returned #{response.code}" unless response.code == 200
-    JSON.parse response
+    JSON.parse response rescue nil
   end
 
   def authenticate(username, password)
@@ -43,7 +43,7 @@ class Directory < ActiveRecord::Base
   end
 
   def prolong(username, expires_at)
-    query 'extendAccount', username: username, expires_at: expires_at.to_i*1000
+    query 'extendAccount', username: username, expires_at: expires_at.to_datetime.to_i*1000
   end
 
   def signup(user_integration)
