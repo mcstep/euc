@@ -17,7 +17,8 @@
 						<tr>
 							<td class="logo"><em class="icon-users"></em></td>
 							<td class="orgname"><%= recipient_company %></td>
-							<td class="usercount"><%= pluralize(invitations.count, "Active User") %></td>
+							<% active_user_count = invitations.select { |invitation| invitation.expires_at > Time.now }.count %>
+							<td class="usercount"><%= pluralize(active_user_count, "Active User") %></td>
 						</tr>
 					</tbody>
 				</table>
@@ -31,7 +32,7 @@
 							<th class="name">Name</th>
 							<th class="mobilehide">E-Mail</th>
 							<th class="mobilehide">Username</th>
-							<th>Days Left</th>
+							<th>Expiration Date</th>
 							<th>Admin</th>
 						</tr>
 					</thead>
