@@ -84,7 +84,7 @@
             .form-group
               %label Subject:
               - if current_user.role == 'user'
-                %input.form-control{:name => "subject", :readonly => "true", :type => "text", :value => "Support request from #{current_user.display_name} from the EUC Demo Portal", :required=> "true"}/
+                %input.form-control{:name => "subject", :readonly => "true", :type => "text", :value => "Support request from #{current_user.display_name} from VMware Testdrive", :required=> "true"}/
               - else
                 %input.form-control{:name => "subject", :type => "text", :required=> "true"}/
             .form-group
@@ -93,7 +93,7 @@
             - if current_user.role == 'vip' && (!custom_domains.include? user_domain)
               .well.sla
                 %p{:align => "center", :style => "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: bold; line-height: 19px;"} Portal SLA Information:
-                %p{:align => "center", :style => "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px;"} Super Users can expect to receive email support from the VMware Demo Team during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST. At the moment the response times are 4 hour response and 48 hours to resolution. Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.
+                %p{:align => "center", :style => "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px;"} Super Users can expect to receive email support from the EUC Solution Engineering Team during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST. At the moment the response times are 4 hour response and 48 hours to resolution. Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.
           .modal-footer
             %button.btn.btn-default.pull-left{"data-dismiss" => "modal", :type => "button"} Cancel
             %button.btn.btn-success{:type => "submit"} Submit request
