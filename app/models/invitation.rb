@@ -11,6 +11,7 @@ class Invitation < ActiveRecord::Base
   validate :valid_reg_code, :if => :reg_code, :on => :create
   validate :sender_has_invitations, :if => :sender, :on => :create
   validate :valid_email_domain, :on => :create, unless: :sender_id
+  validate :duplicate_account_username, :on => :create
 
   validates_uniqueness_of :recipient_email, :scope => [:deleted_at]
   validates_uniqueness_of :recipient_username, :allow_blank => true, :scope => [:deleted_at]
@@ -24,6 +25,12 @@ class Invitation < ActiveRecord::Base
   paginates_per 150
 
 private
+  def duplicate_account_username
+    if !Account.find_by_username(recipient_username).nil?
+      errors[:recipient_username] << 'has already been taken'
+    end
+  end
+
   def valid_reg_code
     if reg_code.status != true || !(reg_code.valid_from..reg_code.valid_to).cover?(Time.now) || Invitation.where(reg_code_id: reg_code.id).count >= reg_code.registrations.to_i
       errors[:reg_code] << 'The registration code you entered is no longer valid.'
