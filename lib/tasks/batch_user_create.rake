@@ -10,12 +10,12 @@ desc "This class is used to batch create user accounts on VMware Testdrive Porta
     csv_text = Net::HTTP.get(uri)
     csv = CSV.parse(csv_text, :headers=>true)
     csv.each do |row|
-      firstname = row[0].downcase
-      lastname = row[1].downcase
-      email = row[2].downcase
-      job_title = row[3]
-      company = row[4]
-      region = row[5]
+      firstname = row[0].downcase.strip
+      lastname = row[1].downcase.strip
+      email = row[2].downcase.strip
+      job_title = row[3].strip
+      company = row[4].strip
+      region = row[5].upcase.strip
 
       @invitation = Invitation.new
       @invitation.recipient_firstname = firstname

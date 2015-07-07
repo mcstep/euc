@@ -27,9 +27,9 @@ class BatchSignupWorker
       puts e
     end
 
-    puts "BATCH: Done creating account. Response from AD #{json_body}"
 
     if account_created == true
+      puts "BATCH: Done creating account. Response from AD #{json_body}"
       # TODO: merge this and the following block?
       puts "BATCH:Creating user profile directory in home region.."
       begin
