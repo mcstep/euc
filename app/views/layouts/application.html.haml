@@ -1,3 +1,11 @@
+- support_email = 'eucdemohelp@vmware.com'
+- custom_domains = []
+- if ENV['CUSTOM_DOMAINS']
+  - custom_domains = ENV['CUSTOM_DOMAINS'].split(",")
+- user_domain = current_user.email.split("@").last.downcase
+- if custom_domains.include? user_domain
+  - support_email = 'salessupport@air-watch.com'
+
 - content_for :content do
   .container#fullwidth
     .col-lg-12
@@ -70,19 +78,19 @@
               %label To:
               - @current_user_invited = Invitation.find(current_user.invitation_id)
               - if !@current_user_invited.blank? && !@current_user_invited.sender.blank? && @current_user_invited.sender.email != 'admin@vmwdemo.com'
-                %input.form-control{:name => "recipient", :readonly => "true", :type => "text", :value => @current_user_invited.sender.email}/
+                %input.form-control{:name => "recipient", :required=> "true", :readonly => "true", :type => "text", :value => @current_user_invited.sender.email}/
               - else
-                %input.form-control{:name => "recipient", :readonly => "true", :type => "text", :value => "eucdemohelp@vmware.com"}/
+                %input.form-control{:name => "recipient", :required=> "true", :readonly => "true", :type => "text", :value => "#{support_email}"}/
             .form-group
               %label Subject:
               - if current_user.role == 'user'
-                %input.form-control{:name => "subject", :readonly => "true", :type => "text", :value => "Support request from #{current_user.display_name} from the EUC Demo Portal"}/
+                %input.form-control{:name => "subject", :readonly => "true", :type => "text", :value => "Support request from #{current_user.display_name} from the EUC Demo Portal", :required=> "true"}/
               - else
-                %input.form-control{:name => "subject", :type => "text"}/
+                %input.form-control{:name => "subject", :type => "text", :required=> "true"}/
             .form-group
               %label Body:
-              %textarea.form-control{:maxlength => "1000", :name => "notes", :rows => "3"}
-            - if current_user.role == 'vip'
+              %textarea.form-control{:maxlength => "1000", :required=> "true", :name => "notes", :rows => "3"}
+            - if current_user.role == 'vip' && (!custom_domains.include? user_domain)
               .well.sla
                 %p{:align => "center", :style => "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: bold; line-height: 19px;"} Portal SLA Information:
                 %p{:align => "center", :style => "text-align: left; font-size: 12px; color: #555; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px;"} Super Users can expect to receive email support from the VMware Demo Team during regular business hours, these are Monday thru Friday 0900 – 1700 USA-PST. At the moment the response times are 4 hour response and 48 hours to resolution. Support will not be available outside of these hours or on weekends, and any public holidays that VMware observes in our regions.
