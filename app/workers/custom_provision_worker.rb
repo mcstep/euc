@@ -4,6 +4,7 @@ require 'rqrcode_png'
 
 class CustomProvisionWorker
   include Sidekiq::Worker
+  include ActiveDirectoryHelper
 
   def perform(invitation_id)
     @invitation = Invitation.find(invitation_id)
@@ -46,61 +47,64 @@ class CustomProvisionWorker
       puts "Exception during custom AD provisioning for #{@invitation.recipient_username}:#{@invitation.recipient_email} - Exception: #{e}"
     end
 
-    puts "AD account created for #{@invitation.recipient_email}. Response from AD #{json_body}"
-    
-    puts "Creating user profile directory in home region for #{@invitation.recipient_username}.."
-    begin
-      create_dir_url = "#{ENV['API_HOST']}/createdir"
-      response = RestClient.post( url=create_dir_url,
-                                  payload={ :username => @invitation.recipient_username, 
-                                            :region => region
-                                          }, 
-                                  headers= {:token => ENV["API_KEY"]})
-      puts response.body
-    rescue => e
-      puts e
-    end
-    puts "Successfully created user profile directory in home region for #{@invitation.recipient_username}.."
-
-    puts "Creating user profile directory in remaining regions for #{@invitation.recipient_username}...."
-    rem_regions = ['amer', 'dldc', 'emea', 'apac'] - ["#{region}"]
-    rem_regions.each do |sync_reg|
+    if account_created?
+      puts "AD account created for #{@invitation.recipient_email}. Response from AD #{json_body}"
+      
+      puts "Creating user profile directory in home region for #{@invitation.recipient_username}.."
       begin
         create_dir_url = "#{ENV['API_HOST']}/createdir"
         response = RestClient.post( url=create_dir_url,
                                     payload={ :username => @invitation.recipient_username, 
-                                              :region => sync_reg
+                                              :region => region
                                             }, 
                                     headers= {:token => ENV["API_KEY"]})
         puts response.body
       rescue => e
         puts e
       end
-    end
-    puts "Successfully created user profile directory in remaining regions for #{@invitation.recipient_username}.."
+      puts "Successfully created user profile directory in home region for #{@invitation.recipient_username}.."
 
-
-    puts "Adding user #{@invitation.recipient_username} to AD Groups"
-    # Call Receiver to add user to appropriate Groups
-    groups = ['TestdriveAppleUsers','O365Users','VIDMUsers']
-    groups.each do |group_name|
-      begin
-        add_user_to_group_url = "#{ENV['API_HOST']}/addUserToGroup"
-        response = RestClient.post(url=add_user_to_group_url,
-                                  payload={ :username => @invitation.recipient_username,
-                                            :domain_suffix => domain_suffix,
-                                            :group => "#{group_name}"
-                                          }, 
-                                  headers= {:token => ENV["API_KEY"]})
-        puts response.body
-      rescue => e
-        puts e
+      puts "Creating user profile directory in remaining regions for #{@invitation.recipient_username}...."
+      rem_regions = ['amer', 'dldc', 'emea', 'apac'] - ["#{region}"]
+      rem_regions.each do |sync_reg|
+        begin
+          create_dir_url = "#{ENV['API_HOST']}/createdir"
+          response = RestClient.post( url=create_dir_url,
+                                      payload={ :username => @invitation.recipient_username, 
+                                                :region => sync_reg
+                                              }, 
+                                      headers= {:token => ENV["API_KEY"]})
+          puts response.body
+        rescue => e
+          puts e
+        end
       end
-    end
-    # Done calling Receiver to add user to appropriate Groups
-    puts "Successfully added user #{@invitation.recipient_username} to AD Groups"
-  
-    CustomOfficeProvisionWorker.perform_async(invitation_id, password)
+      puts "Successfully created user profile directory in remaining regions for #{@invitation.recipient_username}.."
 
+
+      puts "Adding user #{@invitation.recipient_username} to AD Groups"
+      # Call Receiver to add user to appropriate Groups
+      groups = ['TestdriveAppleUsers','O365Users','VIDMUsers']
+      groups.each do |group_name|
+        begin
+          add_user_to_group_url = "#{ENV['API_HOST']}/addUserToGroup"
+          response = RestClient.post(url=add_user_to_group_url,
+                                    payload={ :username => @invitation.recipient_username,
+                                              :domain_suffix => domain_suffix,
+                                              :group => "#{group_name}"
+                                            }, 
+                                    headers= {:token => ENV["API_KEY"]})
+          puts response.body
+        rescue => e
+          puts e
+        end
+      end
+      # Done calling Receiver to add user to appropriate Groups
+      puts "Successfully added user #{@invitation.recipient_username} to AD Groups"
+    
+      CustomOfficeProvisionWorker.perform_async(invitation_id, password)
+    else
+      puts "AD account creation failed for #{@invitation.recipient_email}. Will stop provisioning"
+    end
   end
 end
