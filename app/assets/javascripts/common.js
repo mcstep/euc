@@ -174,18 +174,30 @@
 	if (!dateInputSupported) {
 		$('#extend-account-modal').one('show.bs.modal', function () {
 			$('#expiresAt')
-				.attr('readonly', true)
+				.attr('readonly', false)
 				.datepicker({
 					format: 'D, MM d, yyyy',
 					startDate: '0',
 					todayBtn: 'linked',
 					todayHighlight: true,
+					autoclose: true
 				});
 		});
 	} else {
 		$('#expiresAt')
 			.attr('type', 'date')
 	}
+
+	$('#invitation_expires_at')
+			.attr('readonly', false)
+			.datepicker({
+				format: 'D, MM d, yyyy',
+				startDate: '0',
+				todayBtn: 'linked',
+				todayHighlight: true,
+				autoclose: true
+			});
+
 
 	/*
 	 * The PATCH request will be sent to an URL, created by joining
