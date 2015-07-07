@@ -4,7 +4,7 @@ class BatchSignupWorker
 
   def perform(invitation_id)
     @invitation = Invitation.find_by_id(invitation_id)
-    puts "Will start working on Invitation ID#{invitation_id} for Recipient #{@invitation.recipient_email}"
+    puts "BATCH: Will start working on Invitation ID#{invitation_id} for Recipient #{@invitation.recipient_email}"
 
     region = "dldc"
     if !@invitation.region.nil?
@@ -27,11 +27,11 @@ class BatchSignupWorker
       puts e
     end
 
-    puts "Done creating account. Response from AD #{json_body}"
+    puts "BATCH: Done creating account. Response from AD #{json_body}"
 
     if account_created == true
       # TODO: merge this and the following block?
-      puts "Creating user profile directory in home region.."
+      puts "BATCH:Creating user profile directory in home region.."
       begin
         create_dir_url = "#{ENV['API_HOST']}/createdir"
         response = RestClient.post(url=create_dir_url,payload={:username => @invitation.recipient_username, :region => region}, headers= {:token => ENV["API_KEY"]})
@@ -39,9 +39,9 @@ class BatchSignupWorker
       rescue => e
         puts e
       end
-      puts "Created user profile directory successfully in home region"
+      puts "BATCH: Created user profile directory successfully in home region"
 
-      puts "Creating user profile directory in remaining regions.."
+      puts "BATCH: Creating user profile directory in remaining regions.."
       rem_regions = ['amer', 'dldc', 'emea', 'apac'] - ["#{region}"]
       rem_regions.each do |sync_reg|
         begin
@@ -52,7 +52,7 @@ class BatchSignupWorker
           puts e
         end
       end
-      puts "Created user profile directory successfully in other regions"
+      puts "BATCH: Created user profile directory successfully in other regions"
 
       # Find a way to optimize this
       super_user = false
@@ -72,17 +72,17 @@ class BatchSignupWorker
       end
 
       if super_user == true
-        puts "Sending Super User email...."
+        puts "BATCH: Sending Super User email for Invitation #{@invitation.id}...."
           WelcomeUserMailer.welcome_email(@invitation,json_body['password'],ENV['DOMAIN']).deliver
-        puts "Email sent successfully"
+        puts "BATCH: Email sent successfully for Invitation #{@invitation.id}"
       else
-        puts "Sending Regular User email...."
+        puts "BATCH: Sending Regular User email for Invitation #{@invitation.id}...."
           WelcomeUserMailer.welcome_email_invited(@invitation,json_body['password'],ENV['DOMAIN']).deliver
-        puts "Email sent successfully"
+        puts "BATCH: Email sent successfully for Invitation #{@invitation.id}"
       end
 
     else
-      puts "AD account creation failed for #{@invitation.recipient_email}. Will stop provisioning"
+      puts "BATCH: AD account creation failed for #{@invitation.recipient_email}. Will stop provisioning"
     end
   end
 end
