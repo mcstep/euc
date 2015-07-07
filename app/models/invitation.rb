@@ -54,9 +54,9 @@ private
   end
 
   def set_defaults
-    if self.reg_code.nil?
+    if self.reg_code.nil? && self.sender_id.nil?
       self.expires_at = (Time.now + 1.year)
-    else
+    elsif !self.reg_code.nil?
       self.expires_at = (Time.now + reg_code.account_validity.days)
     end
 

@@ -323,7 +323,7 @@ table.alert:hover td {
 
 <table class="body" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; height: 100%; width: 100%; background: #697785; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="center" align="center" valign="top" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;">
 <% if @invitation.sender.nil? || (!@invitation.sender.nil? && @invitation.sender.email == 'admin@vmwdemo.com') %>
-<% sender_name = 'the EUC Solutions Demo Team' %>
+<% sender_name = 'the EUC Solution Engineering Team' %>
 <% sender_email = 'eucdemohelp@vmware.com' %>
 <% else %>
 <% sender_name = @invitation.sender.display_name %>
