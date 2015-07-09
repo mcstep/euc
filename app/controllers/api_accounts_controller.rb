@@ -79,7 +79,7 @@ class ApiAccountsController < BaseApiController
     user_name = @json['account']['email'].downcase.split("@").first
     existing_user = does_user_exist(@json['account']['email'].downcase.split("@").first)
     while existing_user != nil do
-      user_name = @json['account']['email'].downcase.split("@").first + "." + rand(101...999).to_s
+      user_name = @json['account']['email'].downcase.split("@").first[0..14] + "." + rand(101...999).to_s
       puts "User exists, trying with Username #{user_name}"
       existing_user = does_user_exist(user_name)
     end
