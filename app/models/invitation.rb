@@ -21,6 +21,8 @@
 class Invitation < ActiveRecord::Base
   acts_as_paranoid
 
+  attr_accessor :skip_points_management
+
   belongs_to :from_user, class_name: 'User'
   belongs_to :to_user,   class_name: 'User', inverse_of: :received_invitation
 
@@ -28,13 +30,12 @@ class Invitation < ActiveRecord::Base
 
   validates :from_user, presence: true
   validates :to_user, presence: true, uniqueness: {scope: :from_user_id}
-  validates :to_user_id, inclusion: {in: [nil]}, on: :create
-  # validates :from_user_role, inclusion: {in: [:admin, :root]}, allow_blank: true, on: :create
+  validates :from_user_id, presence: true, on: :create
 
-  after_create      :use_invitation_point
-  after_destroy     :free_invitation_point
+  before_create :use_invitation_point
+  after_destroy :free_invitation_point
 
-  delegate :role, to: :from_user, prefix: true
+  delegate :id, to: :from_user, prefix: true
 
   def self.from(user)
     invitation = Invitation.new(from_user: user)
@@ -44,11 +45,13 @@ class Invitation < ActiveRecord::Base
   end
 
   def use_invitation_point
+    return if skip_points_management
     from_user.invitations_used += 1
     from_user.save!
   end
-
+ 
   def free_invitation_point
+    return if skip_points_management
     from_user.invitations_used -= 1
     from_user.save!
   end

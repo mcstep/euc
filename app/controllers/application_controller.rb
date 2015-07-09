@@ -23,6 +23,8 @@ class ApplicationController < ActionController::Base
     rescue ActiveRecord::RecordNotFound 
       session[:user_id] = session[:impersonator_id] = nil
     end
+
+    @current_user
   end
 
   def require_login

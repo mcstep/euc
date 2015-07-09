@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
 
     context 'when limit is over' do
       subject do
-        build :invitation, from_user: build(:user, total_invitations: 0)
+        build :invitation, from_user: create(:user, total_invitations: 0)
       end
 
       it{ is_expected.to be_valid }

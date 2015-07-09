@@ -30,6 +30,6 @@ class RegistrationCode < ActiveRecord::Base
   validates :total_registrations, presence: true, numericality: { greater_than: 0 }
 
   before_create do
-    self.code = Digest::SHA1.hexdigest([Time.now, rand].join)
+    self.code ||= Digest::SHA1.hexdigest([Time.now, rand].join)
   end
 end

@@ -47,6 +47,8 @@ class Directory < ActiveRecord::Base
   end
 
   def signup(user_integration)
+    expires_at = user_integration.directory_expiration_date.to_datetime.to_i*1000
+
     query 'signup',
       fname: user_integration.user.first_name,
       lname: user_integration.user.last_name,
@@ -54,7 +56,7 @@ class Directory < ActiveRecord::Base
       username: user_integration.directory_username,
       email: user_integration.user.email,
       title: user_integration.user.job_title,
-      expires_at: user_integration.directory_expiration_date,
+      expires_at: expires_at,
       region: user_integration.user.home_region
   end
 

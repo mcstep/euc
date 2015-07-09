@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, :vcr, type: :model do
+RSpec.describe Directory, :vcr, type: :model do
   let(:directory){ build :real_directory }
 
   describe '.signup' do
@@ -45,13 +45,13 @@ RSpec.describe User, :vcr, type: :model do
 
     describe '.add_group' do
       it 'works' do
-        expect(directory.add_group user_integration.directory_username, 'magicgroup').to eq nil
+        expect(directory.add_group user_integration.directory_username, 'SpecGroup').to eq nil
       end
     end
 
     describe '.remove_group' do
       it 'works' do
-        expect(directory.add_group user_integration.directory_username, 'magicgroup').to eq nil
+        expect(directory.add_group user_integration.directory_username, 'SpecGroup').to eq nil
       end
     end
   end

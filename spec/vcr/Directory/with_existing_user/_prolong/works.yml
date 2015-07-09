@@ -5,7 +5,7 @@ http_interactions:
     uri: http://staging.vmwdemo.com:8080/signup
     body:
       encoding: US-ASCII
-      string: fname=Reginald&lname=McCullough&org=Ferry%2C%20Graham%20and%20Ebert&username=hollis&email=ervin.berge%40kuhlman.com&title=Forward%20Directives%20Architect&expires_at=2015-07-08&region=dldc
+      string: fname=Rupert&lname=Adams&org=Steuber%20Inc&username=blake.prohaska&email=eloise_wiegand%40rice.biz&title=Dynamic%20Response%20Producer&expires_at=2015-07-10&region=apac
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -14,7 +14,7 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '188'
+      - '168'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -29,29 +29,29 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '56'
+      - '62'
       Set-Cookie:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Tue, 07 Jul 2015 10:00:53 GMT
+      - Thu, 09 Jul 2015 19:37:28 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: |-
         {
-          "username": "hollis",
-          "password": "Cent0present"
+          "username": "blake.prohaska",
+          "password": "Tool1music"
         }
     http_version: 
-  recorded_at: Tue, 07 Jul 2015 10:00:54 GMT
+  recorded_at: Thu, 09 Jul 2015 19:37:28 GMT
 - request:
     method: post
-    uri: http://staging.vmwdemo.com:8080/authenticate
+    uri: http://staging.vmwdemo.com:8080/extendAccount
     body:
       encoding: US-ASCII
-      string: username=hollis&password=Cent0present
+      string: username=blake.prohaska&expires_at=1436400000000
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -60,46 +60,40 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '37'
+      - '48'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
       - Ruby
   response:
     status:
-      code: 401
-      message: Unauthorized
+      code: 200
+      message: OK
     headers:
       X-Powered-By:
       - Express
       Content-Type:
-      - application/json; charset=utf-8
+      - text/html; charset=utf-8
       Content-Length:
-      - '175'
+      - '7'
       Set-Cookie:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Tue, 07 Jul 2015 10:00:54 GMT
+      - Thu, 09 Jul 2015 19:37:28 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
-      string: |-
-        {
-          "dn": "",
-          "code": 49,
-          "name": "InvalidCredentialsError",
-          "message": "80090308: LdapErr: DSID-0C0903C5, comment: AcceptSecurityContext error, data 701, v2580\u0000"
-        }
+      string: Success
     http_version: 
-  recorded_at: Tue, 07 Jul 2015 10:00:54 GMT
+  recorded_at: Thu, 09 Jul 2015 19:37:28 GMT
 - request:
     method: post
     uri: http://staging.vmwdemo.com:8080/unregister
     body:
       encoding: US-ASCII
-      string: username=hollis
+      string: username=blake.prohaska
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -108,7 +102,7 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '15'
+      - '23'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -128,12 +122,12 @@ http_interactions:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Tue, 07 Jul 2015 10:00:54 GMT
+      - Thu, 09 Jul 2015 19:37:29 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: OK
     http_version: 
-  recorded_at: Tue, 07 Jul 2015 10:00:54 GMT
+  recorded_at: Thu, 09 Jul 2015 19:37:29 GMT
 recorded_with: VCR 2.9.3

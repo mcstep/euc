@@ -36,6 +36,8 @@ class UserIntegration < ActiveRecord::Base
 
   acts_as_paranoid
 
+  attr_accessor :disable_provisioning
+
   belongs_to :user, inverse_of: :user_integrations
   belongs_to :integration
   belongs_to :airwatch_group

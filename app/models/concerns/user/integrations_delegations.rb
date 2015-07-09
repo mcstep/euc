@@ -2,6 +2,8 @@ module User::IntegrationsDelegations
   extend ActiveSupport::Concern
 
   included do
+    attr_accessor :integrations_disable_provisioning
+
     before_validation :ensure_profile
     before_validation :setup_integrations, on: :create
     after_save        :setup_authentication
@@ -21,6 +23,7 @@ module User::IntegrationsDelegations
 
   def integrations_expiration_date=(date)
     return if date.blank?
+    date = date.to_date if date.respond_to?(:to_date)
     date = Date.parse(date) unless date.is_a?(Date)
     @expiration_date = date
   end
@@ -45,6 +48,7 @@ module User::IntegrationsDelegations
         ei.user                      = self
         ei.directory_username        = integrations_username
         ei.directory_expiration_date = integrations_expiration_date
+        ei.disable_provisioning      = integrations_disable_provisioning
 
         if original = user_integrations.select{|ui| ui.integration_id == ei.integration_id}.first
           ei.adapt(original)

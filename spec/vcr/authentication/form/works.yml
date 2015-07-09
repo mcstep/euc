@@ -34,7 +34,7 @@ http_interactions:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Tue, 07 Jul 2015 15:04:34 GMT
+      - Thu, 09 Jul 2015 19:37:23 GMT
       Connection:
       - keep-alive
     body:
@@ -46,5 +46,5 @@ http_interactions:
           "last_login": "2015-06-30T21:49:58.259Z"
         }
     http_version: 
-  recorded_at: Tue, 07 Jul 2015 15:04:35 GMT
+  recorded_at: Thu, 09 Jul 2015 19:37:23 GMT
 recorded_with: VCR 2.9.3

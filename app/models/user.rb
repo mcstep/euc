@@ -76,6 +76,7 @@ class User < ActiveRecord::Base
   before_save       :normalize!
   before_save       :cleanup_avatar!
   after_validation  :normalize_errors
+  after_create      :use_registration_code_point
   after_create      { SignupWorker.perform_async(id) }
   after_destroy     { received_invitation.try(:free_invitation_point) }
 
@@ -204,5 +205,11 @@ class User < ActiveRecord::Base
       authentication_integration.directory_username
     )
     destroy!
+  end
+
+  def use_registration_code_point
+    return if !registration_code
+    registration_code.registrations_used += 1
+    registration_code.save!
   end
 end

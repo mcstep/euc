@@ -5,7 +5,7 @@ http_interactions:
     uri: http://staging.vmwdemo.com:8080/signup
     body:
       encoding: US-ASCII
-      string: fname=Elroy&lname=Lubowitz&org=Grady%20Group&username=gretchen_terry&email=noemy_abbott%40murazikbosco.biz&title=National%20Metrics%20Executive&expires_at=2015-07-08&region=emea
+      string: fname=Kenna&lname=Kutch&org=Hagenes%2C%20Green%20and%20Schamberger&username=nyah&email=marilou_jacobson%40cormier.co.uk&title=Future%20Configuration%20Supervisor&expires_at=2015-07-10&region=emea
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -14,7 +14,7 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '177'
+      - '195'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -29,71 +29,29 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '62'
+      - '54'
       Set-Cookie:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Tue, 07 Jul 2015 10:12:57 GMT
+      - Thu, 09 Jul 2015 19:37:32 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: |-
         {
-          "username": "gretchen_terry",
-          "password": "Gold3aloud"
+          "username": "nyah",
+          "password": "Blood3center"
         }
     http_version: 
-  recorded_at: Tue, 07 Jul 2015 10:12:57 GMT
-- request:
-    method: post
-    uri: http://staging.vmwdemo.com:8080/addUserToGroup
-    body:
-      encoding: US-ASCII
-      string: username=gretchen_terry&group=magicgroup
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      Token:
-      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
-      Content-Length:
-      - '40'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 500
-      message: Internal Server Error
-    headers:
-      X-Powered-By:
-      - Express
-      Content-Type:
-      - text/plain
-      Content-Length:
-      - '21'
-      Set-Cookie:
-      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
-        HttpOnly
-      Date:
-      - Tue, 07 Jul 2015 10:12:58 GMT
-      Connection:
-      - keep-alive
-    body:
-      encoding: UTF-8
-      string: Internal Server Error
-    http_version: 
-  recorded_at: Tue, 07 Jul 2015 10:12:58 GMT
+  recorded_at: Thu, 09 Jul 2015 19:37:32 GMT
 - request:
     method: post
     uri: http://staging.vmwdemo.com:8080/unregister
     body:
       encoding: US-ASCII
-      string: username=gretchen_terry
+      string: username=nyah
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -102,7 +60,7 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '23'
+      - '13'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -122,12 +80,54 @@ http_interactions:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Tue, 07 Jul 2015 10:12:58 GMT
+      - Thu, 09 Jul 2015 19:37:32 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: OK
     http_version: 
-  recorded_at: Tue, 07 Jul 2015 10:12:58 GMT
+  recorded_at: Thu, 09 Jul 2015 19:37:32 GMT
+- request:
+    method: post
+    uri: http://staging.vmwdemo.com:8080/unregister
+    body:
+      encoding: US-ASCII
+      string: username=nyah
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '13'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '2'
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+      Date:
+      - Thu, 09 Jul 2015 19:37:32 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: OK
+    http_version: 
+  recorded_at: Thu, 09 Jul 2015 19:37:32 GMT
 recorded_with: VCR 2.9.3
