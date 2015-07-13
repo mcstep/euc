@@ -80,6 +80,10 @@ class CustomAirwatchProvisionWorker
                               "Id"=> "10107",
                               "LocationGroupId"=> "1551"
                             },
+                            {
+                              "Id"=> "87",
+                              "LocationGroupId"=> "1251"
+                            },
                           ], 
                   "IsActiveDirectoryUser"=>"true", 
                   "RequiresPasswordChange"=>"false"} 
