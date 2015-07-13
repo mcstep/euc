@@ -1,14 +1,14 @@
-[staging]
-46.101.244.78 ansible_ssh_user=root
+[production]
+# Server definition goes here
 
 [application:children]
-staging
+production
 
 [database:children]
-staging
+production
 
 [redis:children]
-staging
+production
 
 [all:children]
 application
