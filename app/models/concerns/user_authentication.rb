@@ -1,4 +1,4 @@
-module User::Authentication
+module UserAuthentication
   extend ActiveSupport::Concern
 
   class Constraint

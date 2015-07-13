@@ -1,4 +1,4 @@
-module UserIntegration::StateMachines
+module StateMachines
   extend ActiveSupport::Concern
 
   class Machine < MicroMachine

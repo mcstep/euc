@@ -1,5 +1,5 @@
 [staging]
-# Actual staging servers located here
+46.101.243.146 ansible_ssh_user=root
 
 [application:children]
 staging
@@ -18,4 +18,4 @@ redis
 [all:vars]
 rails_environment=staging
 rails_user=rails
-rails_path=/app
+rails_path=/home/rails/app/current

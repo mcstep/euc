@@ -18,3 +18,60 @@
       rvm1_gpg_key_server: 'hkp://pgp.mit.edu'
     - name: node.js to assist rails assets pipeline
       role: laggyluke.nodejs
+
+- hosts: application
+  roles:
+    - role: MichaelRigart.passenger-nginx
+      sudo: Yes
+      passenger_nginx_custom_directories: []
+      passenger_nginx_passenger_config:
+        - 'passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;'
+        - 'passenger_ruby /usr/local/rvm/gems/ruby-2.1.1/wrappers/ruby;'
+        - 'passenger_max_pool_size 6;'
+      passenger_nginx_nginx_config:
+        main:
+          - 'user rails rails;'
+          - 'worker_processes 4;'
+          - 'pid /var/run/nginx.pid;'
+        events:
+          - 'worker_connections 1024;'
+          - 'multi_accept on;'
+        http:
+          - 'access_log /var/log/nginx/access.log;'
+          - 'error_log /var/log/nginx/error.log;'
+          - 'sendfile on;'
+          - 'tcp_nopush on;'
+          - 'tcp_nodelay on;'
+          - 'keepalive_timeout 65;'
+          - 'types_hash_max_size 2048;'
+          - 'client_max_body_size 100M;'
+          - 'proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=microcache:8m max_size=3G inactive=10m;'
+          - 'proxy_temp_path /var/cache/nginx/tmp 1 2;'
+          - 'server_tokens off;'
+          - 'more_clear_headers "Server" "X-Powered-By" "X-Runtime";'
+          - 'server_names_hash_max_size 2048;'
+          - 'gzip on;'
+          - 'gzip_comp_level 9;'
+          - 'gzip_buffers 16 8k;'
+          - 'gzip_disable "msie6";'
+          - 'gzip_proxied any;'
+          - 'gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;'
+          - 'charset utf-8;'
+          - 'include /etc/nginx/conf.d/*.conf;'
+          - 'include /etc/nginx/sites-enabled/*;'
+          - 'include /etc/nginx/mime.types;'
+          - 'default_type application/octet-stream;'
+  tasks:
+    - name: Ensure sidekiq starts on a fresh reboot
+      service: name=sidekiq state=started enabled=yes
+    - name: Copy nginx project config
+      copy: src=nginx.conf dest=/etc/nginx/sites-enabled/default owner=rails group=rails mode=644
+    - name: Prepares deployment directories
+      file: path="{{ rails_path }}/../{{ item }}" state=directory owner=rails group=rails
+      with_items:
+        - shared
+    - stat: path="{{ rails_path }}"
+      register: x
+    - name: Ensure current is not a directory
+      file: path="{{ rails_path }}" state=absent
+      when: not x.stat.islnk

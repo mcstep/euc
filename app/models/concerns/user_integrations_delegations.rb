@@ -1,4 +1,4 @@
-module User::IntegrationsDelegations
+module UserIntegrationsDelegations
   extend ActiveSupport::Concern
 
   included do

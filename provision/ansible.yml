@@ -1,8 +1,23 @@
 ---
 - include: application/ansible.yml
 - hosts: database
+  vars:
+    - postgresql_databases:
+      - name: eucportal
+        hstore: yes
+    - postgresql_users:
+      - name: eucportal
+        pass: eucportal
+        encrypted: no
+    - postgresql_user_privileges:
+      - name: eucportal
+        db: eucportal
+        priv: "ALL"
+        role_attr_flags: "CREATEDB"
   roles:
-    - postgresql
+    - ANXS.postgresql
 - hosts: redis
+  vars:
+    - redis_bind: 127.0.0.1
   roles:
-    - redis
+    - DavidWittman.redis

@@ -1,4 +1,8 @@
 ---
+- name: Refresh APT
+  apt: update_cache=yes
+- name: Git is used by Capistrano to deploy
+  apt: name=git state=latest
 - name: libpg-dev required to assist ruby pg gem
   apt: name=libpq-dev state=latest
 - name: cURL required by RVM

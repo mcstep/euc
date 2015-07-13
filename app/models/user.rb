@@ -36,8 +36,8 @@
 #
 
 class User < ActiveRecord::Base
-  include Authentication
-  include IntegrationsDelegations
+  include UserAuthentication
+  include UserIntegrationsDelegations
 
   acts_as_paranoid
 
