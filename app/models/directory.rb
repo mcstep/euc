@@ -26,7 +26,6 @@ class Directory < ActiveRecord::Base
 
   def query(action, payload, params={})
     response = RestClient.post url(action), payload, params.merge(token: api_key)
-    raise "Directory request returned #{response.code}" unless response.code == 200
     JSON.parse response rescue nil
   end
 
@@ -61,7 +60,7 @@ class Directory < ActiveRecord::Base
   end
 
   def replicate
-    query 'ad/replicate', {uname: 'demo.user'}, timeout: 200, open_timeout: 10
+    query 'ad/replicate', {uname: 'demo.user'}, timeout: 1000, open_timeout: 10
   end
 
   def create_profile(username, region)

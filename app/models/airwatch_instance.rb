@@ -29,17 +29,16 @@ class AirwatchInstance < ActiveRecord::Base
   validates :group_name,      presence: true
   validates :group_region,    presence: true
 
-  def query(action, payload=nil)
+  def query(action, payload=nil, method: :post)
     response = RestClient::Request.execute(
-      method:   :post, 
+      method:   method, 
       url:      "https://#{host}/API/v1/#{action}",
       user:     user,
       password: password,
-      payload:  payload,
+      payload:  (payload.to_json if payload),
       headers:  { host: host, 'aw-tenant-code' => api_key, content_type: :json, accept: :json }
     )
-    raise "Directory request returned #{response.code}" unless response.code == 200
-    JSON.parse response
+    JSON.parse(response) if response != "null"
   end
 
   def add_group(name)
@@ -50,6 +49,10 @@ class AirwatchInstance < ActiveRecord::Base
       'AddDefaultLocation' => 'Yes'
   end
 
+  def delete_group(id)
+    query "system/groups/#{id}/delete", method: :delete
+  end
+
   def add_user(username)
     query "system/users/adduser",
       'UserName' => username,
@@ -58,15 +61,27 @@ class AirwatchInstance < ActiveRecord::Base
       'Role' => "VMWDemo"
   end
 
-  def activate(user_id)
-    query "system/users/#{user_id}/activate"
+  def activate(id)
+    begin
+      query "system/users/#{id}/activate"
+    rescue RestClient::BadRequest => e
+      raise e unless e.response =~ /User not found or does not have access to retrieve the details/
+    end
   end
 
-  def deactivate(user_id)
-    query "system/users/#{user_id}/deactivate"
+  def deactivate(id)
+    begin
+      query "system/users/#{id}/deactivate"
+    rescue RestClient::BadRequest => e
+      raise e unless e.response =~ /User not found or does not have access to retrieve the details/
+    end
   end
 
-  def delete(user_id)
-    query "system/users/#{user_id}/delete"
+  def delete_user(id)
+    begin
+      query "system/users/#{id}/delete", method: :delete
+    rescue RestClient::BadRequest => e
+      raise e unless e.response =~ /User not found or does not have access to delete the user/
+    end
   end
 end

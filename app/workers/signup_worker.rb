@@ -13,12 +13,12 @@ class SignupWorker
       integration.update_attributes(username: response['username'], directory_status: :account_created)
     end
 
-    if integration.directory_account_created? && !Rails.env.development?
-      directory.replicate
+    if integration.directory_account_created?
+      directory.replicate unless Rails.env.development?
       integration.update_attributes(directory_status: :ad_replicated)
     end
 
-    if (integration.directory_account_created? && Rails.env.development?) || integration.directory_ad_replicated?
+    if integration.directory_ad_replicated?
       User::REGIONS.each do |region|
         directory.create_profile(integration.directory_username, region)
       end
@@ -26,7 +26,7 @@ class SignupWorker
     end
 
     if integration.directory_profile_created?
-      directory.sync(integration.directory_username, user.home_region)
+      directory.sync('dldc')
       integration.update_attributes(directory_status: :provisioned)
     end
 

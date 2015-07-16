@@ -1,23 +1,29 @@
 module Provisioners
   class AirwatchWorker < ProvisionerWorker
     def provision(user_integration)
-      user_integration.airwatch.provision
-      instance = user_integration.integration.airwatch_instance
+      # Make sure to store it because add_user is not an idempotent method
+      unless user_integration.airwatch_user_id
+        user_integration.airwatch_user_id = instance.add_user(user_integration.directory_username)['Value']
+        user_integration.save!
+      end
 
-      user_integration.airwatch_group_id = AirwatchGroup.instantiate(user_integration)
-      user_integration.airwatch_user_id  = instance.add_user(user_integration.directory_username)['Value']
-      add_group user_integration, instance.group_name, instance.group_region
+      # Only tick status if everything worked (retry otherwise)
+      user_integration.transaction do
+        user_integration.airwatch.provision
+        user_integration.save!
 
-      GeneralMailer.airwatch_activation_email(user_integration).deliver
-      user_integration.save!
+        instance = user_integration.integration.airwatch_instance
+        user_integration.airwatch_group_id = AirwatchGroup.instantiate(user_integration)
+        add_group user_integration, instance.group_name, instance.group_region
+
+        GeneralMailer.airwatch_activation_email(user_integration).deliver
+      end
     end
 
     def deprovision(user_integration)
       instance = user_integration.integration.airwatch_instance
 
-      instance.deactivate(user_integration.airwatch_user_id)
-      sleep 5 # Fix this. Currently have to do this because the AirWatch API can't handle deletion immediately after deactivation :(
-      instance.delete(user_integration.airwatch_user_id)
+      instance.delete_user(user_integration.airwatch_user_id)
       remove_group user_integration, instance.group_name, instance.group_region
     end
 

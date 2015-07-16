@@ -1,0 +1,134 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/users/adduser
+    body:
+      encoding: UTF-8
+      string: '{"UserName":"spec.test","Status":"true","SecurityType":"Directory","Role":"VMWDemo"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '84'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Wed, 15 Jul 2015 18:58:14 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '12'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: '{"Value":15}'
+    http_version: 
+  recorded_at: Wed, 15 Jul 2015 18:58:15 GMT
+- request:
+    method: post
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/users/15/deactivate
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Wed, 15 Jul 2015 18:58:15 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '4'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: 'null'
+    http_version: 
+  recorded_at: Wed, 15 Jul 2015 18:58:16 GMT
+- request:
+    method: delete
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/users/15/delete
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Wed, 15 Jul 2015 18:58:16 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '4'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: 'null'
+    http_version: 
+  recorded_at: Wed, 15 Jul 2015 18:58:17 GMT
+recorded_with: VCR 2.9.3

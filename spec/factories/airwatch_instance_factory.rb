@@ -7,5 +7,13 @@ FactoryGirl.define do
     user            { FFaker::Internet.user_name }
     password        { FFaker::Internet.password }
     parent_group_id { rand(1...999) }
+
+    factory :real_airwatch_instance do
+      host            'airwatch.vmwdev.com'
+      api_key         'UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs='
+      user            'api.admin'
+      password        'vmwareHelp!'
+      parent_group_id  570
+    end
   end
 end

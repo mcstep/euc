@@ -5,7 +5,7 @@ http_interactions:
     uri: http://staging.vmwdemo.com:8080/signup
     body:
       encoding: US-ASCII
-      string: fname=Braeden&lname=Little&org=Shields-Goyette&username=ines.grady&email=kiley%40green.us&title=Dynamic%20Program%20Developer&expires_at=1437004800000&region=amer
+      string: fname=Ariel&lname=Crist&org=Bradtke%20and%20Sons&username=nash_lindgren&email=ressie%40murazik.co.uk&title=Lead%20Creative%20Analyst&expires_at=1437004800000&region=amer
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -14,7 +14,7 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '162'
+      - '169'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -34,24 +34,24 @@ http_interactions:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Wed, 15 Jul 2015 17:27:40 GMT
+      - Wed, 15 Jul 2015 17:27:46 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: |-
         {
-          "username": "ines.grady",
-          "password": "Here5promised"
+          "username": "nash_lindgren",
+          "password": "Speak0late"
         }
     http_version: 
-  recorded_at: Wed, 15 Jul 2015 17:27:41 GMT
+  recorded_at: Wed, 15 Jul 2015 17:27:47 GMT
 - request:
     method: post
-    uri: http://staging.vmwdemo.com:8080/unregister
+    uri: http://staging.vmwdemo.com:8080/createdir
     body:
       encoding: US-ASCII
-      string: username=ines.grady
+      string: username=nash_lindgren&region=amer
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -60,7 +60,91 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '19'
+      - '34'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '7'
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+      Date:
+      - Wed, 15 Jul 2015 17:27:46 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: Success
+    http_version: 
+  recorded_at: Wed, 15 Jul 2015 17:27:47 GMT
+- request:
+    method: post
+    uri: http://staging.vmwdemo.com:8080/createdir
+    body:
+      encoding: US-ASCII
+      string: username=nash_lindgren&region=amer
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '34'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '7'
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+      Date:
+      - Wed, 15 Jul 2015 17:27:47 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: Success
+    http_version: 
+  recorded_at: Wed, 15 Jul 2015 17:27:48 GMT
+- request:
+    method: post
+    uri: http://staging.vmwdemo.com:8080/unregister
+    body:
+      encoding: US-ASCII
+      string: username=nash_lindgren
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '22'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -80,54 +164,12 @@ http_interactions:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Wed, 15 Jul 2015 17:27:40 GMT
+      - Wed, 15 Jul 2015 17:27:47 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: OK
     http_version: 
-  recorded_at: Wed, 15 Jul 2015 17:27:41 GMT
-- request:
-    method: post
-    uri: http://staging.vmwdemo.com:8080/unregister
-    body:
-      encoding: US-ASCII
-      string: username=ines.grady
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      Token:
-      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
-      Content-Length:
-      - '19'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      X-Powered-By:
-      - Express
-      Content-Type:
-      - text/plain
-      Content-Length:
-      - '2'
-      Set-Cookie:
-      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
-        HttpOnly
-      Date:
-      - Wed, 15 Jul 2015 17:27:41 GMT
-      Connection:
-      - keep-alive
-    body:
-      encoding: UTF-8
-      string: OK
-    http_version: 
-  recorded_at: Wed, 15 Jul 2015 17:27:41 GMT
+  recorded_at: Wed, 15 Jul 2015 17:27:48 GMT
 recorded_with: VCR 2.9.3

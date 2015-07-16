@@ -1,0 +1,178 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/users/adduser
+    body:
+      encoding: UTF-8
+      string: '{"UserName":"spec.test","Status":"true","SecurityType":"Directory","Role":"VMWDemo"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '84'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Wed, 15 Jul 2015 19:02:18 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '12'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: '{"Value":18}'
+    http_version: 
+  recorded_at: Wed, 15 Jul 2015 19:02:21 GMT
+- request:
+    method: post
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/users/18/deactivate
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Wed, 15 Jul 2015 19:02:21 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '4'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: 'null'
+    http_version: 
+  recorded_at: Wed, 15 Jul 2015 19:02:22 GMT
+- request:
+    method: delete
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/users/18/delete
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Wed, 15 Jul 2015 19:02:22 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '4'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: 'null'
+    http_version: 
+  recorded_at: Wed, 15 Jul 2015 19:02:23 GMT
+- request:
+    method: post
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/users/18/deactivate
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Wed, 15 Jul 2015 19:05:58 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '144'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: '{"ActivityId":"09d4117a-44a2-4574-9450-6464e61ea8a7","ErrorCode":400,"Message":"User
+        not found or does not have access to retrieve the details"}'
+    http_version: 
+  recorded_at: Wed, 15 Jul 2015 19:05:59 GMT
+recorded_with: VCR 2.9.3

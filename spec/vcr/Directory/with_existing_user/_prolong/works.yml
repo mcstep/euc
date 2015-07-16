@@ -5,7 +5,7 @@ http_interactions:
     uri: http://staging.vmwdemo.com:8080/signup
     body:
       encoding: US-ASCII
-      string: fname=Rupert&lname=Adams&org=Steuber%20Inc&username=blake.prohaska&email=eloise_wiegand%40rice.biz&title=Dynamic%20Response%20Producer&expires_at=2015-07-10&region=apac
+      string: fname=Quinn&lname=Orn&org=Reichert-Grant&username=sage&email=myrtice.legros%40littel.co.uk&title=Regional%20Functionality%20Technician&expires_at=1437004800000&region=emea
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -14,7 +14,7 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '168'
+      - '171'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -29,29 +29,29 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '62'
+      - '58'
       Set-Cookie:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Thu, 09 Jul 2015 19:37:28 GMT
+      - Wed, 15 Jul 2015 17:27:38 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: |-
         {
-          "username": "blake.prohaska",
-          "password": "Tool1music"
+          "username": "sage",
+          "password": "Introduced0teach"
         }
     http_version: 
-  recorded_at: Thu, 09 Jul 2015 19:37:28 GMT
+  recorded_at: Wed, 15 Jul 2015 17:27:38 GMT
 - request:
     method: post
     uri: http://staging.vmwdemo.com:8080/extendAccount
     body:
       encoding: US-ASCII
-      string: username=blake.prohaska&expires_at=1436400000000
+      string: username=sage&expires_at=1436918400000
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -60,7 +60,7 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '48'
+      - '38'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -80,20 +80,20 @@ http_interactions:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Thu, 09 Jul 2015 19:37:28 GMT
+      - Wed, 15 Jul 2015 17:27:38 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: Success
     http_version: 
-  recorded_at: Thu, 09 Jul 2015 19:37:28 GMT
+  recorded_at: Wed, 15 Jul 2015 17:27:39 GMT
 - request:
     method: post
     uri: http://staging.vmwdemo.com:8080/unregister
     body:
       encoding: US-ASCII
-      string: username=blake.prohaska
+      string: username=sage
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -102,7 +102,7 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '23'
+      - '13'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -122,12 +122,12 @@ http_interactions:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
       Date:
-      - Thu, 09 Jul 2015 19:37:29 GMT
+      - Wed, 15 Jul 2015 17:27:38 GMT
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: OK
     http_version: 
-  recorded_at: Thu, 09 Jul 2015 19:37:29 GMT
+  recorded_at: Wed, 15 Jul 2015 17:27:39 GMT
 recorded_with: VCR 2.9.3
