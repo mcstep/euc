@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :require_login
   before_action :setup_global_forms, if: :current_user
   after_action  :verify_authorized
+  after_action  :log_request
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -44,5 +45,12 @@ class ApplicationController < ActionController::Base
     redirect_to :back, *params
   rescue ActionController::RedirectBackError
     redirect_to path, *params
+  end
+
+  def log_request
+    # Do not trash development Redis
+    User.clean_requests_logs if Rails.env.development?
+    
+    (current_user || User).log_request DateTime.now, request.remote_ip
   end
 end

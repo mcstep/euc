@@ -23,6 +23,7 @@
 #  eula_accept_date              :datetime
 #  acc_expiration_reminder_email :boolean
 #  reg_code_id                   :integer
+#  airwatch_admin_user_id        :integer
 #
 # Indexes
 #

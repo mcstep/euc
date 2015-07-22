@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   include UserAuthentication
   include UserIntegrationsDelegations
   include CompanyHolder
+  include RequestsLogger
 
   acts_as_paranoid
 
