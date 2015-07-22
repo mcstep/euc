@@ -5,6 +5,50 @@
   
 }
 
+.td-password {
+  hr {
+    margin: 2em 0 0 0;
+  }
+  
+  #pswd_info {
+       display:none;
+      position:absolute;
+      bottom:10px;
+
+      left:55%;
+      width:250px;
+      padding:15px;
+      background:#fefefe;
+      font-size:.875em;
+      border-radius:5px;
+      box-shadow:0 1px 3px #ccc;
+      border:1px solid #ddd;
+    
+    .invalid {
+      list-style-type: circle;
+        color: $brand-danger;
+    }
+    .valid {
+list-style-type: disc;
+        color: $brand-success;
+    }
+    
+    
+    &:before {
+        content: "\25B2";
+        position:absolute;
+        top:-12px;
+        left:45%;
+        font-size:14px;
+        line-height:14px;
+        color:#ddd;
+        text-shadow:none;
+        display:block;
+    }
+  }
+  
+}
+
 .td-dialog {
   @include open-sans;
   background: $modalbg;
@@ -12,6 +56,20 @@
   font-size: 100%;
   min-width: 250px;
 
+  .zero-space {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .td-verification {
+    margin: 1em 0;
+    .btn {
+      margin: 0;
+  
+      width: 100%;
+    }
+    
+  }
 
   /* For desktop forms  */
   @media (min-width: 1200px) {
@@ -178,14 +236,14 @@
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      background: url('select.svg') 98% / 15px no-repeat $white;
+      background: image-url('select.svg') 98% / 15px no-repeat $white;
     }
     
     .has-error {
-      select {
-        border: 1px solid $brand-danger;
-      }
-    }
+          select {
+            border: 1px solid $brand-danger;
+          }
+        }
 
     /*target Internet Explorer 9 and Internet Explorer 10:*/
     @media screen and (min-width: 0\0) {
@@ -218,8 +276,8 @@
 .usercard {
   overflow: auto;
   padding: 0 ;
-  margin: 0;
 
+  
   @media (min-width: 768px) {
     @include radius-large-top;
     padding: 0 25px 0 25px;

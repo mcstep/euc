@@ -14,9 +14,9 @@ FactoryGirl.define do
       association :profile, factory: :empty_profile, strategy: :build
     end
 
-    factory :real_user do
+    factory :full_user do
       integrations_username 'first.user'
-      association :profile, factory: :real_profile, strategy: :build
+      association :profile, factory: :full_profile, strategy: :build
     end
 
     factory :root do

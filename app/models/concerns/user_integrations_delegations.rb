@@ -46,7 +46,7 @@ module UserIntegrationsDelegations
 
       effective_integrations.each do |ei|
         ei.user                      = self
-        ei.directory_username        = integrations_username
+        ei.username                  = integrations_username
         ei.directory_expiration_date = integrations_expiration_date
         ei.disable_provisioning      = integrations_disable_provisioning
 

@@ -4,3 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
+Seedbank.load_tasks if defined?(Seedbank)

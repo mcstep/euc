@@ -1,3 +1,6 @@
-= render 'header'
-= render 'tiles'
-= render 'invitations'
+- if current_user.profile.home_template
+  = render "home/custom/#{current_user.profile.home_template}"
+- else
+  = render 'header'
+  = render 'tiles'
+  = render 'invitations'

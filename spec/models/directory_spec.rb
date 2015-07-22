@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Directory, :vcr, type: :model do
-  let(:directory){ build :real_directory }
+  let(:directory){ build :test_directory }
 
   describe '.replicate' do
     subject{ directory.replicate }
@@ -18,7 +18,7 @@ RSpec.describe Directory, :vcr, type: :model do
   describe '.signup' do
     let(:user_integration){ create(:user_integration) }
     subject{ directory.signup user_integration }
-    after{ directory.unregister user_integration.directory_username }
+    after{ directory.unregister user_integration.username }
 
     it 'returns password' do
       expect(subject['password']).to be_a String
@@ -30,7 +30,7 @@ RSpec.describe Directory, :vcr, type: :model do
     after{ directory.unregister username }
 
     let(:user_integration){ create(:user_integration) }
-    let(:username){ user_integration.directory_username }
+    let(:username){ user_integration.username }
     let(:password){ @response['password'] }
     let(:user) { user_integration.user }
 

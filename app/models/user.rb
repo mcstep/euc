@@ -38,6 +38,7 @@
 class User < ActiveRecord::Base
   include UserAuthentication
   include UserIntegrationsDelegations
+  include CompanyHolder
 
   acts_as_paranoid
 
@@ -59,7 +60,6 @@ class User < ActiveRecord::Base
   REGIONS = %w(amer emea apac dldc)
 
   belongs_to :authentication_integration, class_name: "UserIntegration"
-  belongs_to :company
   belongs_to :profile
   has_many :user_integrations, -> { includes(:directory_prolongations) }, dependent: :destroy, inverse_of: :user
   belongs_to :registration_code
@@ -68,7 +68,6 @@ class User < ActiveRecord::Base
 
   as_enum :role, ROLES
 
-  accepts_nested_attributes_for :company
   accepts_nested_attributes_for :user_integrations
 
   delegate :can_assign_roles?, to: :policy
@@ -105,18 +104,6 @@ class User < ActiveRecord::Base
 
   def display_name=(value)
     self.first_name, self.last_name = value.split(' ', 2)
-  end
-
-  def company_name
-    company.try :name
-  end
-
-  def company_name=(value)
-    if company = Company.named(value).first
-      self.company_id = company.id
-    else
-      self.company_attributes = {name: value}
-    end
   end
 
   def expiration_date
@@ -157,7 +144,7 @@ class User < ActiveRecord::Base
 
   def update_password(password=nil)
     authentication_integration.directory.update_password(
-      authentication_integration.directory_username,
+      authentication_integration.username,
       password
     )
   end
@@ -202,7 +189,7 @@ class User < ActiveRecord::Base
 
   def expire!
     authentication_integration.directory.unregister(
-      authentication_integration.directory_username
+      authentication_integration.username
     )
     destroy!
   end

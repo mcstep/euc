@@ -13,7 +13,7 @@ module UserAuthentication
 
   def authenticate(password)
     return false unless data = authentication_integration.directory.authenticate(
-      authentication_integration.directory_username,
+      authentication_integration.username,
       password
     )
     update_from_ad!(data)

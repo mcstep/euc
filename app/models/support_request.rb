@@ -3,7 +3,7 @@ class SupportRequest
 
   DEFAULT_EMAIL = 'eucdemohelp@vmware.com'
 
-  attr_accessor :recipient_id, :subject, :body, :from
+  attr_accessor :subject, :body, :from
 
   def assign_attributes(values)
     values.each do |k, v|
@@ -20,8 +20,9 @@ class SupportRequest
   end
 
   def recipient_email
-    return DEFAULT_EMAIL unless recipient_id
-    User.where(id: recipient_id).try(:email) || DEFAULT_EMAIL
+    from.invited_by.try(:email)   ||
+      from.profile.support_email  ||
+      DEFAULT_EMAIL
   end
 
   def send!

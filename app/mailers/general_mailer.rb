@@ -1,16 +1,10 @@
 class GeneralMailer < ApplicationMailer
-  def welcome_admin_email(user, password)
+  def welcome_email(user, password)
     @user     = user
     @password = password
+    template  = user.basic? ? 'welcome_basic_email' : 'welcome_admin_email'
 
-    mail(to: @user.email, subject: 'Your Account Information')
-  end
-
-  def welcome_basic_email(user, password)
-    @user     = user
-    @password = password
-
-    mail(to: @user.email, subject: 'Your Account Information')
+    mail(to: @user.email, subject: 'Your Account Information', template_name: template)
   end
 
   def password_recover_email(user, password)
@@ -57,7 +51,7 @@ class GeneralMailer < ApplicationMailer
   def airwatch_activation_email(user_integration)
     instance  = user_integration.integration.airwatch_instance
     @user     = user_integration.user
-    @username = user_integration.directory_username
+    @username = user_integration.username
     @group    = instance.parent_group_id
     @domain   = user_integration.integration.domain
     path      = Rails.root.join 'tmp', Dir::Tmpname.make_tmpname('qr', nil)

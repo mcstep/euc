@@ -8,7 +8,7 @@ FactoryGirl.define do
     password        { FFaker::Internet.password }
     parent_group_id { rand(1...999) }
 
-    factory :real_airwatch_instance do
+    factory :test_airwatch_instance do
       host            'airwatch.vmwdev.com'
       api_key         'UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs='
       user            'api.admin'

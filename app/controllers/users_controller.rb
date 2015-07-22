@@ -14,7 +14,7 @@ class UsersController < ApplicationController
         else
           n = "%#{params[:search]}%"
           @users.distinct.joins(:user_integrations).where(
-            'first_name LIKE ? OR last_name LIKE ? OR user_integrations.directory_username LIKE ? OR email LIKE ?',
+            'first_name LIKE ? OR last_name LIKE ? OR user_integrations.username LIKE ? OR email LIKE ?',
             n, n, n, n
           )
         end

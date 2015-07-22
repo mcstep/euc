@@ -8,6 +8,7 @@
 #  name       :string
 #  status     :integer          default(0), not null
 #  limit      :integer
+#  user_role  :integer          default(0), not null
 #  deleted_at :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -20,10 +21,12 @@
 #
 
 class Domain < ActiveRecord::Base
-  belongs_to :company
+  include CompanyHolder
+
   belongs_to :profile
 
   as_enum :status, {active: 0, inactive: 1}
+  as_enum :user_role, User::ROLES
 
   validates :name, presence: true, uniqueness: true
   validates :profile, presence: true

@@ -28,12 +28,12 @@ class ProvisionerWorker
   end
 
   def add_group(user_integration, group_name, group_region)
-    user_integration.directory.add_group(user_integration.directory_username, group_name)
+    user_integration.directory.add_group(user_integration.username, group_name)
     user_integration.directory.sync(group_region)
   end
 
   def remove_group(user_integration, group_name, group_region)
-    user_integration.directory.remove_group(user_integration.directory_username, group_name)
+    user_integration.directory.remove_group(user_integration.username, group_name)
     user_integration.directory.sync(group_region)
   end
 end

@@ -3,7 +3,13 @@ module Provisioners
     def provision(user_integration)
       # Make sure to store it because add_user is not an idempotent method
       unless user_integration.airwatch_user_id
-        user_integration.airwatch_user_id = instance.add_user(user_integration.directory_username)['Value']
+        user_integration.airwatch_user_id = instance.add_user(user_integration.username)['Value']
+        user_integration.save!
+      end
+
+      # Same goes to add_admin_user
+      unless user_integration.airwatch_admin_user_id
+        user_integration.airwatch_admin_user_id = instance.add_admin_user(user_integration.username)['Value']
         user_integration.save!
       end
 
@@ -43,6 +49,10 @@ module Provisioners
       add_group user_integration, instance.group_name, instance.group_region
 
       GeneralMailer.airwatch_reactivation_email(user_integration).deliver
+    end
+
+    def cleanup(user_integration)
+      deprovision(user_integration)
     end
   end
 end

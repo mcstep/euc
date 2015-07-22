@@ -80,7 +80,15 @@ $sidebar-width-desktop: 200px;
         font-weight: bold;
         color: $brand-success;
       };
+      
+      &:focus {
+        text-decoration: none !important;
+        border: 0;
+      };
     }
+    
+    
+    
   }
 
   img {
@@ -131,7 +139,7 @@ $sidebar-width-desktop: 200px;
 }
 
 .sidebar-nav {
-  width: $sidebar-width;
+  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -142,7 +150,7 @@ $sidebar-width-desktop: 200px;
   width: 100%;
   text-indent: 1em;
   line-height: 40px;
-  background: image-url('divider.png') bottom repeat-x;
+  background: image-url('divider.svg') bottom repeat-x;
 
   &:hover {
     background: none;
@@ -187,10 +195,6 @@ $sidebar-width-desktop: 200px;
     width: 0;
   }
 
-  .sidebar-nav {
-    width: $sidebar-width-desktop;
-  }
-
   .sidebar-divider {
     font-weight: normal;
     text-transform: uppercase;
@@ -218,41 +222,5 @@ $sidebar-width-desktop: 200px;
   #wrapper.toggled #fullwidth {
     position: relative;
     margin-right: 0;
-  }
-}
-
-#avatar-modal {
-  #avatar-webcam {
-    display: none;
-
-    & > div {
-      width: 360px;
-      height: 360px;
-      margin: 20px;
-
-      & > div {
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-      }
-    }
-
-    footer {
-      margin-bottom: 20px;
-    }
-  }
-
-  &.webcam-active {
-    & > .modal-dialog {
-      width: 400px;
-    }
-
-    #avatar-general {
-      display: none;
-    }
-
-    #avatar-webcam {
-      display: block;
-    }
   }
 }

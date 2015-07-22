@@ -1,0 +1,109 @@
+.row.hero
+  .col-md-12.col-lg-12.col-sm-12
+    %h1 AirWatch Demo Environment - Getting Started Guide
+    %p This guide overviews the Demo Environment and corresponding resources for Apple employees to demonstrate the AirWatch product to prospects and customers. Each of the demo stories, known as Demo Topics, consist of an iOS device configured for an end user along with how to deploy these features using the AirWatch admin console.
+.row
+  .col-md-12.row
+    %a{:name => "01"}
+    %h2 Account Creation
+    %p
+      To create your account navigate to
+      %a{:href => "https://portal.vmtestdrive.com/register"} https://portal.vmtestdrive.com/register
+      and register using your
+      %strong @apple.com
+      email address. Once registration is complete you will receive an email with credentials to login to the demo portal and the AirWatch administrative console.
+    .col-lg-6.well.well-lg
+      %p
+        %strong URL:
+        %a{:href => "http://apple.awmdm.com"} apple.awmdm.com
+      %p
+        %strong Username:
+        Username provided in registration email
+      %p
+        %strong Password:
+        Password provided in registration email
+.row
+  .col-md-12.col-lg-12
+    %a{:name => "02"}
+    %h2 Device Enrollment
+    %p To enroll your device for an AirWatch demo follow the below steps:
+
+    .col-sm-12.col-md-6.col-lg-4.row
+      %p
+        %img{src: "http://i.imgur.com/GNo1Kb1.png", width: "100%"}
+      %p
+        1. Download the AirWatch Agent from the app store or by navigating in a browser to
+        = succeed "." do
+          %a{:href => "http://awagent.com"} awagent.com
+    .col-sm-12.col-md-6.col-lg-4.row
+      %p
+        %img{src: "http://i.imgur.com/bjp6HxA.png", width: "100%"}
+      %p
+        2. Enter Demo email address using the below format:
+        = succeed "." do
+          %strong username@apple.vmtestdrive.com
+    .col-sm-12.col-md-6.col-lg-4.row
+      %p
+        %img{src: "http://i.imgur.com/g6ZZFhv.png", width: "100%"}
+      %p
+        3. Select demo flow from the drop down. See below for a detailed description of each Demo Topic.
+    .col-sm-12.col-md-6.col-lg-4.row
+      %p
+        %img{src: "http://i.imgur.com/KJZJfV6.png", width: "100%"}
+      %p
+        4. Select demo flow from the drop down. See below for a detailed description of each Demo Topic.
+    .col-sm-12.col-md-6.col-lg-4.row
+      %p
+        %img{src: "http://i.imgur.com/BGg2G7P.png", width: "100%"}
+      %p
+        5. Select demo flow from the drop down. See below for a detailed description of each Demo Topic.
+    .col-sm-12.col-md-6.col-lg-4.row
+      %p
+        %img{src: "http://i.imgur.com/PzNi0xV.png", width: "100%"}
+      %p
+        6. Select demo flow from the drop down. See below for a detailed description of each Demo Topic.
+  .row
+    .col-md-12.row
+      %a{:name => "02"}
+      %h2 Standard Device Enrollment Credentials
+      %p To enroll your device for an AirWatch demo follow the below steps:
+      %ul
+        %li
+          %strong BYOD Demo:
+          This demo replicates a company executive’s need to access corporate content from their personal device. Their motives are to keep their corporate and personal data separate while increasing productivity on the go.
+        %li
+          %strong Corporate Device Demo:
+          Device is shown from the perspective of an employee with a company issued device. Additional administrative restrictions are placed on the device by the company admin to ensure company data is secured.
+        %li
+          %strong Application Development Demo:
+          Device is configured with advanced application configurations for enterprise organizations that rely heavily on custom applications. Meeting Room app automatically signs users in with their identity and enables per app VPN for this app only. Console shows app development lifecycle, smart groups, app wrapping, SDK configuration, app logging and more.
+        %li
+          %strong Self Service Demo:
+          Device is configured for a consumer, in this case a hotel guest, for self-service. The device is locked into Blynk Hotel, a public app for hotels guests to order room service and other permitted activities. The device cannot exit the app so that hotels can enable guests to help themselves while knowing the device won’t be used for other purposes.
+        %li
+          %strong Line of Business Demo:
+          Device is locked into an internally developed app, Mobile Point of Sale, for use by a sales representative on the floor. Organizations can be assured the device is not being used for non-work related purposes, as employees cannot access the rest of the device.
+        %li
+          %strong Kiosk/Browser Demo:
+          Device is locked into a patient registration form using AirWatch Browser to collect patient information while waiting to see a doctor. Patients are unable to exit the form to use the device for other purposes.
+        %li
+          %strong Teacher Tools Demo:
+          Shows the AirWatch Teach and Learn apps designed for classroom use by both teachers and students. For this demo, one device will show the student’s perspective and the other device will show the teacher’s perspective. Teacher can lock student devices into websites, content, and apps in addition to calling attention and more.
+        %li
+          %strong Agent Enrollment Demo:
+          This short demo to shows device enrollment using the AirWatch agent. It is designed for showing prospects enrollment. All other demo flows show the device post enrollment.
+  .row
+    %a{:name => "03"}
+    .col-md-6.col-lg-6.row
+      %h2 Product Information
+      %p
+        For more information on AirWatch and product features please utilize the myAirWatch suite. To create an account fill out the form located
+        = succeed "." do
+          %a{:href => "https://secure.air-watch.com/register", :target => "_new"} here
+        %a{:href => "https://my.air-watch.com"} my.air-watch.com
+    .col-md-6.col-lg-6.row
+      %h2 Demo Feedback and Support
+      %p
+        To submit feedback on the demo environments or report issues, please email
+        = succeed "." do
+          %a{:href => "mailto:salessupport@air-watch.com"} salessupport@air-watch.com

@@ -42,7 +42,13 @@
     margin: 0;
     clear: both;
   }
+  
+  
+  .row {
+    padding: 30px 30px 0px 30px;
 
+    
+  }
   @media (min-width: 768px) {
     padding: 100px 25px 25px 25px;
   }
@@ -839,48 +845,82 @@
     .user-admin {
       
   
-      
-      
-      
-      ul {
-        list-style: none;
-
-      padding: 1em;
-      text-align: center;
-      margin: 1em;
-      }
-      
-      li {
-        @media(min-width: 992px) {
-        display: inline-block;
-        }
-        display: block;
+      .btn-group {
         
-        text-transform: uppercase;
-        margin: 0 0 0.5em 0;
-        .btn {
-          width: 100%;
-        }
-        a {
-          font-size: 90% !important;
-          margin: 0;
-        }
-      }
-      
-      .label {
-        color: $gray-light;
-
         position: relative;
-        letter-spacing: 0.1em;
-  
+        top: 120px;
+        right: 32.5%;
+        float: right !important;
+        @media(max-width: 1200px)  {
+          position: relative;
+          top: 0;
+          right: 0;
+          width: 100%;
+          text-align: center;
+          .btn {
+            display: inline-block;
+            margin: 1px;
+                width: 100%;
+            @media(min-width: 768px) {
+            width: 24%;
+          }
+            
+          
+            
+            float: left!important;
+          }
+        }
+    
       }
+    
     }
   
     .footer {
       text-align: center;
       color: $gray-light;
     }
+    .nav {
+      clear: both;
+      padding-top: 2em;
+  
+      .nav-tabs {
+        clear: both;
+      }
+      
+    }
     
+    .tab-content {
+      margin: 15px -15px;
+      padding: 15px;
+      min-height: 500px;
+      background: $white !important;
+      
+      h1.lined span {
+        background: $white !important;
+      }
+      
+    }
+    .nav-tabs, .nav-tabs > li > a {
+      border: none;
+    }
     
-
+    .devices {
+      .table {
+        padding: 1em 0.75em;
+      }
+      
+    }
+    #login-heatmap {
+      width: 100%;
+      padding: 1em !important;
+      word-wrap: normal;
+      overflow: hidden;
+      
+      .graph-domain {
+        float: right;
+         overflow: hidden;
+         display: inline-block;
+      }
+    }
 }
+

@@ -52,7 +52,7 @@ class Directory < ActiveRecord::Base
       fname: user_integration.user.first_name,
       lname: user_integration.user.last_name,
       org: user_integration.user.company_name,
-      username: user_integration.directory_username,
+      username: user_integration.username,
       email: user_integration.user.email,
       title: user_integration.user.job_title,
       expires_at: expires_at,
@@ -60,15 +60,15 @@ class Directory < ActiveRecord::Base
   end
 
   def replicate
-    query 'ad/replicate', {uname: 'demo.user'}, timeout: 1000, open_timeout: 10
+    query 'ad/replicate', {uname: 'demo.user'}, timeout: 200, open_timeout: 10
   end
 
   def create_profile(username, region)
     query 'createdir', username: username, region: region
   end
 
-  def sync(region)
-    query "sync/#{region}", uname: 'demo.user'
+  def sync(entity)
+    query "sync/#{entity}", uname: 'demo.user'
   end
 
   def unregister(username)

@@ -5,7 +5,7 @@
 #  id                        :integer          not null, primary key
 #  user_id                   :integer
 #  integration_id            :integer
-#  directory_username        :string
+#  username                  :string
 #  directory_expiration_date :date             not null
 #  directory_status          :integer          default(0), not null
 #  horizon_air_status        :integer          default(0), not null
@@ -16,6 +16,7 @@
 #  office365_status          :integer          default(0), not null
 #  google_apps_status        :integer          default(0), not null
 #  airwatch_user_id          :integer
+#  airwatch_admin_user_id    :integer
 #  airwatch_group_id         :integer
 #  deleted_at                :datetime
 #  created_at                :datetime         not null
@@ -23,6 +24,7 @@
 #
 # Indexes
 #
+#  index_user_integrations_on_airwatch_admin_user_id      (airwatch_admin_user_id)
 #  index_user_integrations_on_airwatch_group_id           (airwatch_group_id)
 #  index_user_integrations_on_airwatch_user_id            (airwatch_user_id)
 #  index_user_integrations_on_deleted_at                  (deleted_at)
@@ -57,8 +59,8 @@ class UserIntegration < ActiveRecord::Base
   as_enum :directory_status, {
     not_provisioned: 0,
     account_created: 1,
-    ad_replicated:   2,
-    profile_created: 3,
+    profile_created: 2,
+    groups_assigned: 3,
     provisioned:     4
   }, prefix: 'directory'
 
@@ -71,7 +73,7 @@ class UserIntegration < ActiveRecord::Base
 
   validates :user, presence: true
   validates :integration, presence: true
-  validates :directory_username, presence: true
+  validates :username, presence: true
   validates :directory_expiration_date, presence: true
 
   Integration::SERVICES.each do |s|

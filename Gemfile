@@ -21,6 +21,7 @@ gem 'rest-client-logger'
 gem 'kaminari'
 gem 'micromachine'
 gem 'google-api-client'
+gem 'azure-directory'
 gem 'rqrcode_png'
 gem 'sinatra', require: nil
 
@@ -32,12 +33,13 @@ gem 'carrierwave'
 gem 'carrierwave-data-uri'
 gem 'cloudinary'
 gem 'sidekiq'
+gem 'seedbank'
 
 group :development, :test do
+  gem 'factory_girl_rails'
   gem 'capybara'
   gem 'poltergeist'
   gem 'ffaker'
-  gem 'factory_girl_rails'
   gem 'spring-commands-rspec'
   gem 'rspec-rails', '~> 3.0'
   gem 'rspec-collection_matchers'

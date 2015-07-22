@@ -27,3 +27,39 @@
 .panel-footer .pagination {
   margin: 0px;
 }
+
+#avatar-modal {
+  #avatar-webcam {
+    display: none;
+
+    & > div {
+      width: 360px;
+      height: 360px;
+      margin: 20px;
+
+      & > div {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+    }
+
+    footer {
+      margin-bottom: 20px;
+    }
+  }
+
+  &.webcam-active {
+    & > .modal-dialog {
+      width: 400px;
+    }
+
+    #avatar-general {
+      display: none;
+    }
+
+    #avatar-webcam {
+      display: block;
+    }
+  }
+}

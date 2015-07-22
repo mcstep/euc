@@ -21,7 +21,7 @@ RSpec.describe 'authentication', type: :feature do
 
   describe 'form', :vcr do
     before do
-      create :real_user, email: 'test@test.com'
+      create :full_user, email: 'test@test.com'
       visit '/session/new'
 
       fill_in 'E-Mail', with: 'test@test.com'

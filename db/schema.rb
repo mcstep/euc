@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20150630021239) do
     t.string   "name"
     t.integer  "status",     default: 0, null: false
     t.integer  "limit"
+    t.integer  "user_role",  default: 0, null: false
     t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
@@ -205,9 +206,13 @@ ActiveRecord::Schema.define(version: 20150630021239) do
   create_table "office365_instances", force: :cascade do |t|
     t.string   "group_name"
     t.string   "group_region"
+    t.string   "client_id"
+    t.string   "client_secret"
+    t.string   "tenant_id"
+    t.string   "resource_id"
     t.datetime "deleted_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "office365_instances", ["deleted_at"], name: "index_office365_instances_on_deleted_at"
@@ -241,9 +246,13 @@ ActiveRecord::Schema.define(version: 20150630021239) do
 
   create_table "profiles", force: :cascade do |t|
     t.string   "name"
+    t.string   "home_template"
+    t.string   "support_email"
+    t.string   "group_name"
+    t.boolean  "supports_vidm", default: true, null: false
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "profiles", ["deleted_at"], name: "index_profiles_on_deleted_at"
@@ -266,7 +275,7 @@ ActiveRecord::Schema.define(version: 20150630021239) do
   create_table "user_integrations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "integration_id"
-    t.string   "directory_username"
+    t.string   "username"
     t.date     "directory_expiration_date",             null: false
     t.integer  "directory_status",          default: 0, null: false
     t.integer  "horizon_air_status",        default: 0, null: false
@@ -277,12 +286,14 @@ ActiveRecord::Schema.define(version: 20150630021239) do
     t.integer  "office365_status",          default: 0, null: false
     t.integer  "google_apps_status",        default: 0, null: false
     t.integer  "airwatch_user_id"
+    t.integer  "airwatch_admin_user_id"
     t.integer  "airwatch_group_id"
     t.datetime "deleted_at"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
 
+  add_index "user_integrations", ["airwatch_admin_user_id"], name: "index_user_integrations_on_airwatch_admin_user_id"
   add_index "user_integrations", ["airwatch_group_id"], name: "index_user_integrations_on_airwatch_group_id"
   add_index "user_integrations", ["airwatch_user_id"], name: "index_user_integrations_on_airwatch_user_id"
   add_index "user_integrations", ["deleted_at"], name: "index_user_integrations_on_deleted_at"

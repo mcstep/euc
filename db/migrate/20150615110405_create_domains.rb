@@ -6,6 +6,7 @@ class CreateDomains < ActiveRecord::Migration
       t.string        :name
       t.integer       :status,      null: false, default: 0
       t.integer       :limit
+      t.integer       :user_role,   null: false, default: 0
       t.datetime      :deleted_at,  index: true
       t.timestamps                  null: false
     end

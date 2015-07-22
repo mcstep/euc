@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user_integration do
-    directory_username        { FFaker::Internet.user_name }
+    username                  { FFaker::Internet.user_name }
     directory_expiration_date { Date.tomorrow }
 
     association :user, factory: :empty_user, strategy: :build

@@ -1,4 +1,6 @@
-@include animate-opacity;
+input {
+  z-index: 500;
+}
 
 body {
   background: $white;
@@ -45,10 +47,12 @@ a {
   padding: 0;
   .td-dialog {
     min-height: 0 !important;
+
   }
   
 }
 .modal-content {
+
   .user-details {
     padding-left: 3em;
     font-size: 75%;
@@ -66,12 +70,37 @@ a {
     margin-bottom: 0.5em !important;
   }
   .usercard, .editprofile {
-    text-align: center;
     padding-bottom: 0;
     margin-bottom: 0;
+    text-align: center;
   }
   
   .modal-body {
+    
+    .services { 
+      padding-top: 15px;
+      .label {
+        display: inline-block;
+        width: 80%;
+      }
+      tr td {
+        padding: 2em 1em 1em 1em;
+      }
+      
+      .form-group {
+
+      }
+    
+    table {
+      font-size: 120% !important;
+    }
+    
+    .btn {
+      margin: 0 !important;
+    }
+    
+  }
+    
   .btn-group-vertical {
     
     @media(max-width: 768px){

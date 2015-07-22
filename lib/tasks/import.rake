@@ -1,43 +1,29 @@
 namespace :db do
-  namespace :upgrade do
-    task :prepare => :environment do
-      ActiveRecord::Base.connection.execute <<-SQL
-        ALTER SCHEMA public RENAME TO old;
-        CREATE SCHEMA public;
-      SQL
-    end
-
+  namespace :import do
     task :run => [:domains, :accounts, :reg_codes, :users]
 
-    task :domains => :environment do
-      profile  = Profile.default
+    task :ensure => :environment do
+      raise "Default profile not found" unless Profile.where(name: 'Default').any?
+    end
+
+    task :domains => :ensure do
+      profile  = Profile.where(name: 'Default').first
       existing = Domain.pluck(:name)
 
-      Domain.transaction do
-        Upgrade::Domain.where.not(name: existing).each do |domain|
-          Domain.create!(name: domain.name, profile_id: profile.id)
-        end
+      Upgrade::Domain.where.not(name: existing).each do |domain|
+        Domain.create!(name: domain.name, profile_id: profile.id)
       end
     end
 
-    task :accounts => :environment do
+    task :accounts => :ensure do
       existing = Account.pluck(:email)
-      fields   = Account.attribute_names.select{|x| x != 'id'}
 
-      Account.transaction do
-        sql = <<-SQL
-          INSERT INTO public.accounts
-            (#{fields.join(', ')})
-          SELECT #{fields.join(', ')} FROM old.accounts WHERE email NOT IN (?)
-        SQL
-
-        sql = ActiveRecord::Base.send(:sanitize_sql_array, [sql, existing])
-
-        Account.connection.execute sql
+      Upgrade::Account.where.not(email: existing).each do |account|
+        Account.create!(account.attributes.merge(id: nil))
       end
     end
 
-    task :reg_codes => :environment do
+    task :reg_codes => :ensure do
       existing = RegistrationCode.pluck(:code)
 
       RegistrationCode.transaction do
@@ -54,9 +40,9 @@ namespace :db do
       end
     end
 
-    task :users => :environment do
+    task :users => :ensure do
       existing    = User.pluck(:email)
-      profile     = Profile.default
+      profile     = Profile.where(name: 'Default').first
       integration = profile.profile_integrations.first.integration
       users       = Upgrade::User.order(:id)
       users       = users.where.not("LOWER(email) IN (?)", existing) if existing.any?
@@ -83,7 +69,9 @@ namespace :db do
             user_integrations_attributes: [{
               integration_id: integration.id,
               google_apps_disabled: !user.invitation.google_apps_trial,
-              airwatch_disabled: !user.invitation.airwatch_trial
+              airwatch_disabled: !user.invitation.airwatch_trial,
+              airwatch_user_id: user.invitation.airwatch_user_id,
+              airwatch_admin_user_id: user.invitation.airwatch_admin_user_id
             }]
           )
           if user.invitation.reg_code
@@ -100,7 +88,8 @@ namespace :db do
               skip_points_management: true,
               from_user: User.where(email: user.invitation.sender.email.downcase).first,
               to_user: new_user,
-              sent_at: user.invitation.created_at
+              sent_at: user.invitation.created_at,
+              potential_seats: user.invitation.potential_seats
             )
           end
         end

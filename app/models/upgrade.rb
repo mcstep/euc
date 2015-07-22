@@ -1,5 +1,6 @@
 module Upgrade
-  def self.table_name_prefix
-    'upgrade_'
+  # Table name wrapper allowing usage of schemas
+  def self.table(name)
+    name
   end
 end

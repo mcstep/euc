@@ -4,8 +4,8 @@ FactoryGirl.define do
     domain      { FFaker::Internet.domain_name }
     association :directory, factory: :directory, strategy: :build
 
-    factory :real_integration do
-      association :directory, factory: :real_directory, strategy: :build
+    factory :directory_integration do
+      association :directory, factory: :test_directory, strategy: :build
     end
 
     factory :airwatch_integration do

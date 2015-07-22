@@ -48,7 +48,6 @@
             %h1 Submit a support request
         .modal-body
           - if current_user.invited_by
-            %input{type: 'hidden', name: 'support_request[recipient_id]', value: current_user.invited_by.id}
             .form-group
               %label To
               %input.form-control{readonly: true, type: "text", value:current_user.invited_by.email}

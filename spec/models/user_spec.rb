@@ -121,7 +121,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'inherits username' do
-        expect(subject.map(&:directory_username)).to eq ['test']*3
+        expect(subject.map(&:username)).to eq ['test']*3
       end
 
       it 'inherits expiration date' do

@@ -24,3 +24,9 @@ production:
   pool: 5
   timeout: 5000
   database: db/development.sqlite3
+
+import:
+  adapter: postgresql
+  user: vrxtlidsppwcyt
+  host: localhost
+  database: dd2a557v5fcas7

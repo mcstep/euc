@@ -12,8 +12,12 @@
 
 .launcher
   .btn-group-vertical{role: "group"}
-    %a.btn.btn-primary.btn-sm{href: "https://workspace.vmwdemo.com", target: "_blank"}
-      vIDM
+    - if current_user.profile.supports_vidm
+      %a.btn.btn-primary.btn-sm{href: "https://vidm.vmtestdrive.com", target: "_blank"}
+        vIDM
+    - else
+      %a.btn.btn-primary.btn-sm{href: "https://workspace.vmwdemo.com", target: "_blank"}
+        Workspace
     .btn-group-vertical{role: "group"}
       %button#horizonnative.btn.btn-sm.btn-info.dropdown-toggle{onclick: "$(this).tooltip('hide')", data: {container: 'body', placement: 'right', toggle: 'dropdown', "original-title" => "Make sure you have the latest Horizon Client installed!"}}
         Horizon Native Client

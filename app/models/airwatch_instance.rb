@@ -54,11 +54,41 @@ class AirwatchInstance < ActiveRecord::Base
   end
 
   def add_user(username)
-    query "system/users/adduser",
+    query 'system/users/adduser',
       'UserName' => username,
-      'Status' => "true",
-      'SecurityType' => "Directory",
-      'Role' => "VMWDemo"
+      'Status' => 'true',
+      'SecurityType' => 'Directory',
+      'Role' => 'VMWDemo'
+  end
+
+  def add_admin_user(username)
+    query "system/admins/addadminuser",
+      'UserName' => username, 
+      'LocationGroupId' => parent_group_id,
+      'IsActiveDirectoryUser'=>'true',
+      'RequiresPasswordChange'=>'false',
+      'Roles' => [
+        {
+          'Id' => '10107',
+          'LocationGroupId'=> '1956'
+        },
+        {
+          'Id'=> '10108',
+          'LocationGroupId'=> '1983'
+        },
+        {
+          'Id'=> '10109',
+          'LocationGroupId'=> '1977'
+        },
+        {
+          'Id'=> '10107',
+          'LocationGroupId'=> '1551'
+        },
+        {
+          'Id'=> '87',
+          'LocationGroupId'=> '1251'
+        }
+      ]      
   end
 
   def activate(id)
@@ -78,6 +108,14 @@ class AirwatchInstance < ActiveRecord::Base
   end
 
   def delete_user(id)
+    begin
+      query "system/users/#{id}/delete", method: :delete
+    rescue RestClient::BadRequest => e
+      raise e unless e.response =~ /User not found or does not have access to delete the user/
+    end
+  end
+
+  def delete_admin_user(id)
     begin
       query "system/users/#{id}/delete", method: :delete
     rescue RestClient::BadRequest => e

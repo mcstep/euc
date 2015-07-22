@@ -4,7 +4,7 @@ FactoryGirl.define do
     port      8080
     api_key   { FFaker::Lorem.characters(36) }
 
-    factory :real_directory do
+    factory :test_directory do
       host    'staging.vmwdemo.com'
       api_key '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
     end

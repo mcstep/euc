@@ -4,6 +4,7 @@ class SignupWorker
   def perform(user_id)
     user        = User.find(user_id)
     integration = user.authentication_integration
+    username    = integration.username
     directory   = integration.directory
     password    = false
 
@@ -14,28 +15,25 @@ class SignupWorker
     end
 
     if integration.directory_account_created?
-      directory.replicate unless Rails.env.development?
-      integration.update_attributes(directory_status: :ad_replicated)
-    end
-
-    if integration.directory_ad_replicated?
       User::REGIONS.each do |region|
-        directory.create_profile(integration.directory_username, region)
+        directory.create_profile(username, region)
       end
       integration.update_attributes(directory_status: :profile_created)
     end
 
     if integration.directory_profile_created?
+      user.profile.directory_groups.each do |group|
+        directory.add_group(username, group)
+      end
+      integration.update_attributes(directory_status: :groups_assigned)
+    end
+
+    if integration.directory_groups_assigned?
       directory.sync('dldc')
       integration.update_attributes(directory_status: :provisioned)
     end
 
-    password ||= user.update_password
-
-    if user.basic?
-      GeneralMailer.welcome_basic_email(user, password).deliver
-    else
-      GeneralMailer.welcome_admin_email(user, password).deliver
-    end
+    GeneralMailer.welcome_email(user, password || user.update_password).deliver
+    DirectoryReplicationWorker.perform_async(directory.id)
   end
 end
