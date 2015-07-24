@@ -1,0 +1,191 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://login.windows.net/01b78576-ce65-44db-841f-e2ea4c7c5db0/oauth2/token
+    body:
+      encoding: UTF-8
+      string: client_id=cd329bba-1082-40a1-93e9-496370a53f18&client_secret=sZp1HMkFBfPNjdPj3Qy5N563W4qVkz9eEqn49VErI6k%3D&grant_type=client_credentials&resource=https%3A%2F%2Fgraph.windows.net&response_type=client_credentials
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/8.5
+      X-Ms-Request-Id:
+      - c6201cff-7b00-49ba-9145-9e6b5f9e6eaf
+      X-Ms-Gateway-Service-Instanceid:
+      - ESTSFE_IN_30
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      P3p:
+      - CP="DSP CUR OTPi IND OTRi ONL FIN"
+      Set-Cookie:
+      - stsservicecookie=ests; path=/; secure; HttpOnly
+      - x-ms-gateway-slice=productiona; path=/; secure; HttpOnly
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Fri, 24 Jul 2015 18:53:10 GMT
+      Content-Length:
+      - '1285'
+    body:
+      encoding: UTF-8
+      string: '{"expires_in":"3599","token_type":"Bearer","scope":"Directory.Read
+        Directory.Write user_impersonation UserProfile.Read","expires_on":"1437767590","not_before":"1437763690","resource":"https://graph.windows.net","access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1uQ19WWmNBVGZNNXBPWWlKSE1iYTlnb0VLWSIsImtpZCI6Ik1uQ19WWmNBVGZNNXBPWWlKSE1iYTlnb0VLWSJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLndpbmRvd3MubmV0IiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMDFiNzg1NzYtY2U2NS00NGRiLTg0MWYtZTJlYTRjN2M1ZGIwLyIsImlhdCI6MTQzNzc2MzY5MCwibmJmIjoxNDM3NzYzNjkwLCJleHAiOjE0Mzc3Njc1OTAsInZlciI6IjEuMCIsInRpZCI6IjAxYjc4NTc2LWNlNjUtNDRkYi04NDFmLWUyZWE0YzdjNWRiMCIsIm9pZCI6IjEwZWIwMDMxLTMyOWItNGRjNC05MThiLTdiMDMyM2Y3YmZlMCIsInN1YiI6IjEwZWIwMDMxLTMyOWItNGRjNC05MThiLTdiMDMyM2Y3YmZlMCIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzAxYjc4NTc2LWNlNjUtNDRkYi04NDFmLWUyZWE0YzdjNWRiMC8iLCJhcHBpZCI6ImNkMzI5YmJhLTEwODItNDBhMS05M2U5LTQ5NjM3MGE1M2YxOCIsImFwcGlkYWNyIjoiMSJ9.SEH-GLkpHD-LdR4l56wbljs_K2ov_PszgC0NW7q14tbjCBITrFpWIkOthwB6-TYdvO8N2xaF3Rsm5EWnNpUW1_-qPTFx6ssQgpDr7EYAngVPJE9GEGMhhMh-xqZISGVqPtMGtHNBOaYoD9hQ3vESINkVfvaVKOsZfpm2z8QqgU-QXsIOIusJtKBvUnJhO7h6bicoqpLiRLeLULhdTYgdCnH86PpLmAySevo6jKClYZAgayBUeDcXy_oojpkgi_yzkbpvbfWksWviMbrQ8iRRLSQaYr9DuSmawq1DNTXSZfYABKtF7-nwcYYImGAzUb9QBTToZ1C6SCjzBnW2f8187Q"}'
+    http_version: 
+  recorded_at: Fri, 24 Jul 2015 18:53:09 GMT
+- request:
+    method: get
+    uri: https://graph.windows.net/01b78576-ce65-44db-841f-e2ea4c7c5db0/subscribedSkus?api-version=1.5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1uQ19WWmNBVGZNNXBPWWlKSE1iYTlnb0VLWSIsImtpZCI6Ik1uQ19WWmNBVGZNNXBPWWlKSE1iYTlnb0VLWSJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLndpbmRvd3MubmV0IiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMDFiNzg1NzYtY2U2NS00NGRiLTg0MWYtZTJlYTRjN2M1ZGIwLyIsImlhdCI6MTQzNzc2MzY5MCwibmJmIjoxNDM3NzYzNjkwLCJleHAiOjE0Mzc3Njc1OTAsInZlciI6IjEuMCIsInRpZCI6IjAxYjc4NTc2LWNlNjUtNDRkYi04NDFmLWUyZWE0YzdjNWRiMCIsIm9pZCI6IjEwZWIwMDMxLTMyOWItNGRjNC05MThiLTdiMDMyM2Y3YmZlMCIsInN1YiI6IjEwZWIwMDMxLTMyOWItNGRjNC05MThiLTdiMDMyM2Y3YmZlMCIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzAxYjc4NTc2LWNlNjUtNDRkYi04NDFmLWUyZWE0YzdjNWRiMC8iLCJhcHBpZCI6ImNkMzI5YmJhLTEwODItNDBhMS05M2U5LTQ5NjM3MGE1M2YxOCIsImFwcGlkYWNyIjoiMSJ9.SEH-GLkpHD-LdR4l56wbljs_K2ov_PszgC0NW7q14tbjCBITrFpWIkOthwB6-TYdvO8N2xaF3Rsm5EWnNpUW1_-qPTFx6ssQgpDr7EYAngVPJE9GEGMhhMh-xqZISGVqPtMGtHNBOaYoD9hQ3vESINkVfvaVKOsZfpm2z8QqgU-QXsIOIusJtKBvUnJhO7h6bicoqpLiRLeLULhdTYgdCnH86PpLmAySevo6jKClYZAgayBUeDcXy_oojpkgi_yzkbpvbfWksWviMbrQ8iRRLSQaYr9DuSmawq1DNTXSZfYABKtF7-nwcYYImGAzUb9QBTToZ1C6SCjzBnW2f8187Q
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json;odata=minimalmetadata;streaming=true;charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/8.5
+      Ocp-Aad-Diagnostics-Server-Name:
+      - k9KqbrQ4qFXcvRVIziZCfIYqtxo1JxeEJeurM7tKIE4=
+      Request-Id:
+      - d663a38d-4c4a-48c9-b86b-32800ddfea1d
+      Client-Request-Id:
+      - 47678b63-2d48-47d5-b4a2-c4aee0fd2ff8
+      X-Ms-Gateway-Rewrite:
+      - 'false'
+      X-Ms-Dirapi-Data-Contract-Version:
+      - '1.5'
+      Ocp-Aad-Session-Key:
+      - gYd-BM_Y-79xMrkOqYM_jN4Vse1_a8JXoTkKqJTgI4dmsNyEF_Xkg8huc4yfniwwl6yLfKQOhmZ_onTFW2fSGA3dbftf8vhMefnzRIFgExs2RMDAUET1YMvKH6A3ZzYJk417opVtjPrFo8DeQuoyvA.gSn_SWwsnOGwsDmuZ-zJHj2-HYJxr9vYoU23ClvRtek
+      X-Content-Type-Options:
+      - nosniff
+      Dataserviceversion:
+      - 3.0;
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      - ASP.NET
+      Date:
+      - Fri, 24 Jul 2015 18:53:10 GMT
+      Content-Length:
+      - '1064'
+    body:
+      encoding: UTF-8
+      string: '{"odata.metadata":"https://graph.windows.net/01b78576-ce65-44db-841f-e2ea4c7c5db0/$metadata#subscribedSkus","value":[{"capabilityStatus":"Enabled","consumedUnits":6,"objectId":"01b78576-ce65-44db-841f-e2ea4c7c5db0_f245ecc8-75af-4f8e-b61f-27d8114de5f3","prepaidUnits":{"enabled":25,"suspended":0,"warning":0},"servicePlans":[{"servicePlanId":"882e1d05-acd1-4ccb-8708-6ee03664b117","servicePlanName":"INTUNE_O365"},{"servicePlanId":"e95bec33-7c88-4a70-8e19-b10bd9d0c014","servicePlanName":"SHAREPOINTWAC"},{"servicePlanId":"094e7854-93fc-4d55-b2c0-3ab5369ebdc1","servicePlanName":"OFFICE_BUSINESS"},{"servicePlanId":"7547a3fe-08ee-4ccb-b430-5077c5041653","servicePlanName":"YAMMER_ENTERPRISE"},{"servicePlanId":"9aaf7827-d63c-4b61-89c3-182f06f82e5c","servicePlanName":"EXCHANGE_S_STANDARD"},{"servicePlanId":"0feaeb32-d00e-4d66-bd5a-43b5b83db82c","servicePlanName":"MCOSTANDARD"},{"servicePlanId":"c7699d2e-19aa-44de-8edf-1736da088ca1","servicePlanName":"SHAREPOINTSTANDARD"}],"skuId":"f245ecc8-75af-4f8e-b61f-27d8114de5f3","skuPartNumber":"O365_BUSINESS_PREMIUM"}]}'
+    http_version: 
+  recorded_at: Fri, 24 Jul 2015 18:53:09 GMT
+- request:
+    method: post
+    uri: https://graph.windows.net/01b78576-ce65-44db-841f-e2ea4c7c5db0/users/o365.test@vmwdev.net/assignLicense?api-version=1.5
+    body:
+      encoding: UTF-8
+      string: '{"addLicenses":[{"disabledPlans":[],"skuId":"f245ecc8-75af-4f8e-b61f-27d8114de5f3"}],"removeLicenses":[]}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1uQ19WWmNBVGZNNXBPWWlKSE1iYTlnb0VLWSIsImtpZCI6Ik1uQ19WWmNBVGZNNXBPWWlKSE1iYTlnb0VLWSJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLndpbmRvd3MubmV0IiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMDFiNzg1NzYtY2U2NS00NGRiLTg0MWYtZTJlYTRjN2M1ZGIwLyIsImlhdCI6MTQzNzc2MzY5MCwibmJmIjoxNDM3NzYzNjkwLCJleHAiOjE0Mzc3Njc1OTAsInZlciI6IjEuMCIsInRpZCI6IjAxYjc4NTc2LWNlNjUtNDRkYi04NDFmLWUyZWE0YzdjNWRiMCIsIm9pZCI6IjEwZWIwMDMxLTMyOWItNGRjNC05MThiLTdiMDMyM2Y3YmZlMCIsInN1YiI6IjEwZWIwMDMxLTMyOWItNGRjNC05MThiLTdiMDMyM2Y3YmZlMCIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzAxYjc4NTc2LWNlNjUtNDRkYi04NDFmLWUyZWE0YzdjNWRiMC8iLCJhcHBpZCI6ImNkMzI5YmJhLTEwODItNDBhMS05M2U5LTQ5NjM3MGE1M2YxOCIsImFwcGlkYWNyIjoiMSJ9.SEH-GLkpHD-LdR4l56wbljs_K2ov_PszgC0NW7q14tbjCBITrFpWIkOthwB6-TYdvO8N2xaF3Rsm5EWnNpUW1_-qPTFx6ssQgpDr7EYAngVPJE9GEGMhhMh-xqZISGVqPtMGtHNBOaYoD9hQ3vESINkVfvaVKOsZfpm2z8QqgU-QXsIOIusJtKBvUnJhO7h6bicoqpLiRLeLULhdTYgdCnH86PpLmAySevo6jKClYZAgayBUeDcXy_oojpkgi_yzkbpvbfWksWviMbrQ8iRRLSQaYr9DuSmawq1DNTXSZfYABKtF7-nwcYYImGAzUb9QBTToZ1C6SCjzBnW2f8187Q
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json;odata=minimalmetadata;streaming=true;charset=utf-8
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/8.5
+      Ocp-Aad-Diagnostics-Server-Name:
+      - nX0EELQHx3TZ2/z8/kRkrIJJFoYzKeuOsYay4yBGCH8=
+      Request-Id:
+      - 3793544f-01ce-4a71-b88c-6f02af6439ca
+      Client-Request-Id:
+      - 89139c74-129c-4245-8c1b-357722b287b9
+      X-Ms-Gateway-Rewrite:
+      - 'false'
+      X-Ms-Dirapi-Data-Contract-Version:
+      - '1.5'
+      Ocp-Aad-Session-Key:
+      - oYTMd9G_fSBSPbLaQ73UomI7Xy6muZaNPNpZksrBdy51o66iY4CxrTn-T-3fUxIhOU292NkDaZxmgMm2L9E2B1iMMG8SQ2Um9xVPV3_e73aeMEG9VJ6v5weZJxilmZTLdTFJ8QhlfI5Qcuv7KzhJkQ.2OHhR7DZmTa49pcdJXGoi2wi1sttEOlfM6fP3RBFJ9I
+      X-Content-Type-Options:
+      - nosniff
+      Dataserviceversion:
+      - 3.0;
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      - ASP.NET
+      Date:
+      - Fri, 24 Jul 2015 18:53:10 GMT
+      Content-Length:
+      - '2566'
+    body:
+      encoding: UTF-8
+      string: '{"odata.metadata":"https://graph.windows.net/01b78576-ce65-44db-841f-e2ea4c7c5db0/$metadata#directoryObjects/Microsoft.DirectoryServices.User/@Element","odata.type":"Microsoft.DirectoryServices.User","objectType":"User","objectId":"538ffd23-1645-417b-a743-335f3ad16cff","deletionTimestamp":null,"accountEnabled":true,"assignedLicenses":[{"disabledPlans":[],"skuId":"f245ecc8-75af-4f8e-b61f-27d8114de5f3"}],"assignedPlans":[{"assignedTimestamp":"2015-07-24T18:42:05Z","capabilityStatus":"Enabled","service":"SharePoint","servicePlanId":"c7699d2e-19aa-44de-8edf-1736da088ca1"},{"assignedTimestamp":"2015-07-24T18:42:05Z","capabilityStatus":"Enabled","service":"MicrosoftCommunicationsOnline","servicePlanId":"0feaeb32-d00e-4d66-bd5a-43b5b83db82c"},{"assignedTimestamp":"2015-07-24T18:42:05Z","capabilityStatus":"Enabled","service":"exchange","servicePlanId":"9aaf7827-d63c-4b61-89c3-182f06f82e5c"},{"assignedTimestamp":"2015-07-24T18:42:05Z","capabilityStatus":"Enabled","service":"MicrosoftOffice","servicePlanId":"094e7854-93fc-4d55-b2c0-3ab5369ebdc1"},{"assignedTimestamp":"2015-07-24T18:42:05Z","capabilityStatus":"Enabled","service":"SharePoint","servicePlanId":"e95bec33-7c88-4a70-8e19-b10bd9d0c014"}],"city":null,"companyName":null,"country":null,"creationType":null,"department":null,"dirSyncEnabled":true,"displayName":"Office
+        365Test","facsimileTelephoneNumber":null,"givenName":"Office","immutableId":"6p2SXVZVIkmvzBvh1Sgetg==","jobTitle":null,"lastDirSyncTime":"2015-07-14T00:57:53Z","mail":"o365.test@vmwdev.net","mailNickname":"o365.test","mobile":null,"onPremisesSecurityIdentifier":"S-1-5-21-1320313660-3576688086-2964055085-1130","otherMails":[],"passwordPolicies":null,"passwordProfile":null,"physicalDeliveryOfficeName":null,"postalCode":null,"preferredLanguage":null,"provisionedPlans":[{"capabilityStatus":"Enabled","provisioningStatus":"Success","service":"exchange"},{"capabilityStatus":"Enabled","provisioningStatus":"Success","service":"SharePoint"},{"capabilityStatus":"Enabled","provisioningStatus":"Success","service":"SharePoint"},{"capabilityStatus":"Enabled","provisioningStatus":"Success","service":"MicrosoftCommunicationsOnline"},{"capabilityStatus":"Enabled","provisioningStatus":"Success","service":"MicrosoftOffice"}],"provisioningErrors":[],"proxyAddresses":["smtp:o365.test@vmwdev.onmicrosoft.com","SMTP:o365.test@vmwdev.net"],"sipProxyAddress":"o365.test@vmwdev.net","state":null,"streetAddress":null,"surname":"365Test","telephoneNumber":null,"usageLocation":"US","userPrincipalName":"o365.test@vmwdev.net","userType":"Member"}'
+    http_version: 
+  recorded_at: Fri, 24 Jul 2015 18:53:10 GMT
+recorded_with: VCR 2.9.3

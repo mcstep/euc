@@ -61,7 +61,6 @@ class Office365Instance < ActiveRecord::Base
   end
 
   def assign_license(email, kind="STANDARDPACK")
-    binding.pry
     client.assign_license(email, kind)
   end
 end
