@@ -7,7 +7,7 @@
 #  company_id           :integer
 #  text_id              :string
 #  numeric_id           :string
-#  type                 :string
+#  kind                 :string
 #  deleted_at           :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -37,10 +37,12 @@ class AirwatchGroup < ActiveRecord::Base
     return attempt if attempt = where(condition).first
 
     data = user_integration.integration.airwatch_instance.add_group(user_integration.airwatch_group_name)
-    AirwatchGroup.create! condition.merge(
-      text_id:    user_integration.airwatch_group_name,
-      numeric_id: data['Value'],
-      type:       'Prospect',
+    AirwatchGroup.create!(
+      airwatch_instance: user_integration.integration.airwatch_instance,
+      company:           user_integration.user.company,
+      text_id:           user_integration.airwatch_group_name,
+      numeric_id:        data['Value'],
+      kind:              'Prospect'
     )
   end
 end

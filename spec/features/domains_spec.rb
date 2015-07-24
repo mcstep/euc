@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'domains', type: :feature do
+RSpec.describe 'Domains UI', type: :feature do
   subject{ page }
   before{ create_cookie 'user_id', create(:root).id }
 

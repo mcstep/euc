@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'authentication', type: :feature do
+RSpec.describe 'Authentication UI', type: :feature do
   subject{ page }
 
   describe 'redirection' do

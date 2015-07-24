@@ -33,7 +33,7 @@
                       Your trial account at the
                       %a{:href => "https://portal.vmwdemo.com", target: "_blank"}
                         VMware EUC Demo Portal
-                      is scheduled to expire on #{l @user.expires_at}. The system will automatically delete your account after it has expired. If you have any questions, please contact #{sender_name} at #{sender_email}.
+                      is scheduled to expire on #{l @user.expiration_date}. The system will automatically delete your account after it has expired. If you have any questions, please contact #{sender_name} at #{sender_email}.
                     %p.info{align: "left", style: "color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0 0 10px; padding: 15px 0 0;"}
                       \- The EUC Solutions Team at VMware.
                   %td.expander{align: "left", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;", valign: "top"}

@@ -8,7 +8,6 @@ class CreateIntegrations < ActiveRecord::Migration
       t.belongs_to  :google_apps_instance,        index: true
       t.belongs_to  :airwatch_instance,           index: true
       t.belongs_to  :horizon_air_instance,        index: true
-      t.belongs_to  :horizon_workspace_instance,  index: true
       t.belongs_to  :horizon_view_instance,       index: true
       t.belongs_to  :horizon_rds_instance,        index: true
       t.datetime    :deleted_at,                  index: true

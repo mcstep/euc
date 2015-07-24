@@ -18,7 +18,6 @@ RSpec.describe UserIntegration, type: :model do
     UserIntegration.new(
       # google_apps_disabled: false, <- default value
       horizon_air_disabled: true,
-      horizon_workspace_disabled: true,
       horizon_rds_disabled: true,
       horizon_view_disabled: true,
       airwatch_disabled: true,
@@ -64,10 +63,6 @@ RSpec.describe UserIntegration, type: :model do
 
     it 'works for Google Apps' do
       expect(subject.google_apps_disabled).to be_falsey
-    end
-
-    it 'works for Horizon Workspace' do
-      expect(subject.horizon_workspace_disabled).to be_truthy
     end
 
     it 'works for Horizon RDS' do
@@ -116,12 +111,18 @@ RSpec.describe UserIntegration, type: :model do
       it 'enqueues Google Apps provisioning' do
         expect(Provisioners::GoogleAppsWorker).to enqueue_as 'provision'
       end
+
+      it 'enqueues Horizon View provisioning' do
+        expect(Provisioners::HorizonViewWorker).to enqueue_as 'provision'
+      end
     end
 
     describe 'change' do
       before{ Sidekiq::Worker.clear_all }
 
       describe 'Airwatch' do
+        let!(:user_integration){ create(:airwatch_user_integration) }
+
         subject{ Provisioners::AirwatchWorker }
 
         describe 'approve' do
@@ -131,6 +132,8 @@ RSpec.describe UserIntegration, type: :model do
       end
 
       describe 'Google Apps' do
+        let!(:user_integration){ create(:google_apps_user_integration) }
+
         subject{ Provisioners::GoogleAppsWorker }
 
         context 'when provisioning' do

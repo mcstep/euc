@@ -11,29 +11,40 @@ class ProvisionerWorker
     end
   end
 
-  def perform(user_integration_id, action)
-    user_integration = UserIntegration.find(user_integration_id)
-    send action, user_integration
+  def perform(user_integration, action)
+    user_integration  = UserIntegration.find(user_integration) unless user_integration.is_a?(UserIntegration)
+    @user_integration = user_integration
+    @user             = @user_integration.user
+
+    send action
   end
 
-  def revoke(user_integration)
-    deprovision(user_integration)
+  def wait_until(condition, &block)
+    if condition
+      yield
+    else
+      self.class.perform_in 1.minute, @user_integration.id
+    end
   end
 
-  def resume(user_integration)
-    provision(user_integration)
+  def revoke
+    deprovision
   end
 
-  def cleanup(user_integration)
+  def resume
+    provision
   end
 
-  def add_group(user_integration, group_name, group_region)
-    user_integration.directory.add_group(user_integration.username, group_name)
-    user_integration.directory.sync(group_region)
+  def cleanup
   end
 
-  def remove_group(user_integration, group_name, group_region)
-    user_integration.directory.remove_group(user_integration.username, group_name)
-    user_integration.directory.sync(group_region)
+  def add_group(group_name, group_region)
+    @user_integration.directory.add_group(@user_integration.username, group_name)
+    @user_integration.directory.sync(group_region)
+  end
+
+  def remove_group(group_name, group_region)
+    @user_integration.directory.remove_group(@user_integration.username, group_name)
+    @user_integration.directory.sync(group_region)
   end
 end

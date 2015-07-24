@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe AirwatchInstance, :vcr, type: :model do
-  let(:airwatch_instance){ build :test_airwatch_instance }
+  let(:airwatch_instance){ build :staging_airwatch_instance }
 
-  describe '.add_group' do
+  xdescribe '.add_group' do
     subject{ @result = airwatch_instance.add_group('spec') }
     after{ airwatch_instance.delete_group(@result['Value']) }
     it{ is_expected.to be_a Hash }
@@ -17,11 +17,11 @@ RSpec.describe AirwatchInstance, :vcr, type: :model do
 
   describe '.add_admin_user' do
     subject{ @result = airwatch_instance.add_admin_user('spec.test') }
-    after{ airwatch_instance.delete_user(@result['Value']) }
-    xit{ is_expected.to be_a Hash }
+    after{ airwatch_instance.delete_admin_user(@result['Value']) }
+    it{ is_expected.to be_a Hash }
   end
 
-  xdescribe 'with existing admin user' do
+  describe 'with existing admin user' do
     before{ @result = airwatch_instance.add_admin_user('spec.test') }
     after{ airwatch_instance.delete_admin_user(@result['Value']) if @result }
     let(:admin_user_id){ @result['Value'] }

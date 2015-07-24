@@ -30,17 +30,21 @@ class Office365Instance < ActiveRecord::Base
   def client
     raise 'Has to be saved before querying' if new_record?
 
+    scope = config_scope
+    attrs = attributes
+
+
     # Seriously, @kioru, WTF?!
     Azure::Directory.configure do
-      scope(config_scope) do
-        client_id       attributes['client_id']
-        client_secret   attributes['client_secret']
-        tenant_id       attributes['tenant_id']
-        resource_id     attributes['resource_id']
+      scope(scope) do
+        client_id       attrs['client_id']
+        client_secret   attrs['client_secret']
+        tenant_id       attrs['tenant_id']
+        resource_id     attrs['resource_id']
       end
     end
 
-    Azure::Directory::Client.new(config_scope)
+    Azure::Directory::Client.new(scope)
   end
 
   def update_user(email, data)
@@ -57,6 +61,7 @@ class Office365Instance < ActiveRecord::Base
   end
 
   def assign_license(email, kind="STANDARDPACK")
+    binding.pry
     client.assign_license(email, kind)
   end
 end

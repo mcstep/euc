@@ -95,6 +95,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def provisioned?
+    authentication_integration && authentication_integration.directory_status != :not_provisioned
+  end
+
   def policy
     UserPolicy.new(self)
   end

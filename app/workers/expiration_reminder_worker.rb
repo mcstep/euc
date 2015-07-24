@@ -3,6 +3,6 @@ class ExpirationReminderWorker
 
   def perform(user_id)
     user = User.unscoped.find(user_id)
-    GeneralMailer.account_expiry_reminder_email(user).deliver
+    GeneralMailer.account_expiry_reminder_email(user).deliver_now
   end
 end

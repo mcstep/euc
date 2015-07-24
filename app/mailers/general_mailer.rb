@@ -58,7 +58,7 @@ class GeneralMailer < ApplicationMailer
 
     begin
       RQRCode::QRCode.new(
-        "https://awagent.com/Home/Welcome?gid=#{user_integration.airwatch_group.text_id}&serverurl=#{host}",
+        "https://awagent.com/Home/Welcome?gid=#{user_integration.airwatch_group.text_id}&serverurl=#{instance.host}",
         size: 10
       ).to_img.resize(200, 200).save(path)
 

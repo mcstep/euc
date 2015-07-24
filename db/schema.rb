@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150722183826) do
     t.integer  "company_id"
     t.string   "text_id"
     t.string   "numeric_id"
-    t.string   "type"
+    t.string   "kind"
     t.datetime "deleted_at"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20150722183826) do
     t.string   "user"
     t.string   "password"
     t.string   "parent_group_id"
+    t.text     "admin_roles"
     t.datetime "deleted_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
@@ -150,15 +151,15 @@ ActiveRecord::Schema.define(version: 20150722183826) do
 
   create_table "horizon_instances", force: :cascade do |t|
     t.string   "rds_group_name"
-    t.string   "workspace_group_name"
+    t.string   "desktops_group_name"
     t.string   "view_group_name"
     t.string   "group_region"
     t.string   "api_host"
     t.string   "api_port"
     t.string   "api_key"
     t.datetime "deleted_at"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   add_index "horizon_instances", ["deleted_at"], name: "index_horizon_instances_on_deleted_at"
@@ -171,12 +172,11 @@ ActiveRecord::Schema.define(version: 20150722183826) do
     t.integer  "google_apps_instance_id"
     t.integer  "airwatch_instance_id"
     t.integer  "horizon_air_instance_id"
-    t.integer  "horizon_workspace_instance_id"
     t.integer  "horizon_view_instance_id"
     t.integer  "horizon_rds_instance_id"
     t.datetime "deleted_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "integrations", ["airwatch_instance_id"], name: "index_integrations_on_airwatch_instance_id"
@@ -186,7 +186,6 @@ ActiveRecord::Schema.define(version: 20150722183826) do
   add_index "integrations", ["horizon_air_instance_id"], name: "index_integrations_on_horizon_air_instance_id"
   add_index "integrations", ["horizon_rds_instance_id"], name: "index_integrations_on_horizon_rds_instance_id"
   add_index "integrations", ["horizon_view_instance_id"], name: "index_integrations_on_horizon_view_instance_id"
-  add_index "integrations", ["horizon_workspace_instance_id"], name: "index_integrations_on_horizon_workspace_instance_id"
   add_index "integrations", ["office365_instance_id"], name: "index_integrations_on_office365_instance_id"
 
   create_table "invitations", force: :cascade do |t|
@@ -249,6 +248,7 @@ ActiveRecord::Schema.define(version: 20150722183826) do
     t.string   "home_template"
     t.string   "support_email"
     t.string   "group_name"
+    t.string   "group_region"
     t.boolean  "supports_vidm", default: true, null: false
     t.datetime "deleted_at"
     t.datetime "created_at",                   null: false
@@ -279,7 +279,6 @@ ActiveRecord::Schema.define(version: 20150722183826) do
     t.date     "directory_expiration_date",             null: false
     t.integer  "directory_status",          default: 0, null: false
     t.integer  "horizon_air_status",        default: 0, null: false
-    t.integer  "horizon_workspace_status",  default: 0, null: false
     t.integer  "horizon_rds_status",        default: 0, null: false
     t.integer  "horizon_view_status",       default: 0, null: false
     t.integer  "airwatch_status",           default: 0, null: false

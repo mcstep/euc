@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe GoogleAppsInstance, :vcr, type: :model do
-  let(:google_apps_instance){ build :test_google_apps_instance }
+  let(:google_apps_instance){ build :staging_google_apps_instance }
 
   describe '.register' do
     subject{ lambda{ google_apps_instance.register('test@vmwdev.com', 'Great', 'Name') } }

@@ -44,6 +44,7 @@ group :development, :test do
   gem 'ffaker'
   gem 'spring-commands-rspec'
   gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
   gem 'quiet_assets'
   gem 'byebug'

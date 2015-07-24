@@ -8,6 +8,7 @@ class CreateAirwatchInstances < ActiveRecord::Migration
       t.string      :user
       t.string      :password
       t.string      :parent_group_id
+      t.text        :admin_roles
       t.datetime    :deleted_at,      index: true
       t.timestamps                    null: false
     end

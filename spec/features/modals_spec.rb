@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'modals', :js, type: :feature do
+RSpec.describe 'Modals', :js, type: :feature do
   subject{ page }
   let(:root){ create(:root) }
   before{ create_cookie 'user_id', root.id }

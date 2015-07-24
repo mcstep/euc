@@ -9,7 +9,6 @@
 #  directory_expiration_date :date             not null
 #  directory_status          :integer          default(0), not null
 #  horizon_air_status        :integer          default(0), not null
-#  horizon_workspace_status  :integer          default(0), not null
 #  horizon_rds_status        :integer          default(0), not null
 #  horizon_view_status       :integer          default(0), not null
 #  airwatch_status           :integer          default(0), not null
@@ -59,9 +58,7 @@ class UserIntegration < ActiveRecord::Base
   as_enum :directory_status, {
     not_provisioned: 0,
     account_created: 1,
-    profile_created: 2,
-    groups_assigned: 3,
-    provisioned:     4
+    provisioned:     2
   }, prefix: 'directory'
 
   as_enum :airwatch_status, {revoked: -2, disabled: -1, not_provisioned: 0, provisioned: 1, not_approved: 2}, prefix: 'airwatch'

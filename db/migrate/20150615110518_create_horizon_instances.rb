@@ -2,7 +2,7 @@ class CreateHorizonInstances < ActiveRecord::Migration
   def change
     create_table :horizon_instances do |t|
       t.string      :rds_group_name
-      t.string      :workspace_group_name
+      t.string      :desktops_group_name
       t.string      :view_group_name
       t.string      :group_region
       t.string      :api_host

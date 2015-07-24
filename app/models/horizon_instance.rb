@@ -2,17 +2,17 @@
 #
 # Table name: horizon_instances
 #
-#  id                   :integer          not null, primary key
-#  rds_group_name       :string
-#  workspace_group_name :string
-#  view_group_name      :string
-#  group_region         :string
-#  api_host             :string
-#  api_port             :string
-#  api_key              :string
-#  deleted_at           :datetime
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  id                  :integer          not null, primary key
+#  rds_group_name      :string
+#  desktops_group_name :string
+#  view_group_name     :string
+#  group_region        :string
+#  api_host            :string
+#  api_port            :string
+#  api_key             :string
+#  deleted_at          :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #
 # Indexes
 #
@@ -22,9 +22,10 @@
 class HorizonInstance < ActiveRecord::Base
   acts_as_paranoid
 
-  validates :rds_group_name,       presence: true
-  validates :workspace_group_name, presence: true
-  validates :desktops_group_name,  presence: true
-  validates :group_region,         presence: true
+  validates :group_region,         presence: true, if: :has_group_name?
   validates :api_host,             presence: true
+
+  def has_group_name?
+    rds_group_name? || view_group_name? || desktops_group_name?
+  end
 end

@@ -10,6 +10,7 @@
 #  user            :string
 #  password        :string
 #  parent_group_id :string
+#  admin_roles     :text
 #  deleted_at      :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -22,12 +23,15 @@
 class AirwatchInstance < ActiveRecord::Base
   acts_as_paranoid
 
+  serialize :admin_roles
+
   validates :host,            presence: true
   validates :user,            presence: true
   validates :password,        presence: true
   validates :parent_group_id, presence: true
   validates :group_name,      presence: true
   validates :group_region,    presence: true
+  validates :admin_roles,     presence: true
 
   def query(action, payload=nil, method: :post)
     response = RestClient::Request.execute(
@@ -65,30 +69,9 @@ class AirwatchInstance < ActiveRecord::Base
     query "system/admins/addadminuser",
       'UserName' => username, 
       'LocationGroupId' => parent_group_id,
-      'IsActiveDirectoryUser'=>'true',
-      'RequiresPasswordChange'=>'false',
-      'Roles' => [
-        {
-          'Id' => '10107',
-          'LocationGroupId'=> '1956'
-        },
-        {
-          'Id'=> '10108',
-          'LocationGroupId'=> '1983'
-        },
-        {
-          'Id'=> '10109',
-          'LocationGroupId'=> '1977'
-        },
-        {
-          'Id'=> '10107',
-          'LocationGroupId'=> '1551'
-        },
-        {
-          'Id'=> '87',
-          'LocationGroupId'=> '1251'
-        }
-      ]      
+      'IsActiveDirectoryUser' => 'true',
+      'RequiresPasswordChange' => 'false',
+      'Roles' => admin_roles    
   end
 
   def activate(id)
@@ -117,9 +100,9 @@ class AirwatchInstance < ActiveRecord::Base
 
   def delete_admin_user(id)
     begin
-      query "system/users/#{id}/delete", method: :delete
+      query "system/admins/#{id}/delete", method: :delete
     rescue RestClient::BadRequest => e
-      raise e unless e.response =~ /User not found or does not have access to delete the user/
+      raise e unless e.response =~ /User not found or does not have access to retrieve the details/
     end
   end
 end

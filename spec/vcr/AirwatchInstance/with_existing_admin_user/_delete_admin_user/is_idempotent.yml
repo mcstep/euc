@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/admins/addadminuser
     body:
       encoding: UTF-8
-      string: '{"UserName":"spec.test","LocationGroupId":"570","IsActiveDirectoryUser":"true","RequiresPasswordChange":"false","Roles":[{"Id":"10107","LocationGroupId":"1956"},{"Id":"10108","LocationGroupId":"1983"},{"Id":"10109","LocationGroupId":"1977"},{"Id":"10107","LocationGroupId":"1551"},{"Id":"87","LocationGroupId":"1251"}]}'
+      string: '{"UserName":"spec.test","LocationGroupId":"570","IsActiveDirectoryUser":"true","RequiresPasswordChange":"false","Roles":[{"Id":"87","LocationGroupId":"570"}]}'
     headers:
       Accept:
       - application/json
@@ -18,7 +18,93 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '319'
+      - '158'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Jul 2015 18:35:48 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '12'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: '{"Value":59}'
+    http_version: 
+  recorded_at: Fri, 24 Jul 2015 18:35:50 GMT
+- request:
+    method: delete
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/admins/59/delete
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: The admin user is deleted.
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Jul 2015 18:35:49 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '4'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: 'null'
+    http_version: 
+  recorded_at: Fri, 24 Jul 2015 18:35:51 GMT
+- request:
+    method: delete
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/admins/59/delete
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
       User-Agent:
       - Ruby
   response:
@@ -29,11 +115,11 @@ http_interactions:
       Server:
       - nginx/1.4.6 (Ubuntu)
       Date:
-      - Wed, 22 Jul 2015 10:44:31 GMT
+      - Fri, 24 Jul 2015 18:35:50 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '141'
+      - '144'
       Connection:
       - keep-alive
       Cache-Control:
@@ -42,8 +128,8 @@ http_interactions:
       - AirWatch @ www.air-watch.com
     body:
       encoding: UTF-8
-      string: '{"ActivityId":"092808bc-696e-4cbb-bde5-97a8c27713f8","ErrorCode":400,"Message":"Role
-        \"10107\" not found or user does not have access to it"}'
+      string: '{"ActivityId":"8ac92d6d-fcb6-4549-967c-b1bf672163a1","ErrorCode":400,"Message":"User
+        not found or does not have access to retrieve the details"}'
     http_version: 
-  recorded_at: Wed, 22 Jul 2015 10:44:33 GMT
+  recorded_at: Fri, 24 Jul 2015 18:35:52 GMT
 recorded_with: VCR 2.9.3

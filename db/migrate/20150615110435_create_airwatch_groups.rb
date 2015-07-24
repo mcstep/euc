@@ -5,7 +5,7 @@ class CreateAirwatchGroups < ActiveRecord::Migration
       t.belongs_to  :company
       t.string      :text_id
       t.string      :numeric_id
-      t.string      :type
+      t.string      :kind
       t.datetime    :deleted_at,    index: true
       t.timestamps                  null: false
     end

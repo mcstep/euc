@@ -12,6 +12,13 @@ AirwatchInstance.where(host: 'testdrive.awmdm.com').first_or_create do |ai|
   ai.user            = 'api.admin'
   ai.password        = 'VMware123!'
   ai.parent_group_id = 570
+  ai.admin_roles     = [
+    { 'Id' => '10107', 'LocationGroupId'=> '1956' },
+    { 'Id'=> '10108',  'LocationGroupId'=> '1983' },
+    { 'Id'=> '10109',  'LocationGroupId'=> '1977' },
+    { 'Id'=> '10107',  'LocationGroupId'=> '1551' },
+    { 'Id'=> '87',     'LocationGroupId'=> '1251' }
+  ]
 end
 
 AirwatchInstance.where(host: 'apple.awmdm.com').first_or_create do |ai|
@@ -26,6 +33,8 @@ end
 
 GoogleAppsInstance.where(act_on_behalf: 'admin@vmwdemo.com').first_or_create do |gai|
 
+  gai.group_name       = 'GoogleAppsUsers'
+  gai.group_region     = 'dldc'
   gai.key              = File.open(Rails.root.join 'db', 'google_apps.p12').read
   gai.key_password     = 'notasecret'
   gai.initial_password = 'Passw0rd1'
@@ -34,7 +43,15 @@ end
 
 Office365Instance.where(client_id: 'f2c1eb0b-1d1d-45a9-91ed-f0d208cf96f6').first_or_create do |oi|
 
+  oi.group_name    = 'Office365Users'
+  oi.group_region  = 'dldc'
   oi.client_secret = 'fHmPz8aJMvsyrTqgoO6AA7TbxSvqC3IvS2qsD9ENXtU='
   oi.tenant_id     = '956587a9-662c-4bf7-bf34-605ab419a893'
   oi.resource_id   = 'https://graph.windows.net'
+end
+
+HorizonInstance.where(api_host: 'staging.vmwdemo.com').first_or_create do |hi|
+
+  hi.view_group_name    = 'HorizonViewUsers'
+  hi.group_region       = 'dldc'
 end

@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/admins/addadminuser
     body:
       encoding: UTF-8
-      string: '{"UserName":"spec.test","LocationGroupId":"570","IsActiveDirectoryUser":"true","RequiresPasswordChange":"false","Roles":[{"Id":"10107","LocationGroupId":"1956"},{"Id":"10108","LocationGroupId":"1983"},{"Id":"10109","LocationGroupId":"1977"},{"Id":"10107","LocationGroupId":"1551"},{"Id":"87","LocationGroupId":"1251"}]}'
+      string: '{"UserName":"spec.test","LocationGroupId":"570","IsActiveDirectoryUser":"true","RequiresPasswordChange":"false","Roles":[{"Id":"87","LocationGroupId":"570"}]}'
     headers:
       Accept:
       - application/json
@@ -18,22 +18,22 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '319'
+      - '158'
       User-Agent:
       - Ruby
   response:
     status:
-      code: 400
-      message: Bad Request
+      code: 200
+      message: OK
     headers:
       Server:
       - nginx/1.4.6 (Ubuntu)
       Date:
-      - Wed, 22 Jul 2015 10:44:30 GMT
+      - Fri, 24 Jul 2015 18:35:45 GMT
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
       Content-Length:
-      - '141'
+      - '12'
       Connection:
       - keep-alive
       Cache-Control:
@@ -42,8 +42,50 @@ http_interactions:
       - AirWatch @ www.air-watch.com
     body:
       encoding: UTF-8
-      string: '{"ActivityId":"ce7f45e8-950b-4bf0-9c5d-5efefcea99c3","ErrorCode":400,"Message":"Role
-        \"10107\" not found or user does not have access to it"}'
+      string: '{"Value":58}'
     http_version: 
-  recorded_at: Wed, 22 Jul 2015 10:44:32 GMT
+  recorded_at: Fri, 24 Jul 2015 18:35:47 GMT
+- request:
+    method: delete
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/admins/58/delete
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Host:
+      - airwatch.vmwdev.com
+      Aw-Tenant-Code:
+      - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: The admin user is deleted.
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Jul 2015 18:35:47 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '4'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - private
+      X-Mdm-Powered-By:
+      - AirWatch @ www.air-watch.com
+    body:
+      encoding: UTF-8
+      string: 'null'
+    http_version: 
+  recorded_at: Fri, 24 Jul 2015 18:35:49 GMT
 recorded_with: VCR 2.9.3

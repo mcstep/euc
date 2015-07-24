@@ -25,7 +25,7 @@
                     %h3{align: "left", style: "color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 30px; margin: 0; padding: 15px 0;"}
                       Hi #{@user.display_name}!
                     %p{align: "left", style: "color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 25px 0 10px; padding: 0;"}
-                      Welcome to the EUC Demo Portal! You have been provisioned a Super User account on our system. Your account expires on #{l @user.expires_at}.
+                      Welcome to the EUC Demo Portal! You have been provisioned a Super User account on our system. Your account expires on #{l @user.expiration_date}.
                     %p{align: "left", style: "color: #222222; font-family: 'Helvetica Neue', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 25px 0 10px; padding: 0;"}
                       As a Super User you have the ability to generate new accounts for your customers.
                       It is important to understand that you will be listed as the point of contact for any users you provision accounts for, and you will be expected to perform basic first line support and troubleshooting before escalating to the EUC Demo Team.

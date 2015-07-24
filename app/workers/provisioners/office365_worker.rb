@@ -1,33 +1,30 @@
 module Provisioners
   class Office365Worker < ProvisionerWorker
-    def provision(user_integration)
-      instance = user_integration.integration.google_apps_instance
+    def provision
+      wait_until @user.provisioned? do
+        instance = @user_integration.integration.office365_instance
+        email    = "#{@user_integration.username}@#{@user_integration.integration.domain}"
 
-      user_integration.transaction do
-        user_integration.google_apps.provision
-        user_integration.save!
+        # Only tick status if everything worked (retry otherwise)
+        @user_integration.transaction do
+          @user_integration.office365.provision
+          @user_integration.save!
 
-        instance.register(
-          "#{user_integration.username}@#{user_integration.integration.domain}",
-          user_integration.user.first_name,
-          user_integration.user.last_name,
-        )
+          instance.update_user email, 'usageLocation' => 'US'
+          instance.assign_license email
 
-        if instance.group_name
-          add_group user_integration, instance.group_name, instance.group_region
+          if instance.group_name
+            add_group instance.group_name, instance.group_region
+          end
         end
       end
     end
 
-    def deprovision(user_integration)
-      instance = user_integration.integration.google_apps_instance
-
-      instance.unregister(
-        "#{user_integration.username}@#{user_integration.integration.domain}"
-      )
+    def deprovision
+      instance = @user_integration.integration.office365_instance
 
       if instance.group_name
-        remove_group user_integration, instance.group_name, instance.group_region
+        remove_group instance.group_name, instance.group_region
       end
     end
   end

@@ -5,6 +5,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.string      :home_template
       t.string      :support_email
       t.string      :group_name
+      t.string      :group_region
       t.boolean     :supports_vidm,       null: false, default: true
       t.datetime    :deleted_at,          index: true
       t.timestamps                        null: false

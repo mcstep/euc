@@ -7,7 +7,6 @@ class CreateUserIntegrations < ActiveRecord::Migration
       t.date        :directory_expiration_date,   null: false
       t.integer     :directory_status,            null: false, default: 0
       t.integer     :horizon_air_status,          null: false, default: 0
-      t.integer     :horizon_workspace_status,    null: false, default: 0
       t.integer     :horizon_rds_status,          null: false, default: 0
       t.integer     :horizon_view_status,         null: false, default: 0
       t.integer     :airwatch_status,             null: false, default: 0
