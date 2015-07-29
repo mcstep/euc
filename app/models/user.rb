@@ -95,6 +95,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.identified_by(handle)
+    joins(:authentication_integration).where("email = ? OR user_integrations.username = ?", handle, handle).first
+  end
+
   def provisioned?
     authentication_integration && authentication_integration.directory_status != :not_provisioned
   end

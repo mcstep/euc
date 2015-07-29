@@ -6,6 +6,25 @@ RSpec.describe User, type: :model do
     expect(SignupWorker).to have(1).jobs
   end
 
+  fdescribe '.identified_by' do
+    let(:user) { create(:user) }
+    before do
+      user.update_attributes(email: 'test@test.com')
+      user.authentication_integration.update_attributes(username: 'test')
+    end
+    subject{ User.identified_by(handle).id }
+
+    context 'when seeked by email' do
+      let(:handle) { 'test@test.com' }
+      it { is_expected.to eq user.id }
+    end
+
+    context 'when seeked by username' do
+      let(:handle) { 'test' }
+      it { is_expected.to eq user.id }
+    end
+  end
+
   describe 'invitation' do
     subject(:invitation){ create :invitation }
 

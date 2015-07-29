@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.where(email: params[:email]).first
+    user = User.identified_by(params[:email])
 
     if user && user.authenticate(params[:password])
       user.update_attributes(last_authorized_at: DateTime.now)
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
   end
 
   def recover
-    @user = User.where(email: params[:email]).first
+    @user = User.identified_by(params[:email])
 
     if @user.blank?
       redirect_to new_session_path, alert: I18n.t('flash.recover_error')
