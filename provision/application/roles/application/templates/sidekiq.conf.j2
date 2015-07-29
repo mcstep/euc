@@ -26,4 +26,4 @@ normal exit 0 TERM
 # Let it terminate by itself after finishing current tasks or kill it on timeout
 kill timeout 600
 
-exec start-stop-daemon --start --chdir '{{ rails_path }}' --chuid {{ rails_user }}:sudo --exec /usr/local/rvm/bin/rvm -- in {{ rails_path }} do bundle exec sidekiq -C config/sidekiq.yml -L log/sidekiq.log
+exec start-stop-daemon --start --chdir '{{ rails_path }}' --chuid {{ rails_user }}:sudo --exec /usr/local/rvm/bin/rvm -- in {{ rails_path }} do bundle exec sidekiq -C config/sidekiq.yml -L log/sidekiq.log -e production
