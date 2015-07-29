@@ -40,7 +40,7 @@ Office365Instance.where(client_id: 'cd329bba-1082-40a1-93e9-496370a53f18').first
   oi.resource_id   = 'https://graph.windows.net'
 end
 
-HorizonInstance.where(api_host: 'receiver.vmwdemo.com').first_or_create do |hi|
+HorizonInstance.where(api_host: 'receiver.vmwdev.com').first_or_create do |hi|
 
   hi.view_group_name    = 'HorizonViewUsers'
   hi.group_region       = 'dldc'
