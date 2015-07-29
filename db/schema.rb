@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722183826) do
+ActiveRecord::Schema.define(version: 20150729174509) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -249,10 +249,11 @@ ActiveRecord::Schema.define(version: 20150722183826) do
     t.string   "support_email"
     t.string   "group_name"
     t.string   "group_region"
-    t.boolean  "supports_vidm", default: true, null: false
+    t.boolean  "supports_vidm",         default: true,  null: false
     t.datetime "deleted_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "requires_verification", default: false, null: false
   end
 
   add_index "profiles", ["deleted_at"], name: "index_profiles_on_deleted_at"
@@ -321,7 +322,7 @@ ActiveRecord::Schema.define(version: 20150722183826) do
     t.string   "country_code"
     t.string   "phone"
     t.integer  "role"
-    t.integer  "status"
+    t.integer  "status",                        default: 0, null: false
     t.string   "job_title"
     t.integer  "invitations_used",              default: 0, null: false
     t.integer  "total_invitations",             default: 5, null: false
@@ -331,6 +332,8 @@ ActiveRecord::Schema.define(version: 20150722183826) do
     t.datetime "deleted_at"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.string   "confirmation_token"
+    t.string   "verification_token"
   end
 
   add_index "users", ["authentication_integration_id"], name: "index_users_on_authentication_integration_id"

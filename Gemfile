@@ -25,6 +25,8 @@ gem 'redis-semaphore'
 gem 'google-api-client'
 gem 'azure-directory'
 gem 'rqrcode_png'
+gem 'readable-token'
+gem 'nexmo'
 gem 'sinatra', require: nil
 
 gem 'paranoia', '~> 2.0'
@@ -55,6 +57,7 @@ group :development, :test do
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
   gem 'capistrano-passenger'
+  gem 'letter_opener'
 end
 
 group :test do

@@ -14,7 +14,7 @@
 #  country_code                  :string
 #  phone                         :string
 #  role                          :integer
-#  status                        :integer
+#  status                        :integer          default(0), not null
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -24,6 +24,8 @@
 #  deleted_at                    :datetime
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
+#  confirmation_token            :string
+#  verification_token            :string
 #
 # Indexes
 #
@@ -68,6 +70,7 @@ class User < ActiveRecord::Base
   has_one :received_invitation, class_name: "Invitation", foreign_key: "to_user_id", inverse_of: :to_user
 
   as_enum :role, ROLES
+  as_enum :status, {active: 0, verification_required: 1}
 
   accepts_nested_attributes_for :user_integrations
 
@@ -75,9 +78,11 @@ class User < ActiveRecord::Base
 
   before_save       :normalize!
   before_save       :cleanup_avatar!
+  before_create     { self.status = :verification_required if profile.try(:requires_verification) }
   after_validation  :normalize_errors
   after_create      :use_registration_code_point
   after_create      { SignupWorker.perform_async(id) }
+  after_create      { send_verification! if verification_required? }
   after_destroy     { received_invitation.try(:free_invitation_point) }
 
   validates :first_name, presence: true
@@ -97,6 +102,15 @@ class User < ActiveRecord::Base
 
   def self.identified_by(handle)
     joins(:authentication_integration).where("email = ? OR user_integrations.username = ?", handle, handle).first
+  end
+
+  def self.confirm!(email, token)
+    return false unless attempt = where(email: email, verification_token: token).first
+
+    attempt.status = :active
+    attempt.save!
+
+    attempt
   end
 
   def provisioned?
@@ -160,6 +174,14 @@ class User < ActiveRecord::Base
 
   def normalize!
     email.downcase!
+  end
+
+  def send_verification!
+    transaction do
+      self.confirmation_token = ReadableToken.generate
+      self.save!
+      VerificationDeliveryWorker.perform_async(id)
+    end
   end
 
   def normalize_errors

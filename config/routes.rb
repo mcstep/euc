@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resource :session do
     member do
       post :recover
+      get  :verify
+      post :verify
     end
   end
 

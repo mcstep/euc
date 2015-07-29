@@ -13,13 +13,26 @@ class SessionsController < ApplicationController
     user = User.identified_by(params[:email])
 
     if user && user.authenticate(params[:password])
+      if user.active?
+        user.update_attributes(last_authorized_at: DateTime.now)
+        @current_user = user
+        session[:user_id] = user.id
+        redirect_to root_path, notice: I18n.t('flash.logged_in')
+      else
+        redirect_to action: :verify, email: params[:email]
+      end
+    else
+      flash.now.alert = I18n.t('flash.bad_authentication')
+      render 'new'
+    end
+  end
+
+  def verify
+    if user = User.confirm!(params[:email], params[:token])
       user.update_attributes(last_authorized_at: DateTime.now)
       @current_user = user
       session[:user_id] = user.id
       redirect_to root_path, notice: I18n.t('flash.logged_in')
-    else
-      flash.now.alert = I18n.t('flash.bad_authentication')
-      render 'new'
     end
   end
 

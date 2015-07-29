@@ -4,7 +4,7 @@
     = form_tag session_path do
       = render "layouts/messages"
       .form-group
-        = text_field_tag :email, params[:username], class: "form-control", placeholder: 'E-Mail'
+        = text_field_tag :email, params[:email], class: "form-control", placeholder: 'E-Mail'
       .form-group
         = password_field_tag :password, params[:password], class: "form-control", placeholder: 'Password'
       %button.btn.btn-info.loginbutton{:type => "submit"} Login

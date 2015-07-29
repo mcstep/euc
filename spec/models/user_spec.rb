@@ -6,7 +6,20 @@ RSpec.describe User, type: :model do
     expect(SignupWorker).to have(1).jobs
   end
 
-  fdescribe '.identified_by' do
+  describe '.status' do
+    it 'borns verified' do
+      expect(create(:user).active?).to be_truthy
+    end
+
+    it 'borns unverified' do
+      expect {
+        user = create(:user, profile: create(:profile, requires_verification: true))
+        expect(user.active?).to be_falsey
+      }.to change { VerificationDeliveryWorker.jobs.length }.by(1)
+    end
+  end
+
+  describe '.identified_by' do
     let(:user) { create(:user) }
     before do
       user.update_attributes(email: 'test@test.com')

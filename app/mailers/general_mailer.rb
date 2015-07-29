@@ -83,4 +83,10 @@ class GeneralMailer < ApplicationMailer
 
     mail(to: @user.email, subject: 'AirWatch Account Activation')
   end
+
+  def verification_email(token)
+    @token = token
+
+    mail(to: @user.email, subject: 'Verification Code')
+  end
 end

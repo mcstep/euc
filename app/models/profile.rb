@@ -2,16 +2,17 @@
 #
 # Table name: profiles
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  home_template :string
-#  support_email :string
-#  group_name    :string
-#  group_region  :string
-#  supports_vidm :boolean          default(TRUE), not null
-#  deleted_at    :datetime
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                    :integer          not null, primary key
+#  name                  :string
+#  home_template         :string
+#  support_email         :string
+#  group_name            :string
+#  group_region          :string
+#  supports_vidm         :boolean          default(TRUE), not null
+#  deleted_at            :datetime
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  requires_verification :boolean          default(FALSE), not null
 #
 # Indexes
 #
