@@ -12,7 +12,7 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      @current_user = user
+      @current_user = @user
       session[:user_id] = user.id
       redirect_to root_path
     else
