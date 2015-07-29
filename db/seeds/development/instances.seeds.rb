@@ -1,6 +1,6 @@
-Directory.where(host: 'receiver.vmwdemo.com').first_or_create do |d|
+Directory.where(host: 'receiver.vmwdev.com').first_or_create do |d|
 
-  d.port    = 8080
+  d.port    = 443
   d.api_key = '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
 end
 
