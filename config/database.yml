@@ -20,13 +20,15 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
-  database: db/development.sqlite3
+  adapter: postgresql
+  host: localhost
+  user: eucportal
+  password: eucportal
+  database: eucportal
 
 import:
   adapter: postgresql
   user: vrxtlidsppwcyt
-  host: localhost
+  host: ec2-54-225-130-164.compute-1.amazonaws.com
   database: dd2a557v5fcas7
+  password: 5bbYc1cSxfvieiJVAPgndfX7vP
