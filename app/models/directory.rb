@@ -9,6 +9,7 @@
 #  deleted_at :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  use_ssl    :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -21,7 +22,7 @@ class Directory < ActiveRecord::Base
   validates :host, presence: true
 
   def url(action)
-    "http://#{host}:#{port || '80'}/#{action}"
+    "http#{'s' if use_ssl}://#{host}:#{port || '80'}/#{action}"
   end
 
   def query(action, payload, params={})
