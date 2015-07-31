@@ -194,6 +194,7 @@ class ApiAccountsController < BaseApiController
 
       response_json['connection_url_amer'] = "vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME_AMER"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
       response_json['connection_url_emea'] = "vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME_EMEA"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
+      response_json['connection_url_apac'] = "vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME_APAC"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
 
       response_json['expiration_date'] = account.expiration_date
       response_json['create_date'] = account.created_at
