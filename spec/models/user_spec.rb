@@ -66,7 +66,7 @@ RSpec.describe User, type: :model do
 
   describe 'profile' do
     context 'when invited' do
-      let(:invitation){ Invitation.create! from_user: create(:user), to_user: build(:user, profile: nil) }
+      let(:invitation){ Invitation.create! from_user: create(:user), to_user: build(:user, profile: nil, role: :root) }
       subject{ invitation.to_user.profile_id }
 
       it{ is_expected.to eq invitation.from_user.profile_id }
@@ -74,15 +74,23 @@ RSpec.describe User, type: :model do
       it 'sets authentication integration' do
         expect(invitation.to_user.reload.authentication_integration_id).to_not be_nil
       end
+
+      it 'assigns proper role' do
+        expect(invitation.to_user.role).to eq :root
+      end
     end
 
     context 'when unset' do
       context 'having approved domain' do
-        let!(:domain){ create(:domain, name: 'test.com') }
+        let!(:domain){ create(:domain, name: 'test.com', user_role: :root) }
         subject{ create :user, profile: nil, email: 'user@test.com' }
 
         it 'inherits from domain' do
           expect(subject.profile_id).to eq domain.profile_id
+        end
+
+        it 'assigns proper role' do
+          expect(subject.role).to eq :root
         end
       end
 

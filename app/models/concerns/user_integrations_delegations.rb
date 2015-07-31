@@ -34,6 +34,7 @@ module UserIntegrationsDelegations
         self.profile = received_invitation.from_user.profile
       elsif domain = Domain.where(name: email.split('@', 2).last).first
         self.profile = domain.profile
+        self.role    = domain.user_role
       end
     end
   end
