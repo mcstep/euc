@@ -38,6 +38,7 @@ en:
     recovered: Password reset successfully requested. Please check your email for login details.
     recover_error: Could not find use with the given email.
     user_updated: User has been updated
+    user_created: Account was successfully requested. Please check your email for login details.
 
   regions:
     amer: Americas

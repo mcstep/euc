@@ -12,9 +12,7 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      @current_user = @user
-      session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to new_session_path, notice: I18n.t('flash.user_created')
     else
       render action: :new
     end
