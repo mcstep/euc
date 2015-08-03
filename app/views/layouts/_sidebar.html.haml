@@ -5,8 +5,8 @@
   %img{src: current_user.avatar_url}
   %p
     %span.sidebar-username
-      First
-      %strong Last
+      = current_user.first_name
+      %strong= current_user.last_name
 
 %span.sidebar-divider.clear Launch
 
