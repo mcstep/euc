@@ -7,7 +7,7 @@ module UserAuthentication
     end
 
     def matches?(request)
-      User.find(request.session[:user_id]).policy.send @policy_action
+      Rails.env.development? || User.find(request.session[:user_id]).policy.send(@policy_action)
     end
   end
 

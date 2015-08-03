@@ -8,13 +8,13 @@ RSpec.describe ProvisionerWorker, type: :model do
           'TestWorker'
         end
 
-        def perform
+        def test
           @user_integration = OpenStruct.new(id: 1)
           wait_until(false){}
         end
       end
 
-      ProvisionerSpecWorker.new.perform
+      ProvisionerSpecWorker.new.test
     end
 
     after do
@@ -23,6 +23,10 @@ RSpec.describe ProvisionerWorker, type: :model do
 
     it 'reenqueus' do
       expect(ProvisionerSpecWorker).to have(1).jobs
+    end
+
+    it 'stores the method name' do
+      expect(ProvisionerSpecWorker.jobs.last['args']).to eq [1, 'test']
     end
   end
 end
