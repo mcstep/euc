@@ -49,7 +49,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ lambda{|r| UserSession.get_user_tag(r) } ]
+  config.log_tags = [ lambda{|r| User::Session.get_user_tag(r) } ]
 
   # Use a different logger for distributed setups.
   config.logger = Le.new(Rails.application.secrets.le_token, local: true, tag: true)

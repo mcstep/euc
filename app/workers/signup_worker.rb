@@ -8,7 +8,7 @@ class SignupWorker
     directory   = integration.directory
     password    = false
 
-    UserSession.tag_user(user) do
+    User::Session.tag_user(user) do
       if integration['directory_status'] < UserIntegration.directory_statuses[:account_created]
         response = directory.signup(integration)
         password = response['password']

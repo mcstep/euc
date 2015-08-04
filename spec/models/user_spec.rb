@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  fdescribe '.identified_by' do
+  describe '.identified_by' do
     let(:user) { create(:user) }
     before do
       user.update_attributes(email: 'test@email.com')

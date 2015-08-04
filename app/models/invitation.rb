@@ -32,8 +32,8 @@ class Invitation < ActiveRecord::Base
   validates :to_user, presence: true, uniqueness: {scope: :from_user_id}
   validates :from_user_id, presence: true, on: :create
 
-  before_create :use_invitation_point
-  after_destroy :free_invitation_point
+  before_create :use_invitation_point!
+  after_destroy :free_invitation_point!
 
   delegate :id, to: :from_user, prefix: true
 
@@ -44,13 +44,13 @@ class Invitation < ActiveRecord::Base
     invitation
   end
 
-  def use_invitation_point
+  def use_invitation_point!
     return if skip_points_management
     from_user.invitations_used += 1
     from_user.save!
   end
  
-  def free_invitation_point
+  def free_invitation_point!
     return if skip_points_management
     from_user.invitations_used -= 1
     from_user.save!

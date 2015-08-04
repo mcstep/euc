@@ -41,5 +41,5 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.log_tags = [ lambda{|r| UserSession.tag_user(r) } ]
+  config.log_tags = [ lambda{|r| User::Session.tag_user(r) } ]
 end

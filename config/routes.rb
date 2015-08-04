@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount Sidekiq::Web => '/sidekiq', constraints: UserSession::Constraint.new(:sidekiq?)
+  mount Sidekiq::Web => '/sidekiq', constraints: User::Session::Constraint.new(:sidekiq?)
 
   root 'home#index'
 

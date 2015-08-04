@@ -37,15 +37,136 @@
 #
 
 class User < ActiveRecord::Base
-  include UserSession
-  include UserIntegrationsDelegations
+  module Session extend ActiveSupport::Concern
+    def self.get_user_id(request)
+      request.cookie_jar.encrypted[ Rails.application.config.session_options[:key] ]['user_id']
+    end
+
+    def self.tag_user(user_id, &block)
+      user_id = user_id.id if user_id.is_a?(User)
+      user_id = get_user_id(user_id) if user_id.is_a?(ActionDispatch::Request)
+      result  = '#' + (user_id || '?').to_s
+
+      if block_given?
+        Rails.logger.tagged(result){ yield }
+      else
+        return result
+      end
+    end
+
+    class Constraint
+      def initialize(policy_action)
+        @policy_action = policy_action
+      end
+
+      def matches?(request)
+        return true if Rails.env.development?
+
+        user_id = User::Session.get_user_id(request)
+        user_id && User.find(user_id).policy.send(@policy_action)
+      end
+    end
+
+    def authenticate(password)
+      return false unless data = authentication_integration.directory.authenticate(
+        authentication_integration.username,
+        password
+      )
+
+      {
+        display_name: data['name'],
+        job_title:    data['title'],
+        email:        data['email'],
+        company_name: data['company']
+      }.each do |k, v|
+        self.send("#{k}=", v) unless v.nil?
+      end
+      save!
+
+      true
+    end
+
+    def policy
+      UserPolicy.new(self)
+    end
+  end
+
+  module IntegrationsDelegations extend ActiveSupport::Concern
+    included do
+      attr_accessor :integrations_disable_provisioning
+
+      before_validation :ensure_profile
+      before_validation :setup_integrations, on: :create
+      after_save        :setup_authentication
+    end
+
+    def integrations_username
+      @username.blank? ? email.try(:split, '@').try(:first) : @username
+    end
+
+    def integrations_username=(value)
+      @username = value
+    end
+
+    def integrations_expiration_date
+      @expiration_date || Date.today + (root? ? 1.year : 1.month)
+    end
+
+    def integrations_expiration_date=(date)
+      return if date.blank?
+      date = date.to_date if date.respond_to?(:to_date)
+      date = Date.parse(date) unless date.is_a?(Date)
+      @expiration_date = date
+    end
+
+    def ensure_profile
+      if profile.blank?
+        if received_invitation.present?
+          self.profile = received_invitation.from_user.profile
+        elsif domain = Domain.where(name: email.split('@', 2).last).first
+          self.profile = domain.profile
+          self.role    = domain.user_role
+        end
+      end
+    end
+
+    def setup_integrations
+      if profile.present?
+        effective_integrations = profile.profile_integrations.to_a
+        effective_integrations = effective_integrations.select{|ei| ei.allow_sharing} if received_invitation.present?
+        effective_integrations.map!(&:to_user_integration)
+
+        effective_integrations.each do |ei|
+          ei.user                      = self
+          ei.username                  = integrations_username
+          ei.directory_expiration_date = integrations_expiration_date
+          ei.disable_provisioning      = integrations_disable_provisioning
+
+          if original = user_integrations.select{|ui| ui.integration_id == ei.integration_id}.first
+            ei.adapt(original)
+          end
+        end
+
+        self.user_integrations = effective_integrations
+      end
+    end
+
+    def setup_authentication
+      if authentication_integration.blank?
+        self.authentication_integration = user_integrations.sort_by(&:authentication_priority).first
+        save!
+      end
+    end
+  end
+
+  include Session
+  include IntegrationsDelegations
   include CompanyHolder
   include RequestsLogger
 
-  acts_as_paranoid
-
-  mount_uploader :avatar, AvatarUploader
-
+  ##
+  # Scopes
+  ##
   scope :expiring_soon, lambda {
     joins(:authentication_integration).where(
       'user_integrations.expires_at > ? and expires_at < ?', DateTime.now, DateTime.now + 72.hours
@@ -58,9 +179,20 @@ class User < ActiveRecord::Base
     )
   }
 
+  def self.identified_by(handle)
+    username, domain = handle.split('@', 2)
+    joins(:authentication_integration => :integration).where("email = ? OR user_integrations.username = ? OR (user_integrations.username = ? AND integrations.domain = ?)", handle, handle, username, domain).first
+  end
+
+  ##
+  # Constants
+  ## 
   ROLES = {basic: 0, admin: 1, root: 2}
   REGIONS = %w(amer emea apac dldc)
 
+  ##
+  # Relations
+  ##
   belongs_to :authentication_integration, class_name: "UserIntegration"
   belongs_to :profile
   has_many :user_integrations, -> { includes(:directory_prolongations) }, dependent: :destroy, inverse_of: :user
@@ -68,21 +200,27 @@ class User < ActiveRecord::Base
   has_many :sent_invitations, -> { includes(:to_user) }, class_name: "Invitation", foreign_key: "from_user_id"
   has_one :received_invitation, class_name: "Invitation", foreign_key: "to_user_id", inverse_of: :to_user
 
+  ##
+  # Extensions
+  ##
+  acts_as_paranoid
+  mount_uploader :avatar, AvatarUploader
+  accepts_nested_attributes_for :user_integrations
+
   as_enum :role, ROLES
   as_enum :status, {active: 0, verification_required: 1}
 
-  accepts_nested_attributes_for :user_integrations
-
-  delegate :can_assign_roles?, to: :policy
-
+  ##
+  # Validations
+  ##
   before_save       :normalize!
   before_save       :cleanup_avatar!
   before_create     { self.status = :verification_required if profile.try(:requires_verification) }
   after_validation  :normalize_errors
-  after_create      :use_registration_code_point
+  after_create      :use_registration_code_point!
   after_create      { SignupWorker.perform_async(id) unless integrations_disable_provisioning }
   after_create      { send_verification! if verification_required? }
-  after_destroy     { received_invitation.try(:free_invitation_point) }
+  after_destroy     { received_invitation.try(:free_invitation_point!) }
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -99,26 +237,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.identified_by(handle)
-    username, domain = handle.split('@', 2)
-    joins(:authentication_integration => :integration).where("email = ? OR user_integrations.username = ? OR (user_integrations.username = ? AND integrations.domain = ?)", handle, handle, username, domain).first
-  end
-
-  def self.confirm!(email, token)
-    return false unless attempt = where(email: email, verification_token: token).first
-
-    attempt.status = :active
-    attempt.save!
-
-    attempt
-  end
-
+  ##
+  # Helpers
+  ##
   def provisioned?
     authentication_integration && authentication_integration.directory_status != :not_provisioned
-  end
-
-  def policy
-    UserPolicy.new(self)
   end
 
   def display_name
@@ -165,6 +288,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  ##
+  # Modifiers
+  ##
+  def self.confirm!(email, token)
+    return false unless attempt = where(email: email, verification_token: token).first
+
+    attempt.status = :active
+    attempt.save!
+
+    attempt
+  end
+
   def update_password(password=nil)
     authentication_integration.directory.update_password(
       authentication_integration.username,
@@ -195,19 +330,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_from_ad!(data)
-    {
-      display_name: data['name'],
-      job_title:    data['title'],
-      email:        data['email'],
-      company_name: data['company']
-    }.each do |k, v|
-      self.send("#{k}=", v) unless v.nil?
-    end
-
-    save!
-  end
-
   def accept_airwatch_eula!
     self.airwatch_eula_accept_date = Date.today
     save!
@@ -225,7 +347,7 @@ class User < ActiveRecord::Base
     destroy!
   end
 
-  def use_registration_code_point
+  def use_registration_code_point!
     return if !registration_code
     registration_code.registrations_used += 1
     registration_code.save!

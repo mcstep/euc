@@ -16,7 +16,7 @@ class ProvisionerWorker
     @user_integration = user_integration
     @user             = @user_integration.user
 
-    UserSession.tag_user(@user) do
+    User::Session.tag_user(@user) do
       send action
     end
   end
