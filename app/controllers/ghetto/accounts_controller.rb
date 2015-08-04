@@ -1,8 +1,6 @@
 module Ghetto
   class AccountsController < ActionController::Base
     include ActiveDirectoryHelper
-
-    skip_before_filter :verify_authenticity_token
     before_filter :find_account, only: [:show, :update, :delete, :reset_password, :change_password]
 
     before_filter only: :create do
@@ -65,8 +63,8 @@ module Ghetto
 
       if account_removed && response &&  @account.destroy
         render nothing: true, status: 200
-        AccountActiveDirectoryAmericaReplicateWorker.perform_async
-        AccountActiveDirectoryEuropeReplicateWorker.perform_async
+        Ghetto::AccountActiveDirectoryAmericaReplicateWorker.perform_async
+        Ghetto::AccountActiveDirectoryEuropeReplicateWorker.perform_async
       else
         render nothing: true, status: :bad_request
       end
@@ -82,7 +80,7 @@ module Ghetto
       user_name = @json['account']['email'].downcase.split("@").first
       existing_user = does_user_exist(@json['account']['email'].downcase.split("@").first)
       while existing_user != nil do
-        user_name = @json['account']['email'].downcase.split("@").first + "." + rand(101...999).to_s
+        user_name = @json['account']['email'].downcase.split("@").first[0..14] + "." + rand(101...999).to_s
         puts "User exists, trying with Username #{user_name}"
         existing_user = does_user_exist(user_name)
       end
@@ -96,7 +94,7 @@ module Ghetto
         @account.uuid = SecureRandom.uuid
         @account.account_source = 'trygrid' #0
         @account.expiration_date = Time.now # Yes, create an expired account which will be extended later
-        #@account.expiration_date = Time.now + settings["TRYGRID_ACCOUNT_VALIDITY_HOURS"].to_i.hour #8.hour
+        #@account.expiration_date = Time.now + ENV["TRYGRID_ACCOUNT_VALIDITY_HOURS"].to_i.hour #8.hour
         @account.username =  user_name
         @account.job_title = 'Employee' # Hardcoded for now
         @account.home_region = 'AMER'
@@ -122,7 +120,7 @@ module Ghetto
 
           render json: response_json # TODO: Render username and password as well
 
-          AccountActiveDirectoryFolderCreateWorker.perform_async(@account.id)
+          Ghetto::AccountActiveDirectoryFolderCreateWorker.perform_async(@account.id)
         else
           render nothing: true, status: :bad_request
         end
@@ -136,8 +134,8 @@ module Ghetto
 
       if account_extended && @account.save
           response_json = build_account_json (@account)
-          AccountActiveDirectoryAmericaReplicateWorker.perform_async
-          AccountActiveDirectoryEuropeReplicateWorker.perform_async
+          Ghetto::AccountActiveDirectoryAmericaReplicateWorker.perform_async
+          Ghetto::AccountActiveDirectoryEuropeReplicateWorker.perform_async
           render json: response_json
       else
           render nothing: true, status: :bad_request
@@ -150,8 +148,8 @@ module Ghetto
         response_json = {}
         response_json['new_password'] = response
         render json: response_json, status: 200
-        AccountActiveDirectoryAmericaReplicateWorker.perform_async
-        AccountActiveDirectoryEuropeReplicateWorker.perform_async
+        Ghetto::AccountActiveDirectoryAmericaReplicateWorker.perform_async
+        Ghetto::AccountActiveDirectoryEuropeReplicateWorker.perform_async
       else
         render nothing: true, status: :bad_request
       end
@@ -167,56 +165,44 @@ module Ghetto
       password_change, response = change_user_password(@account.username, @json['account']['new_password'])
       if password_change == true
         render nothing: true, status: 200
-        AccountActiveDirectoryAmericaReplicateWorker.perform_async
-        AccountActiveDirectoryEuropeReplicateWorker.perform_async
+        Ghetto::AccountActiveDirectoryAmericaReplicateWorker.perform_async
+        Ghetto::AccountActiveDirectoryEuropeReplicateWorker.perform_async
       else
         render nothing: true, status: :bad_request
       end
     end
 
-  private
+    private
 
-    def authenticate_user_from_token!
-      unless request.headers['HTTP_API_TOKEN'] == 'KwsuqK862ZNQLSy85DgS'
-        render nothing: true, status: :unauthorized
-      end
+    def find_account
+      @account = Account.find_by_uuid(params[:uuid])
+      render nothing: true, status: :not_found unless @account.present? #&& @account.user == @user
     end
 
-    def parse_request
-      json = request.body.read
-      puts "JSON: " + json
-      @json = JSON.parse(json) if json && json.length >= 2#JSON.parse(request.body.read)
+    def build_account_json (account)
+      response_json = {}
+      response_json['uuid'] = account.uuid
+      response_json['username']   = account.username
+      response_json['first_name'] = account.first_name
+      response_json['last_name']  = account.last_name
+      response_json['email']      = account.email
+      response_json['company']    = account.company
+      #response_json['job_title']  = account.job_title
+      response_json['country_code'] = account.country_code
+
+      sanitized_desktopname = URI.encode(ENV["TRYGRID_VIEW_DESKTOPNAME"])
+      # TODO: Delete after Nvidia switches to new format
+      response_json['connection_url'] = "vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
+
+      response_json['connection_url_amer'] = "vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME_AMER"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
+      response_json['connection_url_emea'] = "vmware-view://#{account.username}@#{ENV["TRYGRID_VIEW_SERVERNAME_EMEA"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
+
+      response_json['expiration_date'] = account.expiration_date
+      response_json['create_date'] = account.created_at
+      response_json['update_date'] = account.updated_at
+
+
+      return response_json
     end
-
-     def find_account
-       @account = Account.find_by_uuid(params[:uuid])
-       render nothing: true, status: :not_found unless @account.present? #&& @account.user == @user
-     end
-
-     def build_account_json (account)
-        response_json = {}
-        response_json['uuid'] = account.uuid
-        response_json['username']   = account.username
-        response_json['first_name'] = account.first_name
-        response_json['last_name']  = account.last_name
-        response_json['email']      = account.email
-        response_json['company']    = account.company
-        #response_json['job_title']  = account.job_title
-        response_json['country_code'] = account.country_code
-
-        sanitized_desktopname = URI.encode(settings["TRYGRID_VIEW_DESKTOPNAME"])
-        # TODO: Delete after Nvidia switches to new format
-        response_json['connection_url'] = "vmware-view://#{account.username}@#{settings["TRYGRID_VIEW_SERVERNAME"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
-
-        response_json['connection_url_amer'] = "vmware-view://#{account.username}@#{settings["TRYGRID_VIEW_SERVERNAME_AMER"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
-        response_json['connection_url_emea'] = "vmware-view://#{account.username}@#{settings["TRYGRID_VIEW_SERVERNAME_EMEA"]}/#{sanitized_desktopname}?action=start-session&domainName=vmwdemo"
-
-        response_json['expiration_date'] = account.expiration_date
-        response_json['create_date'] = account.created_at
-        response_json['update_date'] = account.updated_at
-
-
-        return response_json
-     end
   end
 end

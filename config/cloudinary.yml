@@ -1,19 +1,19 @@
 ---
 development:
-  cloud_name: dbcrxxusf
-  api_key: '522663563917382'
-  api_secret: ubbJG-8qo-_g1sAQLWcjXoW_Nd0
-  enhance_image_tag: true
-  static_image_support: false
-production:
-  cloud_name: dbcrxxusf
-  api_key: '522663563917382'
-  api_secret: ubbJG-8qo-_g1sAQLWcjXoW_Nd0
+  cloud_name: <%= ENV['CLOUDINARY_CLOUD_NAME'] %>
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
   enhance_image_tag: true
   static_image_support: true
 test:
-  cloud_name: dbcrxxusf
-  api_key: '522663563917382'
-  api_secret: ubbJG-8qo-_g1sAQLWcjXoW_Nd0
+  cloud_name: <%= ENV['CLOUDINARY_CLOUD_NAME'] %>
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
   enhance_image_tag: true
-  static_image_support: false
+  static_image_support: true
+production:
+  cloud_name: <%= ENV['CLOUDINARY_CLOUD_NAME'] %>
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_API_SECRET'] %>
+  enhance_image_tag: true
+  static_image_support: true

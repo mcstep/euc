@@ -4,6 +4,7 @@ gem 'rails', '4.2.2'
 gem 'sqlite3'
 gem 'pg'
 
+gem 'figaro'
 gem 'haml'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
@@ -28,6 +29,7 @@ gem 'readable-token'
 gem 'nexmo'
 gem 'sinatra', require: nil
 gem 'le'
+gem 'wannabe_bool'
 
 gem 'paranoia', '~> 2.0'
 gem 'simple_enum'
@@ -58,7 +60,6 @@ group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-passenger'
   gem 'letter_opener'
-  gem 'quiet_assets'
 end
 
 group :test do

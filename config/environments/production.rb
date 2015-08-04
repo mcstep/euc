@@ -52,7 +52,7 @@ Rails.application.configure do
   config.log_tags = [ lambda{|r| User::Session.get_user_tag(r) } ]
 
   # Use a different logger for distributed setups.
-  config.logger = Le.new(Rails.application.secrets.le_token, local: true, tag: true)
+  config.logger = Le.new(ENV['LE_TOKEN'], local: true, tag: true)
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -66,11 +66,11 @@ Rails.application.configure do
     domain: "gmail.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: Rails.application.secrets.gmail_username,
-    password: Rails.application.secrets.gmail_password
+    user_name: ENV['GMAIL_USERNAME'],
+    password: ENV['GMAIL_PASSWORD']
   }
   # ActionMailer Config
-  config.action_mailer.default_url_options = { host: Rails.application.secrets.host }
+  config.action_mailer.default_url_options = { host: 'vmwdemo.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
