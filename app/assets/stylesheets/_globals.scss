@@ -93,7 +93,7 @@ a {
 .login {
   
   text-align: center;
-  padding: 30px;
+  padding: 40px;
   .loginbutton {
     display: block;
     width: 100%;
@@ -101,6 +101,19 @@ a {
   }
 }
 
+.login .loginbox { 
+  margin-top: 10px; 
+}
+
+.login .blurb p { 
+  text-align: left; 
+}
+
+.login .loginbutton { 
+  display: block; 
+  width: 100%; 
+  margin: 1.5em 0 1.5em 0; 
+}
 
 
 // Buttons ====================================================================
