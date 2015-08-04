@@ -14,6 +14,7 @@
 #  deleted_at      :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  security_pin    :string
 #
 # Indexes
 #
@@ -32,6 +33,7 @@ class AirwatchInstance < ActiveRecord::Base
   validates :group_name,      presence: true
   validates :group_region,    presence: true
   validates :admin_roles,     presence: true
+  validates :security_pin,    presence: true
 
   def query(action, payload=nil, method: :post)
     response = RestClient::Request.execute(
@@ -54,7 +56,7 @@ class AirwatchInstance < ActiveRecord::Base
   end
 
   def delete_group(id)
-    query "system/groups/#{id}/delete", method: :delete
+    query "system/groups/#{id}/delete", {'SecurityPIN' => security_pin}, method: :delete
   end
 
   def add_user(username)

@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/groups/570/creategroup
     body:
       encoding: UTF-8
-      string: '{"Name":"spec1","GroupId":"spec1","LocationGroupType":"Prospect","AddDefaultLocation":"Yes"}'
+      string: '{"Name":"spec2","GroupId":"spec2","LocationGroupType":"Prospect","AddDefaultLocation":"Yes"}'
     headers:
       Accept:
       - application/json
@@ -29,7 +29,7 @@ http_interactions:
       Server:
       - nginx/1.4.6 (Ubuntu)
       Date:
-      - Tue, 04 Aug 2015 22:33:27 GMT
+      - Tue, 04 Aug 2015 23:00:08 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -42,15 +42,15 @@ http_interactions:
       - AirWatch @ www.air-watch.com
     body:
       encoding: UTF-8
-      string: '{"Value":576}'
+      string: '{"Value":577}'
     http_version: 
-  recorded_at: Tue, 04 Aug 2015 22:33:31 GMT
+  recorded_at: Tue, 04 Aug 2015 23:00:10 GMT
 - request:
     method: delete
-    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/groups/576/delete
+    uri: https://api.admin:vmwareHelp%21@airwatch.vmwdev.com/API/v1/system/groups/577/delete
     body:
-      encoding: US-ASCII
-      string: ''
+      encoding: UTF-8
+      string: '{"SecurityPIN":"1111"}'
     headers:
       Accept:
       - application/json
@@ -62,21 +62,23 @@ http_interactions:
       - UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs=
       Content-Type:
       - application/json
+      Content-Length:
+      - '22'
       User-Agent:
       - Ruby
   response:
     status:
-      code: 403
-      message: Forbidden
+      code: 200
+      message: OK
     headers:
       Server:
       - nginx/1.4.6 (Ubuntu)
       Date:
-      - Tue, 04 Aug 2015 22:33:29 GMT
+      - Tue, 04 Aug 2015 23:00:10 GMT
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
       Content-Length:
-      - '163'
+      - '4'
       Connection:
       - keep-alive
       Cache-Control:
@@ -85,8 +87,7 @@ http_interactions:
       - AirWatch @ www.air-watch.com
     body:
       encoding: UTF-8
-      string: '{"ActivityId":"d9be7aa2-9620-4623-b4ba-d6074e46b6a4","ErrorCode":403,"Message":"Requested
-        action is restricted without PIN. Please provide the PIN in the request"}'
+      string: 'null'
     http_version: 
-  recorded_at: Tue, 04 Aug 2015 22:33:33 GMT
+  recorded_at: Tue, 04 Aug 2015 23:00:16 GMT
 recorded_with: VCR 2.9.3

@@ -13,6 +13,7 @@ AirwatchInstance.where(host: 'airwatch.vmwdev.com').first_or_create do |ai|
   ai.user            = 'api.admin'
   ai.password        = 'vmwareHelp!'
   ai.parent_group_id = 570
+  ai.security_pin    = 1111
   ai.admin_roles     = [
     { 'Id' => '10107', 'LocationGroupId'=> '1956' },
     { 'Id'=> '10108',  'LocationGroupId'=> '1983' },

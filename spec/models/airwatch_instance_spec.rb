@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe AirwatchInstance, :vcr, type: :model do
   let(:airwatch_instance){ build :staging_airwatch_instance }
 
-  xdescribe '.add_group' do
-    subject{ @result = airwatch_instance.add_group('spec1') }
+  describe '.add_group' do
+    subject{ @result = airwatch_instance.add_group('spec2') }
     after{ airwatch_instance.delete_group(@result['Value']) }
     it{ is_expected.to be_a Hash }
   end

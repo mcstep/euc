@@ -8,6 +8,7 @@ FactoryGirl.define do
     password        { FFaker::Internet.password }
     parent_group_id { rand(1...999) }
     admin_roles     [ {"Id" => "87", "LocationGroupId"=> "570" } ]
+    security_pin    { rand(1111...9999) }
 
     factory :staging_airwatch_instance do
       host            'airwatch.vmwdev.com'
@@ -15,6 +16,7 @@ FactoryGirl.define do
       user            'api.admin'
       password        'vmwareHelp!'
       parent_group_id 570
+      security_pin    1111
     end
   end
 end
