@@ -3,7 +3,7 @@ FactoryGirl.define do
     username                  { FFaker::Internet.user_name }
     directory_expiration_date { Date.tomorrow }
 
-    association :user, factory: :empty_user, strategy: :build
+    association :user, factory: :user, strategy: :build
     association :integration, factory: :integration, strategy: :build
 
     factory :airwatch_user_integration do

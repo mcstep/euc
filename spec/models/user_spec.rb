@@ -19,16 +19,22 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '.identified_by' do
+  fdescribe '.identified_by' do
     let(:user) { create(:user) }
     before do
-      user.update_attributes(email: 'test@test.com')
+      user.update_attributes(email: 'test@email.com')
       user.authentication_integration.update_attributes(username: 'test')
+      user.authentication_integration.integration.update_attributes(domain: 'integration.com')
     end
-    subject{ User.identified_by(handle).id }
+    subject{ User.identified_by(handle).try(:id) }
 
     context 'when seeked by email' do
-      let(:handle) { 'test@test.com' }
+      let(:handle) { 'test@email.com' }
+      it { is_expected.to eq user.id }
+    end
+
+    context 'when seeked by username' do
+      let(:handle) { 'test@integration.com' }
       it { is_expected.to eq user.id }
     end
 

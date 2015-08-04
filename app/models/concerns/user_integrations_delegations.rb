@@ -61,7 +61,7 @@ module UserIntegrationsDelegations
   end
 
   def setup_authentication
-    if authentication_integration.blank? && user_integrations.any?
+    if authentication_integration.blank?
       self.authentication_integration = user_integrations.sort_by(&:authentication_priority).first
       save!
     end

@@ -94,13 +94,14 @@ class User < ActiveRecord::Base
   validate do
     errors.add :invitations_used, :invalid if invitations_left < 0
 
-    if authentication_integration_id && !user_integration_ids.include?(authentication_integration_id)
+    if user_integrations.blank?
       errors.add :authentication_integration_id, :invalid 
     end
   end
 
   def self.identified_by(handle)
-    joins(:authentication_integration).where("email = ? OR user_integrations.username = ?", handle, handle).first
+    username, domain = handle.split('@', 2)
+    joins(:authentication_integration => :integration).where("email = ? OR user_integrations.username = ? OR (user_integrations.username = ? AND integrations.domain = ?)", handle, handle, username, domain).first
   end
 
   def self.confirm!(email, token)
@@ -177,7 +178,7 @@ class User < ActiveRecord::Base
 
   def send_verification!
     transaction do
-      self.confirmation_token = ReadableToken.generate
+      self.verification_token = ReadableToken.generate
       self.save!
       VerificationDeliveryWorker.perform_async(id)
     end
