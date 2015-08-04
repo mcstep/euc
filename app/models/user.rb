@@ -93,11 +93,13 @@ class User < ActiveRecord::Base
 
   module IntegrationsDelegations extend ActiveSupport::Concern
     included do
-      attr_accessor :integrations_disable_provisioning
+      attr_accessor :integrations_disable_provisioning, :desired_password, :desired_password_confirmation
 
       before_validation :ensure_profile
       before_validation :setup_integrations, on: :create
       after_save        :setup_authentication
+
+      validates :desired_password, confirmation: true, length: { minimum: 8 }, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)./, message: :invalid_password }, allow_blank: true
     end
 
     def integrations_username
@@ -218,7 +220,7 @@ class User < ActiveRecord::Base
   before_create     { self.status = :verification_required if profile.try(:requires_verification) }
   after_validation  :normalize_errors
   after_create      :use_registration_code_point!
-  after_create      { SignupWorker.perform_async(id) unless integrations_disable_provisioning }
+  after_create      { SignupWorker.perform_async(id, desired_password) unless integrations_disable_provisioning }
   after_create      { send_verification! if verification_required? }
   after_destroy     { received_invitation.try(:free_invitation_point!) }
 

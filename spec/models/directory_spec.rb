@@ -23,6 +23,12 @@ RSpec.describe Directory, :vcr, type: :model do
     it 'returns password' do
       expect(subject['password']).to be_a String
     end
+
+    it 'is idempotent' do
+      expect{ directory.signup user_integration }.to_not raise_error
+      expect{ subject }.to_not raise_error
+      expect(subject['password']).to be_a String
+    end
   end
 
   context 'with_existing_user' do
@@ -41,6 +47,16 @@ RSpec.describe Directory, :vcr, type: :model do
 
       it 'approves correct credentials' do
         expect(directory.authenticate username, password).to be_truthy
+      end
+    end
+
+    describe '.update_password' do
+      it 'sets given password' do
+        expect(directory.update_password username, 'Good4password').to eq 'Good4password'
+      end
+
+      it 'sets random password' do
+        expect(directory.update_password username).to be_a String
       end
     end
 

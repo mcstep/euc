@@ -22,7 +22,8 @@ protected
 
   def user_params
     params.require(:user).permit(
-      :first_name, :last_name, :integrations_username, :email, :job_title, :company_name, :home_region
+      :first_name, :last_name, :integrations_username, :email, :job_title, :company_name, :home_region,
+      :desired_password, :desired_password_confirmation
     )
   end
 end

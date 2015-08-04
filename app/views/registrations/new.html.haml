@@ -14,7 +14,17 @@
         = f.text_field :company_name, hide_label: true, placeholder: 'Company'
         %h2 Region
         = f.select :home_region, I18n.t('regions').invert, { hide_label: true, include_blank: 'Select your Home Region' }, { class: "form-control" }
-      .col-lg-12.eula-check{style: 'margin-top: 20px'}
+        %h2 Password
+        .form-group
+          %input.no-password{type: 'checkbox', checked: true}
+          Use automatically generated password
+          %small
+            %em (this will be emailed to you)
+        %h2 Or set your own password
+        = f.password_field :desired_password, hide_label: true, placeholder: 'Enter Your Password'
+        = f.password_field :desired_password_confirmation, hide_label: true, placeholder: 'Confirm Your Password'
+
+      .col-lg-12.eula-check{style: 'margin: 50px 0'}
         By submitting this form I agree to the
         %a{href: '#', data: {target: '#EULA', toggle: 'modal'}} VMware End User License Agreement
       #EULA.modal.fade{role: "dialog", tabindex: "-1"}
@@ -31,3 +41,4 @@
       .col-lg-12
         .form-group
           %button#submit.btn.btl-lg.btn-success.register{name: "submit"} REGISTER
+

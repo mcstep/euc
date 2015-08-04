@@ -53,7 +53,9 @@ en:
 
   errors:
     messages:
+      invalid_password: "should include small letter, big letter and a digit"
       incorrect_domain: belongs to domain that is not currently allowed for registration
+      confirmation: values don't match
 
   activerecord:
     attributes:

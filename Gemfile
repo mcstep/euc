@@ -58,6 +58,7 @@ group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-passenger'
   gem 'letter_opener'
+  gem 'quiet_assets'
 end
 
 group :test do

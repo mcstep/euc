@@ -1,0 +1,137 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://staging.vmwdemo.com:8080/signup
+    body:
+      encoding: US-ASCII
+      string: fname=Anastasia&lname=Rohan&org=Ledner%20Group&username=fausto&email=brianne%40kris.info&title=Lead%20Metrics%20Assistant&expires_at=1438732800000&region=dldc
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '158'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '59'
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+      Date:
+      - Tue, 04 Aug 2015 17:39:59 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "username": "fausto",
+          "password": "Engine3vertical"
+        }
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 17:40:00 GMT
+- request:
+    method: post
+    uri: http://staging.vmwdemo.com:8080/signup
+    body:
+      encoding: US-ASCII
+      string: fname=Anastasia&lname=Rohan&org=Ledner%20Group&username=fausto&email=brianne%40kris.info&title=Lead%20Metrics%20Assistant&expires_at=1438732800000&region=dldc
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '158'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '69'
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+      Date:
+      - Tue, 04 Aug 2015 17:40:00 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "username": "anastasia.rohan.98",
+          "password": "Buffalo8dozen"
+        }
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 17:40:00 GMT
+- request:
+    method: post
+    uri: http://staging.vmwdemo.com:8080/unregister
+    body:
+      encoding: US-ASCII
+      string: username=fausto
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '15'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '2'
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+      Date:
+      - Tue, 04 Aug 2015 17:40:00 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: OK
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 17:40:01 GMT
+recorded_with: VCR 2.9.3

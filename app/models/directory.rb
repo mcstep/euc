@@ -27,7 +27,7 @@ class Directory < ActiveRecord::Base
 
   def query(action, payload, params={})
     response = RestClient.post url(action), payload, params.merge(token: api_key)
-    JSON.parse response rescue nil
+    JSON.parse response rescue response
   end
 
   def authenticate(username, password)
@@ -39,7 +39,11 @@ class Directory < ActiveRecord::Base
   end
 
   def update_password(username, password=nil)
-    query 'changeUserPassword', username: username, password: password
+    if password.blank?
+      query 'changePassword', username: username
+    else
+      query 'changeUserPassword', username: username, password: password
+    end
   end
 
   def prolong(username, expires_at)
