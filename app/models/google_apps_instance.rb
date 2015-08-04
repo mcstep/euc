@@ -19,8 +19,6 @@
 #  index_google_apps_instances_on_deleted_at  (deleted_at)
 #
 
-require 'google/api_client'
-
 class GoogleAppsInstance < ActiveRecord::Base
   acts_as_paranoid
 

@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.2'
 gem 'sqlite3'
-
 gem 'pg'
+
 gem 'haml'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
@@ -21,7 +21,7 @@ gem 'kaminari'
 gem 'micromachine'
 gem 'redis-objects'
 gem 'redis-semaphore'
-gem 'google-api-client'
+gem 'google-api-client', '0.8.6'
 gem 'azure-directory'
 gem 'rqrcode_png'
 gem 'readable-token'
