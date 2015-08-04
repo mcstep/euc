@@ -333,7 +333,6 @@ ActiveRecord::Schema.define(version: 20150730100530) do
     t.datetime "deleted_at"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
-    t.string   "confirmation_token"
     t.string   "verification_token"
   end
 

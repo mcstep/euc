@@ -16,7 +16,9 @@ class ProvisionerWorker
     @user_integration = user_integration
     @user             = @user_integration.user
 
-    send action
+    UserSession.tag_user(@user) do
+      send action
+    end
   end
 
   def wait_until(condition, &block)

@@ -162,6 +162,7 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    le (2.6.2)
     letter_opener (1.4.1)
       launchy (~> 2.2)
     loofah (2.0.2)
@@ -252,9 +253,6 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rest-client-logger (0.0.1)
-      railties (>= 3.1)
-      rest-client (>= 1.6)
     retriable (1.4.1)
     rqrcode (0.6.0)
       chunky_png
@@ -386,6 +384,7 @@ DEPENDENCIES
   jquery-cookie-rails
   jquery-rails
   kaminari
+  le
   letter_opener
   micromachine
   nexmo
@@ -401,7 +400,6 @@ DEPENDENCIES
   redis-objects
   redis-semaphore
   rest-client
-  rest-client-logger
   rqrcode_png
   rspec-activemodel-mocks
   rspec-collection_matchers

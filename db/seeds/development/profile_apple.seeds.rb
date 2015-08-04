@@ -1,5 +1,5 @@
 after 'development:instances' do
-  integration = Integration.where(domain: 'vmwdev.com').first_or_create do |i|
+  integration = Integration.where(domain: 'vmwdev.net').first_or_create do |i|
 
     i.name                 = 'Integrations'
     i.directory            = Directory.where(host: 'receiver.vmwdev.com').first
