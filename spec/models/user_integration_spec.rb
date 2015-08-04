@@ -84,14 +84,15 @@ RSpec.describe UserIntegration, type: :model do
 
   describe '.airwatch_group_name' do
     context 'when all set' do
+      let(:airwatch_instance){ create(:airwatch_instance) }
       subject do
         UserIntegration.new(
-          integration: build(:integration, airwatch_instance: create(:airwatch_instance)),
+          integration: build(:integration, airwatch_instance: airwatch_instance),
           user: User.new(company_name: '!@#$% 1234s')
         ).airwatch_group_name
       end
 
-      it{ is_expected.to eq '1-------1234s' }
+      it{ is_expected.to eq "#{airwatch_instance.id}-------1234s" }
     end
 
     context 'when some miss' do

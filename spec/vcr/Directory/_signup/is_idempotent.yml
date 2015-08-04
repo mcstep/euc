@@ -134,4 +134,130 @@ http_interactions:
       string: OK
     http_version: 
   recorded_at: Tue, 04 Aug 2015 17:40:01 GMT
+- request:
+    method: post
+    uri: https://receiver.vmwdev.com/signup
+    body:
+      encoding: US-ASCII
+      string: fname=Karine&lname=Reilly&org=Zieme%2C%20Towne%20and%20Nienow&username=winona&email=jaylin_schmeler%40hayes.biz&title=Central%20Communications%20Administrator&expires_at=1438732800000&region=dldc
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '195'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:18:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '46'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+    body:
+      encoding: UTF-8
+      string: '{"username":"winona","password":"Driven3lips"}'
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 22:18:22 GMT
+- request:
+    method: post
+    uri: https://receiver.vmwdev.com/signup
+    body:
+      encoding: US-ASCII
+      string: fname=Karine&lname=Reilly&org=Zieme%2C%20Towne%20and%20Nienow&username=winona&email=jaylin_schmeler%40hayes.biz&title=Central%20Communications%20Administrator&expires_at=1438732800000&region=dldc
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '195'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:18:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '56'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+    body:
+      encoding: UTF-8
+      string: '{"username":"karine.reilly.21","password":"Caught7wave"}'
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 22:18:23 GMT
+- request:
+    method: post
+    uri: https://receiver.vmwdev.com/unregister
+    body:
+      encoding: US-ASCII
+      string: username=winona
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '15'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:18:20 GMT
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+    body:
+      encoding: UTF-8
+      string: OK
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 22:18:25 GMT
 recorded_with: VCR 2.9.3

@@ -172,4 +172,172 @@ http_interactions:
       string: Internal Server Error
     http_version: 
   recorded_at: Wed, 15 Jul 2015 18:58:38 GMT
+- request:
+    method: post
+    uri: https://receiver.vmwdev.com/signup
+    body:
+      encoding: US-ASCII
+      string: fname=Howell&lname=Bartoletti&org=Hilpert-Abshire&username=abdul&email=lavon%40kshlerinkessler.ca&title=Chief%20Markets%20Designer&expires_at=1438732800000&region=dldc
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '167'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:30:33 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '45'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+    body:
+      encoding: UTF-8
+      string: '{"username":"abdul","password":"Orbit4grain"}'
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 22:30:37 GMT
+- request:
+    method: post
+    uri: https://receiver.vmwdev.com/addUserToGroup
+    body:
+      encoding: US-ASCII
+      string: username=abdul&group=SpecGroup
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:30:34 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '7'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+    body:
+      encoding: UTF-8
+      string: Success
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 22:30:38 GMT
+- request:
+    method: post
+    uri: https://receiver.vmwdev.com/removeUserFromGroup
+    body:
+      encoding: US-ASCII
+      string: username=abdul&group=SpecGroup
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:30:35 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '7'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+    body:
+      encoding: UTF-8
+      string: Success
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 22:30:39 GMT
+- request:
+    method: post
+    uri: https://receiver.vmwdev.com/unregister
+    body:
+      encoding: US-ASCII
+      string: username=abdul
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Token:
+      - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
+      Content-Length:
+      - '14'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:30:36 GMT
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
+        HttpOnly
+    body:
+      encoding: UTF-8
+      string: OK
+    http_version: 
+  recorded_at: Tue, 04 Aug 2015 22:30:40 GMT
 recorded_with: VCR 2.9.3

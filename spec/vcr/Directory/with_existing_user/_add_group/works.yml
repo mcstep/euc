@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: http://staging.vmwdemo.com:8080/signup
+    uri: https://receiver.vmwdev.com/signup
     body:
       encoding: US-ASCII
-      string: fname=Tavares&lname=Schaefer&org=Wehner%20LLC&username=westley&email=oran_walsh%40jast.info&title=Senior%20Program%20Specialist&expires_at=1437004800000&region=emea
+      string: fname=Tamia&lname=Schmitt&org=Cremin-Ankunding&username=flossie&email=delilah_wisozk%40williamson.com&title=Lead%20Infrastructure%20Strategist&expires_at=1438732800000&region=apac
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -14,7 +14,7 @@ http_interactions:
       Token:
       - 7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p
       Content-Length:
-      - '164'
+      - '179'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -24,34 +24,30 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      X-Powered-By:
-      - Express
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:29:54 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '60'
+      - '49'
+      Connection:
+      - keep-alive
       Set-Cookie:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
-      Date:
-      - Wed, 15 Jul 2015 17:27:39 GMT
-      Connection:
-      - keep-alive
     body:
       encoding: UTF-8
-      string: |-
-        {
-          "username": "westley",
-          "password": "Memory4straight"
-        }
+      string: '{"username":"flossie","password":"Open7straight"}'
     http_version: 
-  recorded_at: Wed, 15 Jul 2015 17:27:40 GMT
+  recorded_at: Tue, 04 Aug 2015 22:29:58 GMT
 - request:
     method: post
-    uri: http://staging.vmwdemo.com:8080/addUserToGroup
+    uri: https://receiver.vmwdev.com/addUserToGroup
     body:
       encoding: US-ASCII
-      string: username=westley&group=SpecGroup
+      string: username=flossie&group=SpecGroup
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -70,30 +66,30 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      X-Powered-By:
-      - Express
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:29:55 GMT
       Content-Type:
       - text/html; charset=utf-8
       Content-Length:
       - '7'
+      Connection:
+      - keep-alive
       Set-Cookie:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
-      Date:
-      - Wed, 15 Jul 2015 17:27:39 GMT
-      Connection:
-      - keep-alive
     body:
       encoding: UTF-8
       string: Success
     http_version: 
-  recorded_at: Wed, 15 Jul 2015 17:27:40 GMT
+  recorded_at: Tue, 04 Aug 2015 22:29:59 GMT
 - request:
     method: post
-    uri: http://staging.vmwdemo.com:8080/unregister
+    uri: https://receiver.vmwdev.com/unregister
     body:
       encoding: US-ASCII
-      string: username=westley
+      string: username=flossie
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -112,22 +108,22 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      X-Powered-By:
-      - Express
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 04 Aug 2015 22:29:56 GMT
       Content-Type:
       - text/plain
       Content-Length:
       - '2'
+      Connection:
+      - keep-alive
       Set-Cookie:
       - SID=s%3Aj%3A%7B%7D.1uuvr29Np7ImIaEvlcqG%2F%2FAz41S3OO1ixtqNAVrnW6o; Path=/;
         HttpOnly
-      Date:
-      - Wed, 15 Jul 2015 17:27:39 GMT
-      Connection:
-      - keep-alive
     body:
       encoding: UTF-8
       string: OK
     http_version: 
-  recorded_at: Wed, 15 Jul 2015 17:27:40 GMT
+  recorded_at: Tue, 04 Aug 2015 22:30:00 GMT
 recorded_with: VCR 2.9.3

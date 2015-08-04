@@ -6,12 +6,12 @@ RSpec.describe Directory, :vcr, type: :model do
   describe '.replicate' do
     subject{ directory.replicate }
 
-    xit { is_expected.to_not raise_error }
+    it { expect{subject}.to_not raise_error }
   end
 
   describe '.sync' do
     it 'works' do
-      expect(directory.sync 'dldc').to eq nil
+      expect(directory.sync 'dldc').to eq 'dldc sync successfull!'
     end
   end
 
@@ -62,46 +62,46 @@ RSpec.describe Directory, :vcr, type: :model do
 
     describe '.unregister' do
       it 'works' do
-        expect(directory.unregister username).to eq nil
+        expect(directory.unregister username).to eq 'OK'
       end
     end
 
     describe '.prolong' do
       it 'works' do
-        expect(directory.prolong username, Date.today).to eq nil
+        expect(directory.prolong username, Date.today).to eq 'Success'
       end
     end
 
     describe '.add_group' do
       it 'works' do
-        expect(directory.add_group username, 'SpecGroup').to eq nil
+        expect(directory.add_group username, 'SpecGroup').to eq 'Success'
       end
 
       xit 'is idempotent' do
-        expect(directory.add_group username, 'SpecGroup').to eq nil
-        expect(directory.add_group username, 'SpecGroup').to eq nil
+        expect(directory.add_group username, 'SpecGroup').to eq 'Success'
+        expect(directory.add_group username, 'SpecGroup').to eq 'Success'
       end
     end
 
     describe '.remove_group' do
-      xit 'works' do
+      it 'works' do
         directory.add_group username, 'SpecGroup'
-        expect(directory.remove_group username, 'SpecGroup').to eq nil
+        expect(directory.remove_group username, 'SpecGroup').to eq 'Success'
       end
 
       xit 'is idempotent' do
-        expect(directory.remove_group username, 'SpecGroup').to eq nil
+        expect(directory.remove_group username, 'SpecGroup').to eq 'Success'
       end
     end
 
     describe '.create_profile' do
       it 'works' do
-        expect(directory.create_profile username, user.home_region).to eq nil
+        expect(directory.create_profile username, user.home_region).to eq 'Success'
       end
 
       it 'is idempotent' do
         directory.create_profile username, user.home_region
-        expect(directory.create_profile username, user.home_region).to eq nil
+        expect(directory.create_profile username, user.home_region).to eq 'Success'
       end
     end
   end

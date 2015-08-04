@@ -2,15 +2,19 @@
 #
 # Table name: airwatch_groups
 #
-#  id           :integer          not null, primary key
-#  name         :string(255)
-#  group_id     :string(255)
-#  group_id_num :integer
-#  parent_id    :integer
-#  domain       :string(255)
-#  group_type   :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id                   :integer          not null, primary key
+#  airwatch_instance_id :integer
+#  company_id           :integer
+#  text_id              :string
+#  numeric_id           :string
+#  kind                 :string
+#  deleted_at           :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
+# Indexes
+#
+#  index_airwatch_groups_on_deleted_at  (deleted_at)
 #
 
 class Upgrade::AirwatchGroup < ActiveRecord::Base
