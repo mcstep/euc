@@ -1,11 +1,11 @@
 web:
   build: .
-  command: bundle exec unicorn_rails -E production
+  command: bundle exec passenger start -e production
   working_dir: /usr/src/app
   volumes:
     - .:/usr/src/app
   ports:
-    - "0.0.0.0:80:8080"
+    - "0.0.0.0:80:3000"
   links:
     - db
     - redis

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'unicorn'
+gem 'passenger'
 gem 'rails', '4.2.2'
 gem 'sqlite3'
 gem 'pg'
