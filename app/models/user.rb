@@ -14,7 +14,7 @@
 #  country_code                  :string
 #  phone                         :string
 #  role                          :integer
-#  status                        :integer
+#  status                        :integer          default(0), not null
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null

@@ -1,6 +1,6 @@
 web:
   build: .
-  command: bundle exec passenger start -e production
+  command: bundle exec unicorn_rails -E production -p 3000
   working_dir: /usr/src/app
   volumes:
     - .:/usr/src/app
