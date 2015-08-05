@@ -12,8 +12,7 @@ WORKDIR /usr/src/app
 
 ADD Gemfile /usr/src/app/Gemfile  
 ADD Gemfile.lock /usr/src/app/Gemfile.lock  
-# throw errors if Gemfile has been modified since Gemfile.lock
-RUN bundle config --global frozen 1 
 RUN bundle install --without development test
 
 ADD ./ /usr/src/app
+RUN bundle exec rake assets:precompile
