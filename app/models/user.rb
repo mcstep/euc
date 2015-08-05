@@ -39,7 +39,7 @@
 class User < ActiveRecord::Base
   module Session extend ActiveSupport::Concern
     def self.get_user_id(request)
-      request.cookie_jar.encrypted[ Rails.application.config.session_options[:key] ]['user_id']
+      request.cookie_jar.encrypted[ Rails.application.config.session_options[:key] ].try(:[], 'user_id')
     end
 
     def self.tag_user(user_id, &block)

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'unicorn'
 gem 'rails', '4.2.2'
 gem 'sqlite3'
 gem 'pg'

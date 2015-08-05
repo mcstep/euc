@@ -29,7 +29,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
@@ -49,7 +49,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ lambda{|r| User::Session.get_user_tag(r) } ]
+  config.log_tags = [ lambda{|r| User::Session.tag_user(r) } ]
 
   # Use a different logger for distributed setups.
   config.logger = Le.new(ENV['LE_TOKEN'], local: true, tag: true)
