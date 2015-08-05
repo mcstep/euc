@@ -1,8 +1,8 @@
 worker_processes 2
 
-working_directory "#{ENV['STACK_PATH']}"
+working_directory "/usr/src/app/"
 
-listen "/tmp/web_server.sock", :backlog => 64
+listen 8080, :backlog => 64
 
 timeout 30
 
