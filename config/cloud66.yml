@@ -1,0 +1,19 @@
+---
+services:
+  web:
+    git_url: git@github.com:eucglobaldemo/eucportal.git
+    git_branch: rework
+    ports:
+    - 8080:80:443
+    command: bundle exec unicorn_rails -c config/unicorn.rb -E production
+    deploy_command: bundle exec rake db:migrate
+    log_folder: "/usr/src/app/log"
+  queue:
+    git_url: git@github.com:eucglobaldemo/eucportal.git
+    git_branch: rework
+    deploy_command: bundle exec rake db:migrate
+    command: bundle exec sidekiq -e production -c 25
+    log_folder: "/usr/src/app/log"
+databases:
+- postgresql
+- redis
