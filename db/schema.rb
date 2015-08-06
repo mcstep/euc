@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804230201) do
+ActiveRecord::Schema.define(version: 20150806161954) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -235,10 +235,16 @@ ActiveRecord::Schema.define(version: 20150804230201) do
   create_table "profile_integrations", force: :cascade do |t|
     t.integer  "profile_id"
     t.integer  "integration_id"
-    t.integer  "authentication_priority", default: 100,   null: false
-    t.boolean  "allow_sharing",           default: false, null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.integer  "authentication_priority",     default: 100,   null: false
+    t.boolean  "allow_sharing",               default: false, null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.integer  "office365_default_status"
+    t.integer  "google_apps_default_status"
+    t.integer  "airwatch_default_status"
+    t.integer  "horizon_air_default_status"
+    t.integer  "horizon_view_default_status"
+    t.integer  "horizon_rds_default_status"
   end
 
   add_index "profile_integrations", ["integration_id"], name: "index_profile_integrations_on_integration_id"

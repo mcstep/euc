@@ -11,9 +11,10 @@ module StateMachines
       @instance   = instance
       @field      = field
 
-      self.when :enable, revoked: :not_provisioned, disabled: :not_provisioned
+      self.when :enable, revoked: :not_provisioned, disabled: :not_provisioned, available: :not_provisioned
       self.when :provision, not_provisioned: :provisioned
       self.when :deprovision, provisioned: :disabled
+      self.when :allow, disabled: :available
 
       if instance.new_record?
         self.when :disable, not_provisioned: :disabled, provisioned: :disabled

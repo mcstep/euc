@@ -14,7 +14,7 @@
 #  country_code                  :string
 #  phone                         :string
 #  role                          :integer
-#  status                        :integer
+#  status                        :integer          default(0), not null
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -136,16 +136,13 @@ class User < ActiveRecord::Base
       if profile.present?
         effective_integrations = profile.profile_integrations.to_a
         effective_integrations = effective_integrations.select{|ei| ei.allow_sharing} if received_invitation.present?
-        effective_integrations.map!(&:to_user_integration)
 
-        effective_integrations.each do |ei|
-          ei.user                      = self
-          ei.username                  = integrations_username
-          ei.directory_expiration_date = integrations_expiration_date
-          ei.disable_provisioning      = integrations_disable_provisioning
-
-          if original = user_integrations.select{|ui| ui.integration_id == ei.integration_id}.first
-            ei.adapt(original)
+        effective_integrations.map! do |ei|
+          ei.to_user_integration(user_integrations.find{|ui| ui.integration_id == ei.integration_id}) do |ui|
+            ui.user                      = self
+            ui.username                  = integrations_username
+            ui.directory_expiration_date = integrations_expiration_date
+            ui.disable_provisioning      = integrations_disable_provisioning
           end
         end
 

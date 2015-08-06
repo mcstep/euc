@@ -61,11 +61,11 @@ class UserIntegration < ActiveRecord::Base
     provisioned:     2
   }, prefix: 'directory'
 
-  as_enum :airwatch_status, {revoked: -2, disabled: -1, not_provisioned: 0, provisioned: 1, not_approved: 2}, prefix: 'airwatch'
+  as_enum :airwatch_status, {available: -3, revoked: -2, disabled: -1, not_provisioned: 0, provisioned: 1, not_approved: 2}, prefix: 'airwatch'
 
   Integration::SERVICES.each do |s|
     next if s == 'airwatch'
-    as_enum :"#{s}_status", {revoked: -2, disabled: -1, not_provisioned: 0, provisioned: 1}, prefix: s
+    as_enum :"#{s}_status", {available: -3, revoked: -2, disabled: -1, not_provisioned: 0, provisioned: 1}, prefix: s
   end
 
   validates :user, presence: true
@@ -88,14 +88,6 @@ class UserIntegration < ActiveRecord::Base
         send(s).enable
       end
     end
-  end
-
-  def adapt(user_integration)
-    Integration::SERVICES.each do |s|
-      send "#{s}_disabled=", user_integration.send("#{s}_disabled")
-    end
-
-    self
   end
 
   def authentication_priority
