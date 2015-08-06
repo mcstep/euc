@@ -14,6 +14,11 @@ $ ->
     $form = $('#prolong-account-form')
 
     $form.attr('action', "/user_integrations/#{$link.data('id')}/prolong")
+    $('.reason', $form).val('')
     $('.invitation-name', $form).val $link.data('name')
     $('.invitation-username', $form).val $link.data('username')
-    $('.expires-at', $form).val $link.data('date')
+
+    if $('.expires-at', $form).is('[readonly]')
+      $('.expires-at', $form).val $link.data('date')
+    else
+      $('.expires-at', $form).datepicker('update', $link.data('date')) 

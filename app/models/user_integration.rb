@@ -111,18 +111,6 @@ class UserIntegration < ActiveRecord::Base
     "#{integration.airwatch_instance_id}-#{user.company_name}".downcase.gsub(/[^a-zA-Z0-9]/, '-')[0...20]
   end
 
-  def prolong!(user, date=nil)
-    date   = Date.parse(date) if date.present? && !date.is_a?(Date)
-    date ||= [directory_expiration_date, Date.today].max + 1.month
-
-    DirectoryProlongation.create!(
-      user_id:             user.id,
-      user_integration_id: user_integration.id,
-      expiration_date_old: user_integration.directory_expiration_date,
-      expiration_date_new: date
-    )
-  end
-
   def replace_status(service, value)
     @disable_provisioning = true
     update_attribute("#{service}_status", value)

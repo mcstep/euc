@@ -111,10 +111,13 @@
             %input.invitation-username.form-control{readonly: "true", type: "text"}
           .form-group
             %label Reason:
-            %input.form-control{name: "reason", placeholder: "Please enter reason for extension", type: "text"}
+            %input.reason.form-control{name: "directory_prolongation[reason]", placeholder: "Please enter reason for extension", type: "text"}
           .form-group
             %label New Expiration Date:
-            %input.expires-at.form-control{readonly: "true", type: "text"}
+            - if current_user.root?
+              %input.expires-at.form-control{name: "directory_prolongation[expiration_date_new]", type: "text", data: {provide: 'datepicker'}}
+            - else
+              %input.expires-at.form-control{readonly: "true", type: "text"}
         .modal-footer
           %button.btn.btn-default.pull-left{type: 'button', data: {dismiss: 'modal'}} Cancel
           %button.btn.btn-success{type: 'submit'} Submit request

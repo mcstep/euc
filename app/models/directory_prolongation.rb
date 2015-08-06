@@ -23,10 +23,14 @@ class DirectoryProlongation < ActiveRecord::Base
 
   validates :user_integration,    presence: true
   validates :expiration_date_new, presence: true
-  validates :expiration_date_old, presence: true
+
+  before_validation do
+    self.expiration_date_old   = user_integration.directory_expiration_date
+    self.expiration_date_new ||= [expiration_date_old, Date.today].max + 1.month
+  end
 
   after_create do
-    user_integration.integration.directory.prolong(user_integration.username, expiration_date_new)
+    user_integration.update_attributes(directory_expiration_date: expiration_date_new)
     DirectoryProlongationWorker.perform_async(id)
   end
 end
