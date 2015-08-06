@@ -14,10 +14,12 @@ module Provisioners
           @user_integration.save!
         end
 
-        # Same goes to add_admin_user
-        unless @user_integration.airwatch_admin_user_id
-          @user_integration.airwatch_admin_user_id = instance.add_admin_user(@user_integration.username)['Value']
-          @user_integration.save!
+        if @user.profile.airwatch_admins_supported
+          # Same goes to add_admin_user
+          unless @user_integration.airwatch_admin_user_id
+            @user_integration.airwatch_admin_user_id = instance.add_admin_user(@user_integration.username)['Value']
+            @user_integration.save!
+          end
         end
 
         # Only tick status if everything worked (retry otherwise)

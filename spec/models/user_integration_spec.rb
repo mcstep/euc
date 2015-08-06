@@ -56,7 +56,7 @@ RSpec.describe UserIntegration, type: :model do
     end
   end
 
-  describe '.adapt' do
+  xdescribe '.adapt' do
     subject{ UserIntegration.new.adapt(ui_with_disabled_services) }
 
     it{ is_expected.to be_a UserIntegration }

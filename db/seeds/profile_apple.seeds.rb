@@ -9,11 +9,12 @@ after :instances do
 
   profile = Profile.where(name: 'Apple').first_or_create do |p|
 
-    p.group_name           = 'TestdriveAppleUsers'
-    p.group_region         = 'dldc'
-    p.home_template        = 'apple'
-    p.support_email        = 'salessupport@air-watch.com'
-    p.profile_integrations = [ProfileIntegration.new(
+    p.group_name                = 'TestdriveAppleUsers'
+    p.group_region              = 'dldc'
+    p.home_template             = 'apple'
+    p.support_email             = 'salessupport@air-watch.com'
+    p.airwatch_admins_supported = true
+    p.profile_integrations      = [ProfileIntegration.new(
       allow_sharing: true,
       integration:   integration
     )]

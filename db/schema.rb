@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806161954) do
+ActiveRecord::Schema.define(version: 20150806174108) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -257,11 +257,12 @@ ActiveRecord::Schema.define(version: 20150806161954) do
     t.string   "support_email"
     t.string   "group_name"
     t.string   "group_region"
-    t.boolean  "supports_vidm",         default: true,  null: false
+    t.boolean  "supports_vidm",             default: true,  null: false
     t.datetime "deleted_at"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.boolean  "requires_verification", default: false, null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.boolean  "requires_verification",     default: false, null: false
+    t.boolean  "airwatch_admins_supported", default: false, null: false
   end
 
   add_index "profiles", ["deleted_at"], name: "index_profiles_on_deleted_at"

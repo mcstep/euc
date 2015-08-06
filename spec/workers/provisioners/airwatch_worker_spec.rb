@@ -4,7 +4,9 @@ RSpec.describe Provisioners::AirwatchWorker, type: :model do
   let(:user_integration) do
     create :user_integration,
       integration: create(:airwatch_integration),
-      user: create(:user, airwatch_eula_accept_date: Date.today)
+      user: create(:user,
+          airwatch_eula_accept_date: Date.today,
+          profile: create(:profile, airwatch_admins_supported: true))
   end
   let(:instance){ mock_model(AirwatchInstance) }
   let(:directory){ mock_model(Directory) }
@@ -43,7 +45,9 @@ RSpec.describe Provisioners::AirwatchWorker, type: :model do
       context 'when used in conjuction with google apps' do
         let(:user_integration) do
           create :complete_user_integration,
-            user: create(:user, airwatch_eula_accept_date: Date.today)
+            user: create(:user,
+              airwatch_eula_accept_date: Date.today,
+              profile: create(:profile, airwatch_admins_supported: true))
         end
 
         it 'reenques' do

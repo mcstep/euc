@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Domains UI', type: :feature do
   subject{ page }
+  before{ Domain.delete_all }
   before{ create_cookie 'user_id', create(:root).id }
 
   describe 'index' do
