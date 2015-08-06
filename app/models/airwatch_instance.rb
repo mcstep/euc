@@ -32,7 +32,6 @@ class AirwatchInstance < ActiveRecord::Base
   validates :parent_group_id, presence: true
   validates :group_name,      presence: true
   validates :group_region,    presence: true
-  validates :admin_roles,     presence: true
   validates :security_pin,    presence: true
 
   def query(action, payload=nil, method: :post)

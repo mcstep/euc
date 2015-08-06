@@ -13,13 +13,6 @@ AirwatchInstance.where(host: 'testdrive.awmdm.com').first_or_create do |ai|
   ai.password        = 'VMware123!'
   ai.parent_group_id = 570
   ai.security_pin    = 1111
-  ai.admin_roles     = [
-    { 'Id' => '10107', 'LocationGroupId'=> '1956' },
-    { 'Id'=> '10108',  'LocationGroupId'=> '1983' },
-    { 'Id'=> '10109',  'LocationGroupId'=> '1977' },
-    { 'Id'=> '10107',  'LocationGroupId'=> '1551' },
-    { 'Id'=> '87',     'LocationGroupId'=> '1251' }
-  ]
 end
 
 AirwatchInstance.where(host: 'apple.awmdm.com').first_or_create do |ai|
