@@ -49,8 +49,6 @@
   %li
     %a{href: root_path} Dashboard
   %li
-    %a{href: "#"} News
-  %li
     %a{href: "#"} FAQ
 
 - if policy(:invitation).create? || policy(:user).index? || policy(:domain).index? || policy(:registration_code).index?
