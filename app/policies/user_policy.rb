@@ -12,13 +12,13 @@ class UserPolicy < ApplicationPolicy
   def permitted_attributes
     attributes = [
       :first_name, :last_name, :email, :company_name, :job_title, :home_region, :total_invitations,
-      :integrations_username, :integrations_expiration_date,
+      :integrations_username,
       user_integrations_attributes: [
         :id, :integration_id, *Integration::SERVICES.map{|s| :"#{s}_disabled"}
       ]
     ]
 
-    attributes << :role if @user.root?
+    attributes += [:role, :integrations_expiration_date] if @user.root?
 
     attributes
   end
