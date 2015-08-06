@@ -228,6 +228,7 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :company, presence: true
+  validates :job_title, presence: true
   validates :home_region, presence: true, inclusion: { in: REGIONS, allow_blank: true }
   validates :profile, presence: true
 
@@ -322,7 +323,7 @@ class User < ActiveRecord::Base
   end
 
   def normalize_errors
-    errors[:company].each{|e| errors.add(:company_name, e)}
+    errors[:'company.name'].each{|e| errors.add(:company_name, e)}
     errors.add(:email, :incorrect_domain) if errors[:profile].any? && !email.blank?
   end
 
