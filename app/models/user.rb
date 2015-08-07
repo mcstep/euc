@@ -217,8 +217,7 @@ class User < ActiveRecord::Base
   before_create     { self.status = :verification_required if profile.try(:requires_verification) }
   after_validation  :normalize_errors
   after_create      :use_registration_code_point!
-  after_create      { SignupWorker.perform_async(id, desired_password) unless integrations_disable_provisioning }
-  after_create      { send_verification! if verification_required? }
+  after_commit      { SignupWorker.perform_async(id, desired_password) unless integrations_disable_provisioning }
   after_destroy     { received_invitation.try(:free_invitation_point!) }
 
   validates :first_name, presence: true
