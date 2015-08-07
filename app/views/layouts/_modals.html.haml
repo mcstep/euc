@@ -94,7 +94,8 @@
 #prolong-account-modal.modal.fade{role: "dialog", tabindex: "-1"}
   .modal-dialog
     .modal-content
-      = form_tag(nil, id: 'prolong-account-form') do
+      = bootstrap_form_for DirectoryProlongation.new, html: {id: 'prolong-account-form'} do |f|
+        = f.hidden_field :user_integration_id
         .modal-header
           %button.close{type: 'button', data: {dismiss: 'modal'}}
             %span ×
@@ -104,18 +105,16 @@
           %p
             This action will prolong the user's account by a month. This will be a one-time extension and the users account will be deleted from the system once the expiration date has been reached.
           .form-group
-            %label Name:
+            %label Name
             %input.invitation-name.form-control{readonly: "true", type: "text"}
           .form-group
-            %label Username:
+            %label Username
             %input.invitation-username.form-control{readonly: "true", type: "text"}
+          = f.text_field :reason, placeholder: 'Please enter reason for extension'
           .form-group
-            %label Reason:
-            %input.reason.form-control{name: "directory_prolongation[reason]", placeholder: "Please enter reason for extension", type: "text"}
-          .form-group
-            %label New Expiration Date:
+            %label New Expiration Date
             - if current_user.root?
-              %input.expires-at.form-control{name: "directory_prolongation[expiration_date_new]", type: "text", data: {provide: 'datepicker'}}
+              = f.text_field :expiration_date_new, data: {provide: 'datepicker'}, hide_label: true
             - else
               %input.expires-at.form-control{readonly: "true", type: "text"}
         .modal-footer

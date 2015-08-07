@@ -13,12 +13,12 @@ $ ->
     $link = $(@)
     $form = $('#prolong-account-form')
 
-    $form.attr('action', "/user_integrations/#{$link.data('id')}/prolong")
-    $('.reason', $form).val('')
+    $('#directory_prolongation_user_integration_id').val($link.data('id'))
+    $('#directory_prolongation_reason').val('')
     $('.invitation-name', $form).val $link.data('name')
     $('.invitation-username', $form).val $link.data('username')
 
-    if $('.expires-at', $form).is('[readonly]')
-      $('.expires-at', $form).val $link.data('date')
+    if $('#directory_prolongation_expiration_date_new').is('[readonly]')
+      $('#directory_prolongation_expiration_date_new').val $link.data('date')
     else
-      $('.expires-at', $form).datepicker('update', $link.data('date')) 
+      $('#directory_prolongation_expiration_date_new').datepicker('update', $link.data('date')) 

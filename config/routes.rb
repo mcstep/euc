@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       post :prolong
     end
   end
+  resources :directory_prolongations, only: [:create]
   resources :invitations
   resources :domains do
     member do

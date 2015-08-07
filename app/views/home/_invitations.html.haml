@@ -33,7 +33,7 @@
                 %td= l user.expiration_date
                 %td
                   - if prolongation = user.authentication_integration.directory_prolongations.last
-                    %button.btn.btn-xs.btn-warning{disabled: true, data: {content: "Reason: #{extension.try :reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}
+                    %button.btn.btn-xs.btn-default{data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}
                       Extended
                   - else
                     %a.btn.btn-xs.btn-warning.prolong-account-link{href: '#', data: {target: '#prolong-account-modal', toggle: 'modal', id: user.authentication_integration.id, username: user.authentication_integration.username, date: (user.expiration_date+1.month).strftime('%d.%m.%Y'), name: user.display_name}}

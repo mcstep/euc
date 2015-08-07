@@ -8,7 +8,11 @@ class InvitationsController < ApplicationController
     @invitation.assign_attributes(permitted_attributes(@invitation))
 
     if @invitation.save
-      redirect_to users_path
+      if UserPolicy.new(current_user).index?
+        redirect_to users_path
+      else
+        redirect_to root_path, notice: I18n.t('flash.invitation_created')
+      end
     else
       render action: 'new'
     end
