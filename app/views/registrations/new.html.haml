@@ -14,15 +14,31 @@
         = f.text_field :company_name, hide_label: true, placeholder: 'Company'
         %h2 Region
         = f.select :home_region, I18n.t('regions').invert, { hide_label: true, include_blank: 'Select your Home Region' }, { class: "form-control" }
-        %h2 Password
-        .form-group
-          %input.no-password{type: 'checkbox', checked: true}
-          Use automatically generated password
-          %small
-            %em (this will be emailed to you)
-        %h2 Or set your own password
-        = f.password_field :desired_password, hide_label: true, placeholder: 'Enter Your Password'
-        = f.password_field :desired_password_confirmation, hide_label: true, placeholder: 'Confirm Your Password'
+        .td-password
+          %h2 Password
+          .form-group
+            %input.no-password{type: 'checkbox', checked: true}
+            Use automatically generated password
+            %small
+              %em (this will be emailed to you)
+          %h2 Or set your own password
+          = f.password_field :desired_password, hide_label: true, placeholder: 'Enter Your Password'
+          = f.password_field :desired_password_confirmation, hide_label: true, placeholder: 'Confirm Your Password'
+          #pswd_info{style: 'display: none; margin-bottom: -10px'}
+            %h4 Password must meet the following requirements:
+            %ul
+              %li#letter.invalid
+                At least
+                %strong one letter
+              %li#capital.invalid
+                At least
+                %strong one capital letter
+              %li#number.invalid
+                At least
+                %strong one number
+              %li#length.invalid
+                Be at least
+                %strong 8 characters
 
       .col-lg-12.eula-check{style: 'margin: 50px 0'}
         By submitting this form I agree to the

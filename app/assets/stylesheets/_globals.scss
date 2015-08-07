@@ -253,7 +253,20 @@ a {
 .login {
   
   text-align: center;
-  padding: 30px;
+  
+  padding: 40px;
+  
+  
+  .loginbox {
+    margin-top: 10px;
+  }
+  .blurb {
+    p {
+      text-align: left;
+    }
+  }
+  
+  
   .loginbutton {
     display: block;
     width: 100%;
