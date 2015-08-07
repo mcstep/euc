@@ -1,21 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'enqueues' do
-    create(:user)
-    expect(SignupWorker).to have(1).jobs
-  end
-
   describe '.status' do
     it 'borns verified' do
       expect(create(:user).active?).to be_truthy
     end
 
     it 'borns unverified' do
-      expect {
-        user = create(:user, profile: create(:profile, requires_verification: true))
-        expect(user.active?).to be_falsey
-      }.to change { VerificationDeliveryWorker.jobs.length }.by(1)
+      user = create(:user, profile: create(:profile, requires_verification: true))
+      expect(user.active?).to be_falsey
     end
   end
 

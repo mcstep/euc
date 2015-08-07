@@ -6,7 +6,7 @@ module Provisioners
 
         # Only tick status if everything worked (retry otherwise)
         @user_integration.transaction do
-          @user_integration.google_apps.provision
+          @user_integration.google_apps.complete_application
           @user_integration.save!
 
           instance.register(
@@ -22,15 +22,22 @@ module Provisioners
       end
     end
 
-    def deprovision
+    def revoke
       instance = @user_integration.integration.google_apps_instance
 
-      instance.unregister(
-        "#{@user_integration.username}@#{@user_integration.integration.domain}"
-      )
+      @user_integration.transaction do
+        if @user_integration.google_apps_revoking?
+          @user_integration.google_apps.complete_application
+          @user_integration.save!
+        end
 
-      if instance.group_name
-        remove_group instance.group_name, instance.group_region
+        instance.unregister(
+          "#{@user_integration.username}@#{@user_integration.integration.domain}"
+        )
+
+        if instance.group_name
+          remove_group instance.group_name, instance.group_region
+        end
       end
     end
   end

@@ -7,7 +7,7 @@ module Provisioners
 
         # Only tick status if everything worked (retry otherwise)
         @user_integration.transaction do
-          @user_integration.office365.provision
+          @user_integration.office365.complete_application
           @user_integration.save!
 
           instance.update_user email, 'usageLocation' => 'US'
@@ -20,11 +20,18 @@ module Provisioners
       end
     end
 
-    def deprovision
+    def revoke
       instance = @user_integration.integration.office365_instance
 
-      if instance.group_name
-        remove_group instance.group_name, instance.group_region
+      @user_integration.transaction do
+        if @user_integration.office365_revoking? # unless we are running as `deprovision`
+          @user_integration.office365.complete_application
+          @user_integration.save!
+        end
+
+        if instance.group_name
+          remove_group instance.group_name, instance.group_region
+        end
       end
     end
   end

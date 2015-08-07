@@ -52,4 +52,11 @@ class UsersController < ApplicationController
 
     redirect_to root_path
   end
+
+  def destroy
+    authorize @user = User.find(params[:id])
+    @user.destroy
+
+    redirect_back_or_root
+  end
 end

@@ -56,16 +56,25 @@ class UserIntegration < ActiveRecord::Base
   before_destroy  :drop_provisioning
 
   as_enum :directory_status, {
-    not_provisioned: 0,
+    provisioning: 0,
     account_created: 1,
     provisioned:     2
   }, prefix: 'directory'
 
-  as_enum :airwatch_status, {available: -3, revoked: -2, disabled: -1, not_provisioned: 0, provisioned: 1, not_approved: 2}, prefix: 'airwatch'
+  typical_service_statuses = {
+    revoked: -4,
+    available: -3,
+    revoking: -2,
+    disabled: -1,
+    provisioning: 0,
+    provisioned: 1
+  }
+
+  as_enum :airwatch_status, typical_service_statuses.merge(not_approved: 2), prefix: 'airwatch'
 
   Integration::SERVICES.each do |s|
     next if s == 'airwatch'
-    as_enum :"#{s}_status", {available: -3, revoked: -2, disabled: -1, not_provisioned: 0, provisioned: 1}, prefix: s
+    as_enum :"#{s}_status", typical_service_statuses, prefix: s
   end
 
   validates :user, presence: true
@@ -90,6 +99,10 @@ class UserIntegration < ActiveRecord::Base
     end
   end
 
+  def applying?
+    (Integration::SERVICES.map{|s| send("#{s}_status")} & [:provisioning, :revoking]).any?
+  end
+
   def authentication_priority
     user.profile.profile_integrations
       .find{|x| x.integration_id == integration_id}.try(:authentication_priority)
@@ -112,7 +125,7 @@ class UserIntegration < ActiveRecord::Base
   def init_provisioning
     return if @disable_provisioning
 
-    Integration::SERVICES.select{|s| send("#{s}_status") == :not_provisioned}.each do |s|
+    Integration::SERVICES.select{|s| send("#{s}_status") == :provisioning}.each do |s|
       ProvisionerWorker[s].provision_async(id)
     end
   end
@@ -125,11 +138,11 @@ class UserIntegration < ActiveRecord::Base
         from   = send("#{s}_status_was")
         to     = change[1]
 
-        if to == :revoked
+        if to == :revoking
           ProvisionerWorker[s].revoke_async(id)
-        elsif to == :not_provisioned && from == :revoked
+        elsif to == :provisioning && from == :revoked
           ProvisionerWorker[s].resume_async(id)
-        elsif to == :not_provisioned
+        elsif to == :provisioning
           ProvisionerWorker[s].provision_async(id)
         end
       end
@@ -137,8 +150,6 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def drop_provisioning
-    return false if Integration::SERVICES.any?{|s| send("#{s}_status") == :not_provisioned}
-
     Integration::SERVICES.each do |s|
       status = send("#{s}_status")
 

@@ -24,7 +24,7 @@ module Provisioners
 
         # Only tick status if everything worked (retry otherwise)
         @user_integration.transaction do
-          @user_integration.airwatch.provision
+          @user_integration.airwatch.complete_application
           @user_integration.airwatch_group = AirwatchGroup.instantiate(@user_integration)
           @user_integration.save!
 
@@ -36,19 +36,26 @@ module Provisioners
     end
 
     def deprovision
-      instance = @user_integration.integration.airwatch_instance
+      wait_until(!@user_integration.applying?) do
+        instance = @user_integration.integration.airwatch_instance
 
-      instance.delete_user(@user_integration.airwatch_user_id)
-      remove_group instance.group_name, instance.group_region
+        instance.delete_user(@user_integration.airwatch_user_id)
+        remove_group instance.group_name, instance.group_region
+      end
     end
 
     def revoke
       instance = @user_integration.integration.airwatch_instance
 
-      instance.deactivate(@user_integration.airwatch_user_id)
-      remove_group instance.group_name, instance.group_region
+      @user_integration.transaction do
+        @user_integration.airwatch.complete_application
+        @user_integration.save!
 
-      GeneralMailer.airwatch_deactivation_email(@user_integration).deliver_now
+        instance.deactivate(@user_integration.airwatch_user_id)
+        remove_group instance.group_name, instance.group_region
+
+        GeneralMailer.airwatch_deactivation_email(@user_integration).deliver_now
+      end
     end
 
     def resume

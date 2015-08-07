@@ -29,8 +29,8 @@ class ProvisionerWorker
     end
   end
 
-  def revoke
-    deprovision
+  def deprovision
+    wait_until(!@user_integration.applying?){ revoke }
   end
 
   def resume

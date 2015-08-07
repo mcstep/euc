@@ -142,13 +142,18 @@ RSpec.describe UserIntegration, type: :model do
             expect(lambda{ user_integration.google_apps.disable }).to raise_error(MicroMachine::InvalidState)
           end
 
-          it 'does not allow removal' do
-            expect(lambda{ user_integration.destroy!} ).to raise_error(ActiveRecord::RecordNotDestroyed)
+          it 'makes deprovisioning wait' do
+            expect{ Provisioners::GoogleAppsWorker.new.perform(user_integration.id, 'deprovision') }.to \
+              change{ Provisioners::GoogleAppsWorker.jobs.length }.by(1)
           end
+        end
 
-          it 'does not allow removal of user' do
-            user_integration.user.user_integrations.reload
-            expect(lambda{ user_integration.user.destroy!} ).to raise_error(ActiveRecord::RecordNotDestroyed)
+        context 'when revoking' do
+          before{ user_integration.replace_status('google_apps', :revoking) }
+
+          it 'makes deprovisioning wait' do
+            expect{ Provisioners::GoogleAppsWorker.new.perform(user_integration.id, 'deprovision') }.to \
+              change{ Provisioners::GoogleAppsWorker.jobs.length }.by(1)
           end
         end
 

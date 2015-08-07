@@ -7,7 +7,7 @@ module Provisioners
 
         # Only tick status if everything worked (retry otherwise)
         @user_integration.transaction do
-          @user_integration.horizon_view.provision
+          @user_integration.horizon_view.complete_application
           @user_integration.save!
 
           User::REGIONS.each do |region|
@@ -21,11 +21,18 @@ module Provisioners
       end
     end
 
-    def deprovision
+    def revoke
       instance = @user_integration.integration.horizon_view_instance
 
-      if instance.view_group_name
-        remove_group instance.view_group_name, instance.group_region
+      @user_integration.transaction do
+        if @user_integration.horizon_view_revoking? # unless we are running as `deprovision`
+          @user_integration.horizon_view.complete_application
+          @user_integration.save!
+        end
+
+        if instance.view_group_name
+          remove_group instance.view_group_name, instance.group_region
+        end
       end
     end
   end

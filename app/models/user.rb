@@ -240,7 +240,7 @@ class User < ActiveRecord::Base
   # Helpers
   ##
   def provisioned?
-    authentication_integration && authentication_integration.directory_status != :not_provisioned
+    authentication_integration && authentication_integration.directory_status != :provisioning
   end
 
   def display_name
@@ -256,7 +256,7 @@ class User < ActiveRecord::Base
   end
 
   def invited_users
-    sent_invitations.map(&:to_user)
+    sent_invitations.map(&:to_user).compact
   end
 
   def expiring_invited_users

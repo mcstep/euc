@@ -11,15 +11,22 @@ module StateMachines
       @instance   = instance
       @field      = field
 
-      self.when :enable, revoked: :not_provisioned, disabled: :not_provisioned, available: :not_provisioned
-      self.when :provision, not_provisioned: :provisioned
-      self.when :deprovision, provisioned: :disabled
-      self.when :allow, disabled: :available
+      self.when :enable,
+        revoked:        :provisioning,
+        disabled:       :provisioning,
+        available:      :provisioning
+
+      self.when :complete_application,
+        provisioning:   :provisioned,
+        revoking:       :revoked
+
+      self.when :allow,
+        disabled:       :available
 
       if instance.new_record?
-        self.when :disable, not_provisioned: :disabled, provisioned: :disabled
+        self.when :disable, provisioning: :disabled, provisioned: :disabled
       else
-        self.when :disable, provisioned: :revoked
+        self.when :disable, provisioned: :revoking
       end
 
       self.on(:any) { normalize_and_store! }
@@ -49,14 +56,15 @@ module StateMachines
     return machines[:airwatch] if machines[:airwatch]
 
     m = Machine.new(self, :airwatch_status) do |state|
-      if user && !user.airwatch_eula_accept_date && state == :not_provisioned
+      if user && !user.airwatch_eula_accept_date && state == :provisioning
         :not_approved
       else
         state
       end
     end
 
-    m.when :approve, not_approved: :not_provisioned
+    m.when :approve,
+      not_approved:   :provisioning
 
     machines[:airwatch] = m
   end
