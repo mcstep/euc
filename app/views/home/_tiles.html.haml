@@ -1,24 +1,25 @@
-.col-md-12.col-lg-8.col-sm-12
-  .ibox
-    .ibox-title
-      %a.btn.btn-success.btn-xs.pull-right{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
-        Invite user
-      %h5 Invitation Statistics
-    .ibox-content
-      .row
-        .col-sm-6.col-md-6
-          %h1.no-margins= current_user.total_invitations
-          .font-bold.text-navy Total Invitations
-        .col-sm-6.col-md-6
-          %h1.no-margins= current_user.invitations_left
-          %div Remaining Invitations
-          .progress
-            .progress-bar.progress-bar-warning{role: "progressbar", style: "width:#{current_user.intitations_used_percents}%"}
-.col-sm-6.col-md-6.col-lg-4
-  .ibox
-    .ibox-title
-      %h5 Accounts
-    .ibox-content
-      %h1.no-margins
-        = current_user.expiring_invited_users.size
-      Accounts Expiring Soon
+- if policy(:invitation).create?
+  .col-md-12.col-lg-8.col-sm-12
+    .ibox
+      .ibox-title
+        %a.btn.btn-success.btn-xs.pull-right{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
+          Invite user
+        %h5 Invitation Statistics
+      .ibox-content
+        .row
+          .col-sm-6.col-md-6
+            %h1.no-margins= current_user.total_invitations
+            .font-bold.text-navy Total Invitations
+          .col-sm-6.col-md-6
+            %h1.no-margins= current_user.invitations_left
+            %div Remaining Invitations
+            .progress
+              .progress-bar.progress-bar-warning{role: "progressbar", style: "width:#{current_user.intitations_used_percents}%"}
+  .col-sm-6.col-md-6.col-lg-4
+    .ibox
+      .ibox-title
+        %h5 Accounts
+      .ibox-content
+        %h1.no-margins
+          = current_user.expiring_invited_users.size
+        Accounts Expiring Soon
