@@ -13,7 +13,7 @@
 #  avatar                        :string
 #  country_code                  :string
 #  phone                         :string
-#  role                          :integer
+#  role                          :integer          default(0), not null
 #  status                        :integer          default(0), not null
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null

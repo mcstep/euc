@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806174108) do
+ActiveRecord::Schema.define(version: 20150807155856) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -330,7 +330,7 @@ ActiveRecord::Schema.define(version: 20150806174108) do
     t.string   "avatar"
     t.string   "country_code"
     t.string   "phone"
-    t.integer  "role"
+    t.integer  "role",                          default: 0, null: false
     t.integer  "status",                        default: 0, null: false
     t.string   "job_title"
     t.integer  "invitations_used",              default: 0, null: false
