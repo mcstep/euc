@@ -17,12 +17,12 @@ class ProfilesController < ApplicationController
       return
     end
 
-    if params[:password] != params[:password_confirmation]
+    if params[:new_password] != params[:password_confirmation]
       redirect_to root_path, alert: I18n.t('flash.invalid_confirmation')
       return
     end
 
-    current_user.update_password(params[:password])
+    current_user.update_password(params[:new_password])
     redirect_to root_path, notice: I18n.t('flash.password_changed')
   end
 

@@ -7,6 +7,7 @@ User.where(email: 'root@vmwdemo.com').first_or_create do |u|
   u.last_name             = 'User'
   u.home_region           = 'apac'
   u.integrations_username = 'first.user'
+  u.job_title             = 'CEO'
 end
 
 User.where(email: 'user@apple.com').first_or_create do |u|
@@ -18,4 +19,5 @@ User.where(email: 'user@apple.com').first_or_create do |u|
   u.last_name             = 'User'
   u.home_region           = 'apac'
   u.integrations_username = 'first.user'
+  u.job_title             = 'CEO'
 end
