@@ -1,11 +1,13 @@
 class UserPolicy < ApplicationPolicy
   class Scope < Struct.new(:user, :scope)
     def resolve
-      if user.root?
+      result = if user.root?
         scope.all
       else
         scope.joins(:received_invitation).where(invitations: {from_user_id: user.id})
       end
+
+      result.where.not(id: user.id)
     end
   end
 
@@ -28,11 +30,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.root?
+    @user.root? && @user.id != @record.id
   end
 
   def destroy?
-    @user.root? || @record.invited_by.id == @user.id
+    (@user.root? || @record.invited_by.id == @user.id) && @user.id != @record.id
   end
 
   def impersonate?
