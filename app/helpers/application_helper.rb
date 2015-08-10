@@ -23,4 +23,13 @@ module ApplicationHelper
     field = path.pop
     permitted_attributes(record, *path).include?(field)
   end
+
+  def services
+    %i(directory airwatch_instance google_apps_instance office365_instance horizon_instance)
+  end
+
+  def services_path
+    service = services.find{|x| policy(x).index?}
+    send :"#{service.to_s.pluralize}_path"
+  end
 end
