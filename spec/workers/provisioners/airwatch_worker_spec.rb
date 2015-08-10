@@ -6,7 +6,7 @@ RSpec.describe Provisioners::AirwatchWorker, type: :model do
       integration: create(:airwatch_integration),
       user: create(:user,
           airwatch_eula_accept_date: Date.today,
-          profile: create(:profile, airwatch_admins_supported: true))
+          profile: create(:integrated_profile, airwatch_admins_supported: true))
   end
   let(:instance){ mock_model(AirwatchInstance) }
   let(:directory){ mock_model(Directory) }
@@ -47,7 +47,7 @@ RSpec.describe Provisioners::AirwatchWorker, type: :model do
           create :complete_user_integration,
             user: create(:user,
               airwatch_eula_accept_date: Date.today,
-              profile: create(:profile, airwatch_admins_supported: true))
+              profile: create(:integrated_profile, airwatch_admins_supported: true))
         end
 
         it 'reenques' do

@@ -1,0 +1,17 @@
+= bootstrap_nested_form_for @profile do |f|
+  = f.text_field :name
+  = f.check_box :supports_vidm
+  = f.text_field :home_template
+  = f.text_field :support_email
+  = f.text_field :group_name
+  = f.text_field :group_region
+  %fieldset
+    %legend Integrations
+    = f.fields_for :profile_integrations do |pif|
+      %blockquote
+        = pif.select :integration_id, Integration.all.collect{|i| [ i.name, i.id ] }, prompt: ''
+        = pif.text_field :authentication_priority
+        = pif.check_box :allow_sharing
+        = pif.link_to_remove "Unlink", class: 'btn btn-danger'
+  = f.link_to_add "Link integration", :profile_integrations, class: 'btn btn-primary'
+  = f.submit class: 'btn btn-success', style: 'width: 100%; margin-bottom: 30px'

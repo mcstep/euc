@@ -27,8 +27,9 @@ class ProfileIntegration < ActiveRecord::Base
   belongs_to :profile
   belongs_to :integration
 
-  validates :profile,     presence: true
-  validates :integration, presence: true
+  validates :profile_id,                presence: true
+  validates :integration_id,            presence: true
+  validates :authentication_priority,   numericality: {allow_blank: true}
 
   Integration::SERVICES.each do |s|
     as_enum :"#{s}_default_status", {available: -3}, prefix: s

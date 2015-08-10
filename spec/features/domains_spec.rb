@@ -52,9 +52,9 @@ RSpec.describe 'Domains UI', type: :feature do
     end
   end
 
-  describe 'add' do
+  xdescribe 'add' do
     before do
-      create(:profile, name: 'Default')
+      create(:integrated_profile, name: 'Default')
       visit '/domains'
       fill_in 'Domain name...', with: 'test.com'
       click_on 'Add'

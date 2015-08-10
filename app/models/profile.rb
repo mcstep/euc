@@ -23,15 +23,18 @@
 class Profile < ActiveRecord::Base
   acts_as_paranoid
 
+  validates :name, presence: true
   validates :group_region, presence: true, if: :directory_groups?
 
   has_many :profile_integrations
+
+  accepts_nested_attributes_for :profile_integrations, allow_destroy: true
 
   def directory_groups
     [
       group_name,
       ('VIDMUsers' if supports_vidm)
-    ].compact
+    ].reject(&:blank?)
   end
 
   def directory_groups?

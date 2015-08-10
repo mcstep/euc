@@ -28,6 +28,10 @@ class GoogleAppsInstance < ActiveRecord::Base
   validates :act_on_behalf, presence: true
   validates :group_region, presence: true, if: lambda{ group_name.present? }
 
+  def title
+    act_on_behalf
+  end
+
   def key=(value)
     self.key_base64 = Base64.encode64(value)
   end

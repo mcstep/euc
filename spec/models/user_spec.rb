@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'borns unverified' do
-      user = create(:user, profile: create(:profile, requires_verification: true))
+      user = create(:user, profile: create(:integrated_profile, requires_verification: true))
       expect(user.active?).to be_falsey
     end
   end
@@ -103,7 +103,7 @@ RSpec.describe User, type: :model do
 
   describe 'integrations' do
     let(:external_integration){ create(:integration) }
-    let(:profile){ create(:profile) }
+    let(:profile){ create(:integrated_profile) }
     let(:profile_with_integrations) do
       profile.profile_integrations << build(:airwatch_profile_integration)
       profile.profile_integrations << build(:google_apps_profile_integration, authentication_priority: 0)

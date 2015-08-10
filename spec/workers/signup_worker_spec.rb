@@ -22,7 +22,7 @@ RSpec.describe SignupWorker, type: :model do
       end
 
       context 'when profile has groups' do
-        let(:user){ create(:user, profile: create(:profile_with_groups)) }
+        let(:user){ create(:user, profile: create(:integrated_profile_with_groups)) }
 
         it 'works' do
           allow(directory).to receive(:signup).with(user.authentication_integration).and_return(
@@ -39,7 +39,7 @@ RSpec.describe SignupWorker, type: :model do
     end
 
     context 'when it fails on second step' do
-      let(:user){ create(:user, profile: create(:profile_with_groups)) }
+      let(:user){ create(:user, profile: create(:integrated_profile_with_groups)) }
 
       it 'works' do
         expect(directory).to receive(:signup).once.with(user.authentication_integration).and_return(

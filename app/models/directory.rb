@@ -21,6 +21,10 @@ class Directory < ActiveRecord::Base
 
   validates :host, presence: true
 
+  def title
+    url('')
+  end
+
   def url(action)
     "http#{'s' if use_ssl}://#{host}:#{port || '80'}/#{action}"
   end

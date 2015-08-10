@@ -1,0 +1,34 @@
+.col-md-12.col-sm-12.col-lg-12
+  .panel.panel-default
+    = form_tag integrations_path, method: :get, class: 'panel-body' do |f|
+      = link_to 'Add integration', new_integration_path, class: 'btn btn-success pull-left'
+      .input-group
+        %input.form-control{name: "search", placeholder: "Search integrations...", type: "text", value: params[:search]}
+        %span.input-group-btn
+          %button.btn.btn-default{type: "submit"} Search!
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        = pluralize @integrations.size, 'integration'
+        found
+
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Name
+          %th Created At
+          %th
+      %tbody
+        - @integrations.each do |integration|
+          %tr
+            %td= integration.name
+            %td= l integration.created_at
+            %td{style: 'width: 1%; white-space: nowrap'}
+              - if policy(integration).update?
+                = link_to 'Edit', edit_integration_path(integration), class: 'btn btn-xs btn-warning'
+              - if policy(integration).destroy?
+                = link_to 'Delete', integration_path(integration), class: 'btn btn-xs btn-danger', method: :delete, confirm: "Do you want to delete this integration?"
+    - if @integrations.num_pages > 1
+      .panel-footer
+        = paginate @integrations, theme: 'twitter-bootstrap-3'

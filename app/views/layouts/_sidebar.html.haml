@@ -50,13 +50,13 @@
     %a{href: root_path} Dashboard
   %li
     %a{href: "#"} FAQ
+  - if policy(:invitation).create?
+    %li
+      %a{href: new_invitation_path} Send Invitation
 
-- if policy(:invitation).create? || policy(:user).index? || policy(:domain).index? || policy(:registration_code).index?
+- if current_user.root?
   %span.sidebar-divider Manage
   %ul.sidebar-nav
-    - if policy(:invitation).create?
-      %li
-        %a{href: new_invitation_path} Send Invitation
     - if policy(:user).index?
       %li
         %a{href: users_path} Users
@@ -66,6 +66,13 @@
     - if policy(:registration_code).index?
       %li
         %a{href: registration_codes_path} Reg Codes
+    - if policy(:profile).index?
+      %li
+        %a{href: profiles_path} Profiles
+    - if policy(:integration).index?
+      %li
+        %a{href: integrations_path} Integrations
+
 
 %span.sidebar-divider Your Account
 %ul.sidebar-nav

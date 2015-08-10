@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :support_requests, only: [:create]
 
-  resource :profile do
+  resource :current_user do
     member do
       post :accept_airwatch_eula
       post :update_password
@@ -46,6 +46,13 @@ Rails.application.routes.draw do
     end
   end
   resources :registration_codes
+  resources :profiles
+  resources :integrations
+  resources :directories
+  resources :airwatch_instances
+  resources :google_apps_instances
+  resources :office365_instances
+  resources :horizon_instances
 
   scope '/api' do
     scope '/trygrid' do

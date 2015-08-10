@@ -2,6 +2,7 @@
 //= require spin
 //= require jquery.cookie
 //= require jquery.spin
+//= require jquery_nested_form
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core

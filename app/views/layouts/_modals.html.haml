@@ -1,5 +1,5 @@
 #avatar-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  = form_for current_user, url: profile_path, html: {id: 'avatar-form', class: 'modal-dialog', multipart: true} do |f|
+  = form_for current_user, url: current_user_path, html: {id: 'avatar-form', class: 'modal-dialog', multipart: true} do |f|
     %input#avatar-remove-avatar.hidden{name: "user[remove_avatar]", type: "checkbox", value: "1"}
     #avatar-general.modal-content
       .modal-header
@@ -71,7 +71,7 @@
 #password-change-modal.modal.fade{role: "dialog", tabindex: "-1"}
   .modal-dialog
     .modal-content
-      = form_tag update_password_profile_path do |f|
+      = form_tag update_password_current_user_path do |f|
         .modal-header
           %button.close{type: "button", data: {dismiss: 'modal'}}
             %span ×

@@ -7,16 +7,16 @@ FactoryGirl.define do
     home_region { %w(amer emea apac dldc).sample }
     role        :basic
 
-    association :company, factory: :company, strategy: :build
-    association :profile, factory: :profile, strategy: :build
+    association :company, factory: :company
+    association :profile, factory: :integrated_profile
 
     factory :empty_user do
-      association :profile, factory: :empty_profile, strategy: :build
+      association :profile, factory: :profile
     end
 
     factory :full_user do
       integrations_username 'first.user'
-      association :profile, factory: :full_profile, strategy: :build
+      association :profile, factory: :full_profile
     end
 
     factory :root do

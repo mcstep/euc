@@ -1,7 +1,7 @@
 after :instances do
   integration = Integration.where(domain: 'awapple.com').first_or_create do |i|
 
-    i.name                 = 'Integrations'
+    i.name                 = 'Airwatch + Office365 for Apple'
     i.directory            = Directory.where(host: 'staging.vmwdemo.com').first
     i.airwatch_instance    = AirwatchInstance.where(host: 'testdrive.awmdm.com').first
     i.office365_instance   = Office365Instance.where(client_id: 'f2c1eb0b-1d1d-45a9-91ed-f0d208cf96f6').first

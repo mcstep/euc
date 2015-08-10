@@ -1,0 +1,11 @@
+= bootstrap_nested_form_for @integration do |f|
+  = f.text_field :name
+  = f.text_field :domain
+  = f.select :directory_id, Directory.all.collect{|i| [ i.title, i.id ] }, prompt: ''
+  = f.select :airwatch_instance_id, AirwatchInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
+  = f.select :office365_instance_id, Office365Instance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
+  = f.select :google_apps_instance_id, GoogleAppsInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
+  = f.select :horizon_air_instance_id, HorizonAirInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
+  = f.select :horizon_rds_instance_id, HorizonInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
+  = f.select :horizon_view_instance_id, HorizonInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
+  = f.submit class: 'btn btn-success', style: 'width: 100%; margin-bottom: 30px'

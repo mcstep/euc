@@ -28,6 +28,8 @@ class Domain < ActiveRecord::Base
   as_enum :status, {active: 0, inactive: 1}
   as_enum :user_role, User::ROLES
 
-  validates :name, presence: true, uniqueness: true
-  validates :profile, presence: true
+  before_validation { name.downcase! }
+
+  validates :name, uniqueness: true, hostname: true
+  validates :profile_id, presence: true
 end

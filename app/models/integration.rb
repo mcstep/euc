@@ -39,12 +39,12 @@ class Integration < ActiveRecord::Base
   belongs_to :airwatch_instance
   belongs_to :office365_instance
   belongs_to :google_apps_instance
-  belongs_to :horizon_air_instance, class_name: 'HorizonInstance'
+  belongs_to :horizon_air_instance
   belongs_to :horizon_rds_instance, class_name: 'HorizonInstance'
   belongs_to :horizon_view_instance, class_name: 'HorizonInstance'
 
-  validates :name, presence: true
-  validates :domain, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :domain, hostname: true
 
   def enabled_services
     SERVICES.select{|k| self["#{k}_instance_id"] || send(:"#{k}_instance")}

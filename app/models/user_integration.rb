@@ -150,6 +150,8 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def drop_provisioning
+    return if @disable_provisioning
+
     Integration::SERVICES.each do |s|
       status = send("#{s}_status")
 

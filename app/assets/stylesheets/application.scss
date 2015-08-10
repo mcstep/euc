@@ -63,3 +63,18 @@
     }
   }
 }
+
+form {
+  blockquote {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .add_nested_fields {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .remove_nested_fields {
+    width: 100%;
+  }
+}

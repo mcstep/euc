@@ -1,10 +1,11 @@
 .col-md-12.col-sm-12.col-lg-12
   .panel.panel-default
-    = form_tag domains_path, method: :post, id: 'domains-add-form', class: 'panel-body' do |f|
+    = form_tag domains_path, method: :get, class: 'panel-body' do |f|
+      = link_to 'Add domain', new_domain_path, class: 'btn btn-success pull-left'
       .input-group
-        %input#domain-name.form-control{:name => "domain[name]", :placeholder => "Domain name...", :type => "text"}/
+        %input.form-control{name: "search", placeholder: "Search domains...", type: "text", value: params[:search]}
         %span.input-group-btn
-          %button.btn.btn-success{:type => "submit"} Add
+          %button.btn.btn-default{type: "submit"} Search!
 
   .panel.panel-default
     .panel-heading
@@ -15,12 +16,14 @@
       %thead
         %tr
           %th Name
+          %th Profile
           %th Status
           %th Actions
       %tbody
         - @domains.each do |domain|
           %tr
             %td= domain.name
+            %td= domain.profile.name
             %td.text-center
               .btn-group.btn-toggle
                 - if domain.active?
@@ -30,4 +33,5 @@
                   = link_to 'ON',  toggle_domain_path(domain), class: 'btn btn-xs btn-default'
                   = link_to 'OFF', toggle_domain_path(domain), class: 'btn btn-xs btn-danger active'
             %td
+              = link_to 'Edit', edit_domain_path(domain), class: 'btn btn-xs btn-warning'
               = link_to 'Delete', domain, method: :delete, data: { confirm: 'This domain will be deleted'}, class: "btn btn-xs btn-danger"

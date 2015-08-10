@@ -33,6 +33,10 @@ class AirwatchInstance < ActiveRecord::Base
   validates :group_region,    presence: true, if: lambda{ group_name.present? }
   validates :security_pin,    presence: true
 
+  def title
+    host
+  end
+
   def query(action, payload=nil, method: :post)
     response = RestClient::Request.execute(
       method:   method, 

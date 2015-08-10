@@ -25,6 +25,10 @@ class HorizonInstance < ActiveRecord::Base
   validates :group_region,         presence: true, if: :has_group_name?
   validates :api_host,             presence: true
 
+  def title
+    api_host
+  end
+
   def has_group_name?
     rds_group_name? || view_group_name? || desktops_group_name?
   end
