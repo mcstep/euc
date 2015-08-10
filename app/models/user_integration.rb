@@ -51,8 +51,8 @@ class UserIntegration < ActiveRecord::Base
   #   }
   # end
 
-  after_create    :init_provisioning
-  after_update    :apply_provisioning
+  after_commit    :init_provisioning,  on: :create
+  after_commit    :apply_provisioning, on: :update
   before_destroy  :drop_provisioning
 
   as_enum :directory_status, {
@@ -134,8 +134,8 @@ class UserIntegration < ActiveRecord::Base
     return if @disable_provisioning
 
     Integration::SERVICES.each do |s|
-      if change = changes["#{s}_status"]
-        from   = send("#{s}_status_was")
+      if change = previous_changes["#{s}_status"]
+        from   = UserIntegration.send("#{s}_statuses").key(change[0])
         to     = change[1]
 
         if to == :revoking

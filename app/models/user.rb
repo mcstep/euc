@@ -14,7 +14,7 @@
 #  country_code                  :string
 #  phone                         :string
 #  role                          :integer
-#  status                        :integer          default(0), not null
+#  status                        :integer
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
 
   module IntegrationsDelegations extend ActiveSupport::Concern
     included do
-      attr_accessor :integrations_disable_provisioning, :desired_password, :desired_password_confirmation
+      attr_accessor :disable_provisioning, :desired_password, :desired_password_confirmation
 
       before_validation :ensure_profile
       before_validation :setup_integrations, on: :create
@@ -123,8 +123,15 @@ class User < ActiveRecord::Base
 
     def ensure_profile
       if profile.blank?
+
         if received_invitation.present?
           self.profile = received_invitation.from_user.profile
+
+        elsif registration_code
+          self.profile                      = registration_code.profile
+          self.role                         = registration_code.user_role
+          self.integrations_expiration_date = Date.today + registration_code.user_validity.days
+
         elsif domain = Domain.where(name: email.split('@', 2).last).first
           self.profile = domain.profile
           self.role    = domain.user_role
@@ -142,7 +149,7 @@ class User < ActiveRecord::Base
             ui.user                      = self
             ui.username                  = integrations_username
             ui.directory_expiration_date = integrations_expiration_date
-            ui.disable_provisioning      = integrations_disable_provisioning
+            ui.disable_provisioning      = disable_provisioning
           end
         end
 
@@ -200,7 +207,7 @@ class User < ActiveRecord::Base
   has_one :received_invitation, class_name: "Invitation", foreign_key: "to_user_id", inverse_of: :to_user
 
   ##
-  # Extensions
+  # Extensions.
   ##
   acts_as_paranoid
   mount_uploader :avatar, AvatarUploader
@@ -212,13 +219,13 @@ class User < ActiveRecord::Base
   ##
   # Validations
   ##
-  before_save       :normalize!
-  before_save       :cleanup_avatar!
-  before_create     { self.status = :verification_required if profile.try(:requires_verification) }
-  after_validation  :normalize_errors
-  after_create      :use_registration_code_point!
-  after_commit      { SignupWorker.perform_async(id, desired_password) unless integrations_disable_provisioning }
-  after_destroy     { received_invitation.try(:free_invitation_point!) }
+  before_save                 :normalize!
+  before_save                 :cleanup_avatar!
+  before_create               { self.status = :verification_required if profile.try(:requires_verification) }
+  after_validation            :normalize_errors
+  after_create                :use_registration_code_point!
+  after_commit(on: :create)   { SignupWorker.perform_async(id, desired_password) unless disable_provisioning }
+  after_destroy               { received_invitation.try(:free_invitation_point!) }
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -249,6 +256,14 @@ class User < ActiveRecord::Base
 
   def display_name=(value)
     self.first_name, self.last_name = value.split(' ', 2)
+  end
+
+  def registration_code_code
+    registration_code.try(:code)
+  end
+
+  def registration_code_code=(value)
+    self.registration_code_id = RegistrationCode.actual.where(code: value).first.try(:id)
   end
 
   def expiration_date
@@ -348,7 +363,7 @@ class User < ActiveRecord::Base
 
   def use_registration_code_point!
     return if !registration_code
-    registration_code.registrations_used += 1
+    registration_code.total_registrations -= 1
     registration_code.save!
   end
 end

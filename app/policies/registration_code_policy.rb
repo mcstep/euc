@@ -1,6 +1,6 @@
 class RegistrationCodePolicy < ApplicationPolicy
   def permitted_attributes
-    [:user_role, :user_validity, :valid_from, :valid_to, :total_registrations]
+    [:profile_id, :code, :user_role, :user_validity, :valid_from, :valid_to, :total_registrations]
   end
 
   def index?

@@ -15,7 +15,7 @@ module RestClient
           return result
         end
       rescue RestClient::Exception => e
-        Rails.logger.warn "RestClient - #{e.response.code}\n#{e.response.body}"
+        Rails.logger.warn "RestClient - #{e.http_code}\n#{e.http_body}"
         raise e
       end
     end

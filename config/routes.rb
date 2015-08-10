@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   resource :registration, only: [:new, :create]
+  get '/register/:code', to: 'registrations#new'
 
   resources :support_requests, only: [:create]
 

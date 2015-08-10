@@ -118,7 +118,7 @@ RSpec.describe UserIntegration, type: :model do
       end
     end
 
-    describe 'change' do
+    fdescribe 'change' do
       before{ Sidekiq::Worker.clear_all }
 
       describe 'Airwatch' do
@@ -174,7 +174,7 @@ RSpec.describe UserIntegration, type: :model do
         context 'when revoked' do
           before{ user_integration.replace_status('google_apps', :revoked) }
 
-          describe 'resume' do
+          fdescribe 'resume' do
             before{ user_integration.google_apps.enable; user_integration.save! }
             it{ is_expected.to enqueue_as 'resume' }
           end

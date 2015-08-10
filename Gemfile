@@ -68,4 +68,5 @@ group :test do
   gem 'webmock'
   gem 'rack_session_access'
   gem 'show_me_the_cookies'
+  gem 'test_after_commit'
 end

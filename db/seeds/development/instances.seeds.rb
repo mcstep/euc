@@ -7,8 +7,8 @@ end
 
 AirwatchInstance.where(host: 'airwatch.vmwdev.com').first_or_create do |ai|
 
-  ai.group_name      = 'AirWatchUsers'
-  ai.group_region    = 'dldc'
+  # ai.group_name      = 'AirWatchUsers'
+  # ai.group_region    = 'dldc'
   ai.api_key         = 'UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs='
   ai.user            = 'api.admin'
   ai.password        = 'vmwareHelp!'
@@ -25,8 +25,8 @@ end
 
 GoogleAppsInstance.where(act_on_behalf: 'administrator@vmwdev.com').first_or_create do |gai|
 
-  gai.group_name       = 'GoogleAppsUsers'
-  gai.group_region     = 'dldc'
+  # gai.group_name       = 'GoogleAppsUsers'
+  # gai.group_region     = 'dldc'
   gai.key              = File.open(Rails.root.join 'spec', 'factories', 'data', 'google_apps.p12').read
   gai.key_password     = 'notasecret'
   gai.initial_password = 'Passw0rd1'
@@ -35,8 +35,8 @@ end
 
 Office365Instance.where(client_id: 'cd329bba-1082-40a1-93e9-496370a53f18').first_or_create do |oi|
 
-  oi.group_name    = 'Office365Users'
-  oi.group_region  = 'dldc'
+  # oi.group_name    = 'Office365Users'
+  # oi.group_region  = 'dldc'
   oi.client_secret = 'sZp1HMkFBfPNjdPj3Qy5N563W4qVkz9eEqn49VErI6k='
   oi.tenant_id     = '01b78576-ce65-44db-841f-e2ea4c7c5db0'
   oi.resource_id   = 'https://graph.windows.net'
@@ -44,6 +44,6 @@ end
 
 HorizonInstance.where(api_host: 'receiver.vmwdev.com').first_or_create do |hi|
 
-  hi.view_group_name    = 'HorizonViewUsers'
-  hi.group_region       = 'dldc'
+  # hi.view_group_name    = 'HorizonViewUsers'
+  # hi.group_region       = 'dldc'
 end

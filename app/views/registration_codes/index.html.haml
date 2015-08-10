@@ -29,10 +29,7 @@
               days
             %td= registration_code.valid_from
             %td= registration_code.valid_to
-            %td
-              = registration_code.registrations_used
-              \/
-              = registration_code.total_registrations
+            %td= registration_code.total_registrations
             %td= registration_code.users.count
             %td{style: 'white-space: nowrap'}
               = link_to 'Show', registration_code, class: 'btn btn-primary btn-xs'

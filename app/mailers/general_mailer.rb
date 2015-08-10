@@ -38,6 +38,7 @@ class GeneralMailer < ApplicationMailer
 
   def directory_prolongation_email(prolongation)
     @prolongation = prolongation
+    @user         = prolongation.user_integration.user
 
     mail(to: @prolongation.user_integration.user.email, subject: 'Account Prolongation')
   end

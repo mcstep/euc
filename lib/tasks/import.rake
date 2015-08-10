@@ -63,7 +63,7 @@ namespace :db do
             home_region: user.invitation.region.downcase,
             profile_id: profile.id,
             airwatch_eula_accept_date: user.invitation.eula_accept_date.try(:to_date),
-            integrations_disable_provisioning: true,
+            disable_provisioning: true,
             integrations_username: user.username,
             integrations_expiration_date: user.invitation.expires_at,
             user_integrations_attributes: [{

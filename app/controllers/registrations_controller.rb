@@ -5,7 +5,7 @@ class RegistrationsController < ApplicationController
   skip_after_action :verify_authorized
 
   def new
-    @user = User.new
+    @user = User.new(registration_code_code: params[:code])
   end
 
   def create
@@ -23,7 +23,7 @@ protected
   def user_params
     params.require(:user).permit(
       :first_name, :last_name, :integrations_username, :email, :job_title, :company_name, :home_region,
-      :desired_password, :desired_password_confirmation
+      :desired_password, :desired_password_confirmation, :registration_code_code
     )
   end
 end

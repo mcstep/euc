@@ -28,7 +28,9 @@ module Provisioners
           @user_integration.airwatch_group = AirwatchGroup.instantiate(@user_integration)
           @user_integration.save!
 
-          add_group instance.group_name, instance.group_region
+          if instance.group_name
+            add_group instance.group_name, instance.group_region
+          end
 
           GeneralMailer.airwatch_activation_email(@user_integration).deliver_now
         end
@@ -40,7 +42,10 @@ module Provisioners
         instance = @user_integration.integration.airwatch_instance
 
         instance.delete_user(@user_integration.airwatch_user_id)
-        remove_group instance.group_name, instance.group_region
+
+        if instance.group_name
+          remove_group instance.group_name, instance.group_region
+        end
       end
     end
 
@@ -52,7 +57,10 @@ module Provisioners
         @user_integration.save!
 
         instance.deactivate(@user_integration.airwatch_user_id)
-        remove_group instance.group_name, instance.group_region
+
+        if instance.group_name
+          remove_group instance.group_name, instance.group_region
+        end
 
         GeneralMailer.airwatch_deactivation_email(@user_integration).deliver_now
       end
@@ -62,7 +70,10 @@ module Provisioners
       instance = @user_integration.integration.airwatch_instance
 
       instance.activate(@user_integration.airwatch_user_id)
-      add_group instance.group_name, instance.group_region
+
+      if instance.group_name
+        add_group instance.group_name, instance.group_region
+      end
 
       GeneralMailer.airwatch_reactivation_email(@user_integration).deliver_now
     end

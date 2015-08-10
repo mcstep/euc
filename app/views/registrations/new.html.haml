@@ -2,59 +2,65 @@
   %h1 Sign up
   = bootstrap_form_for @user, url: registration_path, html: { class: 'form form-horizontal', id: "signup-form" } do |f|
     %fieldset
-      .col-md-12.col-sm-12.col-lg-12
-        .alert.alert-info
-          %center Welcome to VMware® TestDrive. Please fill in your details to begin the signup process.
+      - if params[:code] && !@user.registration_code
+        .col-md-12.col-sm-12.col-lg-12
+          .alert.alert-danger
+            %center The registration code you provided is either not found or expired.
+      - else
+        .col-md-12.col-sm-12.col-lg-12
+          .alert.alert-info
+            %center Welcome to VMware® TestDrive. Please fill in your details to begin the signup process.
 
-        = f.text_field :first_name, hide_label: true, placeholder: 'First Name'
-        = f.text_field :last_name, hide_label: true, placeholder: 'Last Name'
-        = f.text_field :integrations_username, hide_label: true, placeholder: 'Username (optional)'
-        = f.text_field :email, hide_label: true, placeholder: 'E-Mail'
-        = f.text_field :job_title, hide_label: true, placeholder: 'Title'
-        = f.text_field :company_name, hide_label: true, placeholder: 'Company'
-        %h2 Region
-        = f.select :home_region, I18n.t('regions').invert, { hide_label: true, include_blank: 'Select your Home Region' }, { class: "form-control" }
-        .td-password
-          %h2 Password
+          = f.hidden_field :registration_code_code
+          = f.text_field :first_name, hide_label: true, placeholder: 'First Name'
+          = f.text_field :last_name, hide_label: true, placeholder: 'Last Name'
+          = f.text_field :integrations_username, hide_label: true, placeholder: 'Username (optional)'
+          = f.text_field :email, hide_label: true, placeholder: 'E-Mail'
+          = f.text_field :job_title, hide_label: true, placeholder: 'Title'
+          = f.text_field :company_name, hide_label: true, placeholder: 'Company'
+          %h2 Region
+          = f.select :home_region, I18n.t('regions').invert, { hide_label: true, include_blank: 'Select your Home Region' }, { class: "form-control" }
+          .td-password
+            %h2 Password
+            .form-group
+              %input.no-password{type: 'checkbox', checked: true}
+              Use automatically generated password
+              %small
+                %em (this will be emailed to you)
+            %h2 Or set your own password
+            = f.password_field :desired_password, hide_label: true, placeholder: 'Enter Your Password'
+            = f.password_field :desired_password_confirmation, hide_label: true, placeholder: 'Confirm Your Password'
+            #pswd_info{style: 'display: none; margin-bottom: -10px'}
+              %h4 Password must meet the following requirements:
+              %ul
+                %li#letter.invalid
+                  At least
+                  %strong one letter
+                %li#capital.invalid
+                  At least
+                  %strong one capital letter
+                %li#number.invalid
+                  At least
+                  %strong one number
+                %li#length.invalid
+                  Be at least
+                  %strong 8 characters
+
+        .col-lg-12.eula-check{style: 'margin: 50px 0'}
+          By submitting this form I agree to the
+          %a{href: '#', data: {target: '#EULA', toggle: 'modal'}} VMware End User License Agreement
+        #EULA.modal.fade{role: "dialog", tabindex: "-1"}
+          .modal-dialog.modal-lg{role: "document"}
+            .modal-content
+              %button.close{type: 'button', data: {dismis: 'modal'}}
+                %span ×
+              %h1 VMware EULA
+              .modal-body
+                .eula
+                  = render 'eula'
+              .modal-footer
+                %button.btn.btn-default{type: 'button', data: {dismiss: 'modal'}} Close
+        .col-lg-12
           .form-group
-            %input.no-password{type: 'checkbox', checked: true}
-            Use automatically generated password
-            %small
-              %em (this will be emailed to you)
-          %h2 Or set your own password
-          = f.password_field :desired_password, hide_label: true, placeholder: 'Enter Your Password'
-          = f.password_field :desired_password_confirmation, hide_label: true, placeholder: 'Confirm Your Password'
-          #pswd_info{style: 'display: none; margin-bottom: -10px'}
-            %h4 Password must meet the following requirements:
-            %ul
-              %li#letter.invalid
-                At least
-                %strong one letter
-              %li#capital.invalid
-                At least
-                %strong one capital letter
-              %li#number.invalid
-                At least
-                %strong one number
-              %li#length.invalid
-                Be at least
-                %strong 8 characters
-
-      .col-lg-12.eula-check{style: 'margin: 50px 0'}
-        By submitting this form I agree to the
-        %a{href: '#', data: {target: '#EULA', toggle: 'modal'}} VMware End User License Agreement
-      #EULA.modal.fade{role: "dialog", tabindex: "-1"}
-        .modal-dialog.modal-lg{role: "document"}
-          .modal-content
-            %button.close{type: 'button', data: {dismis: 'modal'}}
-              %span ×
-            %h1 VMware EULA
-            .modal-body
-              .eula
-                = render 'eula'
-            .modal-footer
-              %button.btn.btn-default{type: 'button', data: {dismiss: 'modal'}} Close
-      .col-lg-12
-        .form-group
-          %button#submit.btn.btl-lg.btn-success.register{name: "submit"} REGISTER
+            %button#submit.btn.btl-lg.btn-success.register{name: "submit"} REGISTER
 

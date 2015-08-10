@@ -1,5 +1,7 @@
 = bootstrap_form_for @registration_code do |f|
+  = f.select :profile_id, Profile.all.collect{|p| [ p.name, p.id ] }, prompt: ''
   = f.select :user_role, [['Regular User', 'basic'], ['Super User', 'admin']]
+  = f.text_field :code
   = f.number_field :user_validity
   = f.number_field :total_registrations
   = f.text_field :valid_from, 'data-provide' => 'datepicker', value: f.object.valid_from.try(:strftime, '%d.%m.%Y')
