@@ -23,8 +23,8 @@ class Invitation < ActiveRecord::Base
 
   attr_accessor :skip_points_management
 
-  belongs_to :from_user, class_name: 'User'
-  belongs_to :to_user,   class_name: 'User', inverse_of: :received_invitation
+  belongs_to :from_user, -> { with_deleted }, class_name: 'User'
+  belongs_to :to_user, -> { with_deleted }, class_name: 'User', inverse_of: :received_invitation
 
   accepts_nested_attributes_for :to_user
 

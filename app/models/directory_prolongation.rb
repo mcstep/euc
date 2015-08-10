@@ -18,8 +18,8 @@
 #
 
 class DirectoryProlongation < ActiveRecord::Base
-  belongs_to :user_integration
-  belongs_to :user
+  belongs_to :user_integration, -> { with_deleted }
+  belongs_to :user, -> { with_deleted }
 
   validates :user_integration,    presence: true
   validates :expiration_date_new, presence: true

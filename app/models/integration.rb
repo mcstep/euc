@@ -35,13 +35,13 @@ class Integration < ActiveRecord::Base
     horizon_air horizon_rds horizon_view airwatch office365 google_apps
   )
 
-  belongs_to :directory
-  belongs_to :airwatch_instance
-  belongs_to :office365_instance
-  belongs_to :google_apps_instance
-  belongs_to :horizon_air_instance
-  belongs_to :horizon_rds_instance, class_name: 'HorizonInstance'
-  belongs_to :horizon_view_instance, class_name: 'HorizonInstance'
+  belongs_to :directory, -> { with_deleted }
+  belongs_to :airwatch_instance, -> { with_deleted }
+  belongs_to :office365_instance, -> { with_deleted }
+  belongs_to :google_apps_instance, -> { with_deleted }
+  belongs_to :horizon_air_instance, -> { with_deleted }
+  belongs_to :horizon_rds_instance, -> { with_deleted }, class_name: 'HorizonInstance'
+  belongs_to :horizon_view_instance, -> { with_deleted }, class_name: 'HorizonInstance'
 
   validates :name, presence: true, uniqueness: true
   validates :domain, hostname: true

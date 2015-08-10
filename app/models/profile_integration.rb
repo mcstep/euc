@@ -24,8 +24,8 @@
 #
 
 class ProfileIntegration < ActiveRecord::Base
-  belongs_to :profile, inverse_of: :profile_integrations
-  belongs_to :integration
+  belongs_to :profile, -> { with_deleted }, inverse_of: :profile_integrations
+  belongs_to :integration, -> { with_deleted }
 
   validates :profile,                   presence: true
   validates :integration,               presence: true

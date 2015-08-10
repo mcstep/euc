@@ -20,8 +20,8 @@
 class AirwatchGroup < ActiveRecord::Base
   acts_as_paranoid
 
-  belongs_to :airwatch_instance
-  belongs_to :company
+  belongs_to :airwatch_instance, -> { with_deleted }
+  belongs_to :company, -> { with_deleted }
 
   validates :text_id,           presence: true
   validates :numeric_id,        presence: true

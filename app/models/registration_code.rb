@@ -23,7 +23,7 @@ class RegistrationCode < ActiveRecord::Base
   acts_as_paranoid
 
   has_many :users
-  belongs_to :profile
+  belongs_to :profile, -> { with_deleted }
 
   enum user_role: User::ROLES
 

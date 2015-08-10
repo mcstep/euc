@@ -199,12 +199,12 @@ class User < ActiveRecord::Base
   ##
   # Relations
   ##
-  belongs_to :authentication_integration, class_name: "UserIntegration"
-  belongs_to :profile
+  belongs_to :authentication_integration, -> { with_deleted }, class_name: "UserIntegration"
+  belongs_to :profile, -> { with_deleted }
   has_many :user_integrations, -> { includes(:directory_prolongations) }, dependent: :destroy, inverse_of: :user
-  belongs_to :registration_code
+  belongs_to :registration_code, -> { with_deleted }
   has_many :sent_invitations, -> { includes(:to_user) }, class_name: "Invitation", foreign_key: "from_user_id"
-  has_one :received_invitation, class_name: "Invitation", foreign_key: "to_user_id", inverse_of: :to_user
+  has_one :received_invitation, -> { with_deleted }, class_name: "Invitation", foreign_key: "to_user_id", inverse_of: :to_user
 
   ##
   # Extensions.

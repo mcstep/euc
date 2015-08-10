@@ -23,7 +23,7 @@
 class Domain < ActiveRecord::Base
   include CompanyHolder
 
-  belongs_to :profile
+  belongs_to :profile, -> { with_deleted }
 
   as_enum :status, {active: 0, inactive: 1}
   as_enum :user_role, User::ROLES

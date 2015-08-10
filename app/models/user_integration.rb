@@ -39,9 +39,9 @@ class UserIntegration < ActiveRecord::Base
 
   attr_accessor :disable_provisioning, :password
 
-  belongs_to :user, inverse_of: :user_integrations
-  belongs_to :integration
-  belongs_to :airwatch_group
+  belongs_to :user, -> { with_deleted }, inverse_of: :user_integrations
+  belongs_to :integration, -> { with_deleted }
+  belongs_to :airwatch_group, -> { with_deleted }
 
   has_many :directory_prolongations
 

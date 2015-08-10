@@ -18,7 +18,7 @@
 class Customer < ActiveRecord::Base
   acts_as_paranoid
 
-  belongs_to :company
+  belongs_to :company, -> { with_deleted }
 
   validates :company, presence: true
   validates :name,    presence: true
