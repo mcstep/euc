@@ -22,6 +22,8 @@
 class GoogleAppsInstance < ActiveRecord::Base
   acts_as_paranoid
 
+  after_validation{ errors.add(:key_file, :blank) if errors[:key_base64].any? }
+
   validates :key_base64, presence: true
   validates :initial_password, presence: true
   validates :service_account, presence: true
@@ -46,6 +48,10 @@ class GoogleAppsInstance < ActiveRecord::Base
     file.write(key)
     file.rewind
     file.path
+  end
+
+  def key_file=(value)
+    self.key_base64 = Base64.encode64(value.read)
   end
 
   def client

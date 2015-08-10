@@ -24,7 +24,7 @@ class Office365Instance < ActiveRecord::Base
   validates :group_region, presence: true, if: lambda{ group_name.present? }
 
   def title
-    client_secret
+    client_id
   end
 
   def config_scope

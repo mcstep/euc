@@ -26,7 +26,7 @@ class Profile < ActiveRecord::Base
   validates :name, presence: true
   validates :group_region, presence: true, if: :directory_groups?
 
-  has_many :profile_integrations
+  has_many :profile_integrations, inverse_of: :profile
 
   accepts_nested_attributes_for :profile_integrations, allow_destroy: true
 

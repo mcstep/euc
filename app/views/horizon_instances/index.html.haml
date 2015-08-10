@@ -1,0 +1,29 @@
+.col-md-12.col-sm-12.col-lg-12
+
+  = render 'layouts/services_menu'
+
+  .panel.panel-default
+    = form_tag horizon_instances_path, method: :get, class: 'panel-body' do |f|
+      = link_to 'Add instance', new_horizon_instance_path, class: 'btn btn-success pull-left'
+      .input-group
+        %input.form-control{name: "search", placeholder: "Search instances by host...", type: "text", value: params[:search]}
+        %span.input-group-btn
+          %button.btn.btn-default{type: "submit"} Search!
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        = pluralize @horizon_instances.size, 'horizon_instance'
+        found
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Name
+          %th Actions
+      %tbody
+        - @horizon_instances.each do |horizon_instance|
+          %tr
+            %td= horizon_instance.title
+            %td
+              = link_to 'Edit', edit_horizon_instance_path(horizon_instance), class: 'btn btn-xs btn-warning'
+              = link_to 'Delete', horizon_instance, method: :delete, data: { confirm: 'This horizon_instance will be deleted'}, class: "btn btn-xs btn-danger"

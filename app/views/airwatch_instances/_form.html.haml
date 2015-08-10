@@ -1,0 +1,10 @@
+= bootstrap_form_for resource do |f|
+  = f.text_field :group_name
+  = f.text_field :group_region
+  = f.text_field :api_key
+  = f.text_field :host
+  = f.text_field :user
+  = f.text_field :password
+  = f.text_field :parent_group_id
+  = f.text_area  :admin_roles_text, rows: 10
+  = f.submit class: 'btn btn-success', style: 'width: 100%; margin-bottom: 30px'

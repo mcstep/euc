@@ -37,6 +37,21 @@ class AirwatchInstance < ActiveRecord::Base
     host
   end
 
+  def admin_roles_text
+    return '' if admin_roles.blank?
+
+    admin_roles.map{|x| "#{x['Id']},#{x['LocationGroupId']}"}.join("\n")
+  end
+
+  def admin_roles_text=(value)
+    self.admin_roles = []
+
+    value.strip.split("\n").each do |row|
+      row = row.strip.split(',')
+      self.admin_roles << {'Id' => row[0], 'LocationGroupId' => row[1]}
+    end
+  end
+
   def query(action, payload=nil, method: :post)
     response = RestClient::Request.execute(
       method:   method, 

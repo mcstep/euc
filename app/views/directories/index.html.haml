@@ -1,0 +1,29 @@
+.col-md-12.col-sm-12.col-lg-12
+
+  = render 'layouts/services_menu'
+
+  .panel.panel-default
+    = form_tag directories_path, method: :get, class: 'panel-body' do |f|
+      = link_to 'Add directory', new_directory_path, class: 'btn btn-success pull-left'
+      .input-group
+        %input.form-control{name: "search", placeholder: "Search directories by host...", type: "text", value: params[:search]}
+        %span.input-group-btn
+          %button.btn.btn-default{type: "submit"} Search!
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        = pluralize @directories.size, 'directory'
+        found
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Name
+          %th Actions
+      %tbody
+        - @directories.each do |directory|
+          %tr
+            %td= directory.title
+            %td
+              = link_to 'Edit', edit_directory_path(directory), class: 'btn btn-xs btn-warning'
+              = link_to 'Delete', directory, method: :delete, data: { confirm: 'This directory will be deleted'}, class: "btn btn-xs btn-danger"

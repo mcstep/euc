@@ -1,0 +1,29 @@
+.col-md-12.col-sm-12.col-lg-12
+
+  = render 'layouts/services_menu'
+
+  .panel.panel-default
+    = form_tag office365_instances_path, method: :get, class: 'panel-body' do |f|
+      = link_to 'Add instance', new_office365_instance_path, class: 'btn btn-success pull-left'
+      .input-group
+        %input.form-control{name: "search", placeholder: "Search instances by client id...", type: "text", value: params[:search]}
+        %span.input-group-btn
+          %button.btn.btn-default{type: "submit"} Search!
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        = pluralize @office365_instances.size, 'office365_instance'
+        found
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Name
+          %th Actions
+      %tbody
+        - @office365_instances.each do |office365_instance|
+          %tr
+            %td= office365_instance.title
+            %td
+              = link_to 'Edit', edit_office365_instance_path(office365_instance), class: 'btn btn-xs btn-warning'
+              = link_to 'Delete', office365_instance, method: :delete, data: { confirm: 'This office365_instance will be deleted'}, class: "btn btn-xs btn-danger"

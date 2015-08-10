@@ -31,5 +31,5 @@ class Domain < ActiveRecord::Base
   before_validation { name.downcase! }
 
   validates :name, uniqueness: true, hostname: true
-  validates :profile_id, presence: true
+  validates :profile, presence: true
 end

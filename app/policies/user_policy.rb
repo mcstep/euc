@@ -20,7 +20,7 @@ class UserPolicy < ApplicationPolicy
       ]
     ]
 
-    attributes += [:role, :integrations_expiration_date] if @user.root?
+    attributes += [:role, :integrations_expiration_date, :profile_id] if @user.root?
 
     attributes
   end

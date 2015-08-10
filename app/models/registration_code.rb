@@ -36,7 +36,7 @@ class RegistrationCode < ActiveRecord::Base
   validates :code, uniqueness: true
   validates :user_validity, presence: true, numericality: { greater_than: 0 }
   validates :total_registrations, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :profile_id, presence: true
+  validates :profile, presence: true
 
   before_save do
     self.code = Digest::SHA1.hexdigest([Time.now, rand].join)[0...8] if code.blank?

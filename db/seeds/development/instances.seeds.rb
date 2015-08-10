@@ -1,11 +1,11 @@
-Directory.where(host: 'receiver.vmwdev.com').first_or_create do |d|
+Directory.where(host: 'receiver.vmwdev.com').first_or_create! do |d|
 
   d.use_ssl = true
   d.port    = 443
   d.api_key = '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
 end
 
-AirwatchInstance.where(host: 'airwatch.vmwdev.com').first_or_create do |ai|
+AirwatchInstance.where(host: 'airwatch.vmwdev.com').first_or_create! do |ai|
 
   # ai.group_name      = 'AirWatchUsers'
   # ai.group_region    = 'dldc'
@@ -23,7 +23,7 @@ AirwatchInstance.where(host: 'airwatch.vmwdev.com').first_or_create do |ai|
   ]
 end
 
-GoogleAppsInstance.where(act_on_behalf: 'administrator@vmwdev.com').first_or_create do |gai|
+GoogleAppsInstance.where(act_on_behalf: 'administrator@vmwdev.com').first_or_create! do |gai|
 
   # gai.group_name       = 'GoogleAppsUsers'
   # gai.group_region     = 'dldc'
@@ -42,7 +42,7 @@ Office365Instance.where(client_id: 'cd329bba-1082-40a1-93e9-496370a53f18').first
   oi.resource_id   = 'https://graph.windows.net'
 end
 
-HorizonInstance.where(api_host: 'receiver.vmwdev.com').first_or_create do |hi|
+HorizonInstance.where(api_host: 'receiver.vmwdev.com').first_or_create! do |hi|
 
   # hi.view_group_name    = 'HorizonViewUsers'
   # hi.group_region       = 'dldc'

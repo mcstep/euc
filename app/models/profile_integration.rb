@@ -24,11 +24,11 @@
 #
 
 class ProfileIntegration < ActiveRecord::Base
-  belongs_to :profile
+  belongs_to :profile, inverse_of: :profile_integrations
   belongs_to :integration
 
-  validates :profile_id,                presence: true
-  validates :integration_id,            presence: true
+  validates :profile,                   presence: true
+  validates :integration,               presence: true
   validates :authentication_priority,   numericality: {allow_blank: true}
 
   Integration::SERVICES.each do |s|

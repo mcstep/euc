@@ -1,0 +1,11 @@
+%ul.nav.nav-pills{style: 'margin-bottom: 20px'}
+  %li{class: ('active' if controller.is_a?(DirectoriesController))}
+    = link_to 'ActiveDirectory', directories_path
+  %li{class: ('active' if controller.is_a?(AirwatchInstancesController))}
+    = link_to 'Airwatch', airwatch_instances_path
+  %li{class: ('active' if controller.is_a?(GoogleAppsInstancesController))}
+    = link_to 'Google Apps', google_apps_instances_path
+  %li{class: ('active' if controller.is_a?(Office365InstancesController))}
+    = link_to 'Office365', office365_instances_path
+  %li{class: ('active' if controller.is_a?(HorizonInstancesController))}
+    = link_to 'Horizon', horizon_instances_path

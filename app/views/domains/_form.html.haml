@@ -1,4 +1,4 @@
-= bootstrap_form_for @domain do |f|
+= bootstrap_form_for resource do |f|
   = f.text_field :name
   = f.select :profile_id, Profile.all.collect{|p| [ p.name, p.id ] }, prompt: ''
   = f.select :user_role, [['Regular User', 'basic'], ['Super User', 'admin']]

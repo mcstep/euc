@@ -1,5 +1,5 @@
 after 'development:instances' do
-  integration = Integration.where(domain: 'vmwdev.com').first_or_create do |i|
+  integration = Integration.where(domain: 'vmwdev.com').first_or_create! do |i|
 
     i.name                  = 'Airwatch + Google Apps (Staging)'
     i.directory             = Directory.where(host: 'receiver.vmwdev.com').first
@@ -8,7 +8,7 @@ after 'development:instances' do
     i.horizon_view_instance = HorizonInstance.where(api_host: 'receiver.vmwdev.com').first
   end
 
-  Profile.where(name: 'Default (Staging)').first_or_create do |p|
+  Profile.where(name: 'Default (Staging)').first_or_create! do |p|
 
     p.supports_vidm        = false
     p.profile_integrations = [ProfileIntegration.new(
