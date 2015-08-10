@@ -1,17 +1,20 @@
 .col-lg-8.col-offset-lg-2.col-md-8.col-md-offset-2.col-sm-12.td-dialog.td-signup
   %h1 Login
   .login
+    .col-lg-12.col-md-12.col-sm-12.blurb
+      %h3
+        Welcome to VMware TestDrive for End-User Computing!
     .col-lg-7.col-md-7.col-sm-12.blurb
       %p
-        %strong TestDrive
-        is a fully featured, integrated and globally available demonstration environment provided by VMware for use by our Field, Partners and Customers.
+        TestDrive is a fully featured, integrated and globally available demonstration environment provided by VMware for use by our Field, Partners and Customers.
       %p 
         Powered by 
         %a{:href => "https://www.vmware.com/products/workspace-suite", :target => "_blank"} VMware Workspace Suite, 
         TestDrive features Identity Manager, Horizon desktop and application virtualization, Horizon FLEX and AirWatch enterprise mobility management.
       %p
-        For assistance with registration and use, check out our
-        %a{:href => "http://support.vmtestdrive.com/article/3-registration", :target => "_blank"} knowledge base
+        Checkout our 
+        %a{:href => "http://support.vmtestdrive.com/article/3-registration", :target => "_blank"} knowledge base 
+        for assistance with Registration, activation, passwords, customer invites and demo walkthroughs!
     .col-lg-5.col-md-5.col-sm-12.loginbox
       = form_tag sessions_path do
         = render "layouts/messages"
