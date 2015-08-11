@@ -116,7 +116,7 @@
             - if current_user.root?
               = f.text_field :expiration_date_new, data: {provide: 'datepicker'}, hide_label: true
             - else
-              %input.expires-at.form-control{readonly: "true", type: "text"}
+              %input#directory_prolongation_expiration_date_new.expires-at.form-control{readonly: "true", type: "text"}
         .modal-footer
           %button.btn.btn-default.pull-left{type: 'button', data: {dismiss: 'modal'}} Cancel
           %button.btn.btn-success{type: 'submit'} Submit request
