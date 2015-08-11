@@ -8,6 +8,6 @@ class DirectoryProlongationPolicy < ApplicationPolicy
   end
 
   def create?
-    @user.root? || @record.user.invited_by.id == @user.id
+    @user.root? || (@record && @record.user_integration.user.invited_by.try(:id) == @user.id)
   end
 end

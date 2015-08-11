@@ -17,14 +17,16 @@ class CrudController < ApplicationController
   end
 
   def create
-    authorize build_resource
+    build_resource
     resource.assign_attributes(permitted_attributes(resource))
+    authorize resource
     create!{ {action: :index} }
   end
 
   def update
-    authorize resource
+    resource
     resource.assign_attributes(permitted_attributes(resource))
+    authorize resource
     update!{ {action: :index} }
   end
 
