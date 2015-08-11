@@ -2,7 +2,7 @@ class UserUnregisterWorker
   include Sidekiq::Worker
 
   def perform(user)
-    user        = User.find(user) unless user.is_a?(User)
+    user        = User.with_deleted.find(user) unless user.is_a?(User)
     integration = user.authentication_integration
     username    = integration.username
     directory   = integration.directory

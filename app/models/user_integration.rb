@@ -53,7 +53,7 @@ class UserIntegration < ActiveRecord::Base
 
   after_commit    :init_provisioning,  on: :create
   after_commit    :apply_provisioning, on: :update
-  before_destroy  :drop_provisioning
+  after_destroy   :drop_provisioning
 
   as_enum :directory_status, {
     provisioning: 0,
@@ -155,9 +155,9 @@ class UserIntegration < ActiveRecord::Base
     Integration::SERVICES.each do |s|
       status = send("#{s}_status")
 
-      if status == :provisioned
+      if status == :provisioned || status == :provisioning
         ProvisionerWorker[s].deprovision_async(id)
-      elsif status == :revoked
+      elsif status == :revoked || status == :revoking
         ProvisionerWorker[s].cleanup_async(id)
       end
     end

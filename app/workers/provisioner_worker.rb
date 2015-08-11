@@ -12,7 +12,7 @@ class ProvisionerWorker
   end
 
   def perform(user_integration, action)
-    user_integration  = UserIntegration.find(user_integration) unless user_integration.is_a?(UserIntegration)
+    user_integration  = UserIntegration.with_deleted.find(user_integration) unless user_integration.is_a?(UserIntegration)
     @user_integration = user_integration
     @user             = @user_integration.user
 
