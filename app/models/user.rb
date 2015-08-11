@@ -272,7 +272,7 @@ class User < ActiveRecord::Base
   end
 
   def invited_users
-    sent_invitations.map(&:to_user).compact
+    sent_invitations.map(&:to_user).select{|x| !x.deleted_at}.compact
   end
 
   def expiring_invited_users
