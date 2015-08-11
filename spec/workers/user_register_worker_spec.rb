@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserRegister, type: :model do
+RSpec.describe UserRegisterWorker, type: :model do
   let(:user){ create(:user) }
   let(:directory){ mock_model(Directory) }
   let(:username){ user.authentication_integration.username }
@@ -18,7 +18,7 @@ RSpec.describe UserRegister, type: :model do
           'password' => 'test'
         )
 
-        expect{ UserRegister.new.perform(user) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        expect{ UserRegisterWorker.new.perform(user) }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
 
       context 'when profile has groups' do
@@ -33,7 +33,7 @@ RSpec.describe UserRegister, type: :model do
           expect(directory).to receive(:add_group).once.with(username, 'VIDMUsers')
           expect(directory).to receive(:sync).once.with('dldc')
 
-          expect{ UserRegister.new.perform(user) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          expect{ UserRegisterWorker.new.perform(user) }.to change { ActionMailer::Base.deliveries.count }.by(1)
         end
       end
     end
@@ -52,8 +52,8 @@ RSpec.describe UserRegister, type: :model do
         expect(directory).to receive(:sync).once.with('dldc')
         expect(directory).to receive(:update_password).once.with(username, nil)
 
-        expect{ UserRegister.new.perform(user) }.to raise_error('error')
-        expect{ UserRegister.new.perform(user) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        expect{ UserRegisterWorker.new.perform(user) }.to raise_error('error')
+        expect{ UserRegisterWorker.new.perform(user) }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
     end
   end

@@ -1,4 +1,4 @@
-class ExpirationWorker
+class UserExpireWorker
   include Sidekiq::Worker
 
   def perform(user_id)

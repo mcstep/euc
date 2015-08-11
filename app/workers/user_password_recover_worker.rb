@@ -1,4 +1,4 @@
-class PasswordRecoverWorker
+class UserPasswordRecoverWorker
   include Sidekiq::Worker
 
   def perform(user_id, password)

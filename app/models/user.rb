@@ -224,9 +224,9 @@ class User < ActiveRecord::Base
   before_create               { self.status = :verification_required if profile.try(:requires_verification) }
   after_validation            :normalize_errors
   after_create                :use_registration_code_point!
-  after_commit(on: :create)   { UserRegister.perform_async(id, desired_password) unless disable_provisioning }
+  after_commit(on: :create)   { UserRegisterWorker.perform_async(id, desired_password) unless disable_provisioning }
   after_destroy               { received_invitation.try(:free_invitation_point!) }
-  after_destroy               { UserUnregister.perform_async(id) unless disable_provisioning }
+  after_destroy               { UserUnregisterWorker.perform_async(id) unless disable_provisioning }
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -327,11 +327,7 @@ class User < ActiveRecord::Base
   end
 
   def send_verification!
-    transaction do
-      self.verification_token = ReadableToken.generate
-      self.save!
-      VerificationDeliveryWorker.perform_async(id)
-    end
+    UserVerifyWorker.perform_async(id)
   end
 
   def normalize_errors

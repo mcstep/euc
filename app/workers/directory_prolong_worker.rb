@@ -1,4 +1,4 @@
-class DirectoryProlongationWorker
+class DirectoryProlongWorker
   include Sidekiq::Worker
 
   def perform(directory_prolongation_id)

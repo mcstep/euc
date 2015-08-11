@@ -34,7 +34,7 @@ class UserRegisterWorker
       password ||= user.update_password if desired_password.blank?
 
       GeneralMailer.welcome_email(user, password).deliver_now
-      DirectoryReplicationWorker.perform_async(directory.id)
+      DirectoryReplicateWorker.perform_async(directory.id)
     end
   end
 end

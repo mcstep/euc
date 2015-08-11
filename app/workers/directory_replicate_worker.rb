@@ -1,4 +1,4 @@
-class DirectoryReplicationWorker
+class DirectoryReplicateWorker
   include Sidekiq::Worker
 
   def perform(directory_id)
