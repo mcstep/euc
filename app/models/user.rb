@@ -230,7 +230,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: { scope: :deleted_at }
   validates :company, presence: true
   validates :job_title, presence: true
   validates :home_region, presence: true, inclusion: { in: REGIONS, allow_blank: true }

@@ -30,6 +30,6 @@ class Domain < ActiveRecord::Base
 
   before_validation { name.downcase! }
 
-  validates :name, uniqueness: true, hostname: true
+  validates :name, uniqueness: { scope: :deleted_at }, hostname: true
   validates :profile, presence: true
 end

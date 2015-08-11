@@ -29,7 +29,7 @@ class Invitation < ActiveRecord::Base
   accepts_nested_attributes_for :to_user
 
   validates :from_user, presence: true
-  validates :to_user, presence: true, uniqueness: {scope: :from_user_id}
+  validates :to_user, presence: true, uniqueness: { scope: [:from_user_id, :deleted_at] }
   validates :from_user_id, presence: true, on: :create
 
   before_create :use_invitation_point!

@@ -43,7 +43,7 @@ class Integration < ActiveRecord::Base
   belongs_to :horizon_rds_instance, -> { with_deleted }, class_name: 'HorizonInstance'
   belongs_to :horizon_view_instance, -> { with_deleted }, class_name: 'HorizonInstance'
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { scope: :deleted_at }
   validates :domain, hostname: true
 
   def enabled_services

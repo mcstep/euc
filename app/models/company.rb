@@ -16,7 +16,7 @@
 class Company < ActiveRecord::Base
   acts_as_paranoid
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { scope: :deleted_at }
 
   scope :named, lambda{|name| where("LOWER(name) = ?", name.downcase) }
 

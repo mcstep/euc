@@ -33,7 +33,7 @@ class RegistrationCode < ActiveRecord::Base
     where("valid_to IS NULL OR valid_to <= ?", Date.today)
   }
 
-  validates :code, uniqueness: true
+  validates :code, uniqueness: { scope: :deleted_at }
   validates :user_validity, presence: true, numericality: { greater_than: 0 }
   validates :total_registrations, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :profile, presence: true
