@@ -28,13 +28,15 @@ class AirwatchGroup < ActiveRecord::Base
   validates :airwatch_instance, presence: true
   validates :company,           presence: true
 
-  def self.instantiate(user_integration)
+  def self.produce(user_integration)
     condition = {
       company_id:           user_integration.user.company_id,
       airwatch_instance_id: user_integration.integration.airwatch_instance_id
     }
 
-    return attempt if attempt = where(condition).first
+    if attempt = where(condition).first
+      return attempt
+    end
 
     data = user_integration.integration.airwatch_instance.add_group(user_integration.airwatch_group_name)
     AirwatchGroup.create!(

@@ -113,7 +113,7 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def airwatch_group_name
-    "#{integration.airwatch_instance_id}-#{user.company_name}".downcase.gsub(/[^a-zA-Z0-9]/, '-')[0...20]
+    user.email.split("@").last.gsub('.','-')[0...20]
   end
 
   def replace_status(service, value)

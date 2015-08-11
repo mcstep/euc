@@ -88,11 +88,11 @@ RSpec.describe UserIntegration, type: :model do
       subject do
         UserIntegration.new(
           integration: build(:integration, airwatch_instance: airwatch_instance),
-          user: User.new(company_name: '!@#$% 1234s')
+          user: User.new(email: 'foo@bar.com')
         ).airwatch_group_name
       end
 
-      it{ is_expected.to eq "#{airwatch_instance.id}-------1234s" }
+      it{ is_expected.to eq "bar-com" }
     end
 
     context 'when some miss' do

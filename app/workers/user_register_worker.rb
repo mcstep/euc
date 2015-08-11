@@ -1,4 +1,4 @@
-class SignupWorker
+class UserRegisterWorker
   include Sidekiq::Worker
 
   def perform(user, desired_password=nil)

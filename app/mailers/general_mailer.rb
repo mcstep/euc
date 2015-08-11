@@ -53,7 +53,7 @@ class GeneralMailer < ApplicationMailer
     instance  = user_integration.integration.airwatch_instance
     @user     = user_integration.user
     @username = user_integration.username
-    @group    = instance.parent_group_id
+    @group    = user_integration.airwatch_group.text_id
     @domain   = user_integration.integration.domain
     path      = Rails.root.join 'tmp', Dir::Tmpname.make_tmpname('qr', nil)
 

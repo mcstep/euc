@@ -80,8 +80,8 @@ class Directory < ActiveRecord::Base
     query "sync/#{entity}", uname: 'demo.user'
   end
 
-  def unregister(username)
-    query 'unregister', {username: username}
+  def unregister(username, domain=nil)
+    query 'unregister', {username: username, domain_suffix: domain}
   end
 
   def add_group(username, group)

@@ -25,7 +25,7 @@ module Provisioners
         # Only tick status if everything worked (retry otherwise)
         @user_integration.transaction do
           @user_integration.airwatch.complete_application
-          @user_integration.airwatch_group = AirwatchGroup.instantiate(@user_integration)
+          @user_integration.airwatch_group = AirwatchGroup.produce(@user_integration)
           @user_integration.save!
 
           if instance.group_name
