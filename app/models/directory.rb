@@ -69,7 +69,7 @@ class Directory < ActiveRecord::Base
       domain_suffix: user_integration.integration.domain
   end
 
-  def replicate(entity)
+  def replicate(entity=nil)
     query "ad/replicate/#{entity}", {uname: 'demo.user'}, timeout: 200, open_timeout: 10
   end
 
