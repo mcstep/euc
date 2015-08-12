@@ -29,7 +29,7 @@ class Directory < ActiveRecord::Base
     "http#{'s' if use_ssl}://#{host}:#{port || '80'}/#{action}"
   end
 
-  def query(action, payload, params={})
+  def query(action, payload={}, params={})
     response = RestClient.post url(action), payload, params.merge(token: api_key)
     JSON.parse response rescue response
   end
