@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150807164316) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -33,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.string   "country_code"
   end
 
-  add_index "accounts", ["deleted_at"], name: "index_accounts_on_deleted_at", using: :btree
+  add_index "accounts", ["deleted_at"], name: "index_accounts_on_deleted_at"
 
   create_table "airwatch_groups", force: :cascade do |t|
     t.integer  "airwatch_instance_id"
@@ -46,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",           null: false
   end
 
-  add_index "airwatch_groups", ["deleted_at"], name: "index_airwatch_groups_on_deleted_at", using: :btree
+  add_index "airwatch_groups", ["deleted_at"], name: "index_airwatch_groups_on_deleted_at"
 
   create_table "airwatch_instances", force: :cascade do |t|
     t.string   "group_name"
@@ -63,7 +60,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.string   "security_pin"
   end
 
-  add_index "airwatch_instances", ["deleted_at"], name: "index_airwatch_instances_on_deleted_at", using: :btree
+  add_index "airwatch_instances", ["deleted_at"], name: "index_airwatch_instances_on_deleted_at"
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -72,7 +69,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "companies", ["deleted_at"], name: "index_companies_on_deleted_at", using: :btree
+  add_index "companies", ["deleted_at"], name: "index_companies_on_deleted_at"
 
   create_table "customers", force: :cascade do |t|
     t.integer  "company_id"
@@ -82,8 +79,8 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "customers", ["company_id"], name: "index_customers_on_company_id", using: :btree
-  add_index "customers", ["deleted_at"], name: "index_customers_on_deleted_at", using: :btree
+  add_index "customers", ["company_id"], name: "index_customers_on_company_id"
+  add_index "customers", ["deleted_at"], name: "index_customers_on_deleted_at"
 
   create_table "directories", force: :cascade do |t|
     t.string   "host"
@@ -95,7 +92,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.boolean  "use_ssl",    default: false, null: false
   end
 
-  add_index "directories", ["deleted_at"], name: "index_directories_on_deleted_at", using: :btree
+  add_index "directories", ["deleted_at"], name: "index_directories_on_deleted_at"
 
   create_table "directory_prolongations", force: :cascade do |t|
     t.integer  "user_integration_id"
@@ -107,8 +104,8 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "directory_prolongations", ["user_id"], name: "index_directory_prolongations_on_user_id", using: :btree
-  add_index "directory_prolongations", ["user_integration_id"], name: "index_directory_prolongations_on_user_integration_id", using: :btree
+  add_index "directory_prolongations", ["user_id"], name: "index_directory_prolongations_on_user_id"
+  add_index "directory_prolongations", ["user_integration_id"], name: "index_directory_prolongations_on_user_integration_id"
 
   create_table "domains", force: :cascade do |t|
     t.integer  "company_id"
@@ -122,9 +119,9 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "domains", ["company_id"], name: "index_domains_on_company_id", using: :btree
-  add_index "domains", ["deleted_at"], name: "index_domains_on_deleted_at", using: :btree
-  add_index "domains", ["profile_id"], name: "index_domains_on_profile_id", using: :btree
+  add_index "domains", ["company_id"], name: "index_domains_on_company_id"
+  add_index "domains", ["deleted_at"], name: "index_domains_on_deleted_at"
+  add_index "domains", ["profile_id"], name: "index_domains_on_profile_id"
 
   create_table "google_apps_instances", force: :cascade do |t|
     t.string   "group_name"
@@ -139,7 +136,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "google_apps_instances", ["deleted_at"], name: "index_google_apps_instances_on_deleted_at", using: :btree
+  add_index "google_apps_instances", ["deleted_at"], name: "index_google_apps_instances_on_deleted_at"
 
   create_table "horizon_air_instances", force: :cascade do |t|
     t.string   "group_name"
@@ -152,7 +149,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "horizon_air_instances", ["deleted_at"], name: "index_horizon_air_instances_on_deleted_at", using: :btree
+  add_index "horizon_air_instances", ["deleted_at"], name: "index_horizon_air_instances_on_deleted_at"
 
   create_table "horizon_instances", force: :cascade do |t|
     t.string   "rds_group_name"
@@ -167,7 +164,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "horizon_instances", ["deleted_at"], name: "index_horizon_instances_on_deleted_at", using: :btree
+  add_index "horizon_instances", ["deleted_at"], name: "index_horizon_instances_on_deleted_at"
 
   create_table "integrations", force: :cascade do |t|
     t.string   "name"
@@ -184,14 +181,14 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",               null: false
   end
 
-  add_index "integrations", ["airwatch_instance_id"], name: "index_integrations_on_airwatch_instance_id", using: :btree
-  add_index "integrations", ["deleted_at"], name: "index_integrations_on_deleted_at", using: :btree
-  add_index "integrations", ["directory_id"], name: "index_integrations_on_directory_id", using: :btree
-  add_index "integrations", ["google_apps_instance_id"], name: "index_integrations_on_google_apps_instance_id", using: :btree
-  add_index "integrations", ["horizon_air_instance_id"], name: "index_integrations_on_horizon_air_instance_id", using: :btree
-  add_index "integrations", ["horizon_rds_instance_id"], name: "index_integrations_on_horizon_rds_instance_id", using: :btree
-  add_index "integrations", ["horizon_view_instance_id"], name: "index_integrations_on_horizon_view_instance_id", using: :btree
-  add_index "integrations", ["office365_instance_id"], name: "index_integrations_on_office365_instance_id", using: :btree
+  add_index "integrations", ["airwatch_instance_id"], name: "index_integrations_on_airwatch_instance_id"
+  add_index "integrations", ["deleted_at"], name: "index_integrations_on_deleted_at"
+  add_index "integrations", ["directory_id"], name: "index_integrations_on_directory_id"
+  add_index "integrations", ["google_apps_instance_id"], name: "index_integrations_on_google_apps_instance_id"
+  add_index "integrations", ["horizon_air_instance_id"], name: "index_integrations_on_horizon_air_instance_id"
+  add_index "integrations", ["horizon_rds_instance_id"], name: "index_integrations_on_horizon_rds_instance_id"
+  add_index "integrations", ["horizon_view_instance_id"], name: "index_integrations_on_horizon_view_instance_id"
+  add_index "integrations", ["office365_instance_id"], name: "index_integrations_on_office365_instance_id"
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "from_user_id"
@@ -203,9 +200,9 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at", using: :btree
-  add_index "invitations", ["from_user_id"], name: "index_invitations_on_from_user_id", using: :btree
-  add_index "invitations", ["to_user_id"], name: "index_invitations_on_to_user_id", using: :btree
+  add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at"
+  add_index "invitations", ["from_user_id"], name: "index_invitations_on_from_user_id"
+  add_index "invitations", ["to_user_id"], name: "index_invitations_on_to_user_id"
 
   create_table "office365_instances", force: :cascade do |t|
     t.string   "group_name"
@@ -219,7 +216,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "office365_instances", ["deleted_at"], name: "index_office365_instances_on_deleted_at", using: :btree
+  add_index "office365_instances", ["deleted_at"], name: "index_office365_instances_on_deleted_at"
 
   create_table "partners", force: :cascade do |t|
     t.integer  "company_id"
@@ -232,8 +229,8 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",        null: false
   end
 
-  add_index "partners", ["company_id"], name: "index_partners_on_company_id", using: :btree
-  add_index "partners", ["deleted_at"], name: "index_partners_on_deleted_at", using: :btree
+  add_index "partners", ["company_id"], name: "index_partners_on_company_id"
+  add_index "partners", ["deleted_at"], name: "index_partners_on_deleted_at"
 
   create_table "profile_integrations", force: :cascade do |t|
     t.integer  "profile_id"
@@ -250,9 +247,9 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.integer  "horizon_rds_default_status"
   end
 
-  add_index "profile_integrations", ["integration_id"], name: "index_profile_integrations_on_integration_id", using: :btree
-  add_index "profile_integrations", ["profile_id", "integration_id"], name: "index_profile_integrations_on_profile_id_and_integration_id", unique: true, using: :btree
-  add_index "profile_integrations", ["profile_id"], name: "index_profile_integrations_on_profile_id", using: :btree
+  add_index "profile_integrations", ["integration_id"], name: "index_profile_integrations_on_integration_id"
+  add_index "profile_integrations", ["profile_id", "integration_id"], name: "index_profile_integrations_on_profile_id_and_integration_id", unique: true
+  add_index "profile_integrations", ["profile_id"], name: "index_profile_integrations_on_profile_id"
 
   create_table "profiles", force: :cascade do |t|
     t.string   "name"
@@ -268,7 +265,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.boolean  "airwatch_admins_supported", default: false, null: false
   end
 
-  add_index "profiles", ["deleted_at"], name: "index_profiles_on_deleted_at", using: :btree
+  add_index "profiles", ["deleted_at"], name: "index_profiles_on_deleted_at"
 
   create_table "registration_codes", force: :cascade do |t|
     t.integer  "user_role",           default: 0,  null: false
@@ -283,7 +280,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.integer  "profile_id"
   end
 
-  add_index "registration_codes", ["deleted_at"], name: "index_registration_codes_on_deleted_at", using: :btree
+  add_index "registration_codes", ["deleted_at"], name: "index_registration_codes_on_deleted_at"
 
   create_table "user_integrations", force: :cascade do |t|
     t.integer  "user_id"
@@ -305,13 +302,13 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.datetime "updated_at",                            null: false
   end
 
-  add_index "user_integrations", ["airwatch_admin_user_id"], name: "index_user_integrations_on_airwatch_admin_user_id", using: :btree
-  add_index "user_integrations", ["airwatch_group_id"], name: "index_user_integrations_on_airwatch_group_id", using: :btree
-  add_index "user_integrations", ["airwatch_user_id"], name: "index_user_integrations_on_airwatch_user_id", using: :btree
-  add_index "user_integrations", ["deleted_at"], name: "index_user_integrations_on_deleted_at", using: :btree
-  add_index "user_integrations", ["integration_id"], name: "index_user_integrations_on_integration_id", using: :btree
-  add_index "user_integrations", ["user_id", "integration_id"], name: "index_user_integrations_on_user_id_and_integration_id", unique: true, using: :btree
-  add_index "user_integrations", ["user_id"], name: "index_user_integrations_on_user_id", using: :btree
+  add_index "user_integrations", ["airwatch_admin_user_id"], name: "index_user_integrations_on_airwatch_admin_user_id"
+  add_index "user_integrations", ["airwatch_group_id"], name: "index_user_integrations_on_airwatch_group_id"
+  add_index "user_integrations", ["airwatch_user_id"], name: "index_user_integrations_on_airwatch_user_id"
+  add_index "user_integrations", ["deleted_at"], name: "index_user_integrations_on_deleted_at"
+  add_index "user_integrations", ["integration_id"], name: "index_user_integrations_on_integration_id"
+  add_index "user_integrations", ["user_id", "integration_id"], name: "index_user_integrations_on_user_id_and_integration_id", unique: true
+  add_index "user_integrations", ["user_id"], name: "index_user_integrations_on_user_id"
 
   create_table "user_requests", force: :cascade do |t|
     t.string  "ip"
@@ -320,7 +317,7 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.integer "quantity"
   end
 
-  add_index "user_requests", ["date", "hour"], name: "index_user_requests_on_date_and_hour", using: :btree
+  add_index "user_requests", ["date", "hour"], name: "index_user_requests_on_date_and_hour"
 
   create_table "users", force: :cascade do |t|
     t.integer  "company_id"
@@ -347,11 +344,11 @@ ActiveRecord::Schema.define(version: 20150807164316) do
     t.string   "verification_token"
   end
 
-  add_index "users", ["authentication_integration_id"], name: "index_users_on_authentication_integration_id", using: :btree
-  add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
-  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["profile_id"], name: "index_users_on_profile_id", using: :btree
-  add_index "users", ["registration_code_id"], name: "index_users_on_registration_code_id", using: :btree
+  add_index "users", ["authentication_integration_id"], name: "index_users_on_authentication_integration_id"
+  add_index "users", ["company_id"], name: "index_users_on_company_id"
+  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at"
+  add_index "users", ["email"], name: "index_users_on_email"
+  add_index "users", ["profile_id"], name: "index_users_on_profile_id"
+  add_index "users", ["registration_code_id"], name: "index_users_on_registration_code_id"
 
 end

@@ -10,6 +10,8 @@ module Provisioners
           @user_integration.office365.complete_application
           @user_integration.save!
 
+          @user_integration.directory.office365_sync(@user_integration.username, @user_integration.integration.domain)
+
           instance.update_user email, 'usageLocation' => 'US'
           instance.assign_license email
 
@@ -30,7 +32,7 @@ module Provisioners
         end
 
         @user_integration.directory.replicate('ad2')
-        @user_integration.directory.office365_sync(@user_integration.username, @user_integration.integration.domain)
+        @user_integration.directory.office365_sync_all
 
         if instance.group_name
           remove_group instance.group_name, instance.group_region

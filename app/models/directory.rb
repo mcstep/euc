@@ -81,8 +81,12 @@ class Directory < ActiveRecord::Base
     query "sync/#{entity}", uname: 'demo.user'
   end
 
+  def office365_sync_all
+    query "office365/sync/all"
+  end
+
   def office365_sync(username, domain=nil)
-    query "/office365/sync/all", uname: username, domain_suffix: domain
+    query "office365/sync", uname: username, domain_suffix: domain
   end
 
   def unregister(username, domain=nil)
