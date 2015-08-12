@@ -10,14 +10,14 @@ module Provisioners
           @user_integration.office365.complete_application
           @user_integration.save!
 
+          if instance.group_name
+            add_group instance.group_name, instance.group_region
+          end
+
           @user_integration.directory.office365_sync(@user_integration.username, @user_integration.integration.domain)
 
           instance.update_user email, 'usageLocation' => 'US'
           instance.assign_license email
-
-          if instance.group_name
-            add_group instance.group_name, instance.group_region
-          end
         end
       end
     end
