@@ -29,8 +29,8 @@ class RegistrationCode < ActiveRecord::Base
 
   scope :actual, lambda{
     where("total_registrations > 0").
-    where("valid_from IS NULL OR valid_from >= ?", Date.today).
-    where("valid_to IS NULL OR valid_to <= ?", Date.today)
+    where("valid_from IS NULL OR valid_from <= ?", Date.today).
+    where("valid_to IS NULL OR valid_to >= ?", Date.today)
   }
 
   validates :code, uniqueness: { scope: :deleted_at }

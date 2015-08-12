@@ -11,7 +11,7 @@ module Provisioners
           @user_integration.save!
 
           User::REGIONS.each do |region|
-            directory.create_profile(@user_integration.username, region)
+            directory.create_profile(@user_integration.username, region, @user_integration.integration.domain)
           end
 
           if instance.view_group_name

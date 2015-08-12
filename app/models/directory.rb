@@ -65,15 +65,16 @@ class Directory < ActiveRecord::Base
       email: user_integration.user.email,
       title: user_integration.user.job_title,
       expires_at: expires_at,
-      region: user_integration.user.home_region
+      region: user_integration.user.home_region,
+      domain_suffix: user_integration.integration.domain
   end
 
   def replicate
     query 'ad/replicate', {uname: 'demo.user'}, timeout: 200, open_timeout: 10
   end
 
-  def create_profile(username, region)
-    query 'createdir', username: username, region: region
+  def create_profile(username, region, domain=nil)
+    query 'createdir', username: username, region: region, domain_suffix: domain
   end
 
   def sync(entity)
@@ -81,14 +82,14 @@ class Directory < ActiveRecord::Base
   end
 
   def unregister(username, domain=nil)
-    query 'unregister', {username: username, domain_suffix: domain}
+    query 'unregister', username: username, domain_suffix: domain
   end
 
-  def add_group(username, group)
-    query 'addUserToGroup', username: username, group: group
+  def add_group(username, group, domain=nil)
+    query 'addUserToGroup', username: username, group: group, domain_suffix: domain
   end
 
-  def remove_group(username, group)
-    query 'removeUserFromGroup', username: username, group: group
+  def remove_group(username, group, domain=nil)
+    query 'removeUserFromGroup', username: username, group: group, domain_suffix: domain
   end
 end
