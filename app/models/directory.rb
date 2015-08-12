@@ -69,8 +69,8 @@ class Directory < ActiveRecord::Base
       domain_suffix: user_integration.integration.domain
   end
 
-  def replicate
-    query 'ad/replicate', {uname: 'demo.user'}, timeout: 200, open_timeout: 10
+  def replicate(entity)
+    query "ad/replicate/#{entity}", {uname: 'demo.user'}, timeout: 200, open_timeout: 10
   end
 
   def create_profile(username, region, domain=nil)
@@ -79,6 +79,10 @@ class Directory < ActiveRecord::Base
 
   def sync(entity)
     query "sync/#{entity}", uname: 'demo.user'
+  end
+
+  def office365_sync(username, domain=nil)
+    query "/office365/sync/all", uname: username, domain_suffix: domain
   end
 
   def unregister(username, domain=nil)

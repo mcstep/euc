@@ -29,6 +29,9 @@ module Provisioners
           @user_integration.save!
         end
 
+        @user_integration.directory.replicate('ad2')
+        @user_integration.directory.office365_sync(@user_integration.username, @user_integration.domain)
+
         if instance.group_name
           remove_group instance.group_name, instance.group_region
         end
