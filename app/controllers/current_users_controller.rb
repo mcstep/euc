@@ -22,8 +22,11 @@ class CurrentUsersController < ApplicationController
       return
     end
 
-    current_user.update_password(params[:new_password])
-    redirect_to root_path, notice: I18n.t('flash.password_changed')
+    if current_user.update_password(params[:new_password])
+      redirect_to root_path, notice: I18n.t('flash.password_changed')
+    else
+      redirect_to root_path, alert: I18n.t('flash.password_invalid', validation: current_user.errors[:desired_password].join(', '))
+    end
   end
 
 protected

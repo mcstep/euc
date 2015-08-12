@@ -40,6 +40,7 @@ en:
     user_updated: User has been updated
     user_created: Account was successfully requested. Please check your email for login details.
     invitation_created: Invitation successfully sent.
+    password_invalid: Password %{validation}
 
   regions:
     amer: Americas

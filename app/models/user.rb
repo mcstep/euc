@@ -316,10 +316,14 @@ class User < ActiveRecord::Base
   end
 
   def update_password(password=nil)
-    authentication_integration.directory.update_password(
-      authentication_integration.username,
-      password
-    )
+    self.desired_password = password
+
+    if valid?
+      authentication_integration.directory.update_password(
+        authentication_integration.username,
+        password
+      )
+    end
   end
 
   def normalize!
