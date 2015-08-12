@@ -264,7 +264,7 @@ class User < ActiveRecord::Base
   end
 
   def registration_code_code=(value)
-    self.registration_code_id = RegistrationCode.actual.where(code: value).first.try(:id)
+    self.registration_code_id = RegistrationCode.actual.where("LOWER(code) = LOWER(?)", value).first.try(:id)
   end
 
   def expiration_date
