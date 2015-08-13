@@ -54,6 +54,14 @@ Rails.application.routes.draw do
   resources :office365_instances
   resources :horizon_instances
 
+  resources :stats, only: [] do
+    collection do
+      get :desktops
+      get :sessions
+      get :apps
+    end
+  end
+
   scope '/api' do
     scope '/trygrid' do
       scope '/v1' do

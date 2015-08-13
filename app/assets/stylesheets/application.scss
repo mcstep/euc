@@ -78,3 +78,10 @@ form {
     width: 100%;
   }
 }
+
+#desktops-chart, #sessions-chart, #apps-chart {
+  margin-bottom: 20px;
+  width: 100%;
+  height: 400px;
+  font-size: 10px;
+}

@@ -8,4 +8,8 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
 //= require webcamjs/webcam
+//= require amcharts/amcharts
+//= require amcharts/serial
+//= require amcharts/pie
+//= require amcharts/themes/light
 //= require_tree .

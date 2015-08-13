@@ -91,6 +91,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  module Stats extend ActiveSupport::Concern
+    def stats(days=30)
+      url  = "https://eucstats.vmtestdrive.com/users/vmwdemo%5Csedstrom/sessions?token=stagingtoken&days=30"
+      data = JSON.parse(RestClient.get url)
+
+      data.each{|e| e['day'] = Date.parse(e['begin']).to_date.to_s }
+
+      data
+    end
+  end
+
   module IntegrationsDelegations extend ActiveSupport::Concern
     included do
       attr_accessor :disable_provisioning, :desired_password, :desired_password_confirmation
@@ -165,6 +176,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  include Stats
   include Session
   include IntegrationsDelegations
   include CompanyHolder

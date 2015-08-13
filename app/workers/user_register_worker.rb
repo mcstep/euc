@@ -24,7 +24,7 @@ class UserRegisterWorker
         user.profile.directory_groups.each do |group|
           directory.add_group(username, group)
         end
-        directory.sync(user.profile.group_region) if user.profile.directory_groups.any?
+        directory.sync(user.profile.group_region.blank? ? 'dldc' : user.profile.group_region)
 
         integration.directory_status = :provisioned
         integration.save!
