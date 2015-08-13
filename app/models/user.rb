@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
 
   module Stats extend ActiveSupport::Concern
     def stats(days=30)
-      url  = "https://eucstats.vmtestdrive.com/users/vmwdemo%5Csedstrom/sessions?token=stagingtoken&days=30"
+      url  = "https://eucstats.vmtestdrive.com/users/vmwdemo%5C#{authentication_integration.username}/sessions?token=stagingtoken&days=30"
       data = JSON.parse(RestClient.get url)
 
       data.each{|e| e['day'] = Date.parse(e['begin']).to_date.to_s }
@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
     end
 
     def integrations_username
-      @username.blank? ? email.try(:split, '@').try(:first) : @username
+      @username
     end
 
     def integrations_username=(value)

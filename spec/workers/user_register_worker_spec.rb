@@ -17,6 +17,7 @@ RSpec.describe UserRegisterWorker, type: :model do
           'username' => username,
           'password' => 'test'
         )
+        expect(directory).to receive(:sync).once.with('dldc')
 
         expect{ UserRegisterWorker.new.perform(user) }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end

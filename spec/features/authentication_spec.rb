@@ -24,7 +24,7 @@ RSpec.describe 'Authentication UI', type: :feature do
       create :full_user, email: 'test@test.com'
       visit '/session/new'
 
-      fill_in 'E-Mail', with: 'test@test.com'
+      fill_in 'Username', with: 'test@test.com'
       fill_in 'Password', with: 'DevPassword123'
 
       click_on 'Login'

@@ -44,7 +44,8 @@ RSpec.describe Provisioners::Office365Worker, type: :model do
         it 'works' do
           expect(instance).to receive(:update_user).once.with("#{username}@#{user_integration.integration.domain}", 'usageLocation' => 'US')
           expect(instance).to receive(:assign_license).once
-          expect(directory).to receive(:add_group).once.with(username, 'group')
+          expect(directory).to receive(:office365_sync).once.with(username, user_integration.integration.domain)
+          expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
           expect(directory).to receive(:sync).once.with('region')
 
           Provisioners::Office365Worker.new.perform(user_integration, :provision)
@@ -54,15 +55,14 @@ RSpec.describe Provisioners::Office365Worker, type: :model do
 
       context 'when it fails' do
         it 'works' do
-          expect(instance).to receive(:update_user).once.with("#{username}@#{user_integration.integration.domain}", 'usageLocation' => 'US')
-          expect(instance).to receive(:assign_license).once
-          expect(directory).to receive(:add_group).once.with(username, 'group')
+          expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
           expect(directory).to receive(:sync).once.with('region').and_raise('error')
 
+          expect(directory).to receive(:office365_sync).once.with(username, user_integration.integration.domain)
+          expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
+          expect(directory).to receive(:sync).once.with('region')
           expect(instance).to receive(:update_user).once.with("#{username}@#{user_integration.integration.domain}", 'usageLocation' => 'US')
           expect(instance).to receive(:assign_license).once
-          expect(directory).to receive(:add_group).once.with(username, 'group')
-          expect(directory).to receive(:sync).once.with('region')
 
           expect{ Provisioners::Office365Worker.new.perform(user_integration, :provision) }.to raise_error('error')
           expect(reload_user_integration.office365_status).to_not eq :provisioned

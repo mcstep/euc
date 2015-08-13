@@ -79,7 +79,6 @@ class UserIntegration < ActiveRecord::Base
 
   validates :user, presence: true
   validates :integration, presence: true
-  validates :username, presence: true
   validates :directory_expiration_date, presence: true
 
   Integration::SERVICES.each do |s|
