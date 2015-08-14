@@ -7,6 +7,10 @@ module ApplicationHelper
     I18n.l date if date
   end
 
+  def bl(date)
+    date.strftime('%B %d, %Y')
+  end
+
   def permitted_attributes(record, *path)
     value = policy(record).permitted_attributes
 

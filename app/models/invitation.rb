@@ -32,7 +32,7 @@ class Invitation < ActiveRecord::Base
   validates :to_user, presence: true, uniqueness: { scope: [:from_user_id, :deleted_at] }
   validates :from_user_id, presence: true, on: :create
 
-  before_create :use_invitation_point!
+  after_create :use_invitation_point!
   after_destroy :free_invitation_point!
 
   delegate :id, to: :from_user, prefix: true

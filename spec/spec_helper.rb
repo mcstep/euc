@@ -1,3 +1,4 @@
+require 'rails_helper'
 require 'vcr'
 require 'sidekiq/testing'
 require 'capybara/rails'

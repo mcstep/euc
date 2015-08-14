@@ -2,8 +2,9 @@
   .col-md-12.col-lg-8.col-sm-12
     .ibox
       .ibox-title
-        %a.btn.btn-success.btn-xs.pull-right{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
-          Invite user
+        - if current_user.invitations_left > 0
+          %a.btn.btn-success.btn-xs.pull-right{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
+            Invite user
         %h5 Invitation Statistics
       .ibox-content
         .row

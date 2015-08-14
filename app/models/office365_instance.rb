@@ -37,7 +37,6 @@ class Office365Instance < ActiveRecord::Base
     scope = config_scope
     attrs = attributes
 
-
     # Seriously, @kioru, WTF?!
     Azure::Directory.configure do
       scope(scope) do
@@ -48,7 +47,9 @@ class Office365Instance < ActiveRecord::Base
       end
     end
 
-    Azure::Directory::Client.new(scope)
+    Azure::Directory::Client.new(scope) do |faraday|
+      faraday.use :extended_logging, logger: Rails.logger
+    end
   end
 
   def update_user(email, data)

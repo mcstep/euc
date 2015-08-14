@@ -247,6 +247,7 @@ class User < ActiveRecord::Base
   validates :job_title, presence: true
   validates :home_region, presence: true, inclusion: { in: REGIONS, allow_blank: true }
   validates :profile, presence: true
+  validates :integrations_username, format: { with: /\A[^ \\\/\[\]\:\;\|\=\,\+\*\?\<\>\@]+\z/, message: :invalid_characters }, allow_blank: true
 
   validate do
     errors.add :invitations_used, :invalid if invitations_left < 0

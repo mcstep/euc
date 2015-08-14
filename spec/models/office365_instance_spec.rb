@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Office365Instance, :vcr, type: :model do
+RSpec.fdescribe Office365Instance, :vcr, type: :model do
   let(:office365_instance){ create :staging_office365_instance }
 
   describe '.update_user' do
