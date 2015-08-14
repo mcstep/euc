@@ -83,7 +83,22 @@
             %input.form-control{name: "old_password", type: "password"}
           .form-group
             %label New Password:
-            %input.form-control{name: "new_password", type: "password"}
+            %input#user_desired_password.form-control{name: "new_password", type: "password"}
+            .pswd_info
+              %h4 Password must meet the following requirements:
+              %ul
+                %li#letter.invalid
+                  At least
+                  %strong one letter
+                %li#capital.invalid
+                  At least
+                  %strong one capital letter
+                %li#number.invalid
+                  At least
+                  %strong one number
+                %li#length.invalid
+                  Be at least
+                  %strong 8 characters
           .form-group
             %label Confirm New Password:
             %input.form-control{name: "password_confirmation", type: "password"}
