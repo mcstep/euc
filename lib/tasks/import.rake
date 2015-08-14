@@ -52,6 +52,7 @@ namespace :db do
           next if user.invitation.region.blank?
 
           new_user = User.new(
+            is_importing: true,
             email: user.email,
             role: user.role,
             company_name: user.company,

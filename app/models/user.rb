@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
 
   module IntegrationsDelegations extend ActiveSupport::Concern
     included do
-      attr_accessor :disable_provisioning, :desired_password, :desired_password_confirmation
+      attr_accessor :disable_provisioning, :desired_password, :desired_password_confirmation, :is_importing
 
       before_validation :ensure_profile
       before_validation :setup_integrations, on: :create
@@ -247,7 +247,7 @@ class User < ActiveRecord::Base
   validates :job_title, presence: true
   validates :home_region, presence: true, inclusion: { in: REGIONS, allow_blank: true }
   validates :profile, presence: true
-  validates :integrations_username, format: { with: /\A[^ \\\/\[\]\:\;\|\=\,\+\*\?\<\>\@]+\z/, message: :invalid_characters }, allow_blank: true
+  validates :integrations_username, format: { with: /\A[^ \\\/\[\]\:\;\|\=\,\+\*\?\<\>\@]+\z/, message: :invalid_characters }, allow_blank: true, unless: :is_importing
 
   validate do
     errors.add :invitations_used, :invalid if invitations_left < 0
