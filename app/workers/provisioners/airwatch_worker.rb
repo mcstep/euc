@@ -41,6 +41,11 @@ module Provisioners
       wait_until(!@user_integration.applying?) do
         instance = @user_integration.integration.airwatch_instance
 
+        unless @user_integration.airwatch_revoked?
+          instance.deactivate(@user_integration.airwatch_user_id)
+          sleep 10
+        end
+
         instance.delete_user(@user_integration.airwatch_user_id)
 
         if instance.group_name
