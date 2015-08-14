@@ -16,6 +16,8 @@ module Provisioners
 
           @user_integration.directory.office365_sync(@user_integration.username, @user_integration.integration.domain)
 
+          sleep 30
+
           instance.update_user email, 'usageLocation' => 'US'
           instance.assign_license email
         end
