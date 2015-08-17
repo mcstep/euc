@@ -82,8 +82,15 @@ form {
 #desktops-chart, #sessions-chart, #apps-chart {
   margin-bottom: 20px;
   width: 100%;
-  height: 400px;
   font-size: 10px;
+}
+
+#desktops-chart, #sessions-chart {
+  height: 220px;
+}
+
+#apps-chart {
+  height: 400px;
 }
 
 .pswd_info {

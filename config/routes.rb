@@ -3,6 +3,12 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: User::Session::Constraint.new(:sidekiq?)
 
+  resources :monitoring, only: [], constraints: User::Session::Constraint.new(:monitoring?) do
+    collection do
+      get :sidekiq
+    end
+  end
+
   root 'home#index'
 
   resource :session do
@@ -53,14 +59,6 @@ Rails.application.routes.draw do
   resources :google_apps_instances
   resources :office365_instances
   resources :horizon_instances
-
-  resources :stats, only: [] do
-    collection do
-      get :desktops
-      get :sessions
-      get :apps
-    end
-  end
 
   scope '/api' do
     scope '/trygrid' do

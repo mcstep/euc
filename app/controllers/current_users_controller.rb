@@ -23,6 +23,7 @@ class CurrentUsersController < ApplicationController
     end
 
     if current_user.update_password(params[:new_password])
+      UserNotifyPasswordChangeWorker.perform_async current_user.id
       redirect_to root_path, notice: I18n.t('flash.password_changed')
     else
       redirect_to root_path, alert: I18n.t('flash.password_invalid', validation: current_user.errors[:desired_password].join(', '))

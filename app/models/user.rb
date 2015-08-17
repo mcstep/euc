@@ -60,7 +60,8 @@ class User < ActiveRecord::Base
       end
 
       def matches?(request)
-        return true if Rails.env.development?
+        # return true if Rails.env.development?
+        return true if ENV['MONITORING_SECRET'].present? && request.params['secret'] == ENV['MONITORING_SECRET']
 
         user_id = User::Session.get_user_id(request)
         user_id && User.find(user_id).policy.send(@policy_action)
@@ -92,13 +93,15 @@ class User < ActiveRecord::Base
   end
 
   module Stats extend ActiveSupport::Concern
-    def stats(days=30)
-      url  = "https://eucstats.vmtestdrive.com/users/vmwdemo%5C#{authentication_integration.username}/sessions?token=stagingtoken&days=30"
-      data = JSON.parse(RestClient.get url)
+    def stats
+      return @data if @data
 
-      data.each{|e| e['day'] = Date.parse(e['begin']).to_date.to_s }
+      @data = JSON.parse(
+        RestClient.get "https://eucstats.vmtestdrive.com/events/#{authentication_integration.username}/sessions?token=stagingtoken&days=30"
+      )
 
-      data
+      @data.each{|e| e['day'] = Date.parse(e['begin']).to_date.to_s }
+      @data
     end
   end
 

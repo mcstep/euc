@@ -56,23 +56,6 @@
     %li
       %a{href: new_invitation_path} Send Invitation
 
-- p = policy(:stat)
-- if p.desktops? || p.sessions? || p.apps?
-  %span.sidebar-divider Stats
-  %ul.sidebar-nav
-    - if p.desktops?
-      %li
-        %a{href: desktops_stats_path}
-          Desktops
-    - if p.sessions?
-      %li
-        %a{href: sessions_stats_path}
-          Sessions
-    - if p.apps?
-      %li
-        %a{href: apps_stats_path}
-          Apps
-
 - if current_user.root?
   %span.sidebar-divider Manage
   %ul.sidebar-nav

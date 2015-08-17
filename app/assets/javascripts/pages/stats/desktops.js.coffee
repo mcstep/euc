@@ -7,9 +7,7 @@ $ ->
       theme: 'light',
       legend:
         horizontalGap: 10
-        maxColumns: 1
-        position: 'right'
-        useGraphSettings: true
+        position: 'bottom'
         markerSize: 10
       categoryField: 'day'
       categoryAxis:
