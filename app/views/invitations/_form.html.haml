@@ -12,7 +12,7 @@
     = uf.select :role, I18n.t('roles').invert
   - if writable?(f.object, :to_user_attributes, :profile_id)
     = uf.select :profile_id, Profile.all.collect{|p| [ p.name, p.id ] }, prompt: ''
-  = uf.select :home_region, I18n.t('regions').invert, prompt: 'Select a Region'
+  = uf.select :home_region, permitted_regions, prompt: 'Select a Region'
   = uf.fields_for :user_integrations do |uif|
     %fieldset
       %legend{style: 'margin-bottom: 15px'}= uif.object.integration.name

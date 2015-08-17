@@ -23,6 +23,14 @@ module ApplicationHelper
     value
   end
 
+  def permitted_regions
+    regions = current_user.try(:root?) ? User::REGIONS : User::REGIONS - User::TEST_REGIONS
+
+    Hash[
+      *regions.map{|x| [I18n.t("regions.#{x}"), x]}.flatten
+    ]
+  end
+
   def writable?(record, *path)
     field = path.pop
     permitted_attributes(record, *path).include?(field)

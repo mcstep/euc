@@ -19,7 +19,7 @@
           = f.text_field :job_title, hide_label: true, placeholder: 'Title'
           = f.text_field :company_name, hide_label: true, placeholder: 'Company'
           %h2 Region
-          = f.select :home_region, I18n.t('regions').invert, { hide_label: true, include_blank: 'Select your Home Region' }, { class: "form-control" }
+          = f.select :home_region, permitted_regions, { hide_label: true, include_blank: 'Select your Home Region' }, { class: "form-control" }
           .td-password
             %h2 Password
             .form-group

@@ -56,7 +56,7 @@ RSpec.describe User, type: :model do
         build :invitation, from_user: create(:user, total_invitations: 0)
       end
 
-      it{ is_expected.to be_valid }
+      it{ is_expected.to_not be_valid }
       it 'can not be saved' do
         expect(lambda{ subject.save! }).to raise_error(ActiveRecord::RecordInvalid)
       end

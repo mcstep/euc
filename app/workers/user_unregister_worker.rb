@@ -10,5 +10,7 @@ class UserUnregisterWorker
     User::Session.tag_user(user) do
       directory.unregister username, integration.integration.domain
     end
+
+    GeneralMailer.account_expiry_email(user).deliver_now
   end
 end

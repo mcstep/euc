@@ -17,12 +17,12 @@ RSpec.describe Office365Instance, :vcr, type: :model do
 
   describe '.assign_license' do
     it 'works' do
-      expect{ office365_instance.assign_license('o365.test@vmwdev.net', 'O365_BUSINESS_PREMIUM') }.to_not raise_error
+      expect{ office365_instance.assign_license('o365.test@vmwdev.net') }.to_not raise_error
     end
 
     it 'is idempotent' do
       expect{
-        2.times{ office365_instance.assign_license('o365.test@vmwdev.net', 'O365_BUSINESS_PREMIUM') }
+        2.times{ office365_instance.assign_license('o365.test@vmwdev.net') }
       }.to_not raise_error
     end
   end

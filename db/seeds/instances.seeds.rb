@@ -1,6 +1,7 @@
-Directory.where(host: 'staging.vmwdemo.com').first_or_create do |d|
+Directory.where(host: 'api.vmwdemo.com').first_or_create do |d|
 
-  d.port    = 8080
+  d.use_ssl = true
+  d.port    = 8443
   d.api_key = '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
 end
 
@@ -50,6 +51,7 @@ Office365Instance.where(client_id: 'f2c1eb0b-1d1d-45a9-91ed-f0d208cf96f6').first
   oi.client_secret = 'fHmPz8aJMvsyrTqgoO6AA7TbxSvqC3IvS2qsD9ENXtU='
   oi.tenant_id     = '956587a9-662c-4bf7-bf34-605ab419a893'
   oi.resource_id   = 'https://graph.windows.net'
+  oi.license_name  = 'STANDARDPACK'
 end
 
 HorizonInstance.where(api_host: 'staging.vmwdemo.com').first_or_create do |hi|

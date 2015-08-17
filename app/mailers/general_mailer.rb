@@ -14,6 +14,12 @@ class GeneralMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Password Reset')
   end
   
+  def password_changed_email(user)
+    @user = user
+
+    mail(to: @user.email, subject: 'Password Changed')
+  end
+
   def support_request_email(recipient, email, subject, body, name)
     @recipient = recipient
     @from      = "#{name} <#{email}>"

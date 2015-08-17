@@ -12,6 +12,7 @@
 #  deleted_at    :datetime
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  license_name  :string
 #
 # Indexes
 #
@@ -22,6 +23,7 @@ class Office365Instance < ActiveRecord::Base
   acts_as_paranoid
 
   validates :group_region, presence: true, if: lambda{ group_name.present? }
+  validates :license_name, presence: true
 
   def title
     client_id
@@ -65,7 +67,7 @@ class Office365Instance < ActiveRecord::Base
     })
   end
 
-  def assign_license(email, kind="STANDARDPACK")
+  def assign_license(email, kind=license_name)
     client.assign_license(email, kind)
   end
 end
