@@ -60,8 +60,7 @@ class User < ActiveRecord::Base
       end
 
       def matches?(request)
-        # return true if Rails.env.development?
-        return true if ENV['MONITORING_SECRET'].present? && request.params['secret'] == ENV['MONITORING_SECRET']
+        return true if Rails.env.development?
 
         user_id = User::Session.get_user_id(request)
         user_id && User.find(user_id).policy.send(@policy_action)

@@ -3,7 +3,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: User::Session::Constraint.new(:sidekiq?)
 
-  resources :monitoring, only: [], constraints: User::Session::Constraint.new(:monitoring?) do
+  resources :monitoring, only: [] do
     collection do
       get :sidekiq
     end
