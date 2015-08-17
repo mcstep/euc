@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/inossidabile/azure-directory.git
-  revision: dfadbc0b805ea6cd996df59ea495c183e22edad7
+  remote: git://github.com/kioru/azure-directory.git
+  revision: d481dde591604e7cdce4c4f304f12d4187ac83e3
   specs:
     azure-directory (0.0.1)
       oauth2 (~> 1.0)
