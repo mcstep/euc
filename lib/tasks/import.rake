@@ -1,6 +1,6 @@
 namespace :db do
   namespace :import do
-    task :run => [:domains, :accounts, :reg_codes, :users]
+    task :run => [:domains, :accounts, :reg_codes, :airwatch_groups, :users]
 
     task :ensure => :environment do
       raise "Default profile not found" unless Profile.where(name: 'Default').any?
@@ -42,12 +42,29 @@ namespace :db do
       end
     end
 
+    task :airwatch_groups => :ensure do
+      existing = AirwatchGroup.pluck(:text_id)
+
+      AirwatchGroup.transaction do
+        Upgrade::AirwatchGroup.where.not(group_id: existing).each do |ag|
+          AirwatchGroup.create!(
+            imported:   true,
+            text_id:    ag.group_id,
+            numeric_id: ag.group_id_num,
+            kind:       ag.group_type
+          )
+        end
+      end
+    end
+
     task :users => :ensure do
       existing    = User.pluck(:email)
-      profile     = Profile.where(name: 'Default').first
+      profile_d   = Profile.where(name: 'Default').first
+      profile_a   = Profile.where(name: 'Apple').first
       integration = profile.profile_integrations.first.integration
       users       = Upgrade::User.order(:id)
       users       = users.where.not("LOWER(email) IN (?)", existing) if existing.any?
+      customs     = %w(joshi.io apple.com)
 
       users.includes(:invitation, invitation: [:sender, :reg_code]).find_each do |user|
         User.transaction do
@@ -64,7 +81,7 @@ namespace :db do
             total_invitations: user.total_invitations,
             invitations_used: user.invitations_used,
             home_region: user.invitation.region.downcase,
-            profile_id: profile.id,
+            profile_id: customs.include?(user.email.split('@').last) ? profile_a.id : profile_d.id,
             airwatch_eula_accept_date: user.invitation.eula_accept_date.try(:to_date),
             disable_provisioning: true,
             integrations_username: user.username,
@@ -94,6 +111,20 @@ namespace :db do
               sent_at: user.invitation.created_at,
               potential_seats: user.invitation.potential_seats
             )
+          end
+
+          user.user_integrations.each do |ui|
+            unless ui.airwatch_disabled?
+              ui.airwatch_group_id = AirwatchGroup.where(text_id: ui.airwatch_group_name)
+            end
+
+            Integration::SERVICES.each do |s|
+              unless ui.send("#{s}_disabled")
+                ui["#{s}_status"] = :provisioned
+              end
+            end
+
+            ui.save!
           end
         end
       end

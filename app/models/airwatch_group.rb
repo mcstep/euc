@@ -20,13 +20,15 @@
 class AirwatchGroup < ActiveRecord::Base
   acts_as_paranoid
 
+  attr_accessor :imported
+
   belongs_to :airwatch_instance, -> { with_deleted }
   belongs_to :company, -> { with_deleted }
 
   validates :text_id,           presence: true
   validates :numeric_id,        presence: true
-  validates :airwatch_instance, presence: true
-  validates :company,           presence: true
+  validates :airwatch_instance, presence: true, unless: :imported
+  validates :company,           presence: true, unless: :imported
 
   def self.produce(user_integration)
     condition = {
