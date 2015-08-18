@@ -61,7 +61,6 @@ namespace :db do
       existing    = User.pluck(:email)
       profile_d   = Profile.where(name: 'Default').first
       profile_a   = Profile.where(name: 'Apple').first
-      integration = profile.profile_integrations.first.integration
       users       = Upgrade::User.order(:id)
       users       = users.where.not("LOWER(email) IN (?)", existing) if existing.any?
       customs     = %w(joshi.io apple.com)
@@ -69,6 +68,9 @@ namespace :db do
       users.includes(:invitation, invitation: [:sender, :reg_code]).find_each do |user|
         User.transaction do
           next if user.invitation.region.blank?
+
+          profile = customs.include?(user.email.split('@').last) ? profile_a : profile_d
+          integration = profile.profile_integrations.first.integration
 
           new_user = User.new(
             is_importing: true,
@@ -81,7 +83,7 @@ namespace :db do
             total_invitations: user.total_invitations,
             invitations_used: user.invitations_used,
             home_region: user.invitation.region.downcase,
-            profile_id: customs.include?(user.email.split('@').last) ? profile_a.id : profile_d.id,
+            profile_id: profile.id,
             airwatch_eula_accept_date: user.invitation.eula_accept_date.try(:to_date),
             disable_provisioning: true,
             integrations_username: user.username,
