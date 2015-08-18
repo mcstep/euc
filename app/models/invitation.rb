@@ -33,7 +33,9 @@ class Invitation < ActiveRecord::Base
   validates :from_user_id, presence: true, on: :create
 
   validate do
-    errors.add :from_user, :invalid unless from_user.invitations_left > 0
+    unless skip_points_management
+      errors.add :from_user, :invalid unless from_user.invitations_left > 0
+    end
   end
 
   after_create :use_invitation_point!
