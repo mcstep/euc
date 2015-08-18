@@ -115,7 +115,7 @@ namespace :db do
             )
           end
 
-          user.user_integrations.each do |ui|
+          new_user.user_integrations.each do |ui|
             unless ui.airwatch_disabled?
               ui.airwatch_group_id = AirwatchGroup.where(text_id: ui.airwatch_group_name)
             end
