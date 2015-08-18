@@ -10,6 +10,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  use_ssl    :boolean          default(FALSE), not null
+#  stats_url  :string
 #
 # Indexes
 #

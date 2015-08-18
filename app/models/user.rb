@@ -13,8 +13,8 @@
 #  avatar                        :string
 #  country_code                  :string
 #  phone                         :string
-#  role                          :integer          default(0), not null
-#  status                        :integer          default(0), not null
+#  role                          :integer
+#  status                        :integer
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -93,10 +93,13 @@ class User < ActiveRecord::Base
 
   module Stats extend ActiveSupport::Concern
     def stats
+      return {} if authentication_integration.directory.stats_url.blank?
       return @data if @data
 
       @data = JSON.parse(
-        RestClient.get "https://eucstats.vmtestdrive.com/events/#{authentication_integration.username}/sessions?token=stagingtoken&days=30"
+        RestClient.get(
+          authentication_integration.directory.stats_url % {username: authentication_integration.username, days: 30}
+        )
       )
 
       @data.each{|e| e['day'] = Date.parse(e['begin']).to_date.to_s }

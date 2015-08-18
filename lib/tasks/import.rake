@@ -122,7 +122,7 @@ namespace :db do
 
             Integration::SERVICES.each do |s|
               unless ui.send("#{s}_disabled")
-                ui["#{s}_status"] = :provisioned
+                ui.send("#{s}_status=", :provisioned)
               end
             end
 

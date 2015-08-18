@@ -1,8 +1,9 @@
 Directory.where(host: 'receiver.vmwdev.com').first_or_create! do |d|
 
-  d.use_ssl = true
-  d.port    = 443
-  d.api_key = '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
+  d.use_ssl   = true
+  d.port      = 443
+  d.api_key   = '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
+  d.stats_url = 'https://eucstats.vmtestdrive.com/events/%{username}/sessions?token=stagingtoken&days=%{days}'
 end
 
 AirwatchInstance.where(host: 'airwatch.vmwdev.com').first_or_create! do |ai|
