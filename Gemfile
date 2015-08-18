@@ -45,6 +45,7 @@ gem 'carrierwave-data-uri'
 gem 'cloudinary'
 gem 'sidekiq'
 gem 'seedbank'
+gem "bugsnag"
 
 group :development, :test do
   gem 'factory_girl_rails'
