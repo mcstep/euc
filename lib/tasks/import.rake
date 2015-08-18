@@ -25,6 +25,7 @@ namespace :db do
 
     task :reg_codes => :ensure do
       existing = RegistrationCode.pluck(:code)
+      profile  = Profile.where(name: 'Default').first
 
       RegistrationCode.transaction do
         Upgrade::RegCode.where.not(code: existing).each do |reg_code|
@@ -34,7 +35,8 @@ namespace :db do
             valid_to:            reg_code.valid_to,
             user_validity:       reg_code.account_validity,
             total_registrations: reg_code.registrations,
-            user_role:           reg_code.account_type
+            user_role:           reg_code.account_type,
+            profile_id:          profile.id
           )
         end
       end
