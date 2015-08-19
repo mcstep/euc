@@ -3,12 +3,8 @@ $ ->
 
   if stats
     AmCharts.makeChart 'desktops-chart',
-      type: 'serial',
-      theme: 'light',
-      legend:
-        horizontalGap: 10
-        position: 'bottom'
-        markerSize: 10
+      type: 'serial'
+      theme: 'light'
       categoryField: 'day'
       categoryAxis:
         parseDates: true
@@ -19,12 +15,14 @@ $ ->
         stackType: 'regular'
         axisAlpha: 0.3
         gridAlpha: 0
+        title: 'Launches'
       ]
       dataProvider: stats.data
-      graphs: stats.kinds.map (k) ->
+      graphs: Object.keys(stats.kinds).map (k) ->
         type: 'column',
+        balloonText: '[[title]]: [[value]]'
         valueField: k,
-        title: k,
+        title: stats.kinds[k],
         fillAlphas: 1,
         color: '#000000'
       export:

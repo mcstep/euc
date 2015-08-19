@@ -18,6 +18,8 @@
 #
 
 class DirectoryProlongation < ActiveRecord::Base
+  attr_accessor :skip_expiration_management
+
   belongs_to :user_integration, -> { with_deleted }
   belongs_to :user, -> { with_deleted }
 
@@ -30,7 +32,9 @@ class DirectoryProlongation < ActiveRecord::Base
   end
 
   after_create do
-    user_integration.update_attributes(directory_expiration_date: expiration_date_new)
-    DirectoryProlongWorker.perform_async(id)
+    unless skip_expiration_management
+      user_integration.update_attributes(directory_expiration_date: expiration_date_new)
+      DirectoryProlongWorker.perform_async(id)
+    end
   end
 end

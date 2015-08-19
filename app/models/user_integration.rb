@@ -37,7 +37,7 @@ class UserIntegration < ActiveRecord::Base
 
   acts_as_paranoid
 
-  attr_accessor :disable_provisioning, :password
+  attr_accessor :skip_provisioning, :password
 
   belongs_to :user, -> { with_deleted }, inverse_of: :user_integrations
   belongs_to :integration, -> { with_deleted }
@@ -116,13 +116,13 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def replace_status(service, value)
-    @disable_provisioning = true
+    @skip_provisioning = true
     update_attribute("#{service}_status", value)
-    @disable_provisioning = false
+    @skip_provisioning = false
   end
 
   def init_provisioning
-    return if @disable_provisioning
+    return if @skip_provisioning
 
     Integration::SERVICES.select{|s| send("#{s}_status") == :provisioning}.each do |s|
       ProvisionerWorker[s].provision_async(id)
@@ -130,7 +130,7 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def apply_provisioning
-    return if @disable_provisioning
+    return if @skip_provisioning
 
     Integration::SERVICES.each do |s|
       if change = previous_changes["#{s}_status"]
@@ -149,7 +149,7 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def drop_provisioning
-    return if @disable_provisioning
+    return if @skip_provisioning
 
     Integration::SERVICES.each do |s|
       status = send("#{s}_status")

@@ -9,7 +9,7 @@ after 'development:profile_default', 'development:profile_apple' do
     u.home_region           = 'apac'
     u.job_title             = 'CEO'
     u.integrations_username = 'first.user'
-    u.disable_provisioning  = true
+    u.skip_provisioning     = true
   end
 
   User.where(email: 'user@apple.com').first_or_create! do |u|
@@ -22,6 +22,6 @@ after 'development:profile_default', 'development:profile_apple' do
     u.home_region           = 'apac'
     u.job_title             = 'CEO'
     u.integrations_username = 'first.user'
-    u.disable_provisioning = true
+    u.skip_provisioning     = true
   end
 end

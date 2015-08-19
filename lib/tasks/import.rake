@@ -85,7 +85,7 @@ namespace :db do
             home_region: user.invitation.region.downcase,
             profile_id: profile.id,
             airwatch_eula_accept_date: user.invitation.eula_accept_date.try(:to_date),
-            disable_provisioning: true,
+            skip_provisioning: true,
             integrations_username: user.username,
             integrations_expiration_date: user.invitation.expires_at,
             user_integrations_attributes: [{
@@ -127,6 +127,17 @@ namespace :db do
             end
 
             ui.save!
+          end
+
+          user.extensions.includes(:extendor).each do |e|
+            DirectoryProlongation.create!(
+              skip_expiration_management: true,
+              user_integration_id:        new_user.authentication_integration.id,
+              user:                       User.where(email: e.extendor.try(:email)).first,
+              reason:                     e.reason,
+              expiration_date_old:        e.original_expires_at,
+              expiration_date_new:        e.revised_expires_at
+            )
           end
         end
       end

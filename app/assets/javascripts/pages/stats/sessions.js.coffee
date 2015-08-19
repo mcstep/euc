@@ -16,7 +16,7 @@ $ ->
         position: 'left'
       dataProvider: stats.data
       graphs: [
-        title: 'Session Length'
+        title: 'Session Length (minutes)'
         valueField: 'length'
         lineThickness: 3
         bullet: 'round'

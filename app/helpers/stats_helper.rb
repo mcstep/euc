@@ -2,12 +2,14 @@ module StatsHelper
   def desktops_stats
     return @desktop_stats if @desktop_stats
 
-    kinds = Set.new
+    kinds = {}
     stats = current_user.stats.group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
       result = { 'day' => day.to_s }
-      entities.group_by{|x| x['type']}.each do |t,xs|
-        result[t] = xs.length
-        kinds << t
+      entities.group_by{|x| x['title']}.each do |t,xs|
+        key = t.gsub(/[-\.\s]+/,'').downcase
+
+        result[key] = xs.length
+        kinds[key]  = t
       end
       result
     end
@@ -21,7 +23,7 @@ module StatsHelper
     stats = current_user.stats.group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
       {
         'day'    => day.to_s,
-        'length' => entities.map{|e| DateTime.parse(e['end']).to_i - DateTime.parse(e['begin']).to_i}.inject(:+)
+        'length' => entities.map{|e| (DateTime.parse(e['end']).to_i - DateTime.parse(e['begin']).to_i)/60}.inject(:+)
       }
     end
 

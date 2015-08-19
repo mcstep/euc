@@ -18,9 +18,10 @@ Rails.application.routes.draw do
       post :verify
     end
   end
+  get '/log_in', to: 'sessions#new'
 
   resource :registration, only: [:new, :create]
-  get '/register/:code', to: 'registrations#new'
+  get '/register(/:code)', to: 'registrations#new'
 
   resources :support_requests, only: [:create]
 

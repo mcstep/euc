@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
 
       @data = JSON.parse(
         RestClient.get(
-          authentication_integration.directory.stats_url % {username: authentication_integration.username, days: 30}
+          authentication_integration.directory.stats_url % {username: 'sedstrom', days: 30}
         )
       )
 
@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
 
   module IntegrationsDelegations extend ActiveSupport::Concern
     included do
-      attr_accessor :disable_provisioning, :desired_password, :desired_password_confirmation, :is_importing
+      attr_accessor :skip_provisioning, :desired_password, :desired_password_confirmation, :is_importing
 
       before_validation :ensure_profile
       before_validation :setup_integrations, on: :create
@@ -165,7 +165,7 @@ class User < ActiveRecord::Base
             ui.user                      = self
             ui.username                  = integrations_username
             ui.directory_expiration_date = integrations_expiration_date
-            ui.disable_provisioning      = disable_provisioning
+            ui.skip_provisioning         = skip_provisioning
           end
         end
 
@@ -242,9 +242,9 @@ class User < ActiveRecord::Base
   before_create               { self.status = :verification_required if profile.try(:requires_verification) }
   after_validation            :normalize_errors
   after_create                :use_registration_code_point!
-  after_commit(on: :create)   { UserRegisterWorker.perform_async(id, desired_password) unless disable_provisioning }
+  after_commit(on: :create)   { UserRegisterWorker.perform_async(id, desired_password) unless skip_provisioning }
   after_destroy               { received_invitation.try(:free_invitation_point!) }
-  after_destroy               { UserUnregisterWorker.perform_async(id) unless disable_provisioning }
+  after_destroy               { UserUnregisterWorker.perform_async(id) unless skip_provisioning }
 
   validates :first_name, presence: true
   validates :last_name, presence: true
