@@ -14,6 +14,7 @@ module Provisioners
             add_group instance.group_name, instance.group_region
           end
 
+          @user_integration.directory.replicate('ad2')
           @user_integration.directory.office365_sync(@user_integration.username, @user_integration.integration.domain)
 
           sleep 30

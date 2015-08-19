@@ -71,7 +71,7 @@ class Directory < ActiveRecord::Base
   end
 
   def replicate(entity=nil)
-    query "ad/replicate/#{entity}", {uname: 'demo.user'}, timeout: 200, open_timeout: 10
+    query "ad/replicate/#{entity}", {uname: 'demo.user'}, timeout: 500, open_timeout: 10
   end
 
   def create_profile(username, region, domain=nil)
