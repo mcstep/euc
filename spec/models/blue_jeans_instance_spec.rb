@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.fdescribe Office365Instance, :vcr, type: :model do
+RSpec.describe BlueJeansInstance, :vcr, type: :model do
   let(:blue_jeans_instance){ create :staging_blue_jeans_instance }
 
   describe '.token' do
-    subject{ raise blue_jeans_instance.token.inspect }
+    subject{ blue_jeans_instance.token }
 
-    it{ is_expected.to eq nil }
+    it{ expect(subject.length).to eq 32 }
   end
 end

@@ -27,10 +27,18 @@ class BlueJeansInstance < ActiveRecord::Base
   def token
     return @token if @token
 
-    @token = RestClient.post 'https://api.bluejeans.com/oauth2/token', {
+    data = {
       client_id: client_id,
       client_secret: client_secret,
       grant_type: grant_type
-    }.to_json, {content_type: :json}
+    }.to_json
+
+    response = JSON.parse RestClient::Request.execute(
+      method:   'POST', 
+      url:      'https://api.bluejeans.com/oauth2/token',
+      payload:  data
+    )
+
+    response['access_token']
   end
 end
