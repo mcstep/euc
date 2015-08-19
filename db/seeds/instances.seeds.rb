@@ -55,7 +55,7 @@ Office365Instance.where(client_id: 'f2c1eb0b-1d1d-45a9-91ed-f0d208cf96f6').first
   oi.license_name  = 'STANDARDPACK'
 end
 
-HorizonInstance.where(api_host: 'staging.vmwdemo.com').first_or_create do |hi|
+HorizonInstance.where(api_host: 'api.vmwdemo.com').first_or_create do |hi|
 
   hi.view_group_name    = 'HorizonViewUsers'
   hi.group_region       = 'dldc'
