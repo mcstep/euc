@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818173059) do
+ActiveRecord::Schema.define(version: 20150819143308) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 20150818173059) do
   end
 
   add_index "airwatch_instances", ["deleted_at"], name: "index_airwatch_instances_on_deleted_at"
+
+  create_table "blue_jeans_instances", force: :cascade do |t|
+    t.string   "group_name"
+    t.string   "group_region"
+    t.string   "grant_type"
+    t.string   "client_id"
+    t.string   "client_secret"
+    t.integer  "enterprise_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -180,6 +191,7 @@ ActiveRecord::Schema.define(version: 20150818173059) do
     t.datetime "deleted_at"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "blue_jeans_instance_id"
   end
 
   add_index "integrations", ["airwatch_instance_id"], name: "index_integrations_on_airwatch_instance_id"
@@ -247,6 +259,7 @@ ActiveRecord::Schema.define(version: 20150818173059) do
     t.integer  "horizon_air_default_status"
     t.integer  "horizon_view_default_status"
     t.integer  "horizon_rds_default_status"
+    t.integer  "blue_jeans_default_status"
   end
 
   add_index "profile_integrations", ["integration_id"], name: "index_profile_integrations_on_integration_id"
@@ -302,6 +315,7 @@ ActiveRecord::Schema.define(version: 20150818173059) do
     t.datetime "deleted_at"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
+    t.integer  "blue_jeans_status",         default: 0, null: false
   end
 
   add_index "user_integrations", ["airwatch_admin_user_id"], name: "index_user_integrations_on_airwatch_admin_user_id"

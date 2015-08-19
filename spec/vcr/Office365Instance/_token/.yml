@@ -1,0 +1,136 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.bluejeans.com/oauth/token
+    body:
+      encoding: UTF-8
+      string: client_id=317d827mzi&client_secret=45a8d216a0e644849d4542cbb4da0892&code=client_credentials&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%2Foauth2%2Fcallback
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Wed, 19 Aug 2015 15:06:24 GMT
+      Cache-Control:
+      - must-revalidate, no-cache, no-store
+      X-Trace-Token:
+      - sj1-prod-cobalt-02-38052104
+      Content-Type:
+      - text/html; charset=ISO-8859-1
+      Content-Length:
+      - '292'
+    body:
+      encoding: UTF-8
+      string: |
+        <html>
+        <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+        <title>Error 401 </title>
+        </head>
+        <body>
+        <h2>HTTP ERROR: 401</h2>
+        <p>Problem accessing /oauth/token. Reason:
+        <pre>    Unauthorized</pre></p>
+        <hr /><i><small>Powered by Jetty://</small></i>
+        </body>
+        </html>
+    http_version: 
+  recorded_at: Wed, 19 Aug 2015 15:06:24 GMT
+- request:
+    method: post
+    uri: https://api.bluejeans.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: client_id=317d827mzi&client_secret=45a8d216a0e644849d4542cbb4da0892&code=client_credentials&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%2Foauth2%2Fcallback
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Wed, 19 Aug 2015 15:09:11 GMT
+      Cache-Control:
+      - must-revalidate, no-cache, no-store
+      X-Trace-Token:
+      - sj1-prod-cobalt-03-38593138
+      Content-Type:
+      - text/html; charset=ISO-8859-1
+      Content-Length:
+      - '292'
+    body:
+      encoding: UTF-8
+      string: |
+        <html>
+        <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+        <title>Error 400 </title>
+        </head>
+        <body>
+        <h2>HTTP ERROR: 400</h2>
+        <p>Problem accessing /oauth2/token. Reason:
+        <pre>    Bad Request</pre></p>
+        <hr /><i><small>Powered by Jetty://</small></i>
+        </body>
+        </html>
+    http_version: 
+  recorded_at: Wed, 19 Aug 2015 15:09:11 GMT
+- request:
+    method: post
+    uri: http://api.bluejeans.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: '{"client_id":"317d827mzi","client_secret":"45a8d216a0e644849d4542cbb4da0892","grant_type":"client_credentials"}'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '111'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 302
+      message: Moved Temporarily
+    headers:
+      Location:
+      - https://api.bluejeans.com/oauth2/token
+      Connection:
+      - close
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 19 Aug 2015 15:28:51 GMT
+recorded_with: VCR 2.9.3

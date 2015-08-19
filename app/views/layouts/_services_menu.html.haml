@@ -14,3 +14,6 @@
   - if policy(:horizon_instance).index?
     %li{class: ('active' if controller.is_a?(HorizonInstancesController))}
       = link_to 'Horizon', horizon_instances_path
+  - if policy(:blue_jeans_instance).index?
+    %li{class: ('active' if controller.is_a?(BlueJeansInstancesController))}
+      = link_to 'Blue Jeans', blue_jeans_instances_path

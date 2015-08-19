@@ -20,6 +20,7 @@
 #  deleted_at                :datetime
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  blue_jeans_status         :integer          default(0), not null
 #
 # Indexes
 #

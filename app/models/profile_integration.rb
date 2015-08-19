@@ -15,6 +15,7 @@
 #  horizon_air_default_status  :integer
 #  horizon_view_default_status :integer
 #  horizon_rds_default_status  :integer
+#  blue_jeans_default_status   :integer
 #
 # Indexes
 #

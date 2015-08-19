@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   resources :google_apps_instances
   resources :office365_instances
   resources :horizon_instances
+  resources :blue_jeans_instances
 
   scope '/api' do
     scope '/trygrid' do
