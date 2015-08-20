@@ -24,10 +24,15 @@ FactoryGirl.define do
       association :office365_instance, factory: :office365_instance
     end
 
+    factory :blue_jeans_integration do
+      association :blue_jeans_instance, factory: :blue_jeans_instance
+    end
+
     factory :complete_integration do
       association :airwatch_instance, factory: :airwatch_instance
       association :google_apps_instance, factory: :google_apps_instance
       association :horizon_view_instance, factory: :horizon_instance
+      association :blue_jeans_instance, factory: :blue_jeans_instance
     end
   end
 end

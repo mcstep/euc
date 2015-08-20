@@ -23,16 +23,16 @@ http_interactions:
       Server:
       - BlueJeans Proxy
       Date:
-      - Wed, 19 Aug 2015 15:57:05 GMT
+      - Thu, 20 Aug 2015 12:39:23 GMT
       X-Trace-Token:
-      - sj1-prod-cobalt-01-38956634
+      - sj1-prod-cobalt-04-51611883
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
       - '151'
     body:
       encoding: UTF-8
-      string: '{"access_token":"47b6017688ed41d2b736b751303d9876","expires_in":3600,"scope":{"enterprise":8858,"partitionName":"z1","partition":{"id":1,"name":"z1"}}}'
+      string: '{"access_token":"1cd63f6c0f4348088e405616e56b5672","expires_in":3600,"scope":{"enterprise":8858,"partitionName":"z1","partition":{"id":1,"name":"z1"}}}'
     http_version: 
-  recorded_at: Wed, 19 Aug 2015 15:57:05 GMT
+  recorded_at: Thu, 20 Aug 2015 12:39:23 GMT
 recorded_with: VCR 2.9.3

@@ -11,7 +11,7 @@ namespace :db do
       existing = Domain.pluck(:name)
 
       Upgrade::Domain.where.not(name: existing).each do |domain|
-        Domain.create!(name: domain.name, profile_id: profile.id)
+        Domain.create!(name: domain.name, profile_id: profile.id, status: domain.status)
       end
     end
 
@@ -129,7 +129,9 @@ namespace :db do
             ui.save!
           end
 
-          user.extensions.includes(:extendor).each do |e|
+          user.invitation.extensions.includes(:extendor).each do |e|
+            next if e.extendor.blank?
+
             DirectoryProlongation.create!(
               skip_expiration_management: true,
               user_integration_id:        new_user.authentication_integration.id,

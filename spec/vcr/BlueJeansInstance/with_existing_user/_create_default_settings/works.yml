@@ -1,0 +1,224 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.bluejeans.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: '{"client_id":"317d827mzi","client_secret":"45a8d216a0e644849d4542cbb4da0892","grant_type":"client_credentials"}'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '111'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:43:27 GMT
+      X-Trace-Token:
+      - sj1-prod-cobalt-01-50939714
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '151'
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"00dbfd63ab864b389de6ea193f2cdfd7","expires_in":3600,"scope":{"enterprise":8858,"partitionName":"z1","partition":{"id":1,"name":"z1"}}}'
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:43:27 GMT
+- request:
+    method: post
+    uri: https://api.bluejeans.com/v1/enterprise/8858/users?access_token=00dbfd63ab864b389de6ea193f2cdfd7&billingCategory=ENTERPRISE
+    body:
+      encoding: UTF-8
+      string: '{"username":"spec","firstName":"Spec","lastName":"User","emailId":"spec4@user.com","company":"VMWare"}'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '102'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:43:28 GMT
+      X-Newrelic-App-Data:
+      - PxQAV1ZaABABUFRSAAgCREgTYVYAMhEDXhFZAUxRW1xvSncOQwxSDg1MUgUzEVFvHxJQPhhUWRIBQ0ZBCxUGPh9IZE1NS1FAQEcVUR9RH1JKBQFTUlYNBQRIUFIFHRVTVAMDClBSAgYFWltbCg4Wbw==
+      Location:
+      - http://10.100.102.13:6670/v1/enterprise/8858/users/682364
+      X-Trace-Token:
+      - sj1-prod-cobalt-03-52187727
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '13'
+    body:
+      encoding: UTF-8
+      string: '{"id":682364}'
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:43:28 GMT
+- request:
+    method: post
+    uri: https://api.bluejeans.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: '{"client_id":"317d827mzi","client_secret":"45a8d216a0e644849d4542cbb4da0892","grant_type":"client_credentials"}'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '111'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:43:29 GMT
+      X-Trace-Token:
+      - sj1-prod-cobalt-03-52187932
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '151'
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"756058e1c4594c7496bc554280e1c231","expires_in":3600,"scope":{"enterprise":8858,"partitionName":"z1","partition":{"id":1,"name":"z1"}}}'
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:43:29 GMT
+- request:
+    method: post
+    uri: https://api.bluejeans.com/v1/user/682364/room?access_token=756058e1c4594c7496bc554280e1c231
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:43:30 GMT
+      X-Newrelic-App-Data:
+      - PxQAV1ZaABABUFRSAAgCREgTYVYAMhEDXhFZAUxRW1xvSncOQwxSDg1MUgUzEVFvHxJQPhhERAMWbRkZPkkRDV8PGk4IFgQeA0sJVAdRBFNUBANNVE8aAVFUUQABVw5UVVVXAQYAVkBt
+      Location:
+      - http://10.100.102.15:6670/v1/user/682364/room/592713
+      X-Trace-Token:
+      - sj1-prod-cobalt-03-52188119
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '526'
+    body:
+      encoding: UTF-8
+      string: '{"id":592713,"name":"spec1","numericId":"7266015220","personalMeetingId":2882052,"moderatorPasscode":"9110","participantPasscode":"8289","backgroundImage":"","defaultLayout":"5","welcomeMessage":"Welcome
+        to Spec''s meeting room","allow720p":null,"playAudioAlerts":false,"showVideoAnimations":false,"publishMeeting":false,"encryptionType":"NO_ENCRYPTION","videoBestFit":false,"showAllParticipantsInIcs":false,"isModeratorLess":false,"idleTimeout":1800,"disallowChat":false,"muteParticipantsOnEntry":false,"isLargeMeeting":false}'
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:43:30 GMT
+- request:
+    method: post
+    uri: https://api.bluejeans.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: '{"client_id":"317d827mzi","client_secret":"45a8d216a0e644849d4542cbb4da0892","grant_type":"client_credentials"}'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '111'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:43:31 GMT
+      X-Trace-Token:
+      - sj1-prod-cobalt-03-52188328
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '151'
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"016eb93f3faa4b0ca6facad34f322ad3","expires_in":3600,"scope":{"enterprise":8858,"partitionName":"z1","partition":{"id":1,"name":"z1"}}}'
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:43:31 GMT
+- request:
+    method: delete
+    uri: https://api.bluejeans.com/v1/enterprise/8858/users/682364/?access_token=016eb93f3faa4b0ca6facad34f322ad3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:43:32 GMT
+      X-Newrelic-App-Data:
+      - PxQAV1ZaABABUFRSAAgCREgTYVYAMhEDXhFZAUxRW1xvSncOQwxSDg1MUgUzEVFvHxJQPhhUWRIBQ0ZBCxUGPh9IZE1NS1FAQDkWSxNNA0xUGgdPVFMNCghUU1EbHAZKRgcBAgZUUlYGUQ1XWg9WCxE4
+      X-Trace-Token:
+      - sj1-prod-cobalt-02-51498123
+      Content-Length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:43:32 GMT
+recorded_with: VCR 2.9.3

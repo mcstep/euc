@@ -1,0 +1,147 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.bluejeans.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: '{"client_id":"317d827mzi","client_secret":"45a8d216a0e644849d4542cbb4da0892","grant_type":"client_credentials"}'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '111'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:39:17 GMT
+      X-Trace-Token:
+      - sj1-prod-cobalt-04-51610573
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '151'
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"6c2ec1ef479d40b39156aa8afec3da95","expires_in":3600,"scope":{"enterprise":8858,"partitionName":"z1","partition":{"id":1,"name":"z1"}}}'
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:39:18 GMT
+- request:
+    method: post
+    uri: https://api.bluejeans.com/v1/enterprise/8858/users?access_token=6c2ec1ef479d40b39156aa8afec3da95&billingCategory=ENTERPRISE
+    body:
+      encoding: UTF-8
+      string: '{"username":"spec","firstName":"Spec","lastName":"User","emailId":"spec1@user.com","company":"VMWare"}'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '102'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:39:19 GMT
+      X-Newrelic-App-Data:
+      - PxQAV1ZaABABUFRSAAgCREgTYVYAMhEDXhFZAUxRW1xvSncOQwxSDg1MUgUzEVFvHxJQPhhUWRIBQ0ZBCxUGPh9IZE1NS1FAQEcVUR9RH1JKBQBUVFYACgVIUFIFHRVVUVIGVwZUBVNTVQwBWgwHEG4=
+      Location:
+      - http://10.100.102.15:6670/v1/enterprise/8858/users/682359
+      X-Trace-Token:
+      - sj1-prod-cobalt-04-51610816
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '13'
+    body:
+      encoding: UTF-8
+      string: '{"id":682359}'
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:39:19 GMT
+- request:
+    method: post
+    uri: https://api.bluejeans.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: '{"client_id":"317d827mzi","client_secret":"45a8d216a0e644849d4542cbb4da0892","grant_type":"client_credentials"}'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '111'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:39:19 GMT
+      X-Trace-Token:
+      - sj1-prod-cobalt-02-51444401
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '151'
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"09c1eed008cd45f8a08fb3b6576d4ce0","expires_in":3600,"scope":{"enterprise":8858,"partitionName":"z1","partition":{"id":1,"name":"z1"}}}'
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:39:20 GMT
+- request:
+    method: delete
+    uri: https://api.bluejeans.com/v1/enterprise/8858/users/682359/?access_token=09c1eed008cd45f8a08fb3b6576d4ce0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Server:
+      - BlueJeans Proxy
+      Date:
+      - Thu, 20 Aug 2015 12:39:21 GMT
+      X-Newrelic-App-Data:
+      - PxQAV1ZaABABUFRSAAgCREgTYVYAMhEDXhFZAUxRW1xvSncOQwxSDg1MUgUzEVFvHxJQPhhUWRIBQ0ZBCxUGPh9IZE1NS1FAQDkWSxNNA0xUGgdPVFEKAQRRWVYbHAZKRgcAAVVXB1BWBwoACFkDVgVHZA==
+      X-Trace-Token:
+      - sj1-prod-cobalt-02-51444559
+      Content-Length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 20 Aug 2015 12:39:21 GMT
+recorded_with: VCR 2.9.3

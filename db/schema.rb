@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819143308) do
+ActiveRecord::Schema.define(version: 20150820121225) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -316,6 +316,7 @@ ActiveRecord::Schema.define(version: 20150819143308) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.integer  "blue_jeans_status",         default: 0, null: false
+    t.integer  "blue_jeans_user_id"
   end
 
   add_index "user_integrations", ["airwatch_admin_user_id"], name: "index_user_integrations_on_airwatch_admin_user_id"

@@ -41,4 +41,37 @@ class BlueJeansInstance < ActiveRecord::Base
 
     response['access_token']
   end
+
+  def register(username, first_name, last_name, email, company)
+    data = {
+      username: username,
+      firstName: first_name,
+      lastName: last_name,
+      emailId: email,
+      company: company
+    }.to_json
+
+    JSON.parse(RestClient::Request.execute(
+      method:   'POST', 
+      url:      "https://api.bluejeans.com/v1/enterprise/#{enterprise_id}/users?access_token=#{token}&billingCategory=ENTERPRISE",
+      payload:  data,
+      headers:  { content_type: :json }
+    ))['id']
+  end
+
+  def create_default_settings(id)
+    JSON.parse RestClient::Request.execute(
+      method:   'POST', 
+      url:      "https://api.bluejeans.com/v1/user/#{id}/room?access_token=#{token}",
+      payload:  '{}',
+      headers:  { content_type: :json }
+    )
+  end
+
+  def unregister(id)
+    RestClient::Request.execute(
+      method: 'DELETE',
+      url: "https://api.bluejeans.com/v1/enterprise/8858/users/#{id}/?access_token=#{token}"
+    )
+  end
 end

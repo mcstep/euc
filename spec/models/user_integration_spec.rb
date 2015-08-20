@@ -116,6 +116,10 @@ RSpec.describe UserIntegration, type: :model do
       it 'enqueues Horizon View provisioning' do
         expect(Provisioners::HorizonViewWorker).to enqueue_as 'provision'
       end
+
+      it 'enqueues Blue Jeans provisioning' do
+        expect(Provisioners::BlueJeansWorker).to enqueue_as 'provision'
+      end
     end
 
     describe 'change' do

@@ -15,5 +15,5 @@ class Upgrade::Extension < ActiveRecord::Base
   establish_connection :import
 
   belongs_to :extendor, class_name: 'Upgrade::User', foreign_key: 'extended_by'
-  belongs_to :recipient, class_name: 'Upgrade::User', foreign_key: 'recipient'
+  belongs_to :invitation, class_name: 'Upgrade::Invitation', foreign_key: 'recipient'
 end
