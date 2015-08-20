@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820121225) do
+ActiveRecord::Schema.define(version: 20150820151833) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20150820121225) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "security_pin"
+    t.string   "display_name"
   end
 
   add_index "airwatch_instances", ["deleted_at"], name: "index_airwatch_instances_on_deleted_at"
@@ -71,6 +72,7 @@ ActiveRecord::Schema.define(version: 20150820121225) do
     t.integer  "enterprise_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "display_name"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -98,10 +100,11 @@ ActiveRecord::Schema.define(version: 20150820121225) do
     t.string   "port"
     t.string   "api_key"
     t.datetime "deleted_at"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "use_ssl",    default: false, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "use_ssl",      default: false, null: false
     t.string   "stats_url"
+    t.string   "display_name"
   end
 
   add_index "directories", ["deleted_at"], name: "index_directories_on_deleted_at"
@@ -146,6 +149,7 @@ ActiveRecord::Schema.define(version: 20150820121225) do
     t.datetime "deleted_at"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "display_name"
   end
 
   add_index "google_apps_instances", ["deleted_at"], name: "index_google_apps_instances_on_deleted_at"
@@ -159,6 +163,7 @@ ActiveRecord::Schema.define(version: 20150820121225) do
     t.datetime "deleted_at"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "display_name"
   end
 
   add_index "horizon_air_instances", ["deleted_at"], name: "index_horizon_air_instances_on_deleted_at"
@@ -174,6 +179,7 @@ ActiveRecord::Schema.define(version: 20150820121225) do
     t.datetime "deleted_at"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "display_name"
   end
 
   add_index "horizon_instances", ["deleted_at"], name: "index_horizon_instances_on_deleted_at"
@@ -228,6 +234,7 @@ ActiveRecord::Schema.define(version: 20150820121225) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "license_name"
+    t.string   "display_name"
   end
 
   add_index "office365_instances", ["deleted_at"], name: "index_office365_instances_on_deleted_at"

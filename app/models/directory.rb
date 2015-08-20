@@ -2,15 +2,16 @@
 #
 # Table name: directories
 #
-#  id         :integer          not null, primary key
-#  host       :string
-#  port       :string
-#  api_key    :string
-#  deleted_at :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  use_ssl    :boolean          default(FALSE), not null
-#  stats_url  :string
+#  id           :integer          not null, primary key
+#  host         :string
+#  port         :string
+#  api_key      :string
+#  deleted_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  use_ssl      :boolean          default(FALSE), not null
+#  stats_url    :string
+#  display_name :string
 #
 # Indexes
 #
@@ -18,6 +19,8 @@
 #
 
 class Directory < ActiveRecord::Base
+  prepend ServiceInstance
+
   acts_as_paranoid
 
   validates :host, presence: true

@@ -13,6 +13,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  license_name  :string
+#  display_name  :string
 #
 # Indexes
 #

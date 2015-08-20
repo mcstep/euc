@@ -1,6 +1,6 @@
 class Office365InstancePolicy < ApplicationPolicy
   def permitted_attributes
-    [:group_name, :group_region, :client_id, :client_secret, :tenant_id, :resource_id]
+    [:display_name, :group_name, :group_region, :client_id, :client_secret, :tenant_id, :resource_id]
   end
 
   def index?

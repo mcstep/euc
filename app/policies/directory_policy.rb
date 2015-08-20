@@ -1,6 +1,6 @@
 class DirectoryPolicy < ApplicationPolicy
   def permitted_attributes
-    [ :host, :port, :api_key ]
+    [ :display_name, :host, :port, :api_key, :stats_url ]
   end
 
   def index?

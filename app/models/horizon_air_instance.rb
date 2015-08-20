@@ -11,6 +11,7 @@
 #  deleted_at    :datetime
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  display_name  :string
 #
 # Indexes
 #
@@ -18,6 +19,8 @@
 #
 
 class HorizonAirInstance < ActiveRecord::Base
+  prepend ServiceInstance
+
   acts_as_paranoid
 
   validates :group_name,   presence: true

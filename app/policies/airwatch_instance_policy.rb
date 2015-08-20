@@ -1,6 +1,6 @@
 class AirwatchInstancePolicy < ApplicationPolicy
   def permitted_attributes
-    [:group_name, :group_region, :api_key, :host, :user, :password, :parent_group_id, :admin_roles_text]
+    [:display_name, :group_name, :group_region, :api_key, :host, :user, :password, :parent_group_id, :admin_roles_text]
   end
 
   def index?

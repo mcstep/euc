@@ -15,6 +15,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  security_pin    :string
+#  display_name    :string
 #
 # Indexes
 #
@@ -22,6 +23,8 @@
 #
 
 class AirwatchInstance < ActiveRecord::Base
+  prepend ServiceInstance
+
   acts_as_paranoid
 
   serialize :admin_roles
