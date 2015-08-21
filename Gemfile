@@ -46,6 +46,7 @@ gem 'cloudinary'
 gem 'sidekiq'
 gem 'seedbank'
 gem 'bugsnag'
+gem 'restforce'
 
 group :development, :test do
   gem 'factory_girl_rails'

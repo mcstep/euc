@@ -16,6 +16,7 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  blue_jeans_instance_id   :integer
+#  salesforce_instance_id   :integer
 #
 # Indexes
 #
@@ -33,7 +34,7 @@ class Integration < ActiveRecord::Base
   acts_as_paranoid
 
   SERVICES = %w(
-    horizon_air horizon_rds horizon_view airwatch office365 google_apps blue_jeans
+    horizon_air horizon_rds horizon_view airwatch office365 google_apps blue_jeans salesforce
   )
 
   belongs_to :directory, -> { with_deleted }
@@ -42,6 +43,7 @@ class Integration < ActiveRecord::Base
   belongs_to :google_apps_instance, -> { with_deleted }
   belongs_to :horizon_air_instance, -> { with_deleted }
   belongs_to :blue_jeans_instance, -> { with_deleted }
+  belongs_to :salesforce_instance, -> { with_deleted }
   belongs_to :horizon_rds_instance, -> { with_deleted }, class_name: 'HorizonInstance'
   belongs_to :horizon_view_instance, -> { with_deleted }, class_name: 'HorizonInstance'
 

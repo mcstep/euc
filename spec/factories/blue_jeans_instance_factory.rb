@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :blue_jeans_instance do
-    group_name      'Office365Users'
+    group_name      'BlueJeansUsers'
     group_region    'dldc'
     grant_type      'client_credentials'
     client_id       { FFaker::Guid.guid }

@@ -16,6 +16,7 @@
 #  horizon_view_default_status :integer
 #  horizon_rds_default_status  :integer
 #  blue_jeans_default_status   :integer
+#  salesforce_default_status   :integer
 #
 # Indexes
 #

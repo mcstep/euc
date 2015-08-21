@@ -1,0 +1,85 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://login.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG98SW_UPr.JFjd_11wVTsp4Nhu865RGa6OJ3wd_SCCZUzyCj5Ix.3BvmOVYpPjzPgAKnmqeNrVFo8KboQp&client_secret=605335628658027112&username=mbasanta%40vmtestdrive.com&password=Passw0rd1rOPaTAfxG9p6N8sxlLsjmkw5O
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 21 Aug 2015 09:18:00 GMT
+      Set-Cookie:
+      - BrowserId=VPllvrxCQi6rvybABazCaw;Path=/;Domain=.salesforce.com;Expires=Tue,
+        20-Oct-2015 09:18:00 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"id":"https://login.salesforce.com/id/00D37000000Q0AwEAK/00537000000J8hfAAC","issued_at":"1440148681039","token_type":"Bearer","instance_url":"https://na31.salesforce.com","signature":"zLTtjYxkFvYtsQ2uaqpPLFFrU7C4Q3WCzhQ2eC2PqAY=","access_token":"00D37000000Q0Aw!AQcAQCNGRVapRjODwEuLlYujsoZ2kOaTTE2tcQ5EiTEGO7vb3ccWYjBCJUf3S3_ol4Il7WTTesoq4EcDjyKlomPZu6xTS0p9"}'
+    http_version: 
+  recorded_at: Fri, 21 Aug 2015 09:18:01 GMT
+- request:
+    method: post
+    uri: https://na31.salesforce.com/services/data/v28.0/sobjects/User
+    body:
+      encoding: UTF-8
+      string: '{"email":"spec_________0@user.com","alias":"spec0","firstname":"Spec","lastname":"User","username":"spec_________0@user.com","communitynickname":"spec0","isactive":true,"timezonesidkey":"America/New_York","localesidkey":"en_US","EmailEncodingKey":"ISO-8859-1","LanguageLocaleKey":"en_US","ProfileId":"00e37000000h16ZAAQ"}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/json
+      Authorization:
+      - OAuth 00D37000000Q0Aw!AQcAQCNGRVapRjODwEuLlYujsoZ2kOaTTE2tcQ5EiTEGO7vb3ccWYjBCJUf3S3_ol4Il7WTTesoq4EcDjyKlomPZu6xTS0p9
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Fri, 21 Aug 2015 09:18:02 GMT
+      Set-Cookie:
+      - BrowserId=BNfQQNBtTIKVIXcrRI61lA;Path=/;Domain=.salesforce.com;Expires=Tue,
+        20-Oct-2015 09:18:02 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Sforce-Limit-Info:
+      - api-usage=4/15000
+      Location:
+      - "/services/data/v28.0/sobjects/User/00537000000JOFaAAO"
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"id":"00537000000JOFaAAO","success":true,"errors":[]}'
+    http_version: 
+  recorded_at: Fri, 21 Aug 2015 09:18:02 GMT
+recorded_with: VCR 2.9.3

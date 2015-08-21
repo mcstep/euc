@@ -22,6 +22,7 @@
 #  updated_at                :datetime         not null
 #  blue_jeans_status         :integer          default(0), not null
 #  blue_jeans_user_id        :integer
+#  salesforce_status         :integer          default(0), not null
 #
 # Indexes
 #
@@ -98,6 +99,10 @@ class UserIntegration < ActiveRecord::Base
         send(s).enable
       end
     end
+  end
+
+  def email
+    "#{username}@#{integration.domain}"
   end
 
   def applying?
