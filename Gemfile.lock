@@ -122,8 +122,6 @@ GEM
       safe_yaml (~> 1.0.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
-    domain_name (0.5.24)
-      unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.5.2)
     extlib (0.9.16)
@@ -168,8 +166,6 @@ GEM
       activesupport (>= 3.2, < 5)
     hashie (3.4.2)
     hitimes (1.2.2)
-    http-cookie (1.0.2)
-      domain_name (~> 0.5)
     i18n (0.7.0)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
@@ -217,7 +213,6 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
-    netrc (0.10.3)
     nexmo (3.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -289,10 +284,8 @@ GEM
       redis
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
-    rest-client (1.8.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 3.0)
-      netrc (~> 0.7)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     restforce (2.1.1)
       faraday (~> 0.9.0)
       faraday_middleware (>= 0.8.8)
@@ -385,9 +378,6 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.7.1)
     unicorn (4.9.0)
       kgio (~> 2.6)
       rack
@@ -459,7 +449,7 @@ DEPENDENCIES
   readable-token
   redis-objects
   redis-semaphore
-  rest-client
+  rest-client (= 1.6.7)
   restforce
   rqrcode_png
   rspec-activemodel-mocks
@@ -483,6 +473,3 @@ DEPENDENCIES
   wannabe_bool
   web-console (~> 2.0)
   webmock
-
-BUNDLED WITH
-   1.10.3
