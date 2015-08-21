@@ -11,7 +11,7 @@ namespace :db do
       existing = Domain.pluck(:name)
 
       Upgrade::Domain.where.not(name: existing).each do |domain|
-        Domain.create!(name: domain.name, profile_id: profile.id, status: domain.status)
+        Domain.create!(name: domain.name, profile_id: profile.id, status: domain.status, user_role: :admin)
       end
     end
 
