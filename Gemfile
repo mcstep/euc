@@ -47,6 +47,7 @@ gem 'sidekiq'
 gem 'seedbank'
 gem 'bugsnag'
 gem 'restforce'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'factory_girl_rails'
