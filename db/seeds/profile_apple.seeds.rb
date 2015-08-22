@@ -1,5 +1,5 @@
 after :instances do
-  integration = Integration.where(domain: 'awapple.com').first_or_create do |i|
+  integration = Integration.where(domain: 'vmtestdrive.com').first_or_create do |i|
 
     i.name                 = 'Airwatch + Office365 for Apple'
     i.directory            = Directory.where(host: 'api.vmwdemo.com').first
@@ -20,7 +20,7 @@ after :instances do
     )]
   end
 
-  %w(joshi.io apple.com).each do |domain|
+  %w(vmwdev.com apple.com).each do |domain|
     Domain.where(name: domain).first_or_create do |d|
 
       d.company_name = 'Apple.com'

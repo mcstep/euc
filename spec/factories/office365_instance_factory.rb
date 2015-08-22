@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :office365_instance do
-    group_name      'Office365Users'
+    group_name      'O365Users'
     group_region    'dldc'
     client_id       { FFaker::Guid.guid }
     client_secret   { FFaker::Lorem.characters(36) }
