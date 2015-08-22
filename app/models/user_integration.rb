@@ -23,6 +23,7 @@
 #  blue_jeans_status         :integer          default(0), not null
 #  blue_jeans_user_id        :integer
 #  salesforce_status         :integer          default(0), not null
+#  salesforce_user_id        :integer
 #
 # Indexes
 #

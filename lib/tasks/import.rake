@@ -44,14 +44,15 @@ namespace :db do
 
     task :airwatch_groups => :ensure do
       existing = AirwatchGroup.pluck(:text_id)
+      instance = Profile.where(name: 'Default').first.profile_integrations.first.integration.airwatch_instance
 
       AirwatchGroup.transaction do
         Upgrade::AirwatchGroup.where.not(group_id: existing).each do |ag|
           AirwatchGroup.create!(
-            imported:   true,
-            text_id:    ag.group_id,
-            numeric_id: ag.group_id_num,
-            kind:       ag.group_type
+            airwatch_instance:  instance,
+            text_id:            ag.group_id,
+            numeric_id:         ag.group_id_num,
+            kind:               ag.group_type
           )
         end
       end

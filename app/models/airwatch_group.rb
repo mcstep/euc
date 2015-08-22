@@ -4,7 +4,6 @@
 #
 #  id                   :integer          not null, primary key
 #  airwatch_instance_id :integer
-#  company_id           :integer
 #  text_id              :string
 #  numeric_id           :string
 #  kind                 :string
@@ -20,19 +19,16 @@
 class AirwatchGroup < ActiveRecord::Base
   acts_as_paranoid
 
-  attr_accessor :imported
-
   belongs_to :airwatch_instance, -> { with_deleted }
   belongs_to :company, -> { with_deleted }
 
   validates :text_id,           presence: true
   validates :numeric_id,        presence: true
-  validates :airwatch_instance, presence: true, unless: :imported
-  validates :company,           presence: true, unless: :imported
+  validates :airwatch_instance, presence: true
 
   def self.produce(user_integration)
     condition = {
-      company_id:           user_integration.user.company_id,
+      text_id:              user_integration.airwatch_group_name,
       airwatch_instance_id: user_integration.integration.airwatch_instance_id
     }
 
@@ -43,7 +39,6 @@ class AirwatchGroup < ActiveRecord::Base
     data = user_integration.integration.airwatch_instance.add_group(user_integration.airwatch_group_name)
     AirwatchGroup.create!(
       airwatch_instance: user_integration.integration.airwatch_instance,
-      company:           user_integration.user.company,
       text_id:           user_integration.airwatch_group_name,
       numeric_id:        data['Value'],
       kind:              'Prospect'
