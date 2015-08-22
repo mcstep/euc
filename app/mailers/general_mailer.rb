@@ -46,7 +46,7 @@ class GeneralMailer < ApplicationMailer
     @prolongation = prolongation
     @user         = prolongation.user_integration.user
 
-    mail(to: @prolongation.user_integration.user.email, subject: 'Account Prolongation')
+    mail(to: @prolongation.user_integration.user.email, subject: 'Account Extension')
   end
 
   def portal_upgrades_email(user)
