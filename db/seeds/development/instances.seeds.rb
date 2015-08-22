@@ -37,7 +37,7 @@ end
 Office365Instance.where(client_id: 'cd329bba-1082-40a1-93e9-496370a53f18').first_or_create do |oi|
 
   # oi.group_name    = 'O365Users'
-  # oi.group_region  = 'dldc'
+  # oi.group_region  = 'vidm'
   oi.client_secret = 'sZp1HMkFBfPNjdPj3Qy5N563W4qVkz9eEqn49VErI6k='
   oi.tenant_id     = '01b78576-ce65-44db-841f-e2ea4c7c5db0'
   oi.resource_id   = 'https://graph.windows.net'

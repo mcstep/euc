@@ -20,7 +20,7 @@ end
 AirwatchInstance.where(host: 'apple.awmdm.com').first_or_create do |ai|
 
   ai.group_name      = 'AirWatchUsers'
-  ai.group_region    = 'dldc'
+  ai.group_region    = 'vidm'
   ai.api_key         = '1LGKA4AAAAG5A5DACEAA'
   ai.user            = 'api.admin'
   ai.password        = '$[5Jd#V7F.'
@@ -48,7 +48,7 @@ end
 Office365Instance.where(client_id: 'f2c1eb0b-1d1d-45a9-91ed-f0d208cf96f6').first_or_create do |oi|
 
   oi.group_name    = 'O365Users'
-  oi.group_region  = 'dldc'
+  oi.group_region  = 'vidm'
   oi.client_secret = 'fHmPz8aJMvsyrTqgoO6AA7TbxSvqC3IvS2qsD9ENXtU='
   oi.tenant_id     = '956587a9-662c-4bf7-bf34-605ab419a893'
   oi.resource_id   = 'https://graph.windows.net'
