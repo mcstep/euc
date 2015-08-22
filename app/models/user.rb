@@ -148,7 +148,7 @@ class User < ActiveRecord::Base
           self.role                         = registration_code.user_role
           self.integrations_expiration_date = Date.today + registration_code.user_validity.days
 
-        elsif domain = Domain.where(name: email.split('@', 2).last).first
+        elsif domain = Domain.actual.where(name: email.split('@', 2).last).first
           self.profile = domain.profile
           self.role    = domain.user_role
         end
@@ -288,6 +288,14 @@ class User < ActiveRecord::Base
 
   def expiration_date
     authentication_integration.try :directory_expiration_date
+  end
+
+  def prolong_date
+    if expiration_date.blank? || expiration_date < DateTime.now
+      DateTime.now + 1.month
+    else
+      expiration_date + 1.month
+    end
   end
 
   def invited_users

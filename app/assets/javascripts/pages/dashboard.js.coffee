@@ -8,17 +8,3 @@ $ ->
 
     if $e.is('.open') != open
       $e.find('[data-toggle="dropdown"]').dropdown 'toggle'
-
-  $('.prolong-account-link').on 'click', ->
-    $link = $(@)
-    $form = $('#prolong-account-form')
-
-    $('#directory_prolongation_user_integration_id').val($link.data('id'))
-    $('#directory_prolongation_reason').val('')
-    $('.invitation-name', $form).val $link.data('name')
-    $('.invitation-username', $form).val $link.data('username')
-
-    if $('#directory_prolongation_expiration_date_new').is('[readonly]')
-      $('#directory_prolongation_expiration_date_new').val $link.data('date')
-    else
-      $('#directory_prolongation_expiration_date_new').datepicker('update', $link.data('date')) 

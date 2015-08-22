@@ -41,7 +41,7 @@
                 .help-block
                   N/A
             %td{style: 'width: 1%; white-space: nowrap'}
-              %a.prolong-account-link.btn.btn-primary.btn-xs{href: '#', data: {target: "#prolong-account-modal", toggle: 'modal', id: user.authentication_integration.id, username: user.authentication_integration.username, date: bl(user.expiration_date+1.month), name: user.display_name}}
+              %a.prolong-account-link.btn.btn-primary.btn-xs{href: '#', data: {target: "#prolong-account-modal", toggle: 'modal', id: user.authentication_integration.id, username: user.authentication_integration.username, date: bl(user.prolong_date), name: user.display_name}}
                 Extend
               - if policy(user).destroy?
                 %a{href: user_path(user), class: 'btn btn-danger btn-xs', data: {confirm: "Do you want to delete this account? The users account will permanently be deleted.", method: "delete"}}

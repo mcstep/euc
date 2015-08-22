@@ -32,4 +32,6 @@ class Domain < ActiveRecord::Base
 
   validates :name, uniqueness: { scope: :deleted_at }, hostname: true
   validates :profile, presence: true
+
+  scope :actual, -> { where(status: Domain.statuses[:active]) }
 end
