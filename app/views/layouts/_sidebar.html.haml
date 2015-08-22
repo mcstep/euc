@@ -50,8 +50,6 @@
 %ul.sidebar-nav
   %li
     %a{href: root_path} Dashboard
-  %li
-    %a{href: "#"} FAQ
   - if policy(:invitation).create? && current_user.invitations_left > 0
     %li
       %a{href: new_invitation_path} Send Invitation
