@@ -70,7 +70,8 @@ class User < ActiveRecord::Base
     def authenticate(password)
       return false unless data = authentication_integration.directory.authenticate(
         authentication_integration.username,
-        password
+        password,
+        authentication_integration.integration.domain
       )
 
       {

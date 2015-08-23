@@ -38,9 +38,9 @@ class Directory < ActiveRecord::Base
     JSON.parse response rescue response
   end
 
-  def authenticate(username, password)
+  def authenticate(username, password, domain=nil)
     begin
-      query 'authenticate', username: username, password: password
+      query 'authenticate', username: username, password: password, domain_suffix: domain
     rescue Exception => e
       return false
     end
