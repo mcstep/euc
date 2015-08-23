@@ -56,32 +56,6 @@ RSpec.describe UserIntegration, type: :model do
     end
   end
 
-  xdescribe '.adapt' do
-    subject{ UserIntegration.new.adapt(ui_with_disabled_services) }
-
-    it{ is_expected.to be_a UserIntegration }
-
-    it 'works for Google Apps' do
-      expect(subject.google_apps_disabled).to be_falsey
-    end
-
-    it 'works for Horizon RDS' do
-      expect(subject.horizon_rds_disabled).to be_truthy
-    end
-
-    it 'works for Horizon View' do
-      expect(subject.horizon_view_disabled).to be_truthy
-    end
-
-    it 'works for Airwatch' do
-      expect(subject.airwatch_disabled).to be_truthy
-    end
-
-    it 'works for Office 365' do
-      expect(subject.office365_disabled).to be_truthy
-    end
-  end
-
   describe '.airwatch_group_name' do
     context 'when all set' do
       let(:airwatch_instance){ create(:airwatch_instance) }
@@ -105,6 +79,17 @@ RSpec.describe UserIntegration, type: :model do
     let!(:user_integration){ create(:complete_user_integration) }
 
     describe 'bootstrap' do
+      fcontext 'when profile implies eula' do
+        let!(:user_integration) do
+          create :complete_user_integration,
+              user: create(:user, profile: create(:integrated_profile, implied_airwatch_eula: true))
+        end
+
+        it 'does enque Airwatch provisioning' do
+          expect(Provisioners::AirwatchWorker).to enqueue_as 'provision'
+        end
+      end
+
       it 'does not enque Airwatch provisioning' do
         expect(Provisioners::AirwatchWorker).to have(0).jobs
       end

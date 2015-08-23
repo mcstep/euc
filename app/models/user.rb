@@ -239,10 +239,10 @@ class User < ActiveRecord::Base
   ##
   before_save                 :normalize!
   before_save                 :cleanup_avatar!
-  before_create               { self.airwatch_eula_accept_date = DateTime.now if profile.try(:implied_airwatch_eula) }
   before_create               { self.status = :verification_required if profile.try(:requires_verification) }
   after_validation            :normalize_errors
   after_create                :use_registration_code_point!
+  after_create                { accept_airwatch_eula! if profile.try(:implied_airwatch_eula) }
   after_commit(on: :create)   { UserRegisterWorker.perform_async(id, desired_password) unless skip_provisioning }
   after_destroy               { received_invitation.try(:free_invitation_point!) }
   after_destroy               { UserUnregisterWorker.perform_async(id) unless skip_provisioning }
