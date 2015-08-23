@@ -13,8 +13,8 @@
 #  avatar                        :string
 #  country_code                  :string
 #  phone                         :string
-#  role                          :integer          default(0), not null
-#  status                        :integer          default(0), not null
+#  role                          :integer
+#  status                        :integer
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -114,6 +114,7 @@ class User < ActiveRecord::Base
 
       before_validation :ensure_profile
       before_validation :setup_integrations, on: :create
+      before_validation { self.airwatch_eula_accept_date = Date.today if profile.try(:implied_airwatch_eula) }
       after_save        :setup_authentication
 
       validates :desired_password, confirmation: true, length: { minimum: 8 }, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)./, message: :invalid_password }, allow_blank: true
@@ -243,7 +244,6 @@ class User < ActiveRecord::Base
   before_create               { self.status = :verification_required if profile.try(:requires_verification) }
   after_validation            :normalize_errors
   after_create                :use_registration_code_point!
-  after_create                { accept_airwatch_eula! if profile.try(:implied_airwatch_eula) }
   after_commit(on: :create)   { UserRegisterWorker.perform_async(id, desired_password) unless skip_provisioning }
   after_destroy               { received_invitation.try(:free_invitation_point!) }
   after_destroy               { UserUnregisterWorker.perform_async(id) unless skip_provisioning }
