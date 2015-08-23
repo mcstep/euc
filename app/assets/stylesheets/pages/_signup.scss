@@ -4,7 +4,42 @@
   
   
 }
-
+  #usrname_info {
+       display:none;
+      position:absolute;
+      bottom:-155px;
+    z-index: 10;
+      left:30%;
+      width:250px;
+      padding:15px;
+      background:#fefefe;
+      font-size:.875em;
+      border-radius:5px;
+      box-shadow:0 1px 3px #ccc;
+      border:1px solid #ddd;
+    
+    .invalid {
+      list-style-type: circle;
+        color: $brand-danger;
+    }
+    .valid {
+list-style-type: disc;
+        color: $brand-success;
+    }
+    
+    
+    &:before {
+        content: "\25B2";
+        position:absolute;
+        top:-12px;
+        left:45%;
+        font-size:14px;
+        line-height:14px;
+        color:#ddd;
+        text-shadow:none;
+        display:block;
+    }
+  }
 .td-password {
   hr {
     margin: 2em 0 0 0;
@@ -46,6 +81,8 @@ list-style-type: disc;
         display:block;
     }
   }
+
+  
   
 }
 

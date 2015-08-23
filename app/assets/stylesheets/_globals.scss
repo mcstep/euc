@@ -198,7 +198,7 @@ a {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: url(../img/select.svg) 98% / 15px no-repeat $white;
+    background: image-url('select.svg') 98% / 15px no-repeat $white;
   }
 }
 
@@ -233,6 +233,63 @@ a {
 
 
 // Login 
+#bg_pattern { 
+background-image: image-url('bgpattern.png'); 
+position: fixed; 
+opacity: 0.8; 
+left: 0px; 
+top: 0px; 
+width: 100%; 
+height: 100%; 
+z-index: -99;
+@media (max-width: 767px) {
+  display: none;
+}
+}
+
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.fullscreen-bg__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    height: 300%;
+    top: -100%;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    width: 300%;
+    left: -100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .fullscreen-bg {
+    background: none !important;
+  }
+
+  .fullscreen-bg__video {
+    display: none;
+  }
+}
+
+
 
 .middle-box {
   
@@ -250,6 +307,44 @@ a {
   }
 }
 
+#login-modal .modal-dialog{
+position: absolute;
+left: 50%;
+//now you must set a margin left under zero - value is a half width your window
+margin-left: -150px;
+// this same situation is with height - example
+height: 500px;
+top: 50%;
+margin-top: -150px;
+} 
+.td-loginblurb {
+  background: none !important;
+  @media (min-width: 767px) {
+      color: $white !important;
+      
+  }
+  
+  
+  
+  .launch {
+    @media (max-width: 767px) {
+        display: none;
+    }
+    margin: 4em 0 0 0;
+    .btn-lg {
+      
+    }
+  }
+  
+  .loginmobile {
+  
+    @media (min-width: 767px) {
+        display: none;
+    }
+  }
+  
+  
+}
 .login {
   
   text-align: center;
@@ -259,21 +354,40 @@ a {
   
   .loginbox {
     margin-top: 10px;
+    text-align: center !important;
+    small {
+      color: $black;
+    }
   }
   .blurb {
+    @media (min-width: 767px) {
+        padding: 0 2em;
+        
+    }
+    @media (max-width: 767px) {
+        display: none;
+    }
+  
     p {
-      text-align: left;
+      text-align: center;
     }
     h3 {
       margin-top: 0;
+      font-weight: 600;
       margin-bottom: 1.5em;
+    }
+    a {
+      color: $brand-info;
+      &:hover {
+        color: $white;
+      };
     }
   }
   
   
   .loginbutton {
     display: block;
-    width: 100%;
+    width: 100% !important;
     margin: 1.5em 0 1.5em 0;
   }
 }

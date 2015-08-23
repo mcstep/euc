@@ -1,52 +1,129 @@
-.col-lg-8.col-offset-lg-2.col-md-8.col-md-offset-2.col-sm-12.td-dialog.td-signup
-  %h1 Login
-  .login
-    .col-lg-12.col-md-12.col-sm-12.blurb
-      %h3
-        Welcome to VMware TestDrive for End-User Computing
-    .col-lg-7.col-md-7.col-sm-12.blurb
-      %p
-        TestDrive is a fully featured, integrated and globally available demonstration environment provided by VMware for use by our Field, Partners and Customers.
-      %p 
-        Powered by 
-        %a{href: "https://www.vmware.com/products/workspace-suite", :target => "_blank"} VMware Workspace Suite, 
-        TestDrive features Identity Manager, Horizon desktop and application virtualization, Horizon FLEX and AirWatch enterprise mobility management.
-      %p
-        Check out our 
-        %a{href: "http://support.vmtestdrive.com/article/3-registration", :target => "_blank"} knowledge base 
-        for assistance with Registration, activation, passwords, customer invites and demo walkthroughs!
-    .col-lg-5.col-md-5.col-sm-12.loginbox
-      = form_tag session_path do
-        = render "layouts/messages"
-        .form-group
-          = text_field_tag :email, params[:email], class: "form-control", placeholder: 'Username', autofocus: true
-        .form-group
-          = password_field_tag :password, params[:password], class: "form-control", placeholder: 'Password'
-        %button.btn.btn-info.loginbutton{:type => "submit"} Login
-        %p
-          %a.text-muted{"data-target" => "#password-reset-modal", "data-toggle" => "modal", href: "#"}
-            %small Forgot password?
-        %p.text-muted
-          %small
-            Don't have an account?
-            %a{href: new_registration_path} Sign up here
-    .clear
+- content_for :content do
+  #bg_pattern
+  .fullscreen-bg
+    %video.fullscreen-bg__video{:autoplay => "", :loop => "", :muted => "", :poster => asset_path("videoframe.jpg")}
+      %source{:src => asset_path("testdrive.webm"), :type => "video/webm"}
+        %source{:src => asset_path("testdrive.mp4"), :type => "video/mp4"}
+  .container
+    .col-lg-8.col-offset-lg-2.col-md-8.col-md-offset-2.col-sm-12.td-dialog.td-signup.td-loginblurb
+      .login
+        .loginbox.loginmobile
+          = form_tag session_path do
+            .form-group
+              = text_field_tag :email, params[:email], class: "form-control", placeholder: 'Username', autofocus: true
+            .form-group
+              = password_field_tag :password, params[:password], class: "form-control", placeholder: 'Password'
+            %button.btn.btn-info.loginbutton{:type => "submit"} Login
+            %p
+              %a.forgot-password.text-muted{"data-target" => "#password-reset-modal", "data-toggle" => "modal", href: "#"}
+                %small Forgot password?
+            %p
+              %small
+                Don't have an account?
+                = succeed "." do
+                  %a.text-muted{:href => new_registration_path} Sign up here
+        .col-lg-12.col-md-12.col-sm-12.blurb
+          %h3 VMware TestDrive for End-User Computing
+          %p TestDrive is a fully featured, integrated and globally available demonstration environment provided by VMware for use by our Field, Partners and Customers.
+          %p Powered by VMware Workspace Suite, TestDrive features: Identity Manager, Horizon desktop and application virtualization, Horizon FLEX and AirWatch enterprise mobility management.
+          %p
+            Check out our
+            %a{:href => "http://support.vmtestdrive.com", :target => "_new"} knowledge base
+            for assistance with Registration, activation, passwords, customer invites and demo walkthroughs
+        .col-lg-12.col-md-12.col-sm-12.launch
+          %p
+            %button.btn.btn-info.btn-lg{"data-target" => "#login-modal", "data-toggle" => "modal", :type => "button"} Login to TestDrive
+          %p
+            %small
+              Don't have an account?
+              = succeed "." do
+                %a.text-muted{:href => new_registration_path} Sign up here
+        .clear
 
-#password-reset-modal.modal.fade{role: "dialog", tabindex: "-1"}
-  .modal-dialog
-    .modal-content
-      = form_tag recover_session_path do
+    .container
+      #footer.col-sm-12.col-md-12.col-lg-12
+        %p © EUC Global Solution Engineering Team
+
+
+  #login-modal.modal.fade{:tabindex => "-1"}
+    .modal-dialog.modal-sm
+      .modal-content
         .modal-header
-          %button.close{type: 'button', data: {dismiss: 'modal'}}
-            %span ×
           .td-dialog
-            %h1 Reset Password
-        .modal-body
-          .form-group
-            %label Email:
-            %input.form-control{name: "email", type: "text"}
-          .info
-            %strong A new password will be sent to the email.
-        .modal-footer
-          %button.btn.btn-default.pull-left{type: 'button', data: {dismiss: 'modal'}} Cancel
-          %button#send-invite.btn.btn-success{type: "submit"} Reset Password
+            %h1 Login
+        .modal-body.login
+          .loginbox
+            = form_tag session_path do
+              - if flash.any?
+                .flash
+                  = render "layouts/messages"
+              .form-group
+                = text_field_tag :email, params[:email], class: "form-control", placeholder: 'Username', autofocus: true
+              .form-group
+                = password_field_tag :password, params[:password], class: "form-control", placeholder: 'Password'
+              %button.btn.btn-info.loginbutton{:type => "submit"} Login
+              %p
+                %a.forgot-password.text-muted{"data-target" => "#password-reset-modal", "data-toggle" => "modal", href: "#"}
+                  %small Forgot password?
+              %p
+                %small
+                  Don't have an account?
+                  %br/
+                  = succeed "." do
+                    %a.text-muted{:href => new_registration_path} Sign up here
+
+  #password-reset-modal.modal.fade{role: "dialog", tabindex: "-1"}
+    .modal-dialog
+      .modal-content
+        = form_tag recover_session_path do
+          .modal-header
+            %button.close{type: 'button', data: {dismiss: 'modal'}}
+              %span ×
+            .td-dialog
+              %h1 Reset Password
+          .modal-body
+            .form-group
+              %label Email:
+              %input.form-control{name: "email", type: "text"}
+            .info
+              %strong A new password will be sent to the email.
+          .modal-footer
+            %button.btn.btn-default.pull-left{type: 'button', data: {dismiss: 'modal'}} Cancel
+            %button#send-invite.btn.btn-success{type: "submit"} Reset Password
+
+
+= render 'layouts/global'
+
+/ .col-lg-8.col-offset-lg-2.col-md-8.col-md-offset-2.col-sm-12.td-dialog.td-signup
+/   %h1 Login
+/   .login
+/     .col-lg-12.col-md-12.col-sm-12.blurb
+/       %h3
+/         Welcome to VMware TestDrive for End-User Computing
+/     .col-lg-7.col-md-7.col-sm-12.blurb
+/       %p
+/         TestDrive is a fully featured, integrated and globally available demonstration environment provided by VMware for use by our Field, Partners and Customers.
+/       %p 
+/         Powered by 
+/         %a{href: "https://www.vmware.com/products/workspace-suite", :target => "_blank"} VMware Workspace Suite, 
+/         TestDrive features Identity Manager, Horizon desktop and application virtualization, Horizon FLEX and AirWatch enterprise mobility management.
+/       %p
+/         Check out our 
+/         %a{href: "http://support.vmtestdrive.com/article/3-registration", :target => "_blank"} knowledge base 
+/         for assistance with Registration, activation, passwords, customer invites and demo walkthroughs!
+/     .col-lg-5.col-md-5.col-sm-12.loginbox
+/       = form_tag session_path do
+/         = render "layouts/messages"
+/         .form-group
+/           = text_field_tag :email, params[:email], class: "form-control", placeholder: 'Username', autofocus: true
+/         .form-group
+/           = password_field_tag :password, params[:password], class: "form-control", placeholder: 'Password'
+/         %button.btn.btn-info.loginbutton{:type => "submit"} Login
+/         %p
+/           %a.text-muted{"data-target" => "#password-reset-modal", "data-toggle" => "modal", href: "#"}
+/             %small Forgot password?
+/         %p.text-muted
+/           %small
+/             Don't have an account?
+/             %a{href: new_registration_path} Sign up here
+/     .clear

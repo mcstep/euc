@@ -1,4 +1,11 @@
 $ ->
+  # Login
+  if $('#login-modal .flash').length > 0
+    $('#login-modal').modal('show')
+
+  $(".forgot-password").on 'click', ->
+    $('#login-modal').modal('hide')
+
   # Prolong
   $('.prolong-account-link').on 'click', ->
     $link = $(@)
