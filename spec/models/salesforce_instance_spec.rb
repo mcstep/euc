@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.fdescribe SalesforceInstance, :vcr, type: :model do
+RSpec.describe SalesforceInstance, :vcr, type: :model do
   let(:salesforce_instance){ create :staging_salesforce_instance }
 
   describe '.register' do

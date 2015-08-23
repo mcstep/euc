@@ -1,7 +1,7 @@
 class ProfilePolicy < ApplicationPolicy
   def permitted_attributes
     [
-      :name, :home_template, :support_email, :group_name, :group_region, :supports_vidm,
+      :name, :home_template, :support_email, :group_name, :group_region, :supports_vidm, :implied_airwatch_eula,
       profile_integrations_attributes: [
         :id, :integration_id, :authentication_priority, :allow_sharing, :_destroy
       ]

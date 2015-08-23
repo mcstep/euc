@@ -13,8 +13,8 @@
 #  avatar                        :string
 #  country_code                  :string
 #  phone                         :string
-#  role                          :integer
-#  status                        :integer
+#  role                          :integer          default(0), not null
+#  status                        :integer          default(0), not null
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -239,6 +239,7 @@ class User < ActiveRecord::Base
   ##
   before_save                 :normalize!
   before_save                 :cleanup_avatar!
+  before_create               { self.airwatch_eula_accept_date = DateTime.now if profile.try(:implied_airwatch_eula) }
   before_create               { self.status = :verification_required if profile.try(:requires_verification) }
   after_validation            :normalize_errors
   after_create                :use_registration_code_point!

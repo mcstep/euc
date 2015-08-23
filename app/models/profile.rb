@@ -14,6 +14,7 @@
 #  updated_at                :datetime         not null
 #  requires_verification     :boolean          default(FALSE), not null
 #  airwatch_admins_supported :boolean          default(FALSE), not null
+#  implied_airwatch_eula     :boolean          default(FALSE), not null
 #
 # Indexes
 #

@@ -64,6 +64,15 @@ RSpec.describe User, type: :model do
   end
 
   describe 'profile' do
+    context 'when implies airwatch eula' do
+      let(:profile){ create(:integrated_profile, implied_airwatch_eula: true) }
+      let(:user){ create(:user, profile: profile) }
+
+      it 'works' do
+        expect(user.airwatch_eula_accept_date).to_not be_nil
+      end
+    end
+
     context 'when invited' do
       let(:invitation){ Invitation.create! from_user: create(:user), to_user: build(:user, profile: nil, role: :root) }
       subject{ invitation.to_user.profile_id }

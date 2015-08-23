@@ -9,6 +9,7 @@ after 'development:instances' do
 
   profile = Profile.where(name: 'Apple (Staging)').first_or_create! do |p|
 
+    p.implied_airwatch_eula     = true
     p.group_name                = 'TestdriveAppleUsers'
     p.group_region              = 'dldc'
     p.home_template             = 'apple'

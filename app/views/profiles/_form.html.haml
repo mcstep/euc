@@ -1,6 +1,7 @@
 = bootstrap_nested_form_for @profile do |f|
   = f.text_field :name
-  = f.check_box :supports_vidm
+  = f.check_box  :supports_vidm
+  = f.check_box  :implied_airwatch_eula
   = f.text_field :home_template
   = f.text_field :support_email
   = f.text_field :group_name
