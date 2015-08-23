@@ -5,7 +5,8 @@ class DirectoryProlongWorker
     prolongation = DirectoryProlongation.unscoped.find(directory_prolongation_id)
     prolongation.user_integration.integration.directory.prolong(
       prolongation.user_integration.username,
-      prolongation.expiration_date_new
+      prolongation.expiration_date_new,
+      prolongation.user_integration.integration.domain
     )
     GeneralMailer.directory_prolongation_email(prolongation).deliver_now
   end

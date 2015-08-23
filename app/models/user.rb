@@ -350,7 +350,8 @@ class User < ActiveRecord::Base
     if valid?
       authentication_integration.directory.update_password(
         authentication_integration.username,
-        password
+        password,
+        authentication_integration.integration.domain
       )
     end
   end

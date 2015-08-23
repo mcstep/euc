@@ -25,14 +25,20 @@ module Provisioners
         # Only tick status if everything worked (retry otherwise)
         @user_integration.transaction do
           @user_integration.airwatch.complete_application
-          @user_integration.airwatch_group = AirwatchGroup.produce(@user_integration)
+
+          if @user.profile.airwatch_create_groups
+            @user_integration.airwatch_group = AirwatchGroup.produce(@user_integration)
+          end
+
           @user_integration.save!
 
           if instance.group_name
             add_group instance.group_name, instance.group_region
           end
 
-          GeneralMailer.airwatch_activation_email(@user_integration).deliver_now
+          if @user.profile.airwatch_notify_by_email
+            GeneralMailer.airwatch_activation_email(@user_integration).deliver_now
+          end
         end
       end
     end

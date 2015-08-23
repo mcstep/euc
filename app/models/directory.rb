@@ -46,16 +46,16 @@ class Directory < ActiveRecord::Base
     end
   end
 
-  def update_password(username, password=nil)
+  def update_password(username, password=nil, domain=nil)
     if password.blank?
-      query 'changePassword', username: username
+      query 'changePassword', username: username, domain_suffix: domain
     else
-      query 'changeUserPassword', username: username, password: password
+      query 'changeUserPassword', username: username, password: password, domain_suffix: domain
     end
   end
 
-  def prolong(username, expires_at)
-    query 'extendAccount', username: username, expires_at: expires_at.to_datetime.to_i*1000
+  def prolong(username, expires_at, domain=nil)
+    query 'extendAccount', username: username, expires_at: expires_at.to_datetime.to_i*1000, domain_suffix: domain
   end
 
   def signup(user_integration)
