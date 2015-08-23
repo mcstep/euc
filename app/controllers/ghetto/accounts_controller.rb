@@ -1,5 +1,5 @@
 module Ghetto
-  class AccountsController < ActionController::Base
+  class AccountsController < BaseApiController
     include ActiveDirectoryHelper
     before_filter :find_account, only: [:show, :update, :delete, :reset_password, :change_password]
 
