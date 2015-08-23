@@ -73,7 +73,9 @@ module Provisioners
           remove_group instance.group_name, instance.group_region
         end
 
-        GeneralMailer.airwatch_deactivation_email(@user_integration).deliver_now
+        if @user.profile.airwatch_notify_by_email
+          GeneralMailer.airwatch_deactivation_email(@user_integration).deliver_now
+        end
       end
     end
 
@@ -86,7 +88,9 @@ module Provisioners
         add_group instance.group_name, instance.group_region
       end
 
-      GeneralMailer.airwatch_reactivation_email(@user_integration).deliver_now
+      if @user.profile.airwatch_notify_by_email
+        GeneralMailer.airwatch_reactivation_email(@user_integration).deliver_now
+      end
     end
 
     def cleanup

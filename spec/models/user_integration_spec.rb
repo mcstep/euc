@@ -79,7 +79,7 @@ RSpec.describe UserIntegration, type: :model do
     let!(:user_integration){ create(:complete_user_integration) }
 
     describe 'bootstrap' do
-      fcontext 'when profile implies eula' do
+      context 'when profile implies eula' do
         let!(:user_integration) do
           create :complete_user_integration,
               user: create(:user, profile: create(:integrated_profile, implied_airwatch_eula: true))

@@ -15,6 +15,8 @@
 #  requires_verification     :boolean          default(FALSE), not null
 #  airwatch_admins_supported :boolean          default(FALSE), not null
 #  implied_airwatch_eula     :boolean          default(FALSE), not null
+#  airwatch_create_groups    :boolean          default(TRUE), not null
+#  airwatch_notify_by_email  :boolean          default(TRUE), not null
 #
 # Indexes
 #

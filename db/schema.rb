@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150823135205) do
+ActiveRecord::Schema.define(version: 20150823152204) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -287,6 +287,8 @@ ActiveRecord::Schema.define(version: 20150823135205) do
     t.boolean  "requires_verification",     default: false, null: false
     t.boolean  "airwatch_admins_supported", default: false, null: false
     t.boolean  "implied_airwatch_eula",     default: false, null: false
+    t.boolean  "airwatch_create_groups",    default: true,  null: false
+    t.boolean  "airwatch_notify_by_email",  default: true,  null: false
   end
 
   add_index "profiles", ["deleted_at"], name: "index_profiles_on_deleted_at"
