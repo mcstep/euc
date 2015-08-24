@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  layout 'unauthorized'
+  layout false
   
   skip_before_action :require_login
   skip_after_action :verify_authorized
@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
   def new
     @small_footer = true
     redirect_to root_path if current_user
-    render layout: false
   end
 
   def create
