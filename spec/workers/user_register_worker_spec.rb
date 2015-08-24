@@ -51,7 +51,7 @@ RSpec.describe UserRegisterWorker, type: :model do
         expect(directory).to receive(:add_group).once.with(username, 'VIDMUsers')
         expect(directory).to receive(:add_group).once.with(username, 'test')
         expect(directory).to receive(:sync).once.with('dldc')
-        expect(directory).to receive(:update_password).once.with(username, nil)
+        expect(directory).to receive(:update_password).once.with(username, nil, user.authentication_integration.integration.domain)
 
         expect{ UserRegisterWorker.new.perform(user) }.to raise_error('error')
         expect{ UserRegisterWorker.new.perform(user) }.to change { ActionMailer::Base.deliveries.count }.by(1)

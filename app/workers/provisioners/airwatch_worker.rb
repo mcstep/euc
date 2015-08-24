@@ -54,6 +54,10 @@ module Provisioners
 
         instance.delete_user(@user_integration.airwatch_user_id)
 
+        if @user_integration.airwatch_admin_user_id
+          instance.delete_admin_user(@user_integration.airwatch_admin_user_id)
+        end
+
         if instance.group_name
           remove_group instance.group_name, instance.group_region
         end
