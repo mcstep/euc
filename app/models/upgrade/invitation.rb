@@ -42,4 +42,12 @@ class Upgrade::Invitation < ActiveRecord::Base
   has_many :extensions,  class_name: 'Upgrade::Extension', foreign_key: 'recipient'
 
   enum invitation_status: [:pending, :active, :expired, :declined]
+
+  def domain
+    Upgrade::Domain.where(name: recipient_email.split('@').last, status: 0).first
+  end
+
+  def role
+    domain.present? ? User::ROLES[:admin] : User::ROLES[:basic]
+  end
 end

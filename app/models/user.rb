@@ -13,8 +13,8 @@
 #  avatar                        :string
 #  country_code                  :string
 #  phone                         :string
-#  role                          :integer          default(0), not null
-#  status                        :integer          default(0), not null
+#  role                          :integer
+#  status                        :integer
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -25,7 +25,6 @@
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  verification_token            :string
-#  can_edit_services             :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -179,7 +178,12 @@ class User < ActiveRecord::Base
     def setup_authentication
       if authentication_integration.blank?
         self.authentication_integration = user_integrations.sort_by(&:authentication_priority).first
-        save!
+        begin
+          save!
+        rescue Exception => e
+          binding.pry
+          raise e
+        end
       end
     end
   end
@@ -189,6 +193,8 @@ class User < ActiveRecord::Base
   include IntegrationsDelegations
   include CompanyHolder
   include RequestsLogger
+
+  attr_accessor :skip_points_management
 
   ##
   # Scopes
@@ -251,7 +257,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :email, presence: true, uniqueness: { scope: :deleted_at }
+  validates :email, presence: true, uniqueness: { scope: :deleted_at }, unless: :deleted_at?
   validates :company, presence: true
   validates :job_title, presence: true
   validates :home_region, presence: true, inclusion: { in: REGIONS, allow_blank: true }
@@ -269,10 +275,6 @@ class User < ActiveRecord::Base
   ##
   # Helpers
   ##
-  def old_user
-    @old_user ||= Upgrade::User.where("LOWER(email) = LOWER(?)", email).first
-  end
-
   def provisioned?
     authentication_integration && authentication_integration.directory_status != :provisioning
   end
@@ -398,7 +400,7 @@ class User < ActiveRecord::Base
   end
 
   def use_registration_code_point!
-    return if !registration_code
+    return if !registration_code || skip_points_management
     registration_code.total_registrations -= 1
     registration_code.save!
   end

@@ -38,10 +38,9 @@ class ProfileIntegration < ActiveRecord::Base
   end
 
   def to_user_integration(user_integration=nil)
-    result = UserIntegration.new(integration: integration)
+    result = user_integration ? user_integration.dup : UserIntegration.new(integration: integration)
 
     Integration::SERVICES.each do |s|
-      result.send "#{s}_disabled=", user_integration.send("#{s}_disabled") if user_integration
       result["#{s}_status"] = self["#{s}_default_status"] if !result.send("#{s}_disabled") && self["#{s}_default_status"]
     end
 
