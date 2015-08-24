@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
 
       @data = JSON.parse(
         RestClient.get(
-          authentication_integration.directory.stats_url % {username:'sedstrom', days: 30}
+          authentication_integration.directory.stats_url % {username: authentication_integration.username, days: 30}
         )
       )
 
