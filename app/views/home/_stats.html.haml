@@ -4,22 +4,22 @@
       %span Stats
 
 - if desktops_stats[:data].present?
-  .col-lg-6
+  .col-md-12.col-sm-12.col-lg-6
     .widget.activity.graph
       %h1 Horizon View Activity
       %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
         #desktops-chart{data: {stats: desktops_stats.to_json}}
 
 - if sessions_stats[:data].present?
-  .col-lg-6
+  .col-md-12.col-sm-12.col-lg-6
     .widget.activity.graph
       %h1 Sessions
       %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
         #sessions-chart{data: {stats: sessions_stats.to_json}}
 
 - if apps_stats[:data].present?
-  .col-lg-12
+  .col-lg-12{style: 'clear: both'}
     .widget.activity.graph
       %h1 Horizon View Usage
       %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
-        #apps-chart{data: {stats: apps_stats.to_json}}
+        #apps-chart{data: {stats: apps_stats.to_json}}  }
