@@ -269,6 +269,10 @@ class User < ActiveRecord::Base
   ##
   # Helpers
   ##
+  def old_user
+    @old_user ||= Upgrade::User.where("LOWER(email) = LOWER(?)", email).first
+  end
+
   def provisioned?
     authentication_integration && authentication_integration.directory_status != :provisioning
   end
