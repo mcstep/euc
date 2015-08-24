@@ -49,7 +49,7 @@ en:
     dldc: Dallas
 
   roles:
-    basic: Regular
+    basic: User
     admin: Super
     root: Root
 

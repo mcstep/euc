@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150823152204) do
+ActiveRecord::Schema.define(version: 20150824083354) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -372,24 +372,25 @@ ActiveRecord::Schema.define(version: 20150823152204) do
     t.integer  "profile_id"
     t.integer  "registration_code_id"
     t.integer  "authentication_integration_id"
-    t.string   "email",                                     null: false
+    t.string   "email",                                         null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "avatar"
     t.string   "country_code"
     t.string   "phone"
-    t.integer  "role",                          default: 0, null: false
-    t.integer  "status",                        default: 0, null: false
+    t.integer  "role",                          default: 0,     null: false
+    t.integer  "status",                        default: 0,     null: false
     t.string   "job_title"
-    t.integer  "invitations_used",              default: 0, null: false
-    t.integer  "total_invitations",             default: 5, null: false
+    t.integer  "invitations_used",              default: 0,     null: false
+    t.integer  "total_invitations",             default: 5,     null: false
     t.string   "home_region"
     t.date     "airwatch_eula_accept_date"
     t.datetime "last_authorized_at"
     t.datetime "deleted_at"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.string   "verification_token"
+    t.boolean  "can_edit_services",             default: false, null: false
   end
 
   add_index "users", ["authentication_integration_id"], name: "index_users_on_authentication_integration_id"

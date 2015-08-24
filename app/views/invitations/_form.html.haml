@@ -10,8 +10,8 @@
     = uf.text_field :integrations_expiration_date, 'data-provide' => 'datepicker', value: bl(uf.object.integrations_expiration_date)
   - if writable?(f.object, :to_user_attributes, :role)
     = uf.select :role, I18n.t('roles').invert
-  - if writable?(f.object, :to_user_attributes, :profile_id)
-    = uf.select :profile_id, Profile.all.collect{|p| [ p.name, p.id ] }, prompt: ''
+  - if writable?(f.object, :to_user_attributes, :can_edit_services)
+    = uf.check_box :can_edit_services
   = uf.select :home_region, permitted_regions, prompt: 'Select a Region'
   = uf.fields_for :user_integrations do |uif|
     %fieldset

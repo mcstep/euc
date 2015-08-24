@@ -9,10 +9,10 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def index?
-    @user.root?
+    @user.root? && @user.can_edit_services
   end
 
   def create?
-    @user.root?
+    @user.root? && @user.can_edit_services
   end
 end

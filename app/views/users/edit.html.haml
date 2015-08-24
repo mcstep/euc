@@ -12,6 +12,8 @@
     = f.text_field :job_title
     - if writable?(f.object, :role)
       = f.select :role, I18n.t('roles').invert
+    - if writable?(f.object, :can_edit_services)
+      = f.check_box :can_edit_services
     = f.select :home_region, I18n.t('regions').invert, include_blank: true
     = f.text_field :total_invitations, wrapper: {class: 'no-basic'}
     = f.fields_for :user_integrations do |uif|

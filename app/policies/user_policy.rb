@@ -21,6 +21,7 @@ class UserPolicy < ApplicationPolicy
     ]
 
     attributes += [:role, :integrations_expiration_date, :profile_id] if @user.root?
+    attributes += [:can_edit_services] if @user.can_edit_services
 
     attributes
   end
