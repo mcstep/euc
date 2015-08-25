@@ -66,6 +66,12 @@ module StateMachines
     m.when :approve,
       not_approved:   :provisioning
 
+    if new_record?
+      m.when :disable, provisioning: :disabled, provisioned: :disabled, not_approved: :disabled
+    else
+      m.when :disable, provisioned: :revoking, not_approved: :disabled
+    end
+
     machines[:airwatch] = m
   end
 
