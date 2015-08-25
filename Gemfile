@@ -45,7 +45,6 @@ gem 'carrierwave-data-uri'
 gem 'cloudinary'
 gem 'sidekiq'
 gem 'seedbank'
-gem 'bugsnag'
 gem 'restforce'
 gem 'newrelic_rpm'
 
@@ -76,4 +75,8 @@ group :test do
   gem 'rack_session_access'
   gem 'show_me_the_cookies'
   gem 'test_after_commit'
+end
+
+group :production do
+  gem 'bugsnag'
 end
