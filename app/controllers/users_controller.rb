@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def index
     authorize :user
-    @users = policy_scope(User).order(:first_name).page(params[:page])
+    @users = policy_scope(User).includes(:authentication_integration).order(:first_name).page(params[:page])
 
     if params[:search].present?
       @users = @users

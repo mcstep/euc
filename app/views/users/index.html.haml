@@ -18,6 +18,7 @@
       %thead
         %tr
           %th Full Name
+          %th Username
           %th Email
           %th Company
           %th Title
@@ -29,6 +30,7 @@
         - @users.each do |user|
           %tr
             %td= user.display_name
+            %td= user.authentication_integration.username
             %td= user.email
             %td= user.company_name
             %td= user.job_title

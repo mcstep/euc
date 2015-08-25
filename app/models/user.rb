@@ -199,15 +199,17 @@ class User < ActiveRecord::Base
   ##
   # Scopes
   ##
-  scope :expiring_soon, lambda {
+  scope :expiring_soon, lambda { |period=nil|
+    period ||= 3.days
+
     joins(:authentication_integration).where(
-      'user_integrations.expires_at > ? and expires_at < ?', DateTime.now, DateTime.now + 72.hours
+      'user_integrations.directory_expiration_date > ? AND user_integrations.directory_expiration_date < ?', DateTime.now, DateTime.now + period
     )
   }
 
   scope :expired, lambda {
     joins(:authentication_integration).where(
-      'user_integrations.expires_at < ?', DateTime.now - 24.hour # 24 hour grace period
+      'user_integrations.directory_expiration_date < ?', DateTime.now - 24.hour # 24 hour grace period
     )
   }
 

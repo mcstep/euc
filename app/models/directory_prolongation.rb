@@ -18,7 +18,7 @@
 #
 
 class DirectoryProlongation < ActiveRecord::Base
-  attr_accessor :skip_expiration_management
+  attr_accessor :skip_expiration_management, :period
 
   belongs_to :user_integration, -> { with_deleted }
   belongs_to :user, -> { with_deleted }
@@ -28,7 +28,7 @@ class DirectoryProlongation < ActiveRecord::Base
 
   before_validation do
     self.expiration_date_old   = user_integration.directory_expiration_date
-    self.expiration_date_new ||= [expiration_date_old, Date.today].max + 1.month
+    self.expiration_date_new ||= [expiration_date_old, Date.today].max + period
   end
 
   after_create do
@@ -36,5 +36,9 @@ class DirectoryProlongation < ActiveRecord::Base
       user_integration.update_attributes(directory_expiration_date: expiration_date_new)
       DirectoryProlongWorker.perform_async(id)
     end
+  end
+
+  def period
+    @period || 1.month
   end
 end
