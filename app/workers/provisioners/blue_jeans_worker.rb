@@ -41,7 +41,7 @@ module Provisioners
           user_integration.save!
 
           instance.unregister(user_integration.blue_jeans_user_id)
-          GeneralMailer.blue_jeans_removal_email(user_integration).deliver_now
+          GeneralMailer.blue_jeans_removal_email(instance.support_emails, user_integration).deliver_now
         end
       end
 
