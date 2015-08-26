@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.fdescribe Provisioners::AirwatchWorker, type: :model do
+RSpec.describe Provisioners::AirwatchWorker, type: :model do
   let(:user_integration) do
     create :user_integration,
       integration: create(:airwatch_integration),
@@ -64,7 +64,7 @@ RSpec.fdescribe Provisioners::AirwatchWorker, type: :model do
           it 'works' do
             expect(instance).to receive(:add_user).once.with(username).and_return('Value' => 1)
             expect(instance).to receive(:use_admin).once.and_return(true)
-            expect(instance).to receive(:use_groups).once.and_return(true)
+            expect(instance).to receive(:use_groups).twice.and_return(true)
             expect(instance).to receive(:add_admin_user).once.with(user_integration).and_return('Value' => 1)
             expect(instance).to receive(:add_group).once.with(user_integration.airwatch_group_name).and_return('Value' => 1)
             expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
@@ -83,7 +83,7 @@ RSpec.fdescribe Provisioners::AirwatchWorker, type: :model do
           expect(instance).to receive(:add_user).once.with(username).and_return('Value' => 1)
           expect(instance).to receive(:use_admin).once.and_return(true)
           expect(instance).to receive(:add_admin_user).once.with(user_integration).and_return('Value' => 1)
-          expect(instance).to receive(:use_groups).once.and_return(true)
+          expect(instance).to receive(:use_groups).twice.and_return(true)
           expect(instance).to receive(:add_group).once.with(user_integration.airwatch_group_name).and_return('Value' => 1)
           expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
           expect(directory).to receive(:sync).once.with('region')
@@ -104,7 +104,7 @@ RSpec.fdescribe Provisioners::AirwatchWorker, type: :model do
 
           expect(instance).to receive(:use_admin).once.and_return(true)
           expect(instance).to receive(:add_admin_user).once.with(user_integration).and_return('Value' => 1)
-          expect(instance).to receive(:use_groups).once.and_return(true)
+          expect(instance).to receive(:use_groups).twice.and_return(true)
           expect(instance).to receive(:add_group).once.with(user_integration.airwatch_group_name).and_return('Value' => 1)
           expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
           expect(directory).to receive(:sync).once.with('region')
@@ -131,7 +131,7 @@ RSpec.fdescribe Provisioners::AirwatchWorker, type: :model do
 
           expect(instance).to receive(:use_admin).once.and_return(true)
           expect(instance).to receive(:add_group).once.with(user_integration.airwatch_group_name).and_return('Value' => 1)
-          expect(instance).to receive(:use_groups).once.and_return(true)
+          expect(instance).to receive(:use_groups).twice.and_return(true)
           expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
           expect(directory).to receive(:sync).once.with('region')
           expect(Cloudinary::Uploader).to receive(:upload).once.and_return('url' => '')
