@@ -17,3 +17,6 @@
   - if policy(:blue_jeans_instance).index?
     %li{class: ('active' if controller.is_a?(BlueJeansInstancesController))}
       = link_to 'Blue Jeans', blue_jeans_instances_path
+  - if policy(:salesforce_instance).index?
+    %li{class: ('active' if controller.is_a?(SalesforceInstancesController))}
+      = link_to 'Salesforce', salesforce_instances_path

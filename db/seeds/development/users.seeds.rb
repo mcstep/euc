@@ -10,6 +10,7 @@ after 'development:profile_default', 'development:profile_apple' do
     u.job_title             = 'CEO'
     u.integrations_username = 'first.user'
     u.skip_provisioning     = true
+    u.can_edit_services     = true
   end
 
   User.where(email: 'user@apple.com').first_or_create! do |u|

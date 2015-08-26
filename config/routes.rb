@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   resources :office365_instances
   resources :horizon_instances
   resources :blue_jeans_instances
+  resources :salesforce_instances
 
   scope '/api' do
     scope '/trygrid' do

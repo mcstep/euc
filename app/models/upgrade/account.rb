@@ -3,20 +3,20 @@
 # Table name: accounts
 #
 #  id              :integer          not null, primary key
-#  first_name      :string(255)
-#  last_name       :string(255)
-#  email           :string(255)
+#  first_name      :string
+#  last_name       :string
+#  email           :string
 #  expiration_date :datetime
-#  username        :string(255)
-#  company         :string(255)
-#  job_title       :string(255)
+#  username        :string
+#  company         :string
+#  job_title       :string
 #  account_source  :integer
 #  created_at      :datetime
 #  updated_at      :datetime
 #  deleted_at      :datetime
-#  home_region     :string(255)
-#  uuid            :string(255)
-#  country_code    :string(255)
+#  home_region     :string
+#  uuid            :string
+#  country_code    :string
 #
 # Indexes
 #

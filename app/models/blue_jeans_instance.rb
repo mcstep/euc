@@ -15,6 +15,8 @@
 #
 
 class BlueJeansInstance < ActiveRecord::Base
+  prepend ServiceInstance
+
   validates :group_region, presence: true, if: lambda{ group_name.present? }
   validates :grant_type, presence: true
   validates :client_id, presence: true

@@ -8,7 +8,7 @@ module BootstrapForm
         object.errors[name.to_s[0...-3]]
       end
 
-      attempt || object.errors[name]
+      attempt.blank? ? object.errors[name] : attempt
     end
 
     def has_error?(name)

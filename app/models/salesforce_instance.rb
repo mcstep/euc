@@ -21,6 +21,15 @@
 #
 
 class SalesforceInstance < ActiveRecord::Base
+  prepend ServiceInstance
+
+  validates :client_id, presence: true
+  validates :client_secret, presence: true
+
+  def title
+    client_id
+  end
+
   def client
     Restforce.new api_version: "28.0",
       username: username,
@@ -33,7 +42,7 @@ class SalesforceInstance < ActiveRecord::Base
   def register(username, first_name, last_name, email)
     client.create! 'User',
       email: email,
-      'alias' => username,
+      'alias' => "#{username[0...5]}_#{rand(11...99)}",
       firstname: first_name,
       lastname: last_name,
       username: email,
