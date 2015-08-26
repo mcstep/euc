@@ -8,4 +8,6 @@
   = f.select :horizon_air_instance_id, HorizonAirInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
   = f.select :horizon_rds_instance_id, HorizonInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
   = f.select :horizon_view_instance_id, HorizonInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
+  = f.select :blue_jeans_instance_id, BlueJeansInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
+  = f.select :salesforce_instance_id, BlueJeansInstance.all.collect{|i| [ i.title, i.id ] }, prompt: ''
   = f.submit class: 'btn btn-success', style: 'width: 100%; margin-bottom: 30px'
