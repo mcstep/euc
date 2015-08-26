@@ -7,5 +7,10 @@
   = f.text_field :user
   = f.text_field :password
   = f.text_field :parent_group_id
+  = f.check_box  :use_groups
+  = f.check_box  :use_admin
+  = f.check_box  :use_templates
+  = f.text_field :templates_api_url
+  = f.text_field :templates_token
   = f.text_area  :admin_roles_text, rows: 10
   = f.submit class: 'btn btn-success', style: 'width: 100%; margin-bottom: 30px'
