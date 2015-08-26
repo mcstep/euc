@@ -14,9 +14,6 @@ after :instances do
     p.group_region              = 'dldc'
     p.home_template             = 'apple'
     p.support_email             = 'salessupport@air-watch.com'
-    p.airwatch_admins_supported = true
-    p.airwatch_create_groups    = false
-    p.airwatch_notify_by_email  = false
     p.profile_integrations      = [ProfileIntegration.new(
       allow_sharing: true,
       integration:   integration

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826165312) do
+ActiveRecord::Schema.define(version: 20150826212207) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -54,13 +54,29 @@ ActiveRecord::Schema.define(version: 20150826165312) do
     t.string   "parent_group_id"
     t.text     "admin_roles"
     t.datetime "deleted_at"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "security_pin"
     t.string   "display_name"
+    t.string   "templates_api_url"
+    t.string   "templates_token"
+    t.boolean  "use_templates",     default: false, null: false
+    t.boolean  "use_admin",         default: false, null: false
+    t.boolean  "use_groups",        default: true,  null: false
   end
 
   add_index "airwatch_instances", ["deleted_at"], name: "index_airwatch_instances_on_deleted_at"
+
+  create_table "airwatch_templates", force: :cascade do |t|
+    t.integer  "airwatch_instance_id"
+    t.string   "domain"
+    t.text     "data"
+    t.datetime "deleted_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "airwatch_templates", ["deleted_at"], name: "index_airwatch_templates_on_deleted_at"
 
   create_table "blue_jeans_instances", force: :cascade do |t|
     t.string   "group_name"
@@ -281,15 +297,12 @@ ActiveRecord::Schema.define(version: 20150826165312) do
     t.string   "support_email"
     t.string   "group_name"
     t.string   "group_region"
-    t.boolean  "supports_vidm",             default: true,  null: false
+    t.boolean  "supports_vidm",         default: true,  null: false
     t.datetime "deleted_at"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.boolean  "requires_verification",     default: false, null: false
-    t.boolean  "airwatch_admins_supported", default: false, null: false
-    t.boolean  "implied_airwatch_eula",     default: false, null: false
-    t.boolean  "airwatch_create_groups",    default: true,  null: false
-    t.boolean  "airwatch_notify_by_email",  default: true,  null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "requires_verification", default: false, null: false
+    t.boolean  "implied_airwatch_eula", default: false, null: false
   end
 
   add_index "profiles", ["deleted_at"], name: "index_profiles_on_deleted_at"

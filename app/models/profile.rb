@@ -2,21 +2,18 @@
 #
 # Table name: profiles
 #
-#  id                        :integer          not null, primary key
-#  name                      :string
-#  home_template             :string
-#  support_email             :string
-#  group_name                :string
-#  group_region              :string
-#  supports_vidm             :boolean          default(TRUE), not null
-#  deleted_at                :datetime
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  requires_verification     :boolean          default(FALSE), not null
-#  airwatch_admins_supported :boolean          default(FALSE), not null
-#  implied_airwatch_eula     :boolean          default(FALSE), not null
-#  airwatch_create_groups    :boolean          default(TRUE), not null
-#  airwatch_notify_by_email  :boolean          default(TRUE), not null
+#  id                    :integer          not null, primary key
+#  name                  :string
+#  home_template         :string
+#  support_email         :string
+#  group_name            :string
+#  group_region          :string
+#  supports_vidm         :boolean          default(TRUE), not null
+#  deleted_at            :datetime
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  requires_verification :boolean          default(FALSE), not null
+#  implied_airwatch_eula :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -30,6 +27,7 @@ class Profile < ActiveRecord::Base
   validates :group_region, presence: true, if: :directory_groups?
 
   has_many :profile_integrations, inverse_of: :profile
+  has_many :integrations, through: :profile_integrations
 
   accepts_nested_attributes_for :profile_integrations, allow_destroy: true
 

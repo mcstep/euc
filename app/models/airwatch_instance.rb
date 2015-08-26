@@ -2,20 +2,25 @@
 #
 # Table name: airwatch_instances
 #
-#  id              :integer          not null, primary key
-#  group_name      :string
-#  group_region    :string
-#  api_key         :string
-#  host            :string
-#  user            :string
-#  password        :string
-#  parent_group_id :string
-#  admin_roles     :text
-#  deleted_at      :datetime
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  security_pin    :string
-#  display_name    :string
+#  id                :integer          not null, primary key
+#  group_name        :string
+#  group_region      :string
+#  api_key           :string
+#  host              :string
+#  user              :string
+#  password          :string
+#  parent_group_id   :string
+#  admin_roles       :text
+#  deleted_at        :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  security_pin      :string
+#  display_name      :string
+#  templates_api_url :string
+#  templates_token   :string
+#  use_templates     :boolean          default(FALSE), not null
+#  use_admin         :boolean          default(FALSE), not null
+#  use_groups        :boolean          default(TRUE), not null
 #
 # Indexes
 #
@@ -55,6 +60,19 @@ class AirwatchInstance < ActiveRecord::Base
     end
   end
 
+  def effective_admin_roles(user_integration)
+    return admin_roles unless use_templates
+
+    roles  = []
+    groups = AirwatchTemplate.produce(user_integration).to_h
+
+    admin_roles.each do |entry|
+      roles << {'Id' => entry['Id'], 'LocationGroupId' => groups[entry['LocationGroupId']].to_s}
+    end
+
+    roles
+  end
+
   def query(action, payload=nil, method: :post)
     response = RestClient::Request.execute(
       method:   method, 
@@ -87,13 +105,13 @@ class AirwatchInstance < ActiveRecord::Base
       'Role' => 'VMWDemo'
   end
 
-  def add_admin_user(username)
+  def add_admin_user(user_integration)
     query "system/admins/addadminuser",
-      'UserName' => username, 
+      'UserName' => user_integration.username, 
       'LocationGroupId' => parent_group_id,
       'IsActiveDirectoryUser' => 'true',
       'RequiresPasswordChange' => 'false',
-      'Roles' => admin_roles    
+      'Roles' => effective_admin_roles(user_integration)
   end
 
   def activate(id)
@@ -126,5 +144,26 @@ class AirwatchInstance < ActiveRecord::Base
     rescue RestClient::BadRequest => e
       raise e unless e.response =~ /User not found or does not have access to retrieve the details/
     end
+  end
+
+  def generate_template(domain, company)
+    url = URI(templates_api_url)
+    url.query = "token=#{Rack::Utils.escape templates_token}"
+
+    begin
+      RestClient::Request.execute(
+        method:   'POST',
+        url:      url.to_s,
+        payload:  { domainName: domain, partnerName: company }.to_json,
+        headers:  { content_type: :json, accept: :json }
+      )
+    rescue RestClient::Conflict => e
+    end
+
+    url.path += '/' unless url.path.ends_with?('/')
+    url.path += domain
+    url.normalize!
+
+    JSON.parse(RestClient.get url.to_s)
   end
 end

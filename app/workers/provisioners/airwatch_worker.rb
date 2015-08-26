@@ -11,9 +11,9 @@ module Provisioners
           user_integration.save!
         end
 
-        if user.profile.airwatch_admins_supported
+        if instance.use_admin
           unless user_integration.airwatch_admin_user_id
-            user_integration.airwatch_admin_user_id = instance.add_admin_user(user_integration.username)['Value']
+            user_integration.airwatch_admin_user_id = instance.add_admin_user(user_integration)['Value']
             user_integration.save!
           end
         end
@@ -21,7 +21,7 @@ module Provisioners
         user_integration.transaction do
           user_integration.airwatch.complete_application
 
-          if user.profile.airwatch_create_groups
+          if instance.use_groups
             user_integration.airwatch_group = AirwatchGroup.produce(user_integration)
           end
 
@@ -31,7 +31,7 @@ module Provisioners
             add_group instance.group_name, instance.group_region
           end
 
-          if user.profile.airwatch_notify_by_email
+          if instance.use_groups
             GeneralMailer.airwatch_activation_email(user_integration).deliver_now
           end
         end
@@ -49,7 +49,7 @@ module Provisioners
           remove_group instance.group_name, instance.group_region
         end
 
-        if user.profile.airwatch_notify_by_email
+        if instance.use_groups
           GeneralMailer.airwatch_deactivation_email(user_integration).deliver_now
         end
       end
@@ -62,7 +62,7 @@ module Provisioners
         add_group instance.group_name, instance.group_region
       end
 
-      if user.profile.airwatch_notify_by_email
+      if instance.use_groups
         GeneralMailer.airwatch_reactivation_email(user_integration).deliver_now
       end
     end

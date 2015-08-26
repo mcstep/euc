@@ -1,7 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe AirwatchInstance, :vcr, type: :model do
+  let(:user_integration){ build :user_integration, username: 'spec.test' }
   let(:airwatch_instance){ build :staging_airwatch_instance }
+
+  describe '.generate_template' do
+    subject{ airwatch_instance.generate_template('spec7.com', 'company7') }
+    it{ is_expected.to include('name' => 'company7') }
+
+    context 'when called twice' do
+      before{ airwatch_instance.generate_template('spec7.com', 'company7') }
+      it{ is_expected.to include('name' => 'company7') }
+    end
+  end
+
+  describe '.effective_admin_roles' do
+    let(:airwatch_instance) do
+      build :staging_airwatch_instance,
+        use_templates: true,
+        admin_roles: [ {"Id" => "1", "LocationGroupId"=> "company7" } ]
+    end
+    let(:user_integration) do
+      ui = build :airwatch_user_integration
+      ui.user = build :user, company_name: 'ZOMG Company 2'
+      ui.integration.domain = 'spec7.com'
+      ui.integration.airwatch_instance = airwatch_instance
+      ui
+    end
+
+    subject{ airwatch_instance.effective_admin_roles(user_integration) }
+
+    it{ is_expected.to eq [{"Id"=>"1", "LocationGroupId"=>"1746"}] }
+  end
 
   describe '.add_group' do
     subject{ @result = airwatch_instance.add_group('spec2') }
@@ -16,13 +46,13 @@ RSpec.describe AirwatchInstance, :vcr, type: :model do
   end
 
   describe '.add_admin_user' do
-    subject{ @result = airwatch_instance.add_admin_user('spec.test') }
+    subject{ @result = airwatch_instance.add_admin_user(user_integration) }
     after{ airwatch_instance.delete_admin_user(@result['Value']) }
     it{ is_expected.to be_a Hash }
   end
 
   describe 'with existing admin user' do
-    before{ @result = airwatch_instance.add_admin_user('spec.test') }
+    before{ @result = airwatch_instance.add_admin_user(user_integration) }
     after{ airwatch_instance.delete_admin_user(@result['Value']) if @result }
     let(:admin_user_id){ @result['Value'] }
 
