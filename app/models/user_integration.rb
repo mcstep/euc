@@ -2,28 +2,29 @@
 #
 # Table name: user_integrations
 #
-#  id                        :integer          not null, primary key
-#  user_id                   :integer
-#  integration_id            :integer
-#  username                  :string
-#  directory_expiration_date :date             not null
-#  directory_status          :integer          default(0), not null
-#  horizon_air_status        :integer          default(0), not null
-#  horizon_rds_status        :integer          default(0), not null
-#  horizon_view_status       :integer          default(0), not null
-#  airwatch_status           :integer          default(0), not null
-#  office365_status          :integer          default(0), not null
-#  google_apps_status        :integer          default(0), not null
-#  airwatch_user_id          :integer
-#  airwatch_admin_user_id    :integer
-#  airwatch_group_id         :integer
-#  deleted_at                :datetime
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  blue_jeans_status         :integer          default(0), not null
-#  blue_jeans_user_id        :integer
-#  salesforce_status         :integer          default(0), not null
-#  salesforce_user_id        :integer
+#  id                              :integer          not null, primary key
+#  user_id                         :integer
+#  integration_id                  :integer
+#  username                        :string
+#  directory_expiration_date       :date             not null
+#  directory_status                :integer          default(0), not null
+#  horizon_air_status              :integer          default(0), not null
+#  horizon_rds_status              :integer          default(0), not null
+#  horizon_view_status             :integer          default(0), not null
+#  airwatch_status                 :integer          default(0), not null
+#  office365_status                :integer          default(0), not null
+#  google_apps_status              :integer          default(0), not null
+#  airwatch_user_id                :integer
+#  airwatch_admin_user_id          :integer
+#  airwatch_group_id               :integer
+#  deleted_at                      :datetime
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  blue_jeans_status               :integer          default(0), not null
+#  blue_jeans_user_id              :integer
+#  salesforce_status               :integer          default(0), not null
+#  salesforce_user_id              :integer
+#  blue_jeans_removal_requested_at :datetime
 #
 # Indexes
 #
@@ -66,6 +67,7 @@ class UserIntegration < ActiveRecord::Base
   }, prefix: 'directory'
 
   typical_service_statuses = {
+    deprovisioning: -5,
     revoked: -4,
     available: -3,
     revoking: -2,
@@ -107,7 +109,7 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def applying?
-    (Integration::SERVICES.map{|s| send("#{s}_status")} & [:provisioning, :revoking]).any?
+    (Integration::SERVICES.map{|s| send("#{s}_status")} & [:provisioning, :revoking, :deprovisioning]).any?
   end
 
   def authentication_priority
@@ -147,6 +149,8 @@ class UserIntegration < ActiveRecord::Base
 
         if to == :revoking
           ProvisionerWorker[s].revoke_async(id)
+        elsif to == :deprovisioning
+          ProvisionerWorker[s].deprovision_async(id)
         elsif to == :provisioning && from == :revoked
           ProvisionerWorker[s].resume_async(id)
         elsif to == :provisioning
@@ -158,15 +162,6 @@ class UserIntegration < ActiveRecord::Base
 
   def drop_provisioning
     return if @skip_provisioning
-
-    Integration::SERVICES.each do |s|
-      status = send("#{s}_status")
-
-      if status == :provisioned || status == :provisioning
-        ProvisionerWorker[s].deprovision_async(id)
-      elsif status == :revoked || status == :revoking
-        ProvisionerWorker[s].cleanup_async(id)
-      end
-    end
+    ProvisionerWorker.cleanup_async(id)
   end
 end

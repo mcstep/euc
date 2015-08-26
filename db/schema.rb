@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824083354) do
+ActiveRecord::Schema.define(version: 20150826165312) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -69,9 +69,10 @@ ActiveRecord::Schema.define(version: 20150824083354) do
     t.string   "client_id"
     t.string   "client_secret"
     t.integer  "enterprise_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "display_name"
+    t.string   "support_emails"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -330,24 +331,25 @@ ActiveRecord::Schema.define(version: 20150824083354) do
     t.integer  "user_id"
     t.integer  "integration_id"
     t.string   "username"
-    t.date     "directory_expiration_date",             null: false
-    t.integer  "directory_status",          default: 0, null: false
-    t.integer  "horizon_air_status",        default: 0, null: false
-    t.integer  "horizon_rds_status",        default: 0, null: false
-    t.integer  "horizon_view_status",       default: 0, null: false
-    t.integer  "airwatch_status",           default: 0, null: false
-    t.integer  "office365_status",          default: 0, null: false
-    t.integer  "google_apps_status",        default: 0, null: false
+    t.date     "directory_expiration_date",                   null: false
+    t.integer  "directory_status",                default: 0, null: false
+    t.integer  "horizon_air_status",              default: 0, null: false
+    t.integer  "horizon_rds_status",              default: 0, null: false
+    t.integer  "horizon_view_status",             default: 0, null: false
+    t.integer  "airwatch_status",                 default: 0, null: false
+    t.integer  "office365_status",                default: 0, null: false
+    t.integer  "google_apps_status",              default: 0, null: false
     t.integer  "airwatch_user_id"
     t.integer  "airwatch_admin_user_id"
     t.integer  "airwatch_group_id"
     t.datetime "deleted_at"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "blue_jeans_status",         default: 0, null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.integer  "blue_jeans_status",               default: 0, null: false
     t.integer  "blue_jeans_user_id"
-    t.integer  "salesforce_status",         default: 0, null: false
+    t.integer  "salesforce_status",               default: 0, null: false
     t.integer  "salesforce_user_id"
+    t.datetime "blue_jeans_removal_requested_at"
   end
 
   add_index "user_integrations", ["airwatch_admin_user_id"], name: "index_user_integrations_on_airwatch_admin_user_id"

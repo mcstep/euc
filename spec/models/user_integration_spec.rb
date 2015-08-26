@@ -132,17 +132,17 @@ RSpec.describe UserIntegration, type: :model do
           end
 
           it 'makes deprovisioning wait' do
-            expect{ Provisioners::GoogleAppsWorker.new.perform(user_integration.id, 'deprovision') }.to \
-              change{ Provisioners::GoogleAppsWorker.jobs.length }.by(1)
+            expect{ ProvisionerWorker.new.perform(user_integration.id, 'cleanup') }.to \
+              change{ ProvisionerWorker.jobs.length }.by(1)
           end
         end
 
         context 'when revoking' do
           before{ user_integration.replace_status('google_apps', :revoking) }
 
-          it 'makes deprovisioning wait' do
-            expect{ Provisioners::GoogleAppsWorker.new.perform(user_integration.id, 'deprovision') }.to \
-              change{ Provisioners::GoogleAppsWorker.jobs.length }.by(1)
+          it 'makes cleanup wait' do
+            expect{ ProvisionerWorker.new.perform(user_integration.id, 'cleanup') }.to \
+              change{ ProvisionerWorker.jobs.length }.by(1)
           end
         end
 
@@ -154,9 +154,16 @@ RSpec.describe UserIntegration, type: :model do
             it{ is_expected.to enqueue_as 'revoke' }
           end
 
-          describe 'deprovision' do
-            before{ user_integration.destroy! }
-            it{ is_expected.to enqueue_as 'deprovision' }
+          describe 'destroy' do
+            it do
+              expect{ user_integration.destroy! }.to \
+                change{ ProvisionerWorker.jobs.length }.by(1)
+            end
+
+            context 'after worker' do
+              before{ ProvisionerWorker.new.perform(user_integration.id, 'cleanup') }
+              it{ is_expected.to enqueue_as 'revoke' }
+            end
           end
         end
 
@@ -168,9 +175,34 @@ RSpec.describe UserIntegration, type: :model do
             it{ is_expected.to enqueue_as 'resume' }
           end
 
-          describe 'cleanup' do
-            before{ user_integration.destroy! }
-            it{ is_expected.to enqueue_as 'cleanup' }
+          describe 'destroy' do
+            it do
+              expect{ user_integration.destroy! }.to \
+                change{ ProvisionerWorker.jobs.length }.by(1)
+            end
+
+            context 'after worker' do
+              before{ ProvisionerWorker.new.perform(user_integration.id, 'cleanup') }
+              it{ is_expected.to enqueue_as 'deprovision' }
+            end
+          end
+        end
+
+        context 'when revoking' do
+          before{ user_integration.replace_status('google_apps', :revoking) }
+
+          describe 'resume' do
+            before{ user_integration.google_apps.complete_application; user_integration.save! }
+            it{ expect(user_integration.google_apps_status).to eq :revoked }
+          end
+
+          context 'when removed' do
+            before{ user_integration.update_attributes(deleted_at: DateTime.now) }
+
+            describe 'resume' do
+              before{ user_integration.google_apps.complete_application; user_integration.save! }
+              it{ is_expected.to enqueue_as 'deprovision' }
+            end
           end
         end
       end

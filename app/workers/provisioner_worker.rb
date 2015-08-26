@@ -1,8 +1,14 @@
 class ProvisionerWorker
   include Sidekiq::Worker
 
+  attr_reader :user_integration
+
   def self.[](service)
     "Provisioners::#{service.camelize}Worker".constantize
+  end
+
+  def self.service
+    @service ||= name.gsub('Provisioners::', '').gsub('Worker', '').underscore
   end
 
   %w(provision deprovision revoke resume cleanup).each do |action|
@@ -14,30 +20,42 @@ class ProvisionerWorker
   def perform(user_integration, action)
     user_integration  = UserIntegration.with_deleted.find(user_integration) unless user_integration.is_a?(UserIntegration)
     @user_integration = user_integration
-    @user             = @user_integration.user
 
     User::Session.tag_user(@user) do
       send action
     end
   end
 
-  def wait_until(condition, &block)
-    if condition
-      yield
-    else
-      self.class.perform_in 1.minute, @user_integration.id, caller[0][/`.*'/][1..-2]
+  # Own actions
+  def cleanup
+    wait_until !@user_integration.applying? do
+      Integration::SERVICES.each do |s|
+        status = @user_integration.send("#{s}_status")
+
+        if status == :provisioned
+          ProvisionerWorker[s].revoke_async(@user_integration.id)
+        elsif status == :revoked
+          ProvisionerWorker[s].deprovision_async(@user_integration.id)
+        end
+      end
     end
   end
 
-  def deprovision
-    wait_until(!@user_integration.applying?){ revoke }
+  # Helpers
+  def instance
+    @instance ||= @user_integration.integration.send(:"#{self.class.service}_instance")
   end
 
-  def resume
-    provision
+  def user
+    @user ||= @user_integration.user
   end
 
-  def cleanup
+  def wait_until(condition, timeout=1.minute, &block)
+    if condition
+      yield
+    else
+      self.class.perform_in timeout, @user_integration.id, caller[0][/`.*'/][1..-2]
+    end
   end
 
   def add_group(group_name, group_region)

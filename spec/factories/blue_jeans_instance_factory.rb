@@ -6,6 +6,7 @@ FactoryGirl.define do
     client_id       { FFaker::Guid.guid }
     client_secret   { FFaker::Lorem.characters(36) }
     enterprise_id   { rand(111...999) }
+    support_emails  { FFaker::Internet.email }
 
     factory :staging_blue_jeans_instance do
       client_id       '317d827mzi'

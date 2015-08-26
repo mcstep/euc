@@ -2,16 +2,17 @@
 #
 # Table name: blue_jeans_instances
 #
-#  id            :integer          not null, primary key
-#  group_name    :string
-#  group_region  :string
-#  grant_type    :string
-#  client_id     :string
-#  client_secret :string
-#  enterprise_id :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  display_name  :string
+#  id             :integer          not null, primary key
+#  group_name     :string
+#  group_region   :string
+#  grant_type     :string
+#  client_id      :string
+#  client_secret  :string
+#  enterprise_id  :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  display_name   :string
+#  support_emails :string
 #
 
 class BlueJeansInstance < ActiveRecord::Base
@@ -22,6 +23,7 @@ class BlueJeansInstance < ActiveRecord::Base
   validates :client_id, presence: true
   validates :client_secret, presence: true
   validates :enterprise_id, presence: true
+  validates :support_emails, presence: true
 
   def title
     client_id

@@ -96,4 +96,10 @@ class GeneralMailer < ApplicationMailer
 
     mail(to: @user.email, subject: 'Verification Code')
   end
+
+  def blue_jeans_removal_email(to, user_integration)
+    @user_integration = user_integration
+
+    mail(to: to, subject: 'VMWare Testdrive Portal User Removal')
+  end
 end

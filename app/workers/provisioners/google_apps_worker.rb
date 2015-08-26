@@ -1,44 +1,40 @@
 module Provisioners
   class GoogleAppsWorker < ProvisionerWorker
     def provision
-      wait_until @user.provisioned? do
-        instance = @user_integration.integration.google_apps_instance
-
-        # Only tick status if everything worked (retry otherwise)
-        @user_integration.transaction do
-          @user_integration.google_apps.complete_application
-          @user_integration.save!
+      wait_until user.provisioned? do
+        user_integration.transaction do
+          user_integration.google_apps.complete_application
+          user_integration.save!
 
           instance.register(
-            "#{@user_integration.username}@#{@user_integration.integration.domain}",
-            @user_integration.user.first_name,
-            @user_integration.user.last_name,
+            user_integration.email,
+            user_integration.user.first_name,
+            user_integration.user.last_name,
           )
 
-          if instance.group_name
-            add_group instance.group_name, instance.group_region
-          end
+          add_group(instance.group_name, instance.group_region) if instance.group_name
         end
       end
     end
 
     def revoke
-      instance = @user_integration.integration.google_apps_instance
+      user_integration.transaction do
+        user_integration.google_apps.complete_application
+        user_integration.save!
 
-      @user_integration.transaction do
-        if @user_integration.google_apps_revoking?
-          @user_integration.google_apps.complete_application
-          @user_integration.save!
-        end
+        instance.unregister user_integration.email
 
-        instance.unregister(
-          "#{@user_integration.username}@#{@user_integration.integration.domain}"
-        )
-
-        if instance.group_name
-          remove_group instance.group_name, instance.group_region
-        end
+        remove_group(instance.group_name, instance.group_region) if instance.group_name
       end
+    end
+
+    def resume
+      provision
+    end
+
+    def deprovision
+      user_integration.google_apps.complete_application
+      user_integration.save!
     end
   end
 end

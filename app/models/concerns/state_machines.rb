@@ -11,34 +11,48 @@ module StateMachines
       @instance   = instance
       @field      = field
 
-      self.when :enable,
-        revoked:        :provisioning,
-        disabled:       :provisioning,
-        available:      :provisioning
+      unless instance.deleted_at?
+        self.when :enable,
+          revoked:        :provisioning,
+          disabled:       :provisioning,
+          available:      :provisioning
+
+        self.when :allow,
+          disabled:       :available
+
+        if instance.new_record?
+          self.when :disable, provisioning: :disabled, provisioned: :disabled
+        else
+          self.when :disable, provisioned: :revoking
+        end
+      end
 
       self.when :complete_application,
         provisioning:   :provisioned,
-        revoking:       :revoked
+        revoking:       :revoked,
+        deprovisioning: :disabled
 
-      self.when :allow,
-        disabled:       :available
-
-      if instance.new_record?
-        self.when :disable, provisioning: :disabled, provisioned: :disabled
-      else
-        self.when :disable, provisioned: :revoking
-      end
+      self.when :cleanup,
+        revoking:       :deprovisioning
 
       self.on(:any) { normalize_and_store! }
+    end
+
+    def method_missing(name, *args)
+      trigger!(name)
+    end
+
+    def complete_application
+      if @instance.deleted_at? && @instance.send(@field) == :revoking
+        trigger!(:cleanup)
+      else
+        trigger!(:complete_application)
+      end
     end
 
     def normalize_and_store!
       @state = @normalizer.call(@state) if @normalizer.present?
       @instance.send :"#{@field}=", @state
-    end
-
-    def method_missing(name, *args)
-      trigger!(name)
     end
   end
 

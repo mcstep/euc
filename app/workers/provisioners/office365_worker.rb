@@ -1,46 +1,46 @@
 module Provisioners
   class Office365Worker < ProvisionerWorker
     def provision
-      wait_until @user.provisioned? do
-        instance = @user_integration.integration.office365_instance
-        email    = "#{@user_integration.username}@#{@user_integration.integration.domain}"
+      wait_until user.provisioned? do
+        user_integration.transaction do
+          user_integration.office365.complete_application
+          user_integration.save!
 
-        # Only tick status if everything worked (retry otherwise)
-        @user_integration.transaction do
-          @user_integration.office365.complete_application
-          @user_integration.save!
+          add_group(instance.group_name, instance.group_region) if instance.group_name
 
-          if instance.group_name
-            add_group instance.group_name, instance.group_region
-          end
-
-          @user_integration.directory.replicate('ad2')
-          @user_integration.directory.office365_sync(@user_integration.username, @user_integration.integration.domain)
+          user_integration.directory.replicate('ad2')
+          user_integration.directory.office365_sync(
+            user_integration.username,
+            user_integration.integration.domain
+          )
 
           sleep 30
 
-          instance.update_user email, 'usageLocation' => 'US'
-          instance.assign_license email
+          instance.update_user user_integration.email, 'usageLocation' => 'US'
+          instance.assign_license user_integration.email
         end
       end
     end
 
     def revoke
-      instance = @user_integration.integration.office365_instance
+      user_integration.transaction do
+        user_integration.office365.complete_application
+        user_integration.save!
 
-      @user_integration.transaction do
-        if @user_integration.office365_revoking? # unless we are running as `deprovision`
-          @user_integration.office365.complete_application
-          @user_integration.save!
-        end
+        user_integration.directory.replicate('ad2')
+        user_integration.directory.office365_sync_all
 
-        @user_integration.directory.replicate('ad2')
-        @user_integration.directory.office365_sync_all
-
-        if instance.group_name
-          remove_group instance.group_name, instance.group_region
-        end
+        remove_group(instance.group_name, instance.group_region) if instance.group_name
       end
+    end
+
+    def resume
+      provision
+    end
+
+    def deprovision
+      user_integration.office365.complete_application
+      user_integration.save!
     end
   end
 end
