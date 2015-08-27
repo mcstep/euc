@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827081301) do
+ActiveRecord::Schema.define(version: 20150827194958) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -363,7 +363,7 @@ ActiveRecord::Schema.define(version: 20150827081301) do
     t.integer  "blue_jeans_status",               default: 0, null: false
     t.integer  "blue_jeans_user_id"
     t.integer  "salesforce_status",               default: 0, null: false
-    t.integer  "salesforce_user_id"
+    t.string   "salesforce_user_id"
     t.datetime "blue_jeans_removal_requested_at"
   end
 

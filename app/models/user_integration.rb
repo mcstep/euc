@@ -23,7 +23,7 @@
 #  blue_jeans_status               :integer          default(0), not null
 #  blue_jeans_user_id              :integer
 #  salesforce_status               :integer          default(0), not null
-#  salesforce_user_id              :integer
+#  salesforce_user_id              :string
 #  blue_jeans_removal_requested_at :datetime
 #
 # Indexes
