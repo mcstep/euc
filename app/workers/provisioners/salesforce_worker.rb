@@ -9,7 +9,7 @@ module Provisioners
 
           unless user_integration.salesforce_user_id
             user_integration.salesforce_user_id = instance.register(
-              user_integration.username, user.first_name, user.last_name, user_integration.email
+              user_integration.username, user.first_name, user.last_name, user_integration.email, user.email
             )
           else
             instance.update(user_integration.salesforce_user_id, isactive: true)

@@ -42,9 +42,9 @@ class SalesforceInstance < ActiveRecord::Base
       client_secret: client_secret
   end
 
-  def register(username, first_name, last_name, email)
+  def register(username, first_name, last_name, email, real_email=email)
     client.create! 'User',
-      email: email,
+      email: real_email,
       'alias' => "#{username[0...5]}_#{rand(11...99)}",
       firstname: first_name,
       lastname: last_name,
