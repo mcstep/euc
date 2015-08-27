@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.fdescribe GoogleAppsInstance, :vcr, type: :model do
+RSpec.describe GoogleAppsInstance, :vcr, type: :model do
   let(:google_apps_instance){ build :staging_google_apps_instance }
 
   describe '.register' do

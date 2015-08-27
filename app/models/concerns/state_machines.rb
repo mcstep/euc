@@ -17,13 +17,16 @@ module StateMachines
           disabled:       :provisioning,
           available:      :provisioning
 
+        self.when :approve,
+          not_approved:   :provisioning
+
         self.when :allow,
           disabled:       :available
 
         if instance.new_record?
-          self.when :disable, provisioning: :disabled, provisioned: :disabled
+          self.when :disable, provisioning: :disabled, provisioned: :disabled, not_approved: :disabled
         else
-          self.when :disable, provisioned: :revoking
+          self.when :disable, provisioned: :revoking, not_approved: :disabled
         end
       end
 
@@ -32,7 +35,12 @@ module StateMachines
         revoking:       :revoked,
         deprovisioning: :disabled
 
-      self.when :cleanup,
+      self.when :deprovision,
+        not_approved:   :disabled,
+        disabled:       :disabled,
+        available:      :disabled,
+        provisioned:    :revoking,
+        revoked:        :deprovisioning,
         revoking:       :deprovisioning
 
       self.on(:any) { normalize_and_store! }
@@ -44,7 +52,7 @@ module StateMachines
 
     def complete_application
       if @instance.deleted_at? && @instance.send(@field) == :revoking
-        trigger!(:cleanup)
+        trigger!(:deprovision)
       else
         trigger!(:complete_application)
       end
@@ -75,15 +83,6 @@ module StateMachines
       else
         state
       end
-    end
-
-    m.when :approve,
-      not_approved:   :provisioning
-
-    if new_record?
-      m.when :disable, provisioning: :disabled, provisioned: :disabled, not_approved: :disabled
-    else
-      m.when :disable, provisioned: :revoking, not_approved: :disabled
     end
 
     machines[:airwatch] = m

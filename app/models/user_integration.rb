@@ -66,21 +66,17 @@ class UserIntegration < ActiveRecord::Base
     provisioned:     2
   }, prefix: 'directory'
 
-  typical_service_statuses = {
-    deprovisioning: -5,
-    revoked: -4,
-    available: -3,
-    revoking: -2,
-    disabled: -1,
-    provisioning: 0,
-    provisioned: 1
-  }
-
-  as_enum :airwatch_status, typical_service_statuses.merge(not_approved: 2), prefix: 'airwatch'
-
   Integration::SERVICES.each do |s|
-    next if s == 'airwatch'
-    as_enum :"#{s}_status", typical_service_statuses, prefix: s
+    as_enum :"#{s}_status", {
+      deprovisioning: -5,
+      revoked: -4,
+      available: -3,
+      revoking: -2,
+      disabled: -1,
+      provisioning: 0,
+      provisioned: 1,
+      not_approved: 2
+    }, prefix: s
   end
 
   validates :user, presence: true

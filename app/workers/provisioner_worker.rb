@@ -30,13 +30,8 @@ class ProvisionerWorker
   def cleanup
     wait_until !@user_integration.applying? do
       Integration::SERVICES.each do |s|
-        status = @user_integration.send("#{s}_status")
-
-        if status == :provisioned
-          ProvisionerWorker[s].revoke_async(@user_integration.id)
-        elsif status == :revoked
-          ProvisionerWorker[s].deprovision_async(@user_integration.id)
-        end
+        @user_integration.send(s).deprovision
+        @user_integration.save!
       end
     end
   end
