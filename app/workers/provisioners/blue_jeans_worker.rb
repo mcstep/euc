@@ -35,7 +35,7 @@ module Provisioners
     end
 
     def deprovision
-      unless blue_jeans_removal_requested_at?
+      unless user_integration.blue_jeans_removal_requested_at?
         user_integration.transaction do
           user_integration.blue_jeans_removal_requested_at = DateTime.now
           user_integration.save!
