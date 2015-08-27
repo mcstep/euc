@@ -18,10 +18,13 @@
 #  profile_id      :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  deleted_at      :datetime
 #
 
 class SalesforceInstance < ActiveRecord::Base
   prepend ServiceInstance
+
+  acts_as_paranoid
 
   validates :client_id, presence: true
   validates :client_secret, presence: true

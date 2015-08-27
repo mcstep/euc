@@ -13,10 +13,13 @@
 #  updated_at     :datetime         not null
 #  display_name   :string
 #  support_emails :string
+#  deleted_at     :datetime
 #
 
 class BlueJeansInstance < ActiveRecord::Base
   prepend ServiceInstance
+
+  acts_as_paranoid
 
   validates :group_region, presence: true, if: lambda{ group_name.present? }
   validates :grant_type, presence: true

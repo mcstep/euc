@@ -73,23 +73,40 @@ class GoogleAppsInstance < ActiveRecord::Base
     @client
   end
 
+  def execute(*args)
+    result = client.execute(*args)
+
+    Faraday::Response::RaiseError.new.on_complete(result.response.env)
+    result
+  end
+
   def register(email, first_name, last_name)
     directory = client.discovered_api('admin', 'directory_v1')
 
-    client.execute(
-      api_method: directory.users.insert,
-      body_object: directory.users.insert.request_schema.new(
-        name: { familyName: last_name, givenName: first_name },
-        primaryEmail: email,
-        password: initial_password
+    begin
+      execute(
+        api_method: directory.users.insert,
+        body_object: directory.users.insert.request_schema.new(
+          name: { familyName: last_name, givenName: first_name },
+          primaryEmail: email,
+          password: initial_password
+        )
       )
-    )
+    rescue Faraday::ClientError => e
+      body = JSON.parse(e.response[:body])
+
+      return if e.response[:status] == 409 && \
+        body['error']['errors'][0]['reason'] == 'duplicate' && \
+        body['error']['errors'].length == 1
+
+      raise e
+    end
   end
 
   def unregister(email)
     directory = client.discovered_api('admin', 'directory_v1')
 
-    client.execute(
+    execute(
       api_method: directory.users.delete,
       parameters: {'userKey' => email}
     )
