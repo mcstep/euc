@@ -45,7 +45,7 @@ module Provisioners
         end
       end
 
-      wait_until DateTime.now - blue_jeans_removal_requested_at > 5, 1.day do
+      wait_until DateTime.now - user_integration.blue_jeans_removal_requested_at > 5, 1.day do
         user_integration.blue_jeans.complete_application
         user_integration.save!
       end
