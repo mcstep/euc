@@ -4,6 +4,9 @@
       - ui.integration.enabled_services.each do |s|
         .col-sm-6.col-md-6.col-lg-4.switchboard-column.grow
           .switchboard-item
+            .status
+              - if ui.send("#{s}_applying?")
+                %span.label.label-warning Provisioning
             .form-group
               %input.js-switch.service-toggle{disabled: !ui.send(s).trigger?(:toggle), checked: !ui.send("#{s}_disabled?"), type: "checkbox", data: {url: toggle_user_integration_path(id: ui.id, service: s)}}
             .logo

@@ -1017,7 +1017,29 @@
       };
     }
   }
-  
+  .status {
+    
+    font-size: 90%;
+    float: right;
+    position: absolute;
+    opacity: 0.5;
+    /*@media(max-width: 1199px) {
+    top: 90px;
+    right: 30px;
+    }*/
+    
+    top: 125px;
+    right: 90px;
+    
+    
+    
+    
+    .label {
+      text-align: right;
+      @include radius-large;
+    }
+    
+  }
   .form-group {
     float: right;
     position: absolute;
