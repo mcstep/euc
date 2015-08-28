@@ -3,8 +3,8 @@ module Provisioners
     def provision
       wait_until(
         user.provisioned? && 
-        (user_integration.office365_disabled || user_integration.office365_provisioned?) &&
-        (user_integration.google_apps_disabled || user_integration.google_apps_provisioned?)
+        (user_integration.office365_disabled? || user_integration.office365_provisioned?) &&
+        (user_integration.google_apps_disabled? || user_integration.google_apps_provisioned?)
       ) do
         unless user_integration.airwatch_user_id
           user_integration.airwatch_user_id = instance.add_user(user_integration.username)['Value']

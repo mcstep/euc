@@ -3,6 +3,7 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'bootstrap-datepicker3';
+@import 'switchery';
 @import 'mixins';
 @import 'globals';
 
@@ -127,4 +128,8 @@ form {
     text-shadow:none;
     display:block;
   }
+}
+
+.js-switch {
+  display: none;
 }

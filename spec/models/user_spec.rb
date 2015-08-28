@@ -126,11 +126,11 @@ RSpec.describe User, type: :model do
     it{ is_expected.to have_exactly(3).items }
 
     it 'has airwatch enabled' do
-      expect(subject.map(&:airwatch_disabled)).to eq [true, false, true]
+      expect(subject.map(&:airwatch_disabled?)).to eq [true, false, true]
     end
 
     it 'has google apps enabled' do
-      expect(subject.map(&:google_apps_disabled)).to eq [true, true, false]
+      expect(subject.map(&:google_apps_disabled?)).to eq [true, true, false]
     end
 
     context 'when disabler specified' do
@@ -140,7 +140,7 @@ RSpec.describe User, type: :model do
         user = create(:user,
           profile: profile_with_integrations,
           user_integrations_attributes: [
-            {integration_id: integration_ids[1], airwatch_disabled: true},
+            {integration_id: integration_ids[1], prohibit_airwatch: true},
             {integration_id: external_integration.id}
           ]
         )
@@ -151,11 +151,11 @@ RSpec.describe User, type: :model do
       it{ is_expected.to have_exactly(3).items }
 
       it 'has airwatch disabled' do
-        expect(subject.map(&:airwatch_disabled)).to eq [true, true, true]
+        expect(subject.map(&:airwatch_disabled?)).to eq [true, true, true]
       end
 
       it 'has google apps enabled' do
-        expect(subject.map(&:google_apps_disabled)).to eq [true, true, false]
+        expect(subject.map(&:google_apps_disabled?)).to eq [true, true, false]
       end
     end
 

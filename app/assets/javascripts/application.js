@@ -12,4 +12,5 @@
 //= require amcharts/serial
 //= require amcharts/pie
 //= require amcharts/themes/light
+//= require switchery
 //= require_tree .

@@ -16,33 +16,35 @@ end
 RSpec.describe UserIntegration, type: :model do
   subject(:ui_with_disabled_services) do
     UserIntegration.new(
-      # google_apps_disabled: false, <- default value
-      horizon_air_disabled: true,
-      horizon_rds_disabled: true,
-      horizon_view_disabled: true,
-      airwatch_disabled: true,
-      office365_disabled: true
+      # prohibit_google_apps: false, <- default value
+      # prohibit_horizon_air: true,
+      # prohibit_horizon_rds: true,
+      prohibit_horizon_view: true,
+      prohibit_airwatch: true,
+      prohibit_office365: true
     )
   end
 
-  describe '.*_disabled=' do
+  describe '.*_disabled?' do
+    it 'gets proper state' do
+      ui_with_disabled_services.office365_status = :revoked
+      expect(ui_with_disabled_services.office365_disabled?).to be_truthy
+    end
+  end
+
+  describe '.prohibit_*=' do
     it 'defaults to false' do
-      expect(ui_with_disabled_services.google_apps_disabled).to be_falsey
+      expect(ui_with_disabled_services.google_apps_disabled?).to be_falsey
     end
 
     it 'sets proper state' do
-      expect(ui_with_disabled_services.horizon_air_status == :disabled)
-    end
-
-    it 'gets proper state' do
-      ui_with_disabled_services.office365_status = :revoked
-      expect(ui_with_disabled_services.office365_disabled).to be_truthy
+      expect(ui_with_disabled_services.office365_status == :disabled)
     end
 
     context 'when applied to enabled service' do
       it 'preserves state when no modification required' do
         ui_with_disabled_services.google_apps_status = :provisioned
-        ui_with_disabled_services.google_apps_disabled = false
+        ui_with_disabled_services.prohibit_google_apps = false
         expect(ui_with_disabled_services.google_apps_status == :provisioned)
       end
     end
@@ -50,7 +52,7 @@ RSpec.describe UserIntegration, type: :model do
     context 'when applied to disabled service' do
       it 'preserves state when no modification required' do
         ui_with_disabled_services.office365_status = :revoked
-        ui_with_disabled_services.office365_disabled = true
+        ui_with_disabled_services.prohibit_office365 = true
         expect(ui_with_disabled_services.google_apps_status == :revoked)
       end
     end
@@ -127,8 +129,8 @@ RSpec.describe UserIntegration, type: :model do
         subject{ Provisioners::GoogleAppsWorker }
 
         context 'when provisioning' do
-          it 'does not allow disabling' do
-            expect(lambda{ user_integration.google_apps.disable }).to raise_error(MicroMachine::InvalidState)
+          it 'does not allow prohibiting' do
+            expect(lambda{ user_integration.google_apps.prohibit }).to raise_error(MicroMachine::InvalidState)
           end
 
           it 'makes deprovisioning wait' do
@@ -149,8 +151,8 @@ RSpec.describe UserIntegration, type: :model do
         context 'when provisioned' do
           before{ user_integration.replace_status('google_apps', :provisioned) }
 
-          describe 'revoke' do
-            before{ user_integration.google_apps.disable; user_integration.save! }
+          describe 'prohibit' do
+            before{ user_integration.google_apps.prohibit; user_integration.save! }
             it{ is_expected.to enqueue_as 'revoke' }
           end
 
@@ -171,7 +173,7 @@ RSpec.describe UserIntegration, type: :model do
           before{ user_integration.replace_status('google_apps', :revoked) }
 
           describe 'resume' do
-            before{ user_integration.google_apps.enable; user_integration.save! }
+            before{ user_integration.google_apps.toggle; user_integration.save! }
             it{ is_expected.to enqueue_as 'resume' }
           end
 

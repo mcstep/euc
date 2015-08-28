@@ -2,7 +2,7 @@
 
 
 #td-topbar {
-  background: image-url('testdrive.svg') top 15px center / 185px no-repeat rgba(255,255,255,1);
+  background: url('testdrive.svg') top 15px center / 185px no-repeat rgba(255,255,255,1);
   opacity: 0.9;
   border-bottom: 1px solid rgba(0,0,0,0.1);
   height: 70px;
@@ -45,7 +45,7 @@
   
   
   .row {
-    padding: 30px 30px 0px 30px;
+    /*padding: 30px 30px 0px 30px;*/
 
     
   }
@@ -105,7 +105,7 @@
         margin-left: 0.5em;
       }
       &:before {
-        border-top: 1px dotted $gray-light;
+        border-top: 1px solid rgba(0,0,0,0.1);
         content: "";
         margin: 0 auto;
         position: absolute;
@@ -619,6 +619,13 @@
     font-size: 140% !important;
     color: $white;
     text-align: left;
+    background: 99% 50% / 15px no-repeat $brand-primary;
+    @include radius;
+    
+  
+    
+    
+  
     
     tr {
       font-size: 150%;
@@ -673,12 +680,11 @@
 
 
 
-    @include radius;
-    @include animate;
-    background: $td-orange;
+    
 
     &:hover {
-      background: lighten($td-darkblue,20);
+      background-color: lighten($brand-primary, 5);
+      
 
       .usercount {
         background: rgba(255,255,255,1);
@@ -693,11 +699,13 @@
 
   }
 
+
+
   .td-users {
     padding: 0;
     
     table {
-      border: 1px solid $gray-light !important;
+      border: 1px solid rgba(100,100,100,0.3) !important;
       border-top: none !important;
       padding-right: 0;
     }
@@ -707,8 +715,8 @@
     }
 
     td {
-      padding-top: 1em;
-
+      
+      padding-top: 1.5em;
       @media(max-width: 992px) {
         padding-top: 0.75em !important;
       }
@@ -721,16 +729,42 @@
       background: $white;
       &:hover {
         color: $white;
-        background: lighten($td-darkblue, 30) !important;
+        background: lighten($brand-primary, 30) !important;
       }
 
       &.alt {
-        background: rgba(0,0,0,0.1);
+        background: rgba(0,0,0,0.05);
       }
-
+      
+    
+      
+    }
+    
+    .nested > tr {
+      
+    }
+    .nested {
+      
+        background: lighten($brand-success, 50);
+    
+      
+      .td {
+        position: relative;
+        left: 0px;
+      }
+      .avatar, .name {
+      position: relative;
+      left: 30px;
+      @media(max-width: 767px) {
+        left: 10px;
+      }
+      
+      }
+      
     }
     
     .mobilehide {
+      
       @media(max-width: 768px){
         color: $gray-lighter !important;
       max-width: 0;
@@ -740,14 +774,10 @@
     }
     }
 
-    .name {
-      font-weight: bold;
-      text-transform: capitalize;
-    }
-
+  
     .avatar {
       max-width: 35px !important;
-      min-width: 35px !important; 
+      min-width: 25px !important; 
       padding: 0.5em 0 0.5em 0.75em !important;
 
       @media(max-width: 992px) {
@@ -759,7 +789,7 @@
       img {
         @include radius-max;
         max-width: 35px !important;
-        min-width: 35px !important; 
+        min-width: 25px !important; 
 
         @media(max-width: 992px) {
           max-width: 30px !important;
@@ -773,8 +803,10 @@
 
     
     .name {
+      font-weight: bold;
+      text-transform: capitalize;
       font-size: 110%;
-      padding-top: 1em !important;
+      padding-top: 1.3em !important;
       min-width: 8em !important;
       max-width: 8em !important;
     
@@ -788,9 +820,11 @@
     }
 
     .admin {
-      text-align: left;
-
-
+      
+        text-align: left;
+        padding-top: 1em !important;
+        
+      
       @media(max-width: 768px) {
         .btn-xs {
           font-size: 70%;
@@ -818,7 +852,7 @@
       @include animate;
       margin: 0 0 1em 0;
       padding: 2em 2em 1em 2em;
-      background: image-url('close.svg') top 10px right 10px / 10px no-repeat lighten($td-orange, 30);
+      background: url('close.svg') top 10px right 10px / 10px no-repeat lighten($td-orange, 30);
 
       &:hover {
         background-color: lighten($td-orange, 20);
@@ -925,23 +959,40 @@
 }
 
 .switchboard {
+  padding: 0.75em;
   .grow { transition: all .2s ease-in-out;
     
-    &:hover {transform: scale(1.05); }
+    &:hover {transform: scale(1.05);
+    z-index: 99; }
     
   }
+  
+  .switchboard-column {
+    margin: 0;
+    padding: 0;
+  }
   .switchboard-item {
-    transition: all .2s ease-in-out;
-    background: rgba(200,200,200,0.4);
+    transition: background .1s ease-out;
+    background: rgba(255,255,255,0.95);
     min-height: 175px;
     padding: 2em ;
-    margin: 0 0 2em 0;
-    border: 1px solid rgba(0,0,0,0.2);
+    margin: 0.25em;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 2px 2px rgba(0,0,0,0.05);
     
     &:hover {
-      background: rgba(255,255,255,0.8);
+      
+      
+    
     };
 
+  }
+  
+  .coming-soon {
+  
+    background: url('comingsoon.svg') 0% 0/ 80px no-repeat rgba(240,240,240,0.8);
+    
+    
   }
   
   
@@ -949,22 +1000,29 @@
     position: absolute;
     
     @media(max-width: 767px) {
-      bottom: 15px;
-      left: 30px;
+      top: 15px;
+      right: 50px;
       
     }
-    bottom: 40px;
-    left: 25px;
+    
+    top: 30px;
+    right: 30px;
+    font-size: 1.3em;
+    font-weight: 800;
+    color: $brand-primary;
     span {
       cursor: pointer;
+      &:hover {
+        color: $brand-info;
+      };
     }
   }
   
   .form-group {
     float: right;
     position: absolute;
-    bottom: 50px;
-    right: 40px;
+    bottom: 30px;
+    right: 30px;
     margin: 0;
     
     @media(max-width: 767px) {
@@ -980,14 +1038,50 @@
     img {
       padding: 1em;
       position: absolute;
-      top: 15px;
-      left: 25px;
+      top: 20%;
+      left: 30px;
     
       max-width: 70%;
       max-height: 120px;
       
     }
   }
+  
+  
+  
+}
+
+.reportingform {
+  
+  margin-top: 0.5em;
+  
+  .btn-group {
+    width: 100%;
+  }
+  .btn-group .dropdown-toggle.btn-default ~ .dropdown-menu > .active a {
+    color: $white !important;
+  }
+  
+  .partners, .region {
+    text-align: left;
+  }
+  .partners {
+    
+    
+  }
+  
+  #partners-clearall {
+        position: absolute;
+        z-index: 501;
+        height: 2.6em;
+        right: 0;
+  }
+  
+  .report {
+    width: 100%;
+  }
+  
+  
   
   
   

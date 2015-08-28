@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   resource :current_user do
     member do
+      get  :services
       post :accept_airwatch_eula
       post :update_password
     end
@@ -42,7 +43,7 @@ Rails.application.routes.draw do
   end
   resources :user_integrations do
     member do
-      post :prolong
+      get  :toggle
     end
   end
   resources :directory_prolongations, only: [:create]

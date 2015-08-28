@@ -4,41 +4,47 @@ module StateMachines
   class Machine < MicroMachine
     attr_accessor :normalizer
 
-    def initialize(instance, field, &block)
-      super instance.send(field)
-
+    def initialize(instance, service, &block)
       @normalizer = block
       @instance   = instance
-      @field      = field
+      @field      = "#{service}_status"
+
+      super instance.send(@field)
 
       unless instance.deleted_at?
-        self.when :enable,
-          revoked:        :provisioning,
-          disabled:       :provisioning,
-          available:      :provisioning
+        unless instance.send("prohibit_#{service}")
+          self.when :toggle,
+            revoked:        :provisioning,
+            deprovisioned:  :provisioning,
+            provisioned:    :revoking,
+            not_approved:   :deprovisioned
+        end
 
         self.when :approve,
           not_approved:   :provisioning
 
-        self.when :allow,
-          disabled:       :available
-
         if instance.new_record?
-          self.when :disable, provisioning: :disabled, provisioned: :disabled, not_approved: :disabled
+          self.when :prohibit,
+            deprovisioned:  :deprovisioned,
+            provisioning:   :deprovisioned,
+            provisioned:    :deprovisioned,
+            not_approved:   :deprovisioned
         else
-          self.when :disable, provisioned: :revoking, not_approved: :disabled
+          self.when :prohibit,
+            deprovisioned:  :deprovisioned,
+            provisioned:    :revoking,
+            not_approved:   :deprovisioned
         end
       end
 
       self.when :complete_application,
         provisioning:   :provisioned,
         revoking:       :revoked,
-        deprovisioning: :disabled
+        deprovisioning: :deprovisioned
 
       self.when :deprovision,
-        not_approved:   :disabled,
-        disabled:       :disabled,
-        available:      :disabled,
+        not_approved:   :deprovisioned,
+        deprovisioned:  :deprovisioned,
         provisioned:    :revoking,
         revoked:        :deprovisioning,
         revoking:       :deprovisioning
@@ -65,8 +71,8 @@ module StateMachines
   end
 
   included do
-    before_validation { airwatch.normalize_and_store! }
-    before_validation { integration.disabled_services.each{|s| send("#{s}_status=", :disabled)} if integration }
+    before_validation { Integration::SERVICES.each{|s| send(s).normalize_and_store!} }
+    before_validation { integration.disabled_services.each{|s| send("#{s}_status=", :deprovisioned)} if integration }
     after_save        { @machines = {} }
   end
 
@@ -77,7 +83,7 @@ module StateMachines
   def airwatch
     return machines[:airwatch] if machines[:airwatch]
 
-    m = Machine.new(self, :airwatch_status) do |state|
+    m = Machine.new(self, :airwatch) do |state|
       if user && !user.airwatch_eula_accept_date && state == :provisioning
         :not_approved
       else
@@ -92,7 +98,7 @@ module StateMachines
     next if service == 'airwatch'
 
     define_method service do
-      machines[service] ||= Machine.new(self, :"#{service}_status")
+      machines[service] ||= Machine.new(self, service)
     end
   end
 end

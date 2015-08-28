@@ -38,10 +38,13 @@ class ProfileIntegration < ActiveRecord::Base
   end
 
   def to_user_integration(user_integration=nil)
-    result = user_integration ? user_integration.dup : UserIntegration.new(integration: integration)
+    result = user_integration ? user_integration.dup : UserIntegration.new
+    result.integration = integration
 
     Integration::SERVICES.each do |s|
-      result["#{s}_status"] = self["#{s}_default_status"] if !result.send("#{s}_disabled") && self["#{s}_default_status"]
+      if !result.send("prohibit_#{s}") && self["#{s}_default_status"]
+        result["#{s}_status"] = self["#{s}_default_status"]
+      end
     end
 
     yield(result) if block_given?

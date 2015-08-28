@@ -34,7 +34,7 @@ class Integration < ActiveRecord::Base
   acts_as_paranoid
 
   SERVICES = %w(
-    horizon_air horizon_rds horizon_view airwatch office365 google_apps blue_jeans salesforce
+    horizon_view airwatch office365 google_apps blue_jeans salesforce
   )
 
   belongs_to :directory, -> { with_deleted }

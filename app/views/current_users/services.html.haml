@@ -1,0 +1,28 @@
+.switchboard{style: 'padding-bottom: 20px'}
+  .row
+    - current_user.user_integrations.each do |ui|
+      - ui.integration.enabled_services.each do |s|
+        .col-sm-6.col-md-6.col-lg-4.switchboard-column.grow
+          .switchboard-item
+            .form-group
+              %input.js-switch.service-toggle{disabled: !ui.send(s).trigger?(:toggle), checked: !ui.send("#{s}_disabled?"), type: "checkbox", data: {url: toggle_user_integration_path(id: ui.id, service: s)}}
+            .logo
+              = image_tag "switchboard/#{s}.png"
+            .controls
+              %span.icon-info
+
+    - (Integration::SERVICES - current_user.integrations.map(&:enabled_services).flatten).each do |service|
+      .col-sm-6.col-md-6.col-lg-4.switchboard-column.grow
+        .switchboard-item.coming-soon
+          .form-group
+            %input.js-switch{disabled: true, readonly: true, style: "display: none;", type: "checkbox"}
+          .logo
+            = image_tag "switchboard/#{service}.png"
+
+    - %w(docu_sign box horizon_air horizon_rds).each do |service|
+      .col-sm-6.col-md-6.col-lg-4.switchboard-column.grow
+        .switchboard-item.coming-soon
+          .form-group
+            %input.js-switch{disabled: true, readonly: true, style: "display: none;", type: "checkbox"}
+          .logo
+            = image_tag "switchboard/#{service}.png"

@@ -22,7 +22,7 @@
         = uif.hidden_field :id
         - uif.object.integration.enabled_services.each do |s|
           .col-lg-6
-            = uif.check_box :"#{s}_disabled"
+            = uif.check_box :"prohibit_#{s}"
   .modal-footer
     %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
     %button.btn.btn-success{type: "submit"} Submit

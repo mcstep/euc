@@ -25,6 +25,7 @@
 #  salesforce_status               :integer          default(0), not null
 #  salesforce_user_id              :string
 #  blue_jeans_removal_requested_at :datetime
+#  prohibited_services             :string           default("--- []\n"), not null
 #
 # Indexes
 #
@@ -50,11 +51,9 @@ class UserIntegration < ActiveRecord::Base
 
   has_many :directory_prolongations
 
-  # Integration::SERVICES.each do |service|
-  #   scope :"with_#{service}", lambda{
-  #     joins(:integration).where("#{service}_status != -1 AND integrations.#{service}_instance_id IS NOT NULL")
-  #   }
-  # end
+  unless ActiveRecord::Base.connection_config[:adapter] == 'postgresql'
+    serialize :prohibited_services
+  end
 
   after_commit    :init_provisioning,  on: :create
   after_commit    :apply_provisioning, on: :update
@@ -70,9 +69,8 @@ class UserIntegration < ActiveRecord::Base
     as_enum :"#{s}_status", {
       deprovisioning: -5,
       revoked: -4,
-      available: -3,
       revoking: -2,
-      disabled: -1,
+      deprovisioned: -1,
       provisioning: 0,
       provisioned: 1,
       not_approved: 2
@@ -84,20 +82,34 @@ class UserIntegration < ActiveRecord::Base
   validates :directory_expiration_date, presence: true
 
   Integration::SERVICES.each do |s|
-    define_method "#{s}_disabled" do
+    define_method "#{s}_applying?" do
+      [:provisioning, :revoking, :deprovisioning].include? self.send("#{s}_status")
+    end
+
+    define_method "#{s}_disabled?" do
       self["#{s}_status"] < 0
     end
 
-    define_method "#{s}_disabled=" do |value|
-      value = ActiveRecord::Type::Boolean.new.type_cast_from_database(value)
-      return if value == send("#{s}_disabled")
+    define_method "prohibit_#{s}" do
+      self.prohibited_services.include?(s.to_s)
+    end
+
+    define_method "prohibit_#{s}=" do |value|
+      value = ActiveRecord::Type::Boolean.new.type_cast_from_database(value) 
 
       if value
-        send(s).disable
+        send(s).prohibit
+        self.prohibited_services += [s.to_s]
+        self.prohibited_services.uniq!
       else
-        send(s).enable
+        self.prohibited_services -= [s.to_s]
       end
     end
+  end
+
+  def [](*args)
+    return send(args[0]) if Integration::SERVICES.include?(args[0])
+    super
   end
 
   def email
@@ -105,7 +117,7 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def applying?
-    (Integration::SERVICES.map{|s| send("#{s}_status")} & [:provisioning, :revoking, :deprovisioning]).any?
+    Integration::SERVICES.any?{|s| send "#{s}_applying?"}
   end
 
   def authentication_priority

@@ -30,7 +30,7 @@ class ProvisionerWorker
   def cleanup
     wait_until !@user_integration.applying? do
       Integration::SERVICES.each do |s|
-        @user_integration.send(s).deprovision
+        @user_integration[s].deprovision
         @user_integration.save!
       end
     end

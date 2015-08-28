@@ -41,6 +41,8 @@ en:
     user_created: Account was successfully requested. Please check your email for login details.
     invitation_created: Invitation successfully sent.
     password_invalid: Password %{validation}
+    service_toggled: Service has been toggled successfully
+    service_not_toggled: Service could not be toggled due to running provisioning
 
   regions:
     amer: Americas
