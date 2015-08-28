@@ -102,6 +102,7 @@ class AirwatchInstance < ActiveRecord::Base
       'UserName' => username,
       'Status' => 'true',
       'SecurityType' => 'Directory',
+      'LocationGroupId' => parent_group_id,
       'Role' => 'VMWDemo'
   end
 
@@ -111,6 +112,7 @@ class AirwatchInstance < ActiveRecord::Base
       'LocationGroupId' => parent_group_id,
       'IsActiveDirectoryUser' => 'true',
       'RequiresPasswordChange' => 'false',
+      'LocationGroupId' => parent_group_id,
       'Roles' => effective_admin_roles(user_integration)
   end
 
