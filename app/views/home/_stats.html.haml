@@ -1,25 +1,27 @@
 - if desktops_stats[:data].present? || sessions_stats[:data].present? || apps_stats[:data].present?
   .col-md-12.col-sm-12.col-lg-12
-    %h1.lined
+    %h1.lined.switch01{"data-toggle" => "collapse", href: "#collapse-home-stats"}
+      %span.icon01.icon-arrow-down
       %span Stats
 
-- if desktops_stats[:data].present?
-  .col-md-12.col-sm-12.col-lg-6
-    .widget.activity.graph
-      %h1 Horizon Activity
-      %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-        #desktops-chart{data: {stats: desktops_stats.to_json}}
+#collapse-home-stats
+  - if desktops_stats[:data].present?
+    .col-md-12.col-sm-12.col-lg-6
+      .widget.activity.graph
+        %h1 Horizon Activity
+        %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+          #desktops-chart{data: {stats: desktops_stats.to_json}}
 
-- if sessions_stats[:data].present?
-  .col-md-12.col-sm-12.col-lg-6
-    .widget.activity.graph
-      %h1 Sessions
-      %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-        #sessions-chart{data: {stats: sessions_stats.to_json}}
+  - if sessions_stats[:data].present?
+    .col-md-12.col-sm-12.col-lg-6
+      .widget.activity.graph
+        %h1 Sessions
+        %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+          #sessions-chart{data: {stats: sessions_stats.to_json}}
 
-- if apps_stats[:data].present?
-  .col-lg-12{style: 'clear: both'}
-    .widget.activity.graph
-      %h1 Horizon Usage
-      %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
-        #apps-chart{data: {stats: apps_stats.to_json}}  }
+  - if apps_stats[:data].present?
+    .col-lg-12{style: 'clear: both'}
+      .widget.activity.graph
+        %h1 Horizon Usage
+        %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
+          #apps-chart{data: {stats: apps_stats.to_json}}  }

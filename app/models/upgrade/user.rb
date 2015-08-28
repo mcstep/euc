@@ -26,6 +26,7 @@
 #  updated_at                    :datetime         not null
 #  verification_token            :string
 #  can_edit_services             :boolean          default(FALSE), not null
+#  can_see_reports               :boolean          default(FALSE), not null
 #
 # Indexes
 #

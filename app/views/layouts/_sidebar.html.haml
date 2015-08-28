@@ -60,6 +60,9 @@
 - if current_user.root?
   %span.sidebar-divider Manage
   %ul.sidebar-nav
+    - if policy(:reporting).users?
+      %li
+        %a{href: users_reporting_index_path} Reporting
     - if policy(:user).index?
       %li
         %a{href: users_path} Users

@@ -48,6 +48,12 @@ Rails.application.routes.draw do
   end
   resources :directory_prolongations, only: [:create]
   resources :invitations
+  resources :reporting, only: [] do
+    collection do
+      get :users
+      post :users
+    end
+  end
   resources :domains do
     member do
       get :toggle

@@ -1,0 +1,105 @@
+.col-lg-12.zero-space.col-md-12.col-sm-12
+  = form_tag do
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Partner Reporting
+      .panel-body.reportingform
+        .col-sm-12.col-md-12.col-lg-12
+          .form-group.btn-group{style: 'min-height: 40px'}
+            %select#partners.form-control{name: 'companies[]', multiple: true, style: "display: none;"}
+              - Company.all.each do |company|
+                %option{value: company.id, selected: params[:companies].include?(company.id.to_s)}= company.name
+            %button#partners-clearall.btn.btn-default{type: "reset"} Clear Selection
+        .col-sm-12.col-md-4.col-lg-3
+          .form-group
+            %select#region.form-control{name: 'regions[]', multiple: true, style: "display: none;"}
+              - permitted_regions.each do |title, key|
+                %option{value: key, selected: params[:regions].include?(key)}= title
+        .col-sm-12.col-md-4.col-lg-3
+          .form-group
+            .input-group.date
+              %input.form-control{name: 'start_date', placeholder: "Start Date", type: "text", value: params[:start_date], data: {provide: 'datepicker'}}
+              %span.input-group-addon
+                %i.icon-calendar
+        .col-sm-12.col-md-4.col-lg-3
+          .form-group
+            .input-group.date
+              %input.form-control{name: 'end_date', placeholder: "End Date", type: "text", value: params[:end_date], data: {provide: 'datepicker'}}
+              %span.input-group-addon
+                %i.icon-calendar
+        .col-sm-12.col-md-12.col-lg-3
+          .form-group
+            %button#submit.btn.btl-lg.btn-success.report{type: "submit"} Generate Report
+
+  .col-lg-12.zero-space.col-md-12.col-sm-12
+    %h1.lined.switch01{"data-toggle" => "collapse", href: "#collapse-stats"}
+      %span.icon01.icon-arrow-down
+      %span Statistics
+    #collapse-stats.collapse.in
+      .zero-space.col-sm-12.col-md-12.col-lg-12
+        - if @users
+          .col-sm-6.col-md-6.col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                %h5 Registrations
+              .ibox-content
+                %h1.no-margins= @users.length
+                %small Total Registrations
+          .col-sm-6.col-md-6.col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                %h5 Invites
+              .ibox-content
+                %h1.no-margins= number_with_delimiter @invitations.length
+                %small Total Invitations
+        - if @total
+          .col-sm-6.col-md-6.col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                %h5 Users
+              .ibox-content
+                .col-md-6
+                  %h1.no-margins= number_with_delimiter @total.where(deleted_at: nil).count
+                  %small Active Users
+                .col-md-6
+                  %h1.no-margins= number_with_delimiter @total.count
+                  %small Total Users
+          .col-md-6.col-lg-3.col-sm-6
+            .ibox.float-e-margins
+              .ibox-title
+                %h5 Opportunity Statistics
+              .ibox-content
+                .row
+                  .col-md-6
+                    %h1.no-margins= number_with_delimiter @opportunity
+                    %small Potential Seats
+
+  - if @users
+    - @users.chunk(&:company_name).each do |company, users|
+      .orgviews.col-sm-12.col-md-12.col-lg-12
+        .td-org.col-sm-12.col-md-12.col-lg-12
+          %table.table
+            %tbody
+              %tr
+                %td.logo
+                  %em.icon-users
+                %td.orgname= company
+                %td.usercount= pluralize(users.count, "Active User")
+        .td-users.zero-space.col-sm-12.col-md-12.col-lg-12
+          %table.table
+            %thead
+              %tr
+                %th.avatar
+                %th.name Name
+                %th.mobilehide E-Mail
+                %th.mobilehide Username
+                %th Days Left
+            %tbody
+              - users.each do |user|
+                %tr
+                  %td.avatar
+                    %img{src: user.avatar_url}
+                  %td.name= user.display_name
+                  %td= user.email
+                  %td= user.job_title
+                  %td= l user.expiration_date

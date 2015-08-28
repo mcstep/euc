@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def l(date)
-    I18n.l date if date
+    I18n.l date if date.present?
   end
 
   def bl(date)

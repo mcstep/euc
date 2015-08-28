@@ -11,6 +11,7 @@ after 'development:profile_default', 'development:profile_apple' do
     u.integrations_username = 'first.user'
     u.skip_provisioning     = true
     u.can_edit_services     = true
+    u.can_see_reports       = true
   end
 
   User.where(email: 'user@apple.com').first_or_create! do |u|
