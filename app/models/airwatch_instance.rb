@@ -112,7 +112,6 @@ class AirwatchInstance < ActiveRecord::Base
       'LocationGroupId' => parent_group_id,
       'IsActiveDirectoryUser' => 'true',
       'RequiresPasswordChange' => 'false',
-      'LocationGroupId' => parent_group_id,
       'Roles' => effective_admin_roles(user_integration)
   end
 
