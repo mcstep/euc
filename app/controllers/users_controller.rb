@@ -21,6 +21,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    authorize @user = User.find(params[:id])
+  end
+
   def edit
     authorize @user = User.find(params[:id])
     render layout: false

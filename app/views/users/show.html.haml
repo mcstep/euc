@@ -1,0 +1,110 @@
+.alert.alert-warning
+  %h4 You are viewing another TestDrive User
+  %p
+    %a.btn.btn-warning.btn-xs{href: "#"} Return to Dashboard
+.col-sm-12.col-md-12.col-lg-12.usercard
+  .region.amer
+    %p AMER
+  .col-xs-12.col-sm-12.col-md-12.col-lg-3.avatar
+    .avatar-img
+      = image_tag @user.avatar_url
+    - if @user.invited_by
+      .user-inviter
+        .user-inviter-img
+          = image_tag @user.invited_by.avatar_url
+        %p
+          %span.firstname= @user.invited_by.first_name
+          %span.lastname= @user.invited_by.last_name
+  .col-xs-12.col-sm-12.col-md-12.col-lg-7.user-details
+    .name
+      %span.firstname= @user.first_name
+      %span.lastname= @user.last_name
+    .company
+      %span.company_title= @user.job_title
+      –
+      %span.company_name= @user.company_name
+      %span.partner_id= @user.company_id
+      %br/
+      %span.address Expires #{l @user.expiration_date}
+    .contact
+      / %span.phone +1 (000) 000-0000
+      %span.email= @user.email
+  .col-xs-12.col-sm-12.col-md-12.col-lg-2.user-admin
+    .btn-group.btn-group-sm.btn-group-vertical{role: "group"}
+      / %button.btn.btn-default{type: "button"} Reset Password
+      / %button.btn.btn-default{type: "button"} Edit Profile
+      - if !current_user.root? && prolongation = @user.authentication_integration.directory_prolongations.last
+        %button.btn.btn-default{data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}
+          Extended
+      - else
+        %a.btn.btn-xs.btn-warning.prolong-account-link{href: '#', data: {target: '#prolong-account-modal', toggle: 'modal', id: @user.authentication_integration.id, username: @user.authentication_integration.username, date: bl(@user.prolong_date), name: @user.display_name}}
+          Extend
+      %button.btn.btn-danger{type: "button"} Delete
+  %ul.nav.nav-tabs.nav-justified{role: "tablist"}
+    %li.active{role: "presentation"}
+      %a{"aria-controls" => "home", "aria-expanded" => "false", "data-toggle" => "tab", href: "#activity", role: "tab"} Activity
+    %li{role: "presentation"}
+      %a{"aria-controls" => "home", "aria-expanded" => "true", "data-toggle" => "tab", href: "#home", role: "tab"} Users (Super-Users Only)
+  .tab-content
+    #activity.tab-pane.fade.active.in{role: "tabpanel"}
+      .col-sm-12.col-md-12.col-lg-6
+        .widget.activity.graph
+          %h1 Login Locations
+          %div{style: "width: 100%; height: 300px; background-color: #FFFFFF;"}
+    #home.tab-pane.fade{role: "tabpanel"}
+      .orgviews.col-sm-12.col-md-12.col-lg-12
+        .td-org.col-sm-12.col-md-12.col-lg-12
+          %table.table
+            %tbody
+              %tr
+                %td.logo
+                  %em.icon-users
+                %td.orgname VMware Inc.
+                %td.usercount 3 Active Users
+        .td-users.zero-space.col-sm-12.col-md-12.col-lg-12
+          %table.table
+            %thead
+              %tr
+                %th.avatar
+                %th.name Name
+                %th.mobilehide E-Mail
+                %th.mobilehide Username
+                %th Days Left
+                %th Admin
+            %tbody
+              %tr
+                %td.avatar
+                  %img{:src => "img/default_avatar.png"}/
+                %td.name John Smith
+                %td.mobilehide john@example.com
+                %td.mobilehide johnsmith
+                %td 13 days
+                %td.admin
+                  %a{href: "#"}
+                    %button.btn.btn-xs.btn-warning{type: "button"} Extend
+                  %a{href: "#"}
+                    %button.btn.btn-xs.btn-danger{type: "button"} Delete
+              %tr.alt
+                %td.avatar
+                  %img{:src => "img/default_avatar.png"}/
+                %td.name Brad Taylor
+                %td.mobilehide brad@example.com
+                %td.mobilehide brad.taylor
+                %td 3 days
+                %td.admin
+                  %a{href: "#"}
+                    %button.btn.btn-xs.btn-warning{type: "button"} Extend
+                  %a{href: "#"}
+                    %button.btn.btn-xs.btn-danger{type: "button"} Delete
+              %tr
+                %td.avatar
+                  %img{:src => "img/default_avatar.png"}/
+                %td.name Henry Stevens
+                %td.mobilehide henry@example.com
+                %td.mobilehide henry.stevens
+                %td 15 days
+                %td.admin
+                  %a{href: "#"}
+                    %button.btn.btn-xs.btn-warning{type: "button"} Extend
+                  %a{href: "#"}
+                    %button.btn.btn-xs.btn-danger{type: "button"} Delete

@@ -7,6 +7,7 @@
     %title EUC Global Demo Portal
     = csrf_meta_tags
     = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
   %body
     #wrapper{class: ('toggled' if content_for?(:sidebar))}
       - if content_for?(:sidebar)
@@ -17,5 +18,3 @@
           %a#menu-toggle{href: "#menu-toggle"}
             = image_tag 'menu.svg'
       = yield(:content)
-
-    = javascript_include_tag "application"

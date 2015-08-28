@@ -9,7 +9,13 @@ class UserIntegrationsController < ApplicationController
       state_machine.toggle
       user_integration.save!
 
-      redirect_to services_current_user_path, notice: I18n.t('flash.service_toggled')
+      if state_machine.disabled?
+        flash[:service] = I18n.t('flash.service_disabled', service: params[:service].camelize)
+        redirect_to services_current_user_path
+      else
+        flash[:service] = I18n.t('flash.service_enabled', service: params[:service].camelize)
+        redirect_to services_current_user_path
+      end
     else
       redirect_to services_current_user_path, error: I18n.t('flash.service_not_toggled')
     end

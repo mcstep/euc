@@ -1,5 +1,6 @@
 class Machine < MicroMachine
   attr_accessor :normalizer
+  attr_reader   :state
 
   def initialize(instance, service)
     @instance   = instance
@@ -60,6 +61,14 @@ class Machine < MicroMachine
     else
       trigger!(:complete_application)
     end
+  end
+
+  def applying?
+    [:provisioning, :revoking, :deprovisioning].include? @state
+  end
+
+  def disabled?
+    ![:provisioning, :provisioned, :not_approved].include? @state
   end
 
   def normalize_and_store!

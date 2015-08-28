@@ -29,3 +29,20 @@
             %input.js-switch{disabled: true, readonly: true, style: "display: none;", type: "checkbox"}
           .logo
             = image_tag "switchboard/#{service}.png"
+
+#service-notification.modal.fade{"aria-hidden" => "false", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        .td-dialog
+          %h1 Notification
+      .modal-body
+        = flash[:service]
+      .modal-footer
+        %button.btn.btn-success{"data-dismiss" => "modal", :type => "button"} Done
+
+- unless flash[:service].blank?
+  %script
+    $('#service-notification').modal('show')

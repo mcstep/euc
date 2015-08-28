@@ -83,11 +83,11 @@ class UserIntegration < ActiveRecord::Base
 
   Integration::SERVICES.each do |s|
     define_method "#{s}_applying?" do
-      [:provisioning, :revoking, :deprovisioning].include? self.send("#{s}_status")
+      self[s].applying?
     end
 
     define_method "#{s}_disabled?" do
-      self["#{s}_status"] < 0
+      self[s].disabled?
     end
 
     define_method "prohibit_#{s}" do

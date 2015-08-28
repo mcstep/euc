@@ -31,6 +31,10 @@ class UserPolicy < ApplicationPolicy
     @user.root?
   end
 
+  def show?
+    @user.root? || @record.invited_by.id == @user.id
+  end
+
   def update?
     @user.root? && @user.id != @record.id
   end
