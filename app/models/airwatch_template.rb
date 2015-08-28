@@ -54,7 +54,7 @@ class AirwatchTemplate < ActiveRecord::Base
       entry['children'].each{|x| fetch.call(x)} if entry['children']
     end
 
-    fetch.call(data)
+    fetch.call(data['organizationGroups'])
     result
   end
 end

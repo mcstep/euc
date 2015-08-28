@@ -8,27 +8,31 @@ end
 
 AirwatchInstance.where(host: 'testdrive.awmdm.com').first_or_create do |ai|
 
-  ai.group_name      = 'AirWatchUsers'
-  ai.group_region    = 'dldc'
-  ai.api_key         = '1SYEHIBAAAG6A7PQAEQA'
-  ai.user            = 'api.admin'
-  ai.password        = 'VMware123!'
-  ai.parent_group_id = 570
-  ai.security_pin    = 1111
+  ai.group_name         = 'AirWatchUsers'
+  ai.group_region       = 'dldc'
+  ai.api_key            = '1SYEHIBAAAG6A7PQAEQA'
+  ai.user               = 'api.admin'
+  ai.password           = 'VMware123!'
+  ai.parent_group_id    = 570
+  ai.security_pin       = 1111
+  ai.templates_api_url  = 'https://awconnector.vmwdev.com/tenants/'
+  ai.templates_token    = 'token'
 end
 
 AirwatchInstance.where(host: 'apple.awmdm.com').first_or_create do |ai|
 
-  ai.group_name      = 'AirWatchUsers'
-  ai.group_region    = 'vidm'
-  ai.api_key         = '1LGKA4AAAAG5A5DACEAA'
-  ai.user            = 'api.admin'
-  ai.password        = '$[5Jd#V7F.'
-  ai.parent_group_id = 1250
-  ai.security_pin    = 1111
-  ai.use_admin       = true
-  ai.use_groups      = false
-  ai.admin_roles     = [
+  ai.group_name         = 'AirWatchUsers'
+  ai.group_region       = 'vidm'
+  ai.api_key            = '1LGKA4AAAAG5A5DACEAA'
+  ai.user               = 'api.admin'
+  ai.password           = '$[5Jd#V7F.'
+  ai.parent_group_id    = 1250
+  ai.security_pin       = 1111
+  ai.use_admin          = true
+  ai.use_groups         = false
+  ai.templates_api_url  = 'https://awconnector.vmwdev.com/tenants/'
+  ai.templates_token    = 'token'
+  ai.admin_roles        = [
     { 'Id' => '10107', 'LocationGroupId'=> '1956' },
     { 'Id'=> '10108',  'LocationGroupId'=> '1983' },
     { 'Id'=> '10109',  'LocationGroupId'=> '1977' },

@@ -10,14 +10,16 @@ AirwatchInstance.where(host: 'airwatch.vmwdev.com').first_or_create! do |ai|
 
   # ai.group_name      = 'AirWatchUsers'
   # ai.group_region    = 'dldc'
-  ai.api_key         = 'UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs='
-  ai.user            = 'api.admin'
-  ai.password        = 'vmwareHelp!'
-  ai.parent_group_id = 570
-  ai.security_pin    = 1111
-  ai.use_admin       = true
-  ai.use_groups      = false
-  ai.admin_roles     = [
+  ai.api_key            = 'UIZaNu6vmqxFf3MKAxslgOK9fJOJfyH757xuvbRLvNs='
+  ai.user               = 'api.admin'
+  ai.password           = 'vmwareHelp!'
+  ai.parent_group_id    = 570
+  ai.security_pin       = 1111
+  ai.use_admin          = true
+  ai.use_groups         = false
+  ai.templates_api_url  = 'https://awconnector.vmwdev.com/tenants/'
+  ai.templates_token    = 'token'
+  ai.admin_roles        = [
     { 'Id' => '10107', 'LocationGroupId'=> '1956' },
     { 'Id'=> '10108',  'LocationGroupId'=> '1983' },
     { 'Id'=> '10109',  'LocationGroupId'=> '1977' },
