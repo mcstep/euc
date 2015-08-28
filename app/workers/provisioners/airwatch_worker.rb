@@ -56,14 +56,19 @@ module Provisioners
     end
 
     def resume
-      instance.activate(user_integration.airwatch_user_id)
+      user_integration.transaction do
+        user_integration.airwatch.complete_application
+        user_integration.save!
 
-      if instance.group_name
-        add_group instance.group_name, instance.group_region
-      end
+        instance.activate(user_integration.airwatch_user_id)
 
-      if instance.use_groups
-        GeneralMailer.airwatch_reactivation_email(user_integration).deliver_now
+        if instance.group_name
+          add_group instance.group_name, instance.group_region
+        end
+
+        if instance.use_groups
+          GeneralMailer.airwatch_reactivation_email(user_integration).deliver_now
+        end
       end
     end
 
