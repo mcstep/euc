@@ -6,7 +6,7 @@ class UserIntegrationsController < ApplicationController
     state_machine    = user_integration[params[:service]]
 
     if state_machine.trigger?(:toggle)
-      state_machine.trigger!(:toggle)
+      state_machine.toggle
       user_integration.save!
 
       redirect_to services_current_user_path, notice: I18n.t('flash.service_toggled')

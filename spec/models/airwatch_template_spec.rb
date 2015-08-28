@@ -12,11 +12,11 @@ RSpec.describe AirwatchTemplate, :vcr, type: :model do
   let(:airwatch_template){ AirwatchTemplate.produce(user_integration) }
 
   describe '.produce' do
-    it{ expect(airwatch_template.data).to include('name' => 'ZOMG Company 2') }
+    it{ expect(airwatch_template.data['organizationGroups']).to include('name' => 'ZOMG Company 2') }
   end
 
   describe '.to_h' do
     subject{ airwatch_template.to_h }
-    it{ is_expected.to include("ZOMG Company 2"=>1974) }
+    it{ is_expected.to include("ZOMG Company 2"=>2810) }
   end
 end

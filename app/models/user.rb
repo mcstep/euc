@@ -386,11 +386,13 @@ class User < ActiveRecord::Base
     end
   end
 
-  def accept_airwatch_eula!
+  def accept_airwatch_eula!(skip_ids: false)
     self.airwatch_eula_accept_date = Date.today
     save!
 
-    user_integrations.airwatch_not_approveds.each do |ui|
+    instances = user_integrations.airwatch_not_approveds
+    instances = instances.where.not(id: skip_ids) unless skip_ids.blank?
+    instances.each do |ui|
       ui.airwatch.approve
       ui.save!
     end

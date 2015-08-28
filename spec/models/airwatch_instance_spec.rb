@@ -18,19 +18,19 @@ RSpec.describe AirwatchInstance, :vcr, type: :model do
     let(:airwatch_instance) do
       build :staging_airwatch_instance,
         use_templates: true,
-        admin_roles: [ {"Id" => "1", "LocationGroupId"=> "company7" } ]
+        admin_roles: [ {"Id" => "1", "LocationGroupId"=> "ZOMG Company 3" } ]
     end
     let(:user_integration) do
       ui = build :airwatch_user_integration
-      ui.user = build :user, company_name: 'ZOMG Company 2'
-      ui.integration.domain = 'spec7.com'
+      ui.user = build :user, company_name: 'ZOMG Company 3'
+      ui.integration.domain = 'spec8.com'
       ui.integration.airwatch_instance = airwatch_instance
       ui
     end
 
     subject{ airwatch_instance.effective_admin_roles(user_integration) }
 
-    it{ is_expected.to eq [{"Id"=>"1", "LocationGroupId"=>"1746"}] }
+    it{ is_expected.to eq [{"Id"=>"1", "LocationGroupId"=>"2884"}] }
   end
 
   describe '.add_group' do
