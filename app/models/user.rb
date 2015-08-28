@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
     end
 
     def integrations_expiration_date
-      @expiration_date || Date.today + (root? ? 1.year : 1.month)
+      @expiration_date || Date.today + (root? || admin? ? 1.year : 1.month)
     end
 
     def integrations_expiration_date=(date)
