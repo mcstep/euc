@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  helper StatsHelper
+
   def index
     authorize :user
     @users = policy_scope(User).includes(:authentication_integration).order(:first_name).page(params[:page])
