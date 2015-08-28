@@ -11,8 +11,10 @@
               %input.js-switch.service-toggle{disabled: !ui.send(s).trigger?(:toggle), checked: !ui.send("#{s}_disabled?"), type: "checkbox", data: {url: toggle_user_integration_path(id: ui.id, service: s)}}
             .logo
               = image_tag "switchboard/#{s}.png"
-            .controls
-              %span.icon-info
+            - if ui.send(s).state == :provisioned
+              .controls
+                %a{href: '#', data: {target: "#service-#{s}-#{ui.id}", toggle: "modal"}}
+                  %span.icon-info
 
     - (Integration::SERVICES - current_user.integrations.map(&:enabled_services).flatten).each do |service|
       .col-sm-6.col-md-6.col-lg-4.switchboard-column.grow
@@ -30,19 +32,24 @@
           .logo
             = image_tag "switchboard/#{service}.png"
 
-#service-notification.modal.fade{"aria-hidden" => "false", :tabindex => "-1"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} ×
-        .td-dialog
-          %h1 Notification
-      .modal-body
-        = flash[:service]
-      .modal-footer
-        %button.btn.btn-success{"data-dismiss" => "modal", :type => "button"} Done
-
-- unless flash[:service].blank?
-  %script
-    $('#service-notification').modal('show')
+- current_user.user_integrations.each do |ui|
+  - ui.integration.enabled_services.each do |s|
+    .modal.fade{"aria-hidden" => "false", :tabindex => "-1", id: "service-#{s}-#{ui.id}"}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+              %span{"aria-hidden" => "true"} ×
+            .td-dialog
+              %h1 Notification
+          .modal-body
+            - if s == 'airwatch'
+              %p
+                Airwatch has been enabled. Please log into VMware Identity Manager and click on the service icon to be SSO'ed into the service
+              %p
+                You can enroll your device by downloading the AirWatch Agent and using the enrollment email: #{ui.email}
+            - else
+              %p
+                #{s.camelize} has been enabled. Please log into VMware Identity Manager and click on the service icon to be SSO'ed into the service
+          .modal-footer
+            %button.btn.btn-success{"data-dismiss" => "modal", :type => "button"} Done
