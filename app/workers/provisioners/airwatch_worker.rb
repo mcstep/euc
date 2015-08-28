@@ -50,7 +50,7 @@ module Provisioners
         end
 
         if instance.use_groups
-          GeneralMailer.airwatch_deactivation_email(user_integration).deliver_now
+          GeneralMailer.airwatch_deactivation_email(user).deliver_now
         end
       end
     end
