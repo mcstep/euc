@@ -31,7 +31,12 @@ module Provisioners
     end
 
     def resume
-      add_group(instance.group_name, instance.group_region) if instance.group_name
+      user_integration.transaction do
+        user_integration.blue_jeans.complete_application
+        user_integration.save!
+
+        add_group(instance.group_name, instance.group_region) if instance.group_name
+      end
     end
 
     def deprovision
