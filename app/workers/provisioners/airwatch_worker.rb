@@ -67,7 +67,7 @@ module Provisioners
         end
 
         if instance.use_groups
-          GeneralMailer.airwatch_reactivation_email(user_integration).deliver_now
+          GeneralMailer.airwatch_reactivation_email(user).deliver_now
         end
       end
     end
