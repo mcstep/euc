@@ -116,6 +116,14 @@ class UserIntegration < ActiveRecord::Base
     "#{username}@#{integration.domain}"
   end
 
+  def airwatch_email
+    if integration.airwatch_instance.use_templates
+      "#{username}@#{AirwatchTemplate.produce(self).data['enrollmentEmailDomain']}"
+    else
+      email
+    end
+  end
+
   def applying?
     Integration::SERVICES.any?{|s| send "#{s}_applying?"}
   end
@@ -171,5 +179,10 @@ class UserIntegration < ActiveRecord::Base
   def drop_provisioning
     return if @skip_provisioning
     ProvisionerWorker.cleanup_async(id)
+  end
+
+
+  def airwatch_template
+    AirwatchTemplate.produce(self)
   end
 end
