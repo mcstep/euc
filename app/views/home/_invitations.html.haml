@@ -32,7 +32,7 @@
                 %td= user.job_title
                 %td= l user.expiration_date
                 %td
-                  %a.btn.btn-xs.btn-default{href: user_path(user)}
+                  %a.btn.btn-xs.btn-success{href: user_path(user)}
                     Activity
                   - if prolongation = user.authentication_integration.directory_prolongations.last
                     %button.btn.btn-xs.btn-default{data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}

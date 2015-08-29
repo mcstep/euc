@@ -43,7 +43,7 @@
                 .help-block
                   N/A
             %td{style: 'width: 1%; white-space: nowrap'}
-              %a.btn.btn-xs.btn-default{href: user_path(user)}
+              %a.btn.btn-xs.btn-success{href: user_path(user)}
                 Activity
               %a.prolong-account-link.btn.btn-primary.btn-xs{href: '#', data: {target: "#prolong-account-modal", toggle: 'modal', id: user.authentication_integration.id, username: user.authentication_integration.username, date: bl(user.prolong_date), name: user.display_name}}
                 Extend
