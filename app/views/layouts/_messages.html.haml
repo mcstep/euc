@@ -1,7 +1,6 @@
 - flash.each do |name, entry|
-  - if ['notice', 'error'].include?(name)
-    - if entry.is_a?(Array)
-      - entry.each do |msg|
-        = render partial: 'layouts/message', locals: { name: name, msg: msg.to_s }
-    - else
-      = render partial: 'layouts/message', locals: { name: name, msg: entry.to_s }
+  - if entry.is_a?(Array)
+    - entry.each do |msg|
+      = render partial: 'layouts/message', locals: { name: name, msg: msg.to_s }
+  - else
+    = render partial: 'layouts/message', locals: { name: name, msg: entry.to_s }
