@@ -2,6 +2,15 @@ namespace :db do
   namespace :import do
     task :run => [:domains, :accounts, :reg_codes, :airwatch_groups, :users]
 
+    task :fix_created_ats => :environment do
+      User.where(email: Upgrade::User.pluck(:email)).each do |u|
+        next unless ou = Upgrade::User.where("LOWER(email) = LOWER(?)", u.email).first
+
+        u.created_at = ou.created_at
+        u.save!
+      end
+    end
+
     task :fix_imported_statuses => :environment do
       User.where(email: Upgrade::User.pluck(:email)).each do |u|
         next unless ou = Upgrade::User.where("LOWER(email) = LOWER(?)", u.email).first
@@ -105,8 +114,8 @@ namespace :db do
             integrations_expiration_date: user.invitation.expires_at,
             user_integrations_attributes: [{
               integration_id: integration.id,
-              google_apps_disabled: !user.invitation.google_apps_trial,
-              airwatch_disabled: !user.invitation.airwatch_trial,
+              prohibit_google_apps: !user.invitation.google_apps_trial,
+              prohibit_airwatch: !user.invitation.airwatch_trial,
               airwatch_user_id: user.invitation.airwatch_user_id,
               airwatch_admin_user_id: user.invitation.airwatch_admin_user_id,
               directory_status: 2
@@ -137,7 +146,7 @@ namespace :db do
             end
 
             Integration::SERVICES.each do |s|
-              unless ui.send("#{s}_disabled")
+              unless ui.send("#{s}_disabled?")
                 ui.send("#{s}_status=", :provisioned)
               end
             end
@@ -198,8 +207,8 @@ namespace :db do
             integrations_expiration_date: invitation.expires_at,
             user_integrations_attributes: [{
               integration_id: integration.id,
-              google_apps_disabled: !invitation.google_apps_trial,
-              airwatch_disabled: !invitation.airwatch_trial,
+              prohibit_google_appsgoogle_apps: !invitation.google_apps_trial,
+              prohibit_airwatch: !invitation.airwatch_trial,
               airwatch_user_id: invitation.airwatch_user_id,
               airwatch_admin_user_id: invitation.airwatch_admin_user_id,
               directory_status: 2
@@ -232,7 +241,7 @@ namespace :db do
             end
 
             Integration::SERVICES.each do |s|
-              unless ui.send("#{s}_disabled")
+              unless ui.send("#{s}_disabled?")
                 ui.send("#{s}_status=", :provisioned)
               end
             end
