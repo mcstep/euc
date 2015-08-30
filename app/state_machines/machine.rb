@@ -15,6 +15,8 @@ class Machine < MicroMachine
           deprovisioned:  :provisioning,
           provisioned:    :revoking,
           not_approved:   :deprovisioned
+      else
+        self.when :toggle, {}
       end
 
       self.when :approve,

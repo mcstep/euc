@@ -7,17 +7,13 @@ module StateMachines
     after_save        { @machines = {} }
   end
 
-  def machines
-    @machines ||= {}
-  end
-
   Integration::SERVICES.each do |service|
     define_method service do
-      machines[service] ||= Machine.new(self, service)
+      Machine.new(self, service)
     end
   end
 
   def airwatch
-    machines[:airwatch] ||= AirwatchMachine.new(self, :airwatch)
+    AirwatchMachine.new(self, :airwatch)
   end
 end
