@@ -55,11 +55,13 @@ class ProvisionerWorker
 
   def add_group(group_name, group_region)
     @user_integration.directory.add_group(@user_integration.username, group_name, @user_integration.integration.domain)
+    @user_integration.directory.replicate
     @user_integration.directory.sync(group_region)
   end
 
   def remove_group(group_name, group_region)
     @user_integration.directory.remove_group(@user_integration.username, group_name, @user_integration.integration.domain)
+    @user_integration.directory.replicate
     @user_integration.directory.sync(group_region)
   end
 end
