@@ -155,7 +155,7 @@ class AirwatchInstance < ActiveRecord::Base
       RestClient::Request.execute(
         method:   'POST',
         url:      url.to_s,
-        payload:  { domainName: domain, partnerName: company }.to_json,
+        payload:  { domainName: domain, partnerName: "#{company} (#{domain})" }.to_json,
         headers:  { content_type: :json, accept: :json }
       )
     rescue RestClient::Conflict => e
