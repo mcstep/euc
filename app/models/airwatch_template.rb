@@ -31,9 +31,7 @@ class AirwatchTemplate < ActiveRecord::Base
       airwatch_instance_id: user_integration.integration.airwatch_instance_id
     }
 
-    if attempt = where(condition).first
-      return attempt
-    end
+    return attempt if attempt = where(condition).first
 
     data = user_integration.integration.airwatch_instance.generate_template(
       condition[:domain],
@@ -45,6 +43,15 @@ class AirwatchTemplate < ActiveRecord::Base
       domain:            condition[:domain],
       data:              data
     )
+  end
+
+  def self.exist?(user_integration)
+    condition = {
+      domain:               user_integration.user.email.split('@', 2).last,
+      airwatch_instance_id: user_integration.integration.airwatch_instance_id
+    }
+
+    return attempt if attempt = where(condition).first
   end
 
   def to_h

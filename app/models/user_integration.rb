@@ -117,7 +117,7 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def airwatch_email
-    if integration.airwatch_instance.use_templates
+    if airwatch_template?
       "#{username}@#{airwatch_template.data['enrollmentEmailDomain']}"
     else
       email
@@ -184,5 +184,9 @@ class UserIntegration < ActiveRecord::Base
 
   def airwatch_template
     AirwatchTemplate.produce(self)
+  end
+
+  def airwatch_template?
+    integration.airwatch_instance.use_templates && AirwatchTemplate.exist?(self)
   end
 end
