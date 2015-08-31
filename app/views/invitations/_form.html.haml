@@ -19,7 +19,7 @@
       = uif.hidden_field :integration_id
       - uif.object.integration.enabled_services.select{|x| current_user.root? || x != 'horizon_view'}.each do |s|
         .col-lg-3
-          = uif.check_box :"prohibit_#{s}"
+          = uif.check_box :"prohibit_#{s}", label: "No #{s.camelize}"
 .help-block{style: 'margin-top: 20px'}
   A 30-day account will be setup for the user. After the 30-day trial ends, the user's
   %strong account will automatically be deleted from the system.
