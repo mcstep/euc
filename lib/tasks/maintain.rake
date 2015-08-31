@@ -25,7 +25,8 @@ namespace :maintain do
   end
 
   task :add_airwatch_users_to_google_group => :environment do
-    User.where.not(airwatch_user_id: nil).each do |user|
+    UserIntegration.where.not(airwatch_user_id: nil).each do |ui|
+      user = ui.user
       user.authentication_integration.directory.add_group(
         user.authentication_integration.username,
         'GoogleAppsUsers',
