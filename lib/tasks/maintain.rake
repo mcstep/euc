@@ -36,6 +36,6 @@ namespace :maintain do
   end
 
   task :reset_airwatch_provisioning => :environment do
-    User.where(airwatch_status_id: UserIntegration.airwatch_statuses[:provisioned]).update_all(airwatch_status_id: UserIntegration.airwatch_statuses[:deprovisioned])
+    UserIntegration.where(airwatch_status: UserIntegration.airwatch_statuses[:provisioned]).update_all(airwatch_status: UserIntegration.airwatch_statuses[:deprovisioned])
   end
 end
