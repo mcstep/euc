@@ -270,7 +270,7 @@ class User < ActiveRecord::Base
   validate do
     errors.add :invitations_used, :invalid if invitations_left < 0
 
-    if user_integrations.blank?
+    if authentication_integration_id.blank? && user_integrations.blank?
       errors.add :authentication_integration_id, :invalid 
     end
   end

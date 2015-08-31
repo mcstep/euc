@@ -223,7 +223,6 @@ namespace :db do
           new_user.save!
 
           if invitation.sender
-            binding.pry unless User.where(email: invitation.sender.email.downcase).first
             Invitation.create!(
               skip_points_management: true,
               from_user: User.where(email: invitation.sender.email.downcase).first,
