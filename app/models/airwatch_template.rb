@@ -36,13 +36,13 @@ class AirwatchTemplate < ActiveRecord::Base
     end
 
     data = user_integration.integration.airwatch_instance.generate_template(
-      user_integration.integration.domain,
+      condition[:domain],
       user_integration.user.company_name
     )
 
     AirwatchTemplate.create!(
       airwatch_instance: user_integration.integration.airwatch_instance,
-      domain:            user_integration.integration.domain,
+      domain:            condition[:domain],
       data:              data
     )
   end
