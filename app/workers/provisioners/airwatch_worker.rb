@@ -6,16 +6,13 @@ module Provisioners
         (user_integration.office365_disabled? || user_integration.office365_provisioned?) &&
         (user_integration.google_apps_disabled? || user_integration.google_apps_provisioned?)
       ) do
-        unless user_integration.airwatch_user_id
           user_integration.airwatch_user_id = instance.add_user(user_integration.username)['Value']
           user_integration.save!
         end
 
         if instance.use_admin
-          unless user_integration.airwatch_admin_user_id
-            user_integration.airwatch_admin_user_id = instance.add_admin_user(user_integration)['Value']
-            user_integration.save!
-          end
+          user_integration.airwatch_admin_user_id = instance.add_admin_user(user_integration)['Value']
+          user_integration.save!
         end
 
         user_integration.transaction do
