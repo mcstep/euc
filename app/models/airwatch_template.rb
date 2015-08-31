@@ -31,7 +31,9 @@ class AirwatchTemplate < ActiveRecord::Base
       airwatch_instance_id: user_integration.integration.airwatch_instance_id
     }
 
-    return attempt if attempt = where(condition).first
+    if attempt = where(condition).first
+      return attempt
+    end
 
     data = user_integration.integration.airwatch_instance.generate_template(
       condition[:domain],
@@ -51,7 +53,9 @@ class AirwatchTemplate < ActiveRecord::Base
       airwatch_instance_id: user_integration.integration.airwatch_instance_id
     }
 
-    return attempt if attempt = where(condition).first
+    if attempt = where(condition).first
+      return attempt
+    end
   end
 
   def to_h
