@@ -8,7 +8,6 @@ module Provisioners
       ) do
           user_integration.airwatch_user_id = instance.add_user(user_integration.username)['Value']
           user_integration.save!
-        end
 
         if instance.use_admin
           user_integration.airwatch_admin_user_id = instance.add_admin_user(user_integration)['Value']
