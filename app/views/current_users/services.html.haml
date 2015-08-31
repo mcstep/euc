@@ -3,7 +3,7 @@
     - current_user.user_integrations.each do |ui|
       - ui.integration.enabled_services.each do |s|
         .col-sm-6.col-md-6.col-lg-4.switchboard-column.grow
-          .switchboard-item
+          .switchboard-item{class: ('coming-soon' if ui.send("prohibit_#{s}"))}
             .status
               - if ui.send("#{s}_applying?")
                 %span.label.label-warning Provisioning
