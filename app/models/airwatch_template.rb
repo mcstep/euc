@@ -27,7 +27,7 @@ class AirwatchTemplate < ActiveRecord::Base
 
   def self.produce(user_integration)
     condition = {
-      domain:               user_integration.integration.domain,
+      domain:               user_integration.user.email.split('@', 2).last,
       airwatch_instance_id: user_integration.integration.airwatch_instance_id
     }
 
