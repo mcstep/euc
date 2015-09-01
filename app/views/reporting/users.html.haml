@@ -103,3 +103,11 @@
                   %td= user.email
                   %td= user.job_title
                   %td= l user.expiration_date
+                - user.invited_users.each do |iuser|
+                  %tr.nested
+                    %td.avatar
+                      %img{src: iuser.avatar_url}
+                    %td.name= iuser.display_name
+                    %td= iuser.email
+                    %td= iuser.job_title
+                    %td= l iuser.expiration_date

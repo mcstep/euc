@@ -6,7 +6,7 @@ class ReportingController < ApplicationController
     params[:regions]   ||= []
 
     if params[:start_date].present?
-      @users = User.where('created_at > ?', Date.parse(params[:start_date]))
+      @users = User.includes(sent_invitations: :to_user).where('created_at > ?', Date.parse(params[:start_date]))
       @invitations = Invitation.where('created_at > ?', Date.parse(params[:start_date]))
 
       if params[:end_date].present?
