@@ -50,7 +50,7 @@
                 %p
                   You can enroll your device by downloading the AirWatch Agent and using the enrollment email: #{ui.airwatch_email}
                 %p
-                  You can login to the admin console at https://#{ui.integration.airwatch_instance}. Your admin username is vmwdemo\#{ui.username} and password is your portal password
+                  You can login to the admin console at https://#{ui.integration.airwatch_instance.host}. Your admin username is vmwdemo\#{ui.username} and password is your portal password
             - else
               %p
                 #{s.camelize} has been enabled. Please log into VMware Identity Manager and click on the service icon to be SSO'ed into the service
