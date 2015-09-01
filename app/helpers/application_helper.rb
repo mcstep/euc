@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def bl(date)
-    date.strftime('%B %d, %Y')
+    date.strftime('%B %d, %Y') if date.present?
   end
 
   def permitted_attributes(record, *path)
