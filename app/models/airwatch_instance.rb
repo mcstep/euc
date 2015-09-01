@@ -82,7 +82,7 @@ class AirwatchInstance < ActiveRecord::Base
       payload:  (payload.to_json if payload),
       headers:  { host: host, 'aw-tenant-code' => api_key, content_type: :json, accept: :json }
     )
-    JSON.parse(response) if response != "null" and method != :delete
+    JSON.parse(response) if !response.blank? and response != "null"
   end
 
   def add_group(name)
