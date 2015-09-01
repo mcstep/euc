@@ -98,29 +98,21 @@ class AirwatchInstance < ActiveRecord::Base
   end
 
   def add_user(username)
-    begin
-      query 'system/users/adduser',
-        'UserName' => username,
-        'Status' => 'true',
-        'SecurityType' => 'Directory',
-        'LocationGroupId' => parent_group_id,
-        'Role' => 'VMWDemo'
-    rescue RestClient::BadRequest => e
-      raise e unless e.response =~ /User already exists with name/
-    end
+    query 'system/users/adduser',
+      'UserName' => username,
+      'Status' => 'true',
+      'SecurityType' => 'Directory',
+      'LocationGroupId' => parent_group_id,
+      'Role' => 'VMWDemo'
   end
 
   def add_admin_user(user_integration)
-    begin
-      query "system/admins/addadminuser",
-        'UserName' => user_integration.username, 
-        'LocationGroupId' => parent_group_id,
-        'IsActiveDirectoryUser' => 'true',
-        'RequiresPasswordChange' => 'false',
-        'Roles' => effective_admin_roles(user_integration)
-    rescue RestClient::BadRequest => e
-      raise e unless e.response =~ /UserName already exists/
-    end
+    query "system/admins/addadminuser",
+      'UserName' => user_integration.username, 
+      'LocationGroupId' => parent_group_id,
+      'IsActiveDirectoryUser' => 'true',
+      'RequiresPasswordChange' => 'false',
+      'Roles' => effective_admin_roles(user_integration)
   end
 
   def activate(id)
