@@ -98,28 +98,36 @@ class AirwatchInstance < ActiveRecord::Base
   end
 
   def add_user(username)
-    query 'system/users/adduser',
-      'UserName' => username,
-      'Status' => 'true',
-      'SecurityType' => 'Directory',
-      'LocationGroupId' => parent_group_id,
-      'Role' => 'VMWDemo'
+    begin
+      query 'system/users/adduser',
+        'UserName' => username,
+        'Status' => 'true',
+        'SecurityType' => 'Directory',
+        'LocationGroupId' => parent_group_id,
+        'Role' => 'VMWDemo'
+    rescue RestClient::BadRequest => e
+      raise e unless e.response =~ /User already exists with name/
+    end
   end
 
   def add_admin_user(user_integration)
-    query "system/admins/addadminuser",
-      'UserName' => user_integration.username, 
-      'LocationGroupId' => parent_group_id,
-      'IsActiveDirectoryUser' => 'true',
-      'RequiresPasswordChange' => 'false',
-      'Roles' => effective_admin_roles(user_integration)
+    begin
+      query "system/admins/addadminuser",
+        'UserName' => user_integration.username, 
+        'LocationGroupId' => parent_group_id,
+        'IsActiveDirectoryUser' => 'true',
+        'RequiresPasswordChange' => 'false',
+        'Roles' => effective_admin_roles(user_integration)
+    rescue RestClient::BadRequest => e
+      raise e unless e.response =~ /UserName already exists/
+    end
   end
 
   def activate(id)
     begin
       query "system/users/#{id}/activate"
     rescue RestClient::BadRequest => e
-      raise e unless e.response =~ /User not found or does not have access to retrieve the details/
+      raise e unless e.response =~ /User is already active/
     end
   end
 
@@ -127,7 +135,7 @@ class AirwatchInstance < ActiveRecord::Base
     begin
       query "system/users/#{id}/deactivate"
     rescue RestClient::BadRequest => e
-      raise e unless e.response =~ /User not found or does not have access to retrieve the details/
+      raise e unless e.response =~ /User is already inactive/
     end
   end
 
