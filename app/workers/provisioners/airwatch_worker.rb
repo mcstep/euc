@@ -6,10 +6,10 @@ module Provisioners
         (user_integration.office365_disabled? || user_integration.office365_provisioned?) &&
         (user_integration.google_apps_disabled? || user_integration.google_apps_provisioned?)
       ) do
-          # unless user_integration.airwatch_user_id
-            user_integration.airwatch_user_id = instance.add_user(user_integration.username)['Value']
-            user_integration.save!
-          # end
+        # unless user_integration.airwatch_user_id
+          user_integration.airwatch_user_id = instance.add_user(user_integration.username)['Value']
+          user_integration.save!
+        # end
 
         if instance.use_admin
           # unless user_integration.airwatch_admin_user_id
@@ -39,6 +39,15 @@ module Provisioners
     end
 
     def revoke
+      # Run out of common transaction to minimize risks
+      if user_integration.airwatch_admin_user_id
+        user_integration.transaction do
+          user_integration.airwatch_admin_user_id = nil
+          user_integration.save!
+          instance.delete_admin_user(user_integration.airwatch_admin_user_id)
+        end
+      end
+
       user_integration.transaction do
         user_integration.airwatch.complete_application
         user_integration.save!
@@ -56,6 +65,14 @@ module Provisioners
     end
 
     def resume
+      # Run out of common transaction to minimize risks
+      if instance.use_admin
+        unless user_integration.airwatch_admin_user_id
+          user_integration.airwatch_admin_user_id = instance.add_admin_user(user_integration)['Value']
+          user_integration.save!
+        end
+      end
+
       user_integration.transaction do
         user_integration.airwatch.complete_application
         user_integration.save!
@@ -75,15 +92,21 @@ module Provisioners
     def deprovision
       sleep 10
 
-      instance.delete_user(user_integration.airwatch_user_id)
+      if user_integration.airwatch_user_id
+        user_integration.transaction do
+          user_integration.airwatch_user_id = nil
+          user_integration.save!
+          instance.delete_user(user_integration.airwatch_user_id)
+        end
+      end
 
       if user_integration.airwatch_admin_user_id
-        instance.delete_admin_user(user_integration.airwatch_admin_user_id)
+        user_integration.transaction do
+          user_integration.airwatch_admin_user_id = nil
+          user_integration.save!
+          instance.delete_admin_user(user_integration.airwatch_admin_user_id)
+        end
       end
-    end
-
-    def cleanup
-      deprovision(user_integration)
     end
   end
 end
