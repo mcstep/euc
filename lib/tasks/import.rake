@@ -2,12 +2,21 @@ namespace :db do
   namespace :import do
     task :run => [:domains, :accounts, :reg_codes, :airwatch_groups, :users]
 
-    task :fix_created_ats => :environment do
+    task :fix_users_created_ats => :environment do
       User.with_deleted.where(email: Upgrade::User.pluck(:email)).each do |u|
         next unless ou = Upgrade::User.where("LOWER(email) = LOWER(?)", u.email).first
 
         u.created_at = ou.created_at
         u.save!
+      end
+    end
+
+    task :fix_invitations_created_ats => :environment do
+      Invitation.joins(:to_user).each do |i|
+        next unless oi = Upgrade::Invitation.where(recipient_email: i.to_user.email)
+
+        i.created_at = ui.created_at
+        i.save!
       end
     end
 
