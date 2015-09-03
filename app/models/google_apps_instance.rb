@@ -108,7 +108,24 @@ class GoogleAppsInstance < ActiveRecord::Base
 
     execute(
       api_method: directory.users.delete,
+      event: 'add',
       parameters: {'userKey' => email}
     )
+  end
+
+  def search(user_integration)
+    directory = client.discovered_api('admin', 'directory_v1')
+
+    JSON.parse execute(
+      api_method: directory.users.list,
+      parameters: {
+        'domain' => user_integration.integration.domain,
+        'query'  => "email:#{user_integration.email}*"
+      }
+    ).body
+  end
+
+  def registered?(user_integration)
+    search(user_integration).include?('id')
   end
 end

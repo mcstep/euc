@@ -1,4 +1,13 @@
 namespace :maintain do
+  task :set_proper_status_to_deprovisioned_google_apps_users => :environment do
+    UserIntegration.where(google_apps_status: UserIntegration.google_apps_statuses[:provisioned]).each do |ui|
+      unless ui.integration.google_apps_instance.registered?(ui)
+        ui.google_apps_status = UserIntegration.google_apps_statuses[:deprovisioned]
+        ui.save!
+      end
+    end
+  end
+
   task :add_horizon_users_to_group => :environment do
     User.joins(:integrations).where.not(integrations: {horizon_view_instance_id: nil}).each do |user|
       user.authentication_integration.directory.add_group(
