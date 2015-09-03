@@ -4,6 +4,12 @@ namespace :maintain do
       unless ui.integration.google_apps_instance.registered?(ui)
         ui.google_apps_status = UserIntegration.google_apps_statuses[:deprovisioned]
         ui.save!
+
+        ui.user.authentication_integration.directory.remove_group(
+          ui.user.authentication_integration.username,
+          'GoogleAppsUsers',
+          ui.user.authentication_integration.integration.domain
+        )
       end
     end
   end
