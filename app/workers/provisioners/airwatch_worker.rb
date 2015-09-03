@@ -42,9 +42,9 @@ module Provisioners
       # Run out of common transaction to minimize risks
       if user_integration.airwatch_admin_user_id
         user_integration.transaction do
+          instance.delete_admin_user(user_integration.airwatch_admin_user_id)
           user_integration.airwatch_admin_user_id = nil
           user_integration.save!
-          instance.delete_admin_user(user_integration.airwatch_admin_user_id)
         end
       end
 
@@ -94,17 +94,17 @@ module Provisioners
 
       if user_integration.airwatch_user_id
         user_integration.transaction do
+          instance.delete_user(user_integration.airwatch_user_id)
           user_integration.airwatch_user_id = nil
           user_integration.save!
-          instance.delete_user(user_integration.airwatch_user_id)
         end
       end
 
       if user_integration.airwatch_admin_user_id
         user_integration.transaction do
+          instance.delete_admin_user(user_integration.airwatch_admin_user_id)
           user_integration.airwatch_admin_user_id = nil
           user_integration.save!
-          instance.delete_admin_user(user_integration.airwatch_admin_user_id)
         end
       end
     end
