@@ -12,6 +12,8 @@ module CompanyHolder
   end
 
   def company_name=(value)
+    value = value.strip
+
     if company = Company.named(value).first
       self.company_id = company.id
     else
