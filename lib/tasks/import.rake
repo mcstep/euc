@@ -12,7 +12,7 @@ namespace :db do
     end
 
     task :fix_invitations_created_ats => :environment do
-      Invitation.joins(:to_user).each do |i|
+      Invitation.includes(:to_user).each do |i|
         next unless oi = Upgrade::Invitation.with_deleted.where(recipient_email: i.to_user.email).first
 
         i.created_at = oi.created_at
