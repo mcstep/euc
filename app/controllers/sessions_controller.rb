@@ -44,8 +44,13 @@ class SessionsController < ApplicationController
   def recover
     @user = User.identified_by(params[:email])
 
-    if @user.blank?
+    if params[:email].blank? || @user.blank?
       redirect_to new_session_path, alert: I18n.t('flash.recover_error')
+      return
+    end
+
+    if @user.expired?
+      redirect_to new_session_path, alert: I18n.t('flash.recover_expiration_error')
       return
     end
 

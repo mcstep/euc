@@ -302,6 +302,10 @@ class User < ActiveRecord::Base
     authentication_integration.try :directory_expiration_date
   end
 
+  def expired?
+    expiration_date && expiration_date <= DateTime.now
+  end
+
   def prolong_date
     if expiration_date.blank? || expiration_date < DateTime.now
       DateTime.now + 1.month
