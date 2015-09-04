@@ -113,19 +113,19 @@ class GoogleAppsInstance < ActiveRecord::Base
     )
   end
 
-  def search(user_integration)
+  def search(user_integration, email=user_integration.email, domain=user_integration.integration.domain)
     directory = client.discovered_api('admin', 'directory_v1')
 
     JSON.parse execute(
       api_method: directory.users.list,
       parameters: {
-        'domain' => user_integration.integration.domain,
-        'query'  => "email:#{user_integration.email}*"
+        'domain' => domain,
+        'query'  => "email:#{email}*"
       }
     ).body
   end
 
-  def registered?(user_integration)
-    search(user_integration).include?('id')
+  def registered?(*args)
+    search(*args)['users'].present?
   end
 end
