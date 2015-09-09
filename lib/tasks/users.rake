@@ -9,4 +9,14 @@ namespace :users do
         period: 1.year
     end
   end
+
+  namespace :expiration do
+    task :handle_expiring => :environment do
+      UsersCheckExpirationWorker.new.handle_expiring
+    end
+
+    task :handle_expired => :environment do
+      UsersCheckExpirationWorker.new.handle_expired
+    end
+  end
 end
