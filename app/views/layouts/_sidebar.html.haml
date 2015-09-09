@@ -56,13 +56,13 @@
   - if policy(:invitation).create? && current_user.invitations_left > 0
     %li
       %a{href: new_invitation_path} Send Invitation
+  - if policy(:reporting).users?
+    %li
+      %a{href: users_reporting_index_path} Reporting
 
 - if current_user.root?
   %span.sidebar-divider Manage
   %ul.sidebar-nav
-    - if policy(:reporting).users?
-      %li
-        %a{href: users_reporting_index_path} Reporting
     - if policy(:user).index?
       %li
         %a{href: users_path} Users
