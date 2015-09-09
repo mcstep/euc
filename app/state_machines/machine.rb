@@ -24,12 +24,14 @@ class Machine < MicroMachine
 
       if instance.new_record?
         self.when :prohibit,
+          revoked:        :revoked,
           deprovisioned:  :deprovisioned,
           provisioning:   :deprovisioned,
           provisioned:    :deprovisioned,
           not_approved:   :deprovisioned
       else
         self.when :prohibit,
+          revoked:        :revoked,
           deprovisioned:  :deprovisioned,
           provisioned:    :revoking,
           not_approved:   :deprovisioned

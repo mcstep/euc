@@ -14,7 +14,7 @@ module Provisioners
             user_integration.integration.domain
           )
 
-          sleep 30
+          sleep 30 unless Rails.env.test?
 
           instance.update_user user_integration.email, 'usageLocation' => 'US'
           instance.assign_license user_integration.email

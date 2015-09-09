@@ -69,6 +69,10 @@ group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-passenger'
   gem 'letter_opener'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-bundler'
+  gem 'launchy'
 end
 
 group :test do

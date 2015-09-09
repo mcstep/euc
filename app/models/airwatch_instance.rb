@@ -119,7 +119,7 @@ class AirwatchInstance < ActiveRecord::Base
     begin
       query "system/users/#{id}/activate"
     rescue RestClient::BadRequest => e
-      raise e unless e.response =~ /User is already active/
+      raise e unless e.response =~ /(User is already active|User not found or does not have access to retrieve the details)/
     end
   end
 
@@ -127,7 +127,7 @@ class AirwatchInstance < ActiveRecord::Base
     begin
       query "system/users/#{id}/deactivate"
     rescue RestClient::BadRequest => e
-      raise e unless e.response =~ /User is already inactive/
+      raise e unless e.response =~ /(User is already inactive|User not found or does not have access to retrieve the details)/
     end
   end
 

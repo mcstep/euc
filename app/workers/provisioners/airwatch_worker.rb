@@ -32,7 +32,7 @@ module Provisioners
           end
 
           if instance.use_groups
-            GeneralMailer.airwatch_activation_email(user).deliver_now
+            GeneralMailer.airwatch_activation_email(user_integration).deliver_now
           end
         end
       end
@@ -90,7 +90,7 @@ module Provisioners
     end
 
     def deprovision
-      sleep 10
+      sleep 10 unless Rails.env.test?
 
       if user_integration.airwatch_user_id
         user_integration.transaction do

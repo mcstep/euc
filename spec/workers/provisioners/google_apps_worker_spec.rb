@@ -44,6 +44,7 @@ RSpec.describe Provisioners::GoogleAppsWorker, type: :model do
         it 'works' do
           expect(instance).to receive(:register).once.with("#{username}@#{user_integration.integration.domain}", user.first_name, user.last_name)
           expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
+          expect(directory).to receive(:replicate)
           expect(directory).to receive(:sync).once.with('region')
 
           Provisioners::GoogleAppsWorker.new.perform(user_integration, :provision)
@@ -55,10 +56,12 @@ RSpec.describe Provisioners::GoogleAppsWorker, type: :model do
         it 'works' do
           expect(instance).to receive(:register).once.with("#{username}@#{user_integration.integration.domain}", user.first_name, user.last_name)
           expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
+          expect(directory).to receive(:replicate)
           expect(directory).to receive(:sync).once.with('region').and_raise('error')
 
           expect(instance).to receive(:register).once.with("#{username}@#{user_integration.integration.domain}", user.first_name, user.last_name)
           expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
+          expect(directory).to receive(:replicate)
           expect(directory).to receive(:sync).once.with('region')
 
           expect{ Provisioners::GoogleAppsWorker.new.perform(user_integration, :provision) }.to raise_error('error')

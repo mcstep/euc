@@ -19,6 +19,10 @@ FactoryGirl.define do
       association :profile, factory: :full_profile
     end
 
+    factory :admin do
+      role :admin
+    end
+
     factory :root do
       role :root
     end

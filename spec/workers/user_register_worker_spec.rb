@@ -17,6 +17,7 @@ RSpec.describe UserRegisterWorker, type: :model do
           'username' => username,
           'password' => 'test'
         )
+        expect(directory).to receive(:replicate)
         expect(directory).to receive(:sync).once.with('dldc')
 
         expect{ UserRegisterWorker.new.perform(user) }.to change { ActionMailer::Base.deliveries.count }.by(1)
@@ -31,6 +32,7 @@ RSpec.describe UserRegisterWorker, type: :model do
             'password' => 'test'
           )
           expect(directory).to receive(:add_group).once.with(username, 'test')
+          expect(directory).to receive(:replicate)
           expect(directory).to receive(:add_group).once.with(username, 'VIDMUsers')
           expect(directory).to receive(:sync).once.with('dldc')
 
@@ -50,6 +52,7 @@ RSpec.describe UserRegisterWorker, type: :model do
         expect(directory).to receive(:add_group).once.with(username, 'test').and_raise('error')
         expect(directory).to receive(:add_group).once.with(username, 'VIDMUsers')
         expect(directory).to receive(:add_group).once.with(username, 'test')
+        expect(directory).to receive(:replicate)
         expect(directory).to receive(:sync).once.with('dldc')
         expect(directory).to receive(:update_password).once.with(username, nil, user.authentication_integration.integration.domain)
 

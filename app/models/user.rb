@@ -282,6 +282,10 @@ class User < ActiveRecord::Base
     authentication_integration && authentication_integration.directory_status != :provisioning
   end
 
+  def email_domain
+    email.split('@', 2).last
+  end
+
   def display_name
     "#{first_name} #{last_name}"
   end
@@ -327,11 +331,15 @@ class User < ActiveRecord::Base
   end
 
   def invitations_left
-    total_invitations - invitations_used
+    if root?
+      Float::INFINITY
+    else
+      total_invitations - invitations_used
+    end
   end
 
   def intitations_used_percents
-    (100.0 * invitations_used / total_invitations).round
+    (100.0 * invitations_used / total_invitations).round rescue 0
   end
 
   def has_airwatch?

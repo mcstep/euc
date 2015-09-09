@@ -46,6 +46,7 @@ RSpec.describe Provisioners::HorizonViewWorker, type: :model do
             expect(directory).to receive(:create_profile).with(username, region, user_integration.integration.domain)
           end
           expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
+          expect(directory).to receive(:replicate)
           expect(directory).to receive(:sync).once.with('region')
 
           Provisioners::HorizonViewWorker.new.perform(user_integration, :provision)
@@ -59,12 +60,14 @@ RSpec.describe Provisioners::HorizonViewWorker, type: :model do
             expect(directory).to receive(:create_profile).with(username, region, user_integration.integration.domain)
           end
           expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
+          expect(directory).to receive(:replicate)
           expect(directory).to receive(:sync).once.with('region').and_raise('error')
 
           User::REGIONS.each do |region|
             expect(directory).to receive(:create_profile).with(username, region, user_integration.integration.domain)
           end
           expect(directory).to receive(:add_group).once.with(username, 'group', user_integration.integration.domain)
+          expect(directory).to receive(:replicate)
           expect(directory).to receive(:sync).once.with('region')
 
           expect{ Provisioners::HorizonViewWorker.new.perform(user_integration, :provision) }.to raise_error('error')
