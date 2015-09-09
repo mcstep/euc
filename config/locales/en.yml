@@ -63,6 +63,7 @@ en:
       incorrect_domain: belongs to domain that is not currently allowed for registration
       confirmation: values don't match
       invalid_characters: contains invalid characters
+      diverced_company: isn't the company that's already assigned to your email domain. Use '%{existing}' instead
 
   activerecord:
     attributes:

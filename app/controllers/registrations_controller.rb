@@ -18,6 +18,10 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def suggest_company
+    render json: Company.where('LOWER(name) LIKE LOWER(?)', "#{params[:query]}%").pluck(:name)
+  end
+
 protected
 
   def user_params

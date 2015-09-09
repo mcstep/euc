@@ -78,6 +78,7 @@ end
 group :test do
   gem 'vcr'
   gem 'webmock'
+  gem 'fantaskspec'
   gem 'rack_session_access'
   gem 'show_me_the_cookies'
   gem 'test_after_commit'

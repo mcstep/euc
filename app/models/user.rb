@@ -178,12 +178,7 @@ class User < ActiveRecord::Base
     def setup_authentication
       if authentication_integration.blank?
         self.authentication_integration = user_integrations.sort_by(&:authentication_priority).first
-        begin
-          save!
-        rescue Exception => e
-          binding.pry
-          raise e
-        end
+        save!
       end
     end
   end
@@ -272,6 +267,11 @@ class User < ActiveRecord::Base
 
     if authentication_integration_id.blank? && user_integrations.blank?
       errors.add :authentication_integration_id, :invalid 
+    end
+
+    if company_id_changed? || company.changed?
+      attempt = User.where("email LIKE ?", "%@#{email_domain}").where.not(company_id: company_id).first
+      errors.add(:company_name, :diverced_company, existing: attempt.company_name) if attempt
     end
   end
 

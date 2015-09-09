@@ -45,6 +45,9 @@ guard :rspec, cmd: 'bin/rspec' do
     ]
   end
 
+  # Rake
+  watch(%r{^lib/tasks/(.+)\.rake$})    { |m| rspec.spec.("tasks/#{m[1]}") }
+
   # Rails config changes
   watch(rails.spec_helper)     { rspec.spec_dir }
   watch(rails.routes)          { "#{rspec.spec_dir}/routing" }

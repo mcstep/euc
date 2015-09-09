@@ -21,7 +21,7 @@ RSpec.describe AirwatchInstance, :vcr, type: :model do
     end
     let(:user_integration) do
       ui = build :airwatch_user_integration
-      ui.user = build :user, company_name: 'ZOMG Company 3'
+      ui.user = build :user, company_name: 'ZOMG Company 4', email: 'foo@barer.com'
       ui.integration.domain = 'spec8.com'
       ui.integration.airwatch_instance = airwatch_instance
       ui
@@ -31,14 +31,14 @@ RSpec.describe AirwatchInstance, :vcr, type: :model do
       airwatch_instance.update_attributes(
         admin_roles: [ {
           "Id" => "1", 
-          "LocationGroupId"=> "ZOMG Company 3 (#{user_integration.user.email_domain})"
+          "LocationGroupId"=> "ZOMG Company 4 (barer.com)"
         } ]
       )
     end
 
     subject{ airwatch_instance.effective_admin_roles(user_integration) }
 
-    it{ is_expected.to eq [{"Id"=>"1", "LocationGroupId"=>"3847"}] }
+    it{ is_expected.to eq [{"Id"=>"1", "LocationGroupId"=>"4069"}] }
   end
 
   describe '.add_group' do

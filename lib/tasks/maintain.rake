@@ -1,4 +1,26 @@
 namespace :maintain do
+  task :strip_companies => :environment do
+    Company.all.each do |company|
+      company.name.strip!
+      company.save!(validate: false)
+    end
+  end
+
+  task :merge_companies => :environment do
+    Company.group(:name).having('count(name) > 1').pluck(:name).each do |duplicate_name|
+      company       = Company.where(name: duplicate_name).order(:id).first
+      duplicate_ids = Company.where(name: duplicate_name).where.not(id: company.id).pluck(:id)
+
+      company.transaction do
+        [Customer, Domain, Partner, User].each do |model|
+          model.where(company_id: duplicate_ids).update_all(company_id: company.id)
+        end
+
+        Company.where(id: duplicate_ids).delete_all
+      end
+    end
+  end
+
   task :set_proper_status_to_deprovisioned_google_apps_users => :environment do
     UserIntegration.where(google_apps_status: UserIntegration.google_apps_statuses[:provisioned]).each do |ui|
       unless ui.integration.google_apps_instance.registered?(ui)

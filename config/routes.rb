@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   end
   get '/log_in', to: 'sessions#new'
 
-  resource :registration, only: [:new, :create]
+  resource :registration, only: [:new, :create] do
+    member do
+      get :suggest_company
+    end
+  end
   get '/register(/:code)', to: 'registrations#new'
 
   resources :support_requests, only: [:create]

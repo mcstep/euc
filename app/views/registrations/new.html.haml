@@ -17,7 +17,7 @@
           = f.text_field :integrations_username, hide_label: true, placeholder: 'Username (optional)'
           = f.text_field :email, hide_label: true, placeholder: 'E-Mail'
           = f.text_field :job_title, hide_label: true, placeholder: 'Title'
-          = f.text_field :company_name, hide_label: true, placeholder: 'Company'
+          = f.text_field :company_name, hide_label: true, placeholder: 'Company', data: { typeahead: Company.pluck(:name) }
           %h2 Region
           = f.select :home_region, permitted_regions, { hide_label: true, include_blank: 'Select your Home Region' }, { class: "form-control" }
           .td-password

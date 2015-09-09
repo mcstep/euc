@@ -29,3 +29,13 @@ $ ->
       $('#number').removeClass('invalid').addClass 'valid'
     else
       $('#number').removeClass('valid').addClass 'invalid'
+
+  matcher = new Bloodhound({
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace
+    remote:
+      url: '/registration/suggest_company?query=%QUERY'
+      wildcard: '%QUERY'
+  })
+
+  $('#signup-form #user_company_name').typeahead {minLength: 1, highlight: true}, {source: matcher}
