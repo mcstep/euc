@@ -10,6 +10,10 @@
 #  deleted_at      :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  crm_kind        :integer
+#  crm_id          :string
+#  crm_data        :text
+#  crm_fetch_error :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -22,6 +26,9 @@ class Invitation < ActiveRecord::Base
   acts_as_paranoid
 
   attr_accessor :skip_points_management
+
+  as_enum :crm_kind, CrmConfigurator.kinds
+  serialize :crm_data
 
   belongs_to :from_user, -> { with_deleted }, class_name: 'User'
   belongs_to :to_user, -> { with_deleted }, class_name: 'User', inverse_of: :received_invitation
@@ -38,8 +45,9 @@ class Invitation < ActiveRecord::Base
     end
   end
 
-  after_create :use_invitation_point!
-  after_destroy :free_invitation_point!
+  after_commit    :refresh_crm_data, on: :create, if: -> { crm_id.present? && crm_kind.present? }
+  after_create    :use_invitation_point!
+  after_destroy   :free_invitation_point!
 
   delegate :id, to: :from_user, prefix: true
 
@@ -60,5 +68,9 @@ class Invitation < ActiveRecord::Base
     return if skip_points_management
     from_user.invitations_used -= 1
     from_user.save!
+  end
+
+  def refresh_crm_data
+    InvitationFetchCrmWorker.perform_async(id)
   end
 end

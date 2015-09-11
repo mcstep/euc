@@ -2,6 +2,12 @@
   = uf.text_field :first_name
   = uf.text_field :last_name
   = uf.email_field :email
+  .form-group
+    - title = I18n.t "crm_kinds.#{current_user.company.crm_kind}"
+    .input-group
+      %span.input-group-addon.icon-info{"data-container" => "body", "data-original-title" => "Click for info on where to find the #{title} ID.", "data-placement" => "top", "data-toggle" => "tooltip", :onclick => "location.href='#YOUR-URL-HERE';"}
+      = f.hidden_field :crm_kind, value: current_user.company.crm_kind
+      %input#salesforce.form-control.input-md{name: "invitation[crm_id]", placeholder: "#{title} ID", type: "text"}
   = uf.text_field :company_name, label_class: "required"
   = f.text_field :potential_seats
   = uf.text_field :job_title
@@ -12,6 +18,8 @@
     = uf.select :role, I18n.t('roles').invert
   - if writable?(f.object, :to_user_attributes, :can_edit_services)
     = uf.check_box :can_edit_services
+  - if writable?(f.object, :to_user_attributes, :profile_id)
+    = uf.select :profile_id, Profile.all.collect{|p| [ p.name, p.id ] }, prompt: ''
   = uf.select :home_region, permitted_regions, prompt: 'Select a Region'
   = uf.fields_for :user_integrations do |uif|
     %fieldset

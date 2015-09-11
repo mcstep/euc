@@ -19,6 +19,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  deleted_at      :datetime
+#  host            :string
 #
 
 class SalesforceInstance < ActiveRecord::Base
@@ -34,12 +35,18 @@ class SalesforceInstance < ActiveRecord::Base
   end
 
   def client
-    Restforce.new api_version: "28.0",
+    args = {
+      api_version: "28.0",
       username: username,
       password: password,
       security_token: security_token,
       client_id: client_id,
       client_secret: client_secret
+    }
+
+    args[:host] = host if host.present?
+
+    Restforce.new args
   end
 
   def register(username, first_name, last_name, email, real_email=email)
@@ -56,6 +63,22 @@ class SalesforceInstance < ActiveRecord::Base
       'EmailEncodingKey' => email_encoding,
       'LanguageLocaleKey' => language_locale,
       'ProfileId' => profile_id
+  end
+
+  def fetch_crm_data(crm_kind, id)
+    if crm_kind == :salesforce_dealreg
+      find_deal_registration id
+    elsif crm_kind == :salesforce_opportunity
+      find_opportunity id
+    end
+  end
+
+  def find_deal_registration(id)
+    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: id).body.first
+  end
+
+  def find_opportunity(id)
+    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: id).body.first
   end
 
   def update(id, settings)

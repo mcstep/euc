@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap&client_secret=7956755793130956252&username=eucintegrationuser%40vmware.com.vmw.dev4&password=VMware1%4023Az52gBYvxLZla1ZBjDA9SDhL
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 11 Sep 2015 18:43:53 GMT
+      Set-Cookie:
+      - BrowserId=usPcIuUCTu6qFdP6D9tW0Q;Path=/;Domain=.salesforce.com;Expires=Tue,
+        10-Nov-2015 18:43:53 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"00DV00000088cTU!ARAAQP4vgAKpKLqnKqIO78RJe6lGDBltHzUTZP1kERRjm4yS3mVC7IdQ6Lk2Ev02BVZ6rlobFOifbGFP45z07EEKl54uN8HL","instance_url":"https://vmware--DEV4.cs12.my.salesforce.com","id":"https://test.salesforce.com/id/00DV00000088cTUMAY/005V0000002FTWZIA4","token_type":"Bearer","issued_at":"1441997033603","signature":"2VhhTwwA/4LLDY9VHr+oxOAICH9EZoQ8DUfLsGmPA4Q="}'
+    http_version: 
+  recorded_at: Fri, 11 Sep 2015 18:43:54 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=ORTN&recId=ORTN-01368187
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQP4vgAKpKLqnKqIO78RJe6lGDBltHzUTZP1kERRjm4yS3mVC7IdQ6Lk2Ev02BVZ6rlobFOifbGFP45z07EEKl54uN8HL
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 11 Sep 2015 18:43:54 GMT
+      Set-Cookie:
+      - BrowserId=AFoFN0-XSPCylsPyyC-b5A;Path=/;Domain=.salesforce.com;Expires=Tue,
+        10-Nov-2015 18:43:54 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":"true","responsecode":"200","records":[{"Account Manager":"Cameron
+        Milek","Sales Stage":"Pending Administrative Review","Deal License ($)":50000.00,"Segment":"Government","Customer
+        Name":"Aus Inst of Health and Welfare","Forecast Status":null,"Country":"AUSTRALIA"}],"message":"SUCCESSFULLY
+        RETRIEVED DATA"}'
+    http_version: 
+  recorded_at: Fri, 11 Sep 2015 18:44:07 GMT
+recorded_with: VCR 2.9.3

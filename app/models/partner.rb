@@ -21,10 +21,9 @@
 class Partner < ActiveRecord::Base
   acts_as_paranoid
 
-  belongs_to :company, -> { with_deleted }
   belongs_to :vmware_partner, -> { with_deleted }
 
-  validates :contact_name, presence: true
-  validates :contact_email, presence: true
-  validates :contact_phone, presence: true
+  # validates :contact_name, presence: true
+  # validates :contact_email, presence: true
+  # validates :contact_phone, presence: true
 end

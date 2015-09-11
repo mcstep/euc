@@ -57,6 +57,10 @@ en:
     admin: Super
     root: Root
 
+  crm_kinds:
+    salesforce_opportunity: Salesforce Opportunity
+    salesforce_dealreg: Salesforce Deal Registration
+
   errors:
     messages:
       invalid_password: "should include small letter, big letter and a digit"
