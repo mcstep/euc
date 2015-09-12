@@ -51,11 +51,18 @@ Rails.application.routes.draw do
     end
   end
   resources :directory_prolongations, only: [:create]
-  resources :invitations
+  resources :invitations do
+    member do
+      get :refresh_opportunity
+      get :clean_opportunity
+    end
+  end
   resources :reporting, only: [] do
     collection do
       get :users
       post :users
+      get :opportunities
+      post :opportunities
     end
   end
   resources :domains do

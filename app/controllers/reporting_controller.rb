@@ -24,4 +24,10 @@ class ReportingController < ApplicationController
 
     @opportunity = Invitation.joins(:to_user).merge(@total).pluck(:potential_seats).compact.inject(:+)
   end
+
+  def opportunities
+    authorize :reporting
+
+    @opportunities = Invitation.includes(:from_user).where.not(crm_id: nil).order(:id).page(params[:page]).per(10)
+  end
 end

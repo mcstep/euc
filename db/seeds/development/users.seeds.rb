@@ -12,6 +12,7 @@ after 'development:profile_default', 'development:profile_apple' do
     u.skip_provisioning     = true
     u.can_edit_services     = true
     u.can_see_reports       = true
+    u.can_see_opportunities = true
   end
 
   User.where(email: 'user@apple.com').first_or_create! do |u|

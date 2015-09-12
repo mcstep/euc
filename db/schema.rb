@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911144505) do
+ActiveRecord::Schema.define(version: 20150912101001) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "first_name"
@@ -418,6 +418,7 @@ ActiveRecord::Schema.define(version: 20150911144505) do
     t.string   "verification_token"
     t.boolean  "can_edit_services",             default: false, null: false
     t.boolean  "can_see_reports",               default: false, null: false
+    t.boolean  "can_see_opportunities",         default: false, null: false
   end
 
   add_index "users", ["authentication_integration_id"], name: "index_users_on_authentication_integration_id"

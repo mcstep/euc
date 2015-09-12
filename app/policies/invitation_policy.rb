@@ -18,4 +18,12 @@ class InvitationPolicy < ApplicationPolicy
   def create?
     @user.root? || @user.admin?
   end
+
+  def clean_opportunity?
+    @user.root?
+  end
+
+  def refresh_opportunity?
+    ReportingPolicy.new(user).opportunities?
+  end
 end

@@ -1,0 +1,44 @@
+.zero-space.col-sm-12.col-md-12.col-lg-12
+  - CrmConfigurator.kinds.keys.each do |kind|
+    .col-sm-6.col-md-6.col-lg-6
+      .ibox.float-e-margins
+        .ibox-title
+          %h5= I18n.t "crm_kinds.#{kind}"
+        .ibox-content
+          %h1.no-margins= @opportunities.select{|x| x.crm_kind == kind}.length
+          %small Total linked customers
+
+.col-md-12.col-sm-12.col-lg-12
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        = pluralize @opportunities.size, 'opportunity'
+        found
+
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th{style: 'width: 1%'} UID
+          %th{style: 'width: 1%'} Name (Email)
+          %th CRM Data
+          %th
+      %tbody
+        - @opportunities.each do |opportunity|
+          %tr{class: ('danger' if opportunity.crm_fetch_error)}
+            %td= opportunity.from_user_id
+            %td{style: 'white-space: nowrap'}
+              = opportunity.from_user.display_name
+              %br
+              = "(#{opportunity.from_user.email})"
+            %td
+              %pre.code= JSON.pretty_generate(opportunity.crm_data) if opportunity.crm_data.present?
+            %td{style: 'width: 1%; white-space: nowrap'}
+              - if policy(opportunity).refresh_opportunity?
+                %a.btn.btn-xs.btn-success{href: refresh_opportunity_invitation_path(opportunity)}
+                  Update
+              - if policy(opportunity).clean_opportunity?
+                %a.btn.btn-xs.btn-danger{href: clean_opportunity_invitation_path(opportunity)}
+                  Delete
+    - if @opportunities.num_pages > 1
+      .panel-footer
+        = paginate @opportunities, theme: 'twitter-bootstrap-3'

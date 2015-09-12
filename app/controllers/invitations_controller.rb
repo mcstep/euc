@@ -17,4 +17,16 @@ class InvitationsController < ApplicationController
       render action: 'new'
     end
   end
+
+  def refresh_opportunity
+    authorize @invitation = Invitation.find(params[:id])
+    @invitation.refresh_crm_data
+    redirect_back_or_default invitations_path
+  end
+
+  def clean_opportunity
+    authorize @invitation = Invitation.find(params[:id])
+    @invitation.update_attributes(crm_id: nil, crm_kind: nil, crm_data: nil)
+    redirect_back_or_default invitations_path
+  end
 end

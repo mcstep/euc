@@ -59,6 +59,9 @@
   - if policy(:reporting).users?
     %li
       %a{href: users_reporting_index_path} Reporting
+  - if policy(:reporting).opportunities?
+    %li
+      %a{href: opportunities_reporting_index_path} Opportunities
 
 - if current_user.root?
   %span.sidebar-divider Manage
