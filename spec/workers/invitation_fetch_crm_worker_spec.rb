@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe InvitationFetchCrmWorker, type: :model do
-  fdescribe '.perform' do
+  describe '.perform' do
     let(:instance){ FactoryGirl.create(:opportunities_staging_salesforce_instance) }
     let(:from_user){ FactoryGirl.create(:user, company: company) }
     subject{ InvitationFetchCrmWorker.new.perform(invitation.id) }
