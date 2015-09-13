@@ -11,7 +11,7 @@ class InvitationPolicy < ApplicationPolicy
 
   def permitted_attributes
     [
-      :potential_seats, to_user_attributes: UserPolicy.new(@user).permitted_attributes
+      :potential_seats, :crm_kind, :crm_id, to_user_attributes: UserPolicy.new(@user).permitted_attributes
     ]
   end
 
