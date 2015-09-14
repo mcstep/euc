@@ -6,7 +6,7 @@
     - title = I18n.t "crm_kinds.#{current_user.company.crm_kind}"
     %label.control-label= "#{title} ID"
     .input-group
-      %span.input-group-addon.icon-info{"data-container" => "body", "data-original-title" => "Click for info on where to find the #{title} ID.", "data-placement" => "top", "data-toggle" => "tooltip", :onclick => "location.href='#YOUR-URL-HERE';"}
+      %span.input-group-addon.icon-info{"data-container" => "body", "data-original-title" => "Enter the #{title} ID associated with this Customer.", "data-placement" => "top", "data-toggle" => "tooltip"}
       = f.hidden_field :crm_kind, value: current_user.company.crm_kind
       %input#salesforce.form-control.input-md{name: "invitation[crm_id]", type: "text"}
   = uf.text_field :company_name, label_class: "required"
