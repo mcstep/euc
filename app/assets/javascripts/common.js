@@ -61,4 +61,8 @@
   if (document.URL.indexOf('forgotpassword') > -1) {
     $('#password-reset-modal').modal('show');
   }
+
+  $('.switch01').on('click', function(e) {
+     $('.icon01').toggleClass("icon-arrow-down icon-arrow-up");
+   });
 })();
