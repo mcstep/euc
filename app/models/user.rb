@@ -13,8 +13,8 @@
 #  avatar                        :string
 #  country_code                  :string
 #  phone                         :string
-#  role                          :integer          default(0), not null
-#  status                        :integer          default(0), not null
+#  role                          :integer
+#  status                        :integer
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -25,9 +25,6 @@
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  verification_token            :string
-#  can_edit_services             :boolean          default(FALSE), not null
-#  can_see_reports               :boolean          default(FALSE), not null
-#  can_see_opportunities         :boolean          default(FALSE), not null
 #
 # Indexes
 #
