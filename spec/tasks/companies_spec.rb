@@ -1,7 +1,7 @@
-load 'lib/tasks/maintain.rake'
+load 'lib/tasks/companies.rake'
 
-RSpec.describe 'maintain', type: :rake do
-  context 'maintain:strip_companies' do
+RSpec.describe 'companies', type: :rake do
+  context 'companies:strip' do
     before do
       FactoryGirl.create(:company, name: 'Duplicate')
       FactoryGirl.create(:company, name: 'Duplicate ')
@@ -15,7 +15,7 @@ RSpec.describe 'maintain', type: :rake do
     end
   end
 
-  context 'maintain:merge_companies' do
+  context 'companies:merge' do
     let!(:companies) do
       companies = []
       2.times do
@@ -45,5 +45,3 @@ RSpec.describe 'maintain', type: :rake do
     end
   end
 end
-
-
