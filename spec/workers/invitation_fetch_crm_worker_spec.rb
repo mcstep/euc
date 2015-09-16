@@ -39,7 +39,16 @@ RSpec.describe InvitationFetchCrmWorker, type: :model do
 
       it 'works', :vcr do
         expect{ subject }.to_not raise_error
-        expect(invitation.reload.crm_data).to eq("Account Manager"=>"Sebastien Cassar", "Customer Name"=>"Michelin", "Sales Stage"=>"02 - Qualified", "Deal License ($)"=>0.0, "Segment"=>"T2", "Country"=>"FRANCE", "Forecast Status"=>"Upside")
+        expect(invitation.reload.crm_data).to eq(
+          "Customer Title"=>"Ian Macintosh",
+          "Account Manager"=>"Cameron Milek",
+          "Sales Stage"=>"Pending Administrative Review",
+          "Deal License ($)"=>5020.0,
+          "Segment"=>"Academic",
+          "Customer Name"=>"Aus Inst of Health and Welfare",
+          "Forecast Status"=>nil,
+          "Country"=>"AUSTRALIA",
+          "Customer Email Address"=>"tkhandelwal@vmw.com")
         expect(invitation.reload.crm_fetch_error).to eq false
       end
     end
@@ -55,7 +64,17 @@ RSpec.describe InvitationFetchCrmWorker, type: :model do
 
       it 'works', :vcr do
         expect{ subject }.to_not raise_error
-        expect(invitation.reload.crm_data).to eq({"Account Manager"=>"Cameron Milek", "Sales Stage"=>"Pending Administrative Review", "Deal License ($)"=>50000.0, "Segment"=>"Government", "Customer Name"=>"Aus Inst of Health and Welfare", "Forecast Status"=>nil, "Country"=>"AUSTRALIA"})
+        expect(invitation.reload.crm_data).to eq(
+          "Customer Email Address"=>nil,
+          "Account Manager"=>"Tarun Khandelwal",
+          "Customer Name"=>"Michelin",
+          "Sales Stage"=>"07a - Agreement to Purchase",
+          "Deal License ($)"=>0.0,
+          "Segment"=>"T2",
+          "Country"=>"FRANCE",
+          "Currency Code"=>"USD",
+          "Customer Title"=>nil,
+          "Forecast Status"=>"Forecast")
         expect(invitation.reload.crm_fetch_error).to eq false
       end
     end

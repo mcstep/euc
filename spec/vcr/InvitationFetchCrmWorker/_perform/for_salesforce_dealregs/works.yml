@@ -79,4 +79,122 @@ http_interactions:
         RETRIEVED DATA"}'
     http_version: 
   recorded_at: Fri, 11 Sep 2015 18:42:52 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=ORTN&recId=ORTN-01368187
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQP4vgAKpKLqnKqIO78RJe6lGDBltHzUTZP1kERRjm4yS3mVC7IdQ6Lk2Ev02BVZ6rlobFOifbGFP45z07EEKl54uN8HL
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Wed, 16 Sep 2015 20:24:20 GMT
+      Set-Cookie:
+      - BrowserId=wHMNjS-QQTaoZKwtd7tcgg;Path=/;Domain=.salesforce.com;Expires=Sun,
+        15-Nov-2015 20:24:20 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Www-Authenticate:
+      - Token
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"message":"Session expired or invalid","errorCode":"INVALID_SESSION_ID"}]'
+    http_version: 
+  recorded_at: Wed, 16 Sep 2015 20:24:20 GMT
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap&client_secret=7956755793130956252&username=eucintegrationuser%40vmware.com.vmw.dev4&password=VMware1%4023Az52gBYvxLZla1ZBjDA9SDhL
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 16 Sep 2015 20:24:23 GMT
+      Set-Cookie:
+      - BrowserId=faAoeBdoToi2Iq06G0fNbw;Path=/;Domain=.salesforce.com;Expires=Sun,
+        15-Nov-2015 20:24:23 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"00DV00000088cTU!ARAAQG1wCWz.h2Gsk283FYgFM6jaAaH2ZpcYq02amEKRgzifQFaJAzaLYfqNbTyXdcyt8It9oaFG2RgEGxfcXszSWojQ23yV","is_readonly":"false","signature":"t8TM4nTzIeK8NvEhNR50b6zHQtzBzFoVspEMCbZe4KA=","instance_url":"https://vmware--DEV4.cs12.my.salesforce.com","id":"https://test.salesforce.com/id/00DV00000088cTUMAY/005V0000002FTWZIA4","token_type":"Bearer","issued_at":"1442435064014"}'
+    http_version: 
+  recorded_at: Wed, 16 Sep 2015 20:24:24 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=ORTN&recId=ORTN-01368187
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQG1wCWz.h2Gsk283FYgFM6jaAaH2ZpcYq02amEKRgzifQFaJAzaLYfqNbTyXdcyt8It9oaFG2RgEGxfcXszSWojQ23yV
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 16 Sep 2015 20:24:24 GMT
+      Set-Cookie:
+      - BrowserId=El_5o_VLQ86Nbj-EMJ9sMg;Path=/;Domain=.salesforce.com;Expires=Sun,
+        15-Nov-2015 20:24:24 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":"true","responsecode":"200","records":[{"Customer Title":"Ian
+        Macintosh","Account Manager":"Cameron Milek","Sales Stage":"Pending Administrative
+        Review","Deal License ($)":5020.00,"Segment":"Academic","Customer Name":"Aus
+        Inst of Health and Welfare","Forecast Status":null,"Country":"AUSTRALIA","Customer
+        Email Address":"tkhandelwal@vmw.com"}],"message":"SUCCESSFULLY RETRIEVED DATA"}'
+    http_version: 
+  recorded_at: Wed, 16 Sep 2015 20:24:25 GMT
 recorded_with: VCR 2.9.3
