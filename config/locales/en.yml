@@ -61,6 +61,10 @@ en:
     salesforce_opportunity: Salesforce Opportunity
     salesforce_dealreg: Salesforce Deal Registration
 
+  short_crm_kinds:
+    salesforce_opportunity: SF Opportunity
+    salesforce_dealreg: SF Deal
+
   errors:
     messages:
       invalid_password: "should include small letter, big letter and a digit"

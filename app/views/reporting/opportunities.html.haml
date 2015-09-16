@@ -20,6 +20,7 @@
         %tr
           %th{style: 'width: 1%'} UID
           %th{style: 'width: 1%'} Name (Email)
+          %th{style: 'width: 1%'} CRM Reference
           %th CRM Data
           %th
       %tbody
@@ -30,6 +31,9 @@
               = opportunity.from_user.display_name
               %br
               = "(#{opportunity.from_user.email})"
+            %td{style: 'white-space: nowrap'}
+              = I18n.t "short_crm_kinds.#{opportunity.crm_kind}"
+              = "№#{opportunity.crm_id}"
             %td
               %pre.code= JSON.pretty_generate(opportunity.crm_data) if opportunity.crm_data.present?
             %td{style: 'width: 1%; white-space: nowrap'}
