@@ -74,11 +74,11 @@ class SalesforceInstance < ActiveRecord::Base
   end
 
   def find_deal_registration(id)
-    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: id).body.first
+    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: id).body.first
   end
 
   def find_opportunity(id)
-    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: id).body.first
+    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: id).body.first
   end
 
   def update(id, settings)

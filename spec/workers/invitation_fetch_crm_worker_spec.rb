@@ -12,7 +12,7 @@ RSpec.describe InvitationFetchCrmWorker, type: :model do
         FactoryGirl.create :invitation,
           from_user: from_user,
           crm_kind: :salesforce_dealreg,
-          crm_id: '1073356'
+          crm_id: 'ORTN-01368187'
       end
 
       context 'when no instance' do
@@ -50,7 +50,7 @@ RSpec.describe InvitationFetchCrmWorker, type: :model do
         FactoryGirl.create :invitation,
           from_user: from_user,
           crm_kind: :salesforce_opportunity,
-          crm_id: 'ORTN-01368187'
+          crm_id: '1073356'
       end
 
       it 'works', :vcr do
