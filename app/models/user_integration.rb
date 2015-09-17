@@ -25,7 +25,9 @@
 #  salesforce_status               :integer          default(0), not null
 #  salesforce_user_id              :string
 #  blue_jeans_removal_requested_at :datetime
-#  prohibited_services             :string           default([]), not null, is an Array
+#  prohibited_services             :string           default([]), not null
+#  box_status                      :integer          default(0), not null
+#  box_user_id                     :integer
 #
 # Indexes
 #

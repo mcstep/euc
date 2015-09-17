@@ -80,6 +80,7 @@ Rails.application.routes.draw do
   resources :horizon_instances
   resources :blue_jeans_instances
   resources :salesforce_instances
+  resources :box_instances
 
   scope '/api' do
     scope '/trygrid' do

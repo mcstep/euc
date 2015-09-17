@@ -1,0 +1,697 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://box-token-generator.herokuapp.com/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip,deflate,identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Mechanize/2.7.3 Ruby/2.1.1p76 (http://github.com/sparklemotion/mechanize/)
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - en-us,en;q=0.5
+      Host:
+      - box-token-generator.herokuapp.com
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 300
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '3558'
+      Server:
+      - Werkzeug/0.8.3 Python/2.7.3
+      Date:
+      - Thu, 17 Sep 2015 14:39:43 GMT
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='UTF-8'>\n<title>Box
+        Token Generator</title>\n<link rel=\"shortcut icon\" href=\"/static/favicon.ico\">\n<link
+        rel=\"stylesheet\" href=\"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css\">\n<link
+        rel=\"stylesheet\" href=\"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css\">\n<style>\n.flash-hover
+        {\n    background-color: #f5f5f5;\n}\n</style>\n<script>\n  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n
+        \ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n
+        \ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n
+        \ })(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n
+        \ ga('create', 'UA-53976535-1', 'auto');\n  ga('send', 'pageview');\n</script>\n</head>\n<body
+        \ onload=\"$('#credentialsModal').modal()\">\n<a href=\"https://github.com/seanrose/box-arcade\"><img
+        style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\"
+        alt=\"Fork me on GitHub\"></a>\n<div class=\"container\">\n    <br>\n    \n\n<div
+        id=\"credentialsModal\" class=\"modal fade\">\n    <div class=\"modal-dialog\">\n
+        \       <div class=\"modal-content\">\n            <div class=\"modal-header\">\n
+        \               <h3 id=\"myModalLabel\">Set Your Box Client Credentials</h3>\n
+        \               <h4><a href=\"set_client_credentials\">or use the built-in
+        client credentials</a></h4>\n            </div>\n            <div class=\"modal-body\">\n
+        \               <div class=\"alert bg-warning\">\n                    <button
+        type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>\n
+        \                   <p><strong>Warning!</strong> Only use this tool with test
+        client credentials/test Box accounts</p>\n                </div>\n                <form
+        role=\"form\"action=\"set_client_credentials\" method=\"post\">\n                    <div
+        class=\"form-group\">\n                        <label>Client ID</label>\n
+        \                       <input name=\"client_id\" class=\"form-control\" type=\"text\"
+        placeholder=\"randomcharacters\" required>\n                    </div>\n                    <div
+        class=\"form-group\">\n                        <label>Client Secret</label>\n
+        \                       <input name=\"client_secret\" class=\"form-control\"
+        type=\"text\" placeholder=\"morerandomcharacters\" required>\n                    </div>\n
+        \                   \n\n                    <button type=\"submit\" class=\"btn
+        btn-default\">Get Tokens!</button>\n                </form>\n            </div>\n
+        \       </div>\n    </div>\n</div>\n\n<table class=\"table table-bordered
+        table-hover\">\n    <tbody>\n        <tr>\n            <td><h4>Access Token:
+        <h4 class=\"text-info\"></h4></h4></td>\n        </tr>\n        <tr>\n            <td><h4>Refresh
+        Token: <h4 class=\"text-info\"></h4></h4></td>\n        </tr>\n        <tr>\n
+        \           <td><h4>Generated with this Client ID: <h4 class=\"text-info\"></h4></h4></td>\n
+        \       </tr>\n        \n    </tbody>\n</table>\n<p><a id=\"refresher\" class=\"btn
+        btn-primary btn-large\" href=\"javascript:history.go(0)\" onclick=\"$('#refresher').button('loading')\"
+        data-loading-text=\"refreshing...\">Refresh Tokens</a></p>\n<p><a href=\"/logout\">Log
+        Out of Your Box Account</a></p>\n\n</div>\n\n<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js\"></script>\n<script
+        src=\"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js\"></script>\n<script
+        type=\"text/javascript\">\nsetInterval( function() {\n        $('#refresher').button('loading');\n
+        \       history.go(0);\n    },\n    3600000\n);\n</script>\n</body>\n</html>"
+    http_version: 
+  recorded_at: Thu, 17 Sep 2015 14:39:43 GMT
+- request:
+    method: post
+    uri: http://box-token-generator.herokuapp.com/set_client_credentials
+    body:
+      encoding: UTF-8
+      string: client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&client_secret=tjQ8iCVTzKnLLDw55gx5fERkj4AjsRn8
+    headers:
+      Accept-Encoding:
+      - gzip,deflate,identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Mechanize/2.7.3 Ruby/2.1.1p76 (http://github.com/sparklemotion/mechanize/)
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - en-us,en;q=0.5
+      Host:
+      - box-token-generator.herokuapp.com
+      Referer:
+      - &1 !ruby/object:URI::HTTP
+        scheme: http
+        user: 
+        password: 
+        host: box-token-generator.herokuapp.com
+        port: 80
+        path: "/"
+        query: 
+        opaque: 
+        registry: 
+        fragment: 
+        parser: 
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Content-Length:
+      - '89'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 300
+  response:
+    status:
+      code: 302
+      message: FOUND
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '571'
+      Location:
+      - https://www.box.com/api/oauth2/authorize?response_type=code&client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&redirect_uri=https%3A%2F%2Fbox-token-generator.herokuapp.com%2Fbox_auth
+      Set-Cookie:
+      - session=eyJjbGllbnRfc2VjcmV0IjoidGpROGlDVlR6S25MTER3NTVneDVmRVJrajRBanNSbjgiLCJiYXNlX3VybCI6bnVsbCwiY2xpZW50X2lkIjoiZjZ5YW9oazRram5vcGFua3FkOXhnbmdkOGw2YXdkYzEifQ.CNxiLw.X0EbJR-A1lvkKRDvl_BqF7W2z6Q;
+        Path=/; HttpOnly
+      Server:
+      - Werkzeug/0.8.3 Python/2.7.3
+      Date:
+      - Thu, 17 Sep 2015 14:39:43 GMT
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: |-
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+        <title>Redirecting...</title>
+        <h1>Redirecting...</h1>
+        <p>You should be redirected automatically to target URL: <a href="https://www.box.com/api/oauth2/authorize?response_type=code&amp;client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&amp;redirect_uri=https%3A%2F%2Fbox-token-generator.herokuapp.com%2Fbox_auth">https://www.box.com/api/oauth2/authorize?response_type=code&amp;client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&amp;redirect_uri=https%3A%2F%2Fbox-token-generator.herokuapp.com%2Fbox_auth</a>.  If not click the link.
+    http_version: 
+  recorded_at: Thu, 17 Sep 2015 14:39:43 GMT
+- request:
+    method: get
+    uri: https://www.box.com/api/oauth2/authorize?client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&redirect_uri=https://box-token-generator.herokuapp.com/box_auth&response_type=code
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip,deflate,identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Mechanize/2.7.3 Ruby/2.1.1p76 (http://github.com/sparklemotion/mechanize/)
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - en-us,en;q=0.5
+      Host:
+      - www.box.com
+      Referer:
+      - *1
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 300
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Server:
+      - ATS
+      Date:
+      - Thu, 17 Sep 2015 14:39:45 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '0'
+      Location:
+      - https://app.box.com/api/oauth2/authorize?response_type=code&client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&redirect_uri=https%3A%2F%2Fbox-token-generator.herokuapp.com%2Fbox_auth
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 17 Sep 2015 14:39:45 GMT
+- request:
+    method: get
+    uri: https://app.box.com/api/oauth2/authorize?client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&redirect_uri=https://box-token-generator.herokuapp.com/box_auth&response_type=code
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip,deflate,identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Mechanize/2.7.3 Ruby/2.1.1p76 (http://github.com/sparklemotion/mechanize/)
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - en-us,en;q=0.5
+      Host:
+      - app.box.com
+      Referer:
+      - *1
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 300
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ATS
+      Date:
+      - Thu, 17 Sep 2015 14:39:50 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Strict-Transport-Security:
+      - max-age=900; includeSubDomains
+      Vary:
+      - Accept-Encoding
+      Content-Encoding:
+      - gzip
+      Set-Cookie:
+      - box_visitor_id=55fad0b6b8b017.62818712; expires=Sat, 17-Sep-2016 14:39:50
+        GMT; Max-Age=31622400; path=/; domain=.box.com; secure
+      - bv=OPS-39950; expires=Thu, 24-Sep-2015 14:39:50 GMT; Max-Age=604800; path=/;
+        domain=.app.box.com; secure
+      - cn=37; expires=Sat, 17-Sep-2016 14:39:50 GMT; Max-Age=31622400; path=/; domain=.app.box.com;
+        secure
+      - presentation=desktop; path=/; domain=.app.box.com; secure
+      - z=7lpko73ei2199i5tpprfv43em3; path=/; domain=.app.box.com; secure; httponly
+      - z=delete; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=-1442500789; path=/;
+        domain=.box.com; secure; httponly
+      Age:
+      - '0'
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA9QaaXPbtvJz/CsQvmmOmVK0FJ+xpD7ZsRunSdzGSZO0k+FA
+        JETBJgGaICW5x39/uwBIkTps9ciH18aCCO4uFruLvaDuwxcXJ+8//3hKxnkS
+        97v4SWIqop7DhPvh0oEpRsN+N+d5zPonhcplwjLyWkbkXHQ9M91NWE6BQp66
+        7Kbgk57zyf0wcE9kktKcD2PmkECKnIm855yf9lgYMSCskQRNWM+ZcDZNZZbX
+        4LjgOaexqwIaM9Ij7db2twmd8aRI6nMO8frdmItrkrG456j8NmZqzBiQGmds
+        1HOQK/Xc84JQbLdbQzmDLy3Bcs+nSrFceYFSnmJBzqXwc5aksT9lQ2RI+bGM
+        uPAlLfKx+e4enl0OZNICHOerr2tWFC9nt7PDf23Fcm9etUme0Ij5XCrXv3j3
+        Jv2tXEoFGU9zkt+moKCczXLvik6omXX6E5qBxG8KpnI/l9dMgIoe77HgoLPf
+        ocPRzrPtzjYN94fP2ofbwfYe3dsL23S3sz86bLdHrNMJ9rdHbLfTHu2Mhowd
+        doIwOGCPj5Cs4jnzMylzJOk9Pup6ZtF+1zO2+NB1f+Ujcn5K9r/0Cf7XHcrw
+        lgQxqLTncEY42ycxUOHs0I4HRIOEbMID5jskpDl1zVPPcfqk+/BXJkI++uK6
+        9QUO1i5w8O8scLh2gZLzw7/BeZSjdDTtRdH8dTE8PD/9omUCUqrL+T5KrlsX
+        6tZWN+STUkeoSJb504ymKcuc/taD+luVZmgDcFjx2EkQgP0SgAtB8K4HtPpb
+        dmhQVizTKkZEH70O5WJ5hVEsaa5fA0XfkGWhLwsYm1gNxtagcQFLLKA1N1Rj
+        ithNEO2res6QBtdRJgsRuvooPi+y+Mm9XosnkQeyUx6HTbjwzQ1iWYRue3t7
+        Bn/us9eDs/O3rVRET53+IzFUKZwjLbQHD8ovC1JsiLEUjdUQ0U6QGIe4Rmtz
+        KaBMS0SzW7vpUuIKNf7A/OuOO6VVqDyTIipjha+DC0mGMUlyQdJ8NpvFAMpo
+        NuIzp48xiAuSSxJlVOSEBgFTCp+P5Qx8Rae/heRrVjeaEuv2ytG4dQLy80cy
+        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
+        q/02BH+OgD8Rwd8xbf0PAAD//wMAoLUEENgkAAA=
+    http_version: 
+  recorded_at: Thu, 17 Sep 2015 14:39:51 GMT
+- request:
+    method: post
+    uri: https://app.box.com/api/oauth2/authorize?client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&redirect_uri=https://box-token-generator.herokuapp.com/box_auth&response_type=code
+    body:
+      encoding: UTF-8
+      string: login=services%2Bapi.user%40vmwdemo.com&password=BoxPassw0rd123&dologin=1&client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&response_type=code&redirect_uri=https%3A%2F%2Fbox-token-generator.herokuapp.com%2Fbox_auth&scope=root_readwrite+manage_enterprise+manage_managed_users+manage_groups+manage_enterprise_properties+manage_data_retention&folder_id=&file_id=&state=&reg_step=&submit1=1&folder=&login_or_register_mode=login&new_login_or_register_mode=&__login=1&_redirect_url=%2Fapi%2Foauth2%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3Df6yaohk4kjnopankqd9xgngd8l6awdc1%26redirect_uri%3Dhttps%253A%252F%252Fbox-token-generator.herokuapp.com%252Fbox_auth&request_token=6ec8272abf43020ad7b3190c06a66d1a527f911fe22c70fe521f4fbee92cdc8e&_pw_sql=
+    headers:
+      Accept-Encoding:
+      - gzip,deflate,identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Mechanize/2.7.3 Ruby/2.1.1p76 (http://github.com/sparklemotion/mechanize/)
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - en-us,en;q=0.5
+      Cookie:
+      - box_visitor_id=55fad0b6b8b017.62818712; bv=OPS-39950; cn=37; presentation=desktop;
+        z=7lpko73ei2199i5tpprfv43em3
+      Host:
+      - app.box.com
+      Referer:
+      - !ruby/object:URI::HTTPS
+        scheme: https
+        user: 
+        password: 
+        host: app.box.com
+        port: 443
+        path: "/api/oauth2/authorize"
+        query: response_type=code&client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&redirect_uri=https%3A%2F%2Fbox-token-generator.herokuapp.com%2Fbox_auth
+        opaque: 
+        registry: 
+        fragment: 
+        parser: 
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Content-Length:
+      - '738'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 300
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ATS
+      Date:
+      - Thu, 17 Sep 2015 14:39:51 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Strict-Transport-Security:
+      - max-age=900; includeSubDomains
+      Vary:
+      - Accept-Encoding
+      Content-Encoding:
+      - gzip
+      Set-Cookie:
+      - box_redirect_rm=value; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=-1442500790;
+        path=/; domain=.app.box.com
+      - box_redirect_url=value; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=-1442500790;
+        path=/; domain=.app.box.com
+      - box_referrer_url=value; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=-1442500790;
+        path=/; domain=.app.box.com
+      - box_visitor_id=55fad0b6b8b017.62818712; expires=Sat, 17-Sep-2016 14:39:51
+        GMT; Max-Age=31622400; path=/; domain=.box.com; secure
+      - presentation=desktop; path=/; domain=.app.box.com; secure
+      - z=delete; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=-1442500790; path=/;
+        domain=.box.com; secure; httponly
+      Age:
+      - '0'
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+    http_version: 
+  recorded_at: Thu, 17 Sep 2015 14:39:52 GMT
+- request:
+    method: post
+    uri: https://vmtestdrive.app.box.com/api/oauth2/authorize?client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&redirect_uri=https://box-token-generator.herokuapp.com/box_auth&response_type=code
+    body:
+      encoding: UTF-8
+      string: client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&response_type=code&redirect_uri=https%3A%2F%2Fbox-token-generator.herokuapp.com%2Fbox_auth&scope=root_readwrite+manage_enterprise+manage_managed_users+manage_groups+manage_enterprise_properties+manage_data_retention&folder_id=&file_id=&state=&doconsent=doconsent&ic=a79a35bc7f181bb249a960d1a60f6631cc53c01784619c3f8fb2a685632c2115&consent_accept=Grant+access+to+Box
+    headers:
+      Accept-Encoding:
+      - gzip,deflate,identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Mechanize/2.7.3 Ruby/2.1.1p76 (http://github.com/sparklemotion/mechanize/)
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - en-us,en;q=0.5
+      Cookie:
+      - box_visitor_id=55fad0b6b8b017.62818712; bv=OPS-39950; cn=37; presentation=desktop;
+        z=7lpko73ei2199i5tpprfv43em3
+      Host:
+      - vmtestdrive.app.box.com
+      Referer:
+      - &2 !ruby/object:URI::HTTPS
+        scheme: https
+        user: 
+        password: 
+        host: app.box.com
+        port: 443
+        path: "/api/oauth2/authorize"
+        query: response_type=code&client_id=f6yaohk4kjnopankqd9xgngd8l6awdc1&redirect_uri=https%3A%2F%2Fbox-token-generator.herokuapp.com%2Fbox_auth
+        opaque: 
+        registry: 
+        fragment: 
+        parser: 
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Content-Length:
+      - '408'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 300
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Server:
+      - ATS
+      Date:
+      - Thu, 17 Sep 2015 14:39:53 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '0'
+      Pragma:
+      - no-cache
+      Location:
+      - https://box-token-generator.herokuapp.com/box_auth?state=&code=ulCTCeyqfs65phYtgzuev20FKr50Hxsg
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Strict-Transport-Security:
+      - max-age=900; includeSubDomains
+      Set-Cookie:
+      - box_visitor_id=55fad0b6b8b017.62818712; expires=Sat, 17-Sep-2016 14:39:52
+        GMT; Max-Age=31622400; path=/; domain=.box.com; secure
+      - presentation=desktop; path=/; domain=.app.box.com; secure
+      - z=delete; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=-1442500791; path=/;
+        domain=.box.com; secure; httponly
+      Age:
+      - '1'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 17 Sep 2015 14:39:53 GMT
+- request:
+    method: get
+    uri: https://box-token-generator.herokuapp.com/box_auth?code=ulCTCeyqfs65phYtgzuev20FKr50Hxsg&state=
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip,deflate,identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Mechanize/2.7.3 Ruby/2.1.1p76 (http://github.com/sparklemotion/mechanize/)
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - en-us,en;q=0.5
+      Cookie:
+      - session=eyJjbGllbnRfc2VjcmV0IjoidGpROGlDVlR6S25MTER3NTVneDVmRVJrajRBanNSbjgiLCJiYXNlX3VybCI6bnVsbCwiY2xpZW50X2lkIjoiZjZ5YW9oazRram5vcGFua3FkOXhnbmdkOGw2YXdkYzEifQ.CNxiLw.X0EbJR-A1lvkKRDvl_BqF7W2z6Q
+      Host:
+      - box-token-generator.herokuapp.com
+      Referer:
+      - *2
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 300
+  response:
+    status:
+      code: 302
+      message: FOUND
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '209'
+      Location:
+      - http://box-token-generator.herokuapp.com/
+      Set-Cookie:
+      - session=.eJw9zs1ygjAUQOF3uWs3WqHAroNOUfwpWBlqp8OE5AIhabAk1IjTd6-b9gG-M-cGhFLUujCdQAXBO0Sd1bPPzDxGbf32sD0eVvbEBk5S-7Kj-izhYwJUclSm0Eh7NBCAaROPh9nrGKvNZnFxnNo61TIV7fyp1anyYAIl0VgMvYRADVL-Jzi788q9kq4Rc9Gq7kyU-GK-rVXNPOmSC6PTO--x6lE3f5sQlbYMtc1H14nzw3HMd_tpSZO1WCy_n1fb9cnPGx6mHDEZUr8c5TWroxmyfcJ9EUsHfn4B7ANXAg.CNxiOg.MeY8UW7kLrTctLwks4BOPwLZsa8;
+        Path=/; HttpOnly
+      Server:
+      - Werkzeug/0.8.3 Python/2.7.3
+      Date:
+      - Thu, 17 Sep 2015 14:39:54 GMT
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: |-
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+        <title>Redirecting...</title>
+        <h1>Redirecting...</h1>
+        <p>You should be redirected automatically to target URL: <a href="/">/</a>.  If not click the link.
+    http_version: 
+  recorded_at: Thu, 17 Sep 2015 14:39:54 GMT
+- request:
+    method: get
+    uri: http://box-token-generator.herokuapp.com/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip,deflate,identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Mechanize/2.7.3 Ruby/2.1.1p76 (http://github.com/sparklemotion/mechanize/)
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - en-us,en;q=0.5
+      Cookie:
+      - session=.eJw9zs1ygjAUQOF3uWs3WqHAroNOUfwpWBlqp8OE5AIhabAk1IjTd6-b9gG-M-cGhFLUujCdQAXBO0Sd1bPPzDxGbf32sD0eVvbEBk5S-7Kj-izhYwJUclSm0Eh7NBCAaROPh9nrGKvNZnFxnNo61TIV7fyp1anyYAIl0VgMvYRADVL-Jzi788q9kq4Rc9Gq7kyU-GK-rVXNPOmSC6PTO--x6lE3f5sQlbYMtc1H14nzw3HMd_tpSZO1WCy_n1fb9cnPGx6mHDEZUr8c5TWroxmyfcJ9EUsHfn4B7ANXAg.CNxiOg.MeY8UW7kLrTctLwks4BOPwLZsa8
+      Host:
+      - box-token-generator.herokuapp.com
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 300
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '2214'
+      Set-Cookie:
+      - session=.eJw9zt1OgzAYgOF7-Y53sCGQjjOUsZgtKggMYxYCtPy0zVehxQ2M976d6AU8b94fKOuaaV0YJRiC9wksmyOrkqFfLcQlQR5FWfjwYh5Ty58GvvbhvIJa9gxNoVk9MgMeGB6R_ilLlgMej8HFcdqr0-xiwW2f6xgJrKAqNSumUYKHk5T_iZ7eeePOpeqELTiqrxLFQLfXFltKpFteaL2585E1I9Pd3ybQUcfE0m-8Sg-vtqJsH3a4y2lMTx0f1pPYuirYfCvMSXrqFzdP5tY3H-_PM3ZBojL4vQGxGFYM.CNxiOw.EwaVTeU9rZS8ugRQXWjKZgoaw9U;
+        Path=/; HttpOnly
+      Server:
+      - Werkzeug/0.8.3 Python/2.7.3
+      Date:
+      - Thu, 17 Sep 2015 14:39:55 GMT
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: "<!DOCTYPE html>\n<html>\n<head>\n<meta charset='UTF-8'>\n<title>Box
+        Token Generator</title>\n<link rel=\"shortcut icon\" href=\"/static/favicon.ico\">\n<link
+        rel=\"stylesheet\" href=\"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css\">\n<link
+        rel=\"stylesheet\" href=\"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css\">\n<style>\n.flash-hover
+        {\n    background-color: #f5f5f5;\n}\n</style>\n<script>\n  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n
+        \ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n
+        \ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n
+        \ })(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n
+        \ ga('create', 'UA-53976535-1', 'auto');\n  ga('send', 'pageview');\n</script>\n</head>\n<body
+        >\n<a href=\"https://github.com/seanrose/box-arcade\"><img style=\"position:
+        absolute; top: 0; right: 0; border: 0;\" src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\"
+        alt=\"Fork me on GitHub\"></a>\n<div class=\"container\">\n    <br>\n    \n\n<table
+        class=\"table table-bordered table-hover\">\n    <tbody>\n        <tr>\n            <td><h4>Access
+        Token: <h4 class=\"text-info\">eVyQ2blFAbz868DXQQVF3NtBU2Auqj0A</h4></h4></td>\n
+        \       </tr>\n        <tr>\n            <td><h4>Refresh Token: <h4 class=\"text-info\">drsR82sPjbUKO4odeGFhnEXdRdWhjq0uk96oD1vonX8UWiz6XTygAtYSIynhDToV</h4></h4></td>\n
+        \       </tr>\n        <tr>\n            <td><h4>Generated with this Client
+        ID: <h4 class=\"text-info\">f6yaohk4kjnopankqd9xgngd8l6awdc1</h4></h4></td>\n
+        \       </tr>\n        \n    </tbody>\n</table>\n<p><a id=\"refresher\" class=\"btn
+        btn-primary btn-large\" href=\"javascript:history.go(0)\" onclick=\"$('#refresher').button('loading')\"
+        data-loading-text=\"refreshing...\">Refresh Tokens</a></p>\n<p><a href=\"/logout\">Log
+        Out of Your Box Account</a></p>\n\n</div>\n\n<script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js\"></script>\n<script
+        src=\"//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js\"></script>\n<script
+        type=\"text/javascript\">\nsetInterval( function() {\n        $('#refresher').button('loading');\n
+        \       history.go(0);\n    },\n    3600000\n);\n</script>\n</body>\n</html>"
+    http_version: 
+  recorded_at: Thu, 17 Sep 2015 14:39:55 GMT
+recorded_with: VCR 2.9.3

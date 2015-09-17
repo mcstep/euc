@@ -1,54 +1,89 @@
 source 'https://rubygems.org'
 
-gem 'unicorn'
 gem 'rails', '4.2.2'
-gem 'sqlite3'
-gem 'pg'
 
+#
+# Deployment
+#
+gem 'unicorn'
 gem 'figaro'
-gem 'haml'
-gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass', '~> 3.3.5'
-gem 'bootstrap-datepicker-rails'
-gem 'bootstrap-multiselect-rails'
-gem 'bootstrap_form'
-gem 'bootstrap-kaminari-views'
-gem 'nested_form'
-gem 'spinjs-rails'
-gem 'switchery-rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails'
-gem 'jquery-cookie-rails'
-gem 'jbuilder', '~> 2.0'
-gem 'rest-client', '1.6.7'
-gem 'kaminari'
-gem 'micromachine'
+
+#
+# General Flow
+#
+gem 'inherited_resources'
+gem 'pundit'
+gem 'sidekiq'
+gem 'sinatra', require: nil
+gem 'seedbank'
+
+#
+# Data sources
+#
+gem 'pg'
+gem 'sqlite3' # dev mode for poors
 gem 'redis-objects'
 gem 'redis-semaphore'
-gem 'google-api-client', '0.8.6'
-gem 'azure-directory', github: 'kioru/azure-directory'
-gem 'faraday-conductivity'
-gem 'rqrcode_png'
-gem 'readable-token'
-gem 'nexmo'
-gem 'sinatra', require: nil
-gem 'le'
-gem 'wannabe_bool'
-gem 'validates_hostname', '~> 1.0.0'
-gem 'inherited_resources'
 
+#
+# AR Enhancers
+#
+gem 'kaminari'
+gem 'micromachine'
 gem 'paranoia', '~> 2.0'
 gem 'simple_enum'
-gem 'annotate', '~> 2.6.6'
-gem 'pundit'
 gem 'carrierwave'
 gem 'carrierwave-data-uri'
 gem 'cloudinary'
-gem 'sidekiq'
-gem 'seedbank'
+gem 'validates_hostname', '~> 1.0.0'
+
+#
+# Renderers
+#
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'haml'
+gem 'jbuilder', '~> 2.0'
+gem 'bootstrap_form'
+gem 'nested_form'
+gem 'bootstrap-kaminari-views'
+
+#
+# Assets
+#
+gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-multiselect-rails'
+gem 'spinjs-rails'
+gem 'switchery-rails'
+gem 'jquery-rails'
+gem 'jquery-cookie-rails'
+
+#
+# Services
+#
+gem 'rest-client', '1.6.7'
+gem 'google-api-client', '0.8.6'
+gem 'azure-directory', github: 'kioru/azure-directory'
+gem 'faraday-conductivity'
+gem 'nexmo'
 gem 'restforce'
+gem 'mechanize'
+
+#
+# Tools
+#
 gem 'newrelic_rpm'
+gem 'le'
+gem 'bugsnag', group: :production
+
+#
+# Misc
+#
+gem 'rqrcode_png'
+gem 'readable-token'
+gem 'wannabe_bool'
 
 group :development, :test do
   gem 'factory_girl_rails'
@@ -73,6 +108,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-bundler'
   gem 'launchy'
+  gem 'annotate', '~> 2.6.6'
 end
 
 group :test do
@@ -82,8 +118,4 @@ group :test do
   gem 'rack_session_access'
   gem 'show_me_the_cookies'
   gem 'test_after_commit'
-end
-
-group :production do
-  gem 'bugsnag'
 end

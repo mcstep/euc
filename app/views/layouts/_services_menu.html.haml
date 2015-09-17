@@ -20,3 +20,6 @@
   - if policy(:salesforce_instance).index?
     %li{class: ('active' if controller.is_a?(SalesforceInstancesController))}
       = link_to 'Salesforce', salesforce_instances_path
+  - if policy(:box_instance).index?
+    %li{class: ('active' if controller.is_a?(BoxInstancesController))}
+      = link_to 'Box', box_instances_path
