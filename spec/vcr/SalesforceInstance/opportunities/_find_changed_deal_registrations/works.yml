@@ -1,0 +1,79 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap&client_secret=7956755793130956252&username=eucintegrationuser%40vmware.com.vmw.dev4&password=VMware1%4023Az52gBYvxLZla1ZBjDA9SDhL
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 16 Sep 2015 20:46:21 GMT
+      Set-Cookie:
+      - BrowserId=pLmty49iTTGXXiRi_WyQ2Q;Path=/;Domain=.salesforce.com;Expires=Sun,
+        15-Nov-2015 20:46:21 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"00DV00000088cTU!ARAAQG1wCWz.h2Gsk283FYgFM6jaAaH2ZpcYq02amEKRgzifQFaJAzaLYfqNbTyXdcyt8It9oaFG2RgEGxfcXszSWojQ23yV","is_readonly":"false","signature":"q/77e3x3m/3qJhWT8LJR2MyVBCoyBDyG2rNoRYcbd3M=","instance_url":"https://vmware--DEV4.cs12.my.salesforce.com","id":"https://test.salesforce.com/id/00DV00000088cTUMAY/005V0000002FTWZIA4","token_type":"Bearer","issued_at":"1442436382032"}'
+    http_version: 
+  recorded_at: Wed, 16 Sep 2015 20:46:22 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=ORTN&recId=All
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQG1wCWz.h2Gsk283FYgFM6jaAaH2ZpcYq02amEKRgzifQFaJAzaLYfqNbTyXdcyt8It9oaFG2RgEGxfcXszSWojQ23yV
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 16 Sep 2015 20:46:23 GMT
+      Set-Cookie:
+      - BrowserId=NgMQLUiwQwGJL73io4EUQQ;Path=/;Domain=.salesforce.com;Expires=Sun,
+        15-Nov-2015 20:46:23 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":"true","responsecode":"404","records":null,"message":"NO_DATA_FOUND"}'
+    http_version: 
+  recorded_at: Wed, 16 Sep 2015 20:46:25 GMT
+recorded_with: VCR 2.9.3

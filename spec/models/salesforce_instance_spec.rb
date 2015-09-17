@@ -16,4 +16,14 @@ RSpec.describe SalesforceInstance, :vcr, type: :model do
       expect{ salesforce_instance.update(@id, isactive: false) }.to_not raise_error
     end
   end
+
+  # describe 'opportunities' do
+  #   let(:salesforce_instance){ create :opportunities_staging_salesforce_instance }
+
+  #   fdescribe '.find_changed_deal_registrations' do
+  #     it 'works' do
+  #       expect(salesforce_instance.find_changed_deal_registrations.size).to eq 0
+  #     end
+  #   end
+  # end
 end

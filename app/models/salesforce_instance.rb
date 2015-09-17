@@ -81,6 +81,14 @@ class SalesforceInstance < ActiveRecord::Base
     client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: id).body.first
   end
 
+  def find_changed_deal_registrations
+    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: 'All').body
+  end
+
+  def find_changed_opportunities
+    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: 'All').body
+  end
+
   def update(id, settings)
     settings['Id'] = id
     client.update! 'User', settings
