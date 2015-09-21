@@ -27,6 +27,9 @@ class SalesforceInstance < ActiveRecord::Base
 
   acts_as_paranoid
 
+  has_one :company_resolving_opportunities, class_name: 'Company', foreign_key: 'salesforce_opportunity_instance_id'
+  has_one :company_resolving_dealregs, class_name: 'Company', foreign_key: 'salesforce_dealreg_instance_id'
+
   validates :client_id, presence: true
   validates :client_secret, presence: true
 
@@ -67,13 +70,13 @@ class SalesforceInstance < ActiveRecord::Base
 
   def fetch_crm_data(crm_kind, id)
     if crm_kind == :salesforce_dealreg
-      find_deal_registration id
+      find_dealreg id
     elsif crm_kind == :salesforce_opportunity
       find_opportunity id
     end
   end
 
-  def find_deal_registration(id)
+  def find_dealreg(id)
     client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: id).body.first
   end
 
@@ -81,12 +84,14 @@ class SalesforceInstance < ActiveRecord::Base
     client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: id).body.first
   end
 
-  def find_changed_deal_registrations
+  def find_changed_dealregs
     client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: 'All').body
+      .instance_variable_get('@raw_page')['records'].to_a.map{|x| x['Customer Email Address']}
   end
 
   def find_changed_opportunities
-    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: 'All').body
+    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: 'All')
+      .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['Customer Email Address']}
   end
 
   def update(id, settings)

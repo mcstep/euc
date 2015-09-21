@@ -17,13 +17,19 @@ RSpec.describe SalesforceInstance, :vcr, type: :model do
     end
   end
 
-  # describe 'opportunities' do
-  #   let(:salesforce_instance){ create :opportunities_staging_salesforce_instance }
+  describe 'opportunities' do
+    let(:salesforce_instance){ create :opportunities_staging_salesforce_instance }
 
-  #   fdescribe '.find_changed_deal_registrations' do
-  #     it 'works' do
-  #       expect(salesforce_instance.find_changed_deal_registrations.size).to eq 0
-  #     end
-  #   end
-  # end
+    describe '.find_changed_deal_registrations' do
+      it 'works' do
+        expect(salesforce_instance.find_changed_dealregs).to eq ['tkhandelwal@vmw.com']
+      end
+    end
+
+    describe '.find_changed_opportunities' do
+      it 'works' do
+        expect(salesforce_instance.find_changed_opportunities).to eq []
+      end
+    end
+  end
 end
