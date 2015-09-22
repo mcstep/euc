@@ -20,7 +20,6 @@ class InvitationUpdateCrmWorker
       Invitation.joins(:to_user).where(users: {email: changed})
     end
 
-    scope.where(crm_fetch_error: false).where("updated_at < ?", DateTime.now - 24.hours)
-      .each(&:refresh_crm_data)
+    scope.where(crm_fetch_error: false).each(&:refresh_crm_data)
   end
 end
