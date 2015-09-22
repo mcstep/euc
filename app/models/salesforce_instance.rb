@@ -88,13 +88,21 @@ class SalesforceInstance < ActiveRecord::Base
   end
 
   def find_changed_dealregs
-    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: 'All')
-      .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['ORTN']}
+    begin
+      client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: 'All')
+        .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['ORTN']}
+    rescue Faraday::TimeoutError => e
+      []
+    end
   end
 
   def find_changed_opportunities
-    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: 'All')
-      .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['Opportunity Id']}
+    begin
+      client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: 'All')
+        .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['Opportunity Id']}
+    rescue Faraday::TimeoutError => e
+      []
+    end
   end
 
   def update(id, settings)
