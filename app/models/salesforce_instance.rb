@@ -33,6 +33,9 @@ class SalesforceInstance < ActiveRecord::Base
   validates :client_id, presence: true
   validates :client_secret, presence: true
 
+  scope :opportunity_sources, lambda{ joins(:company_resolving_opportunities).distinct }
+  scope :dealreg_sources,     lambda{ joins(:company_resolving_dealregs).distinct }
+
   def title
     client_id
   end
@@ -85,13 +88,13 @@ class SalesforceInstance < ActiveRecord::Base
   end
 
   def find_changed_dealregs
-    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: 'All').body
-      .instance_variable_get('@raw_page')['records'].to_a.map{|x| x['Customer Email Address']}
+    client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: 'All')
+      .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['RecId']}
   end
 
   def find_changed_opportunities
     client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: 'All')
-      .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['Customer Email Address']}
+      .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['RecId']}
   end
 
   def update(id, settings)

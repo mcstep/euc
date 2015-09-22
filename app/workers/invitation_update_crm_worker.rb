@@ -2,24 +2,24 @@ class InvitationUpdateCrmWorker
   include Sidekiq::Worker
 
   def perform(force: false)
-    scope = if force
-      Invitation.where.not(crm_id: nil)
+    scopes = []
+
+    if force
+      scopes << Invitation.where.not(crm_id: nil)
     else
-      changed  = []
+      scopes << Invitation.where(
+        crm_kind: CrmConfigurator.kinds[:salesforce_dealreg],
+        crm_id:   SalesforceInstance.opportunity_sources.map(&:find_changed_opportunities).flatten
+      )
 
-      SalesforceInstance.joins(:company_resolving_opportunities).distinct.each do |si|
-        changed += si.find_changed_opportunities
-      end
-
-      SalesforceInstance.joins(:company_resolving_dealregs).distinct.each do |si|
-        changed += si.find_changed_dealregs
-      end
-
-      return if changed.blank?
-
-      Invitation.joins(:to_user).where(users: {email: changed})
+      scopes << Invitation.where(
+        crm_kind: CrmConfigurator.kinds[:salesforce_opportunity],
+        crm_id:   SalesforceInstance.dealreg_sources.map(&:find_changed_opportunities).flatten
+      )
     end
 
-    scope.where(crm_fetch_error: false).each(&:refresh_crm_data)
+    scopes.each do |scope|
+      scope.where(crm_fetch_error: false).each(&:refresh_crm_data)
+    end
   end
 end
