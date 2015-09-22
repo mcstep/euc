@@ -9,7 +9,7 @@ class InvitationUpdateCrmWorker
     else
       scopes << Invitation.where(
         crm_kind: CrmConfigurator.kinds[:salesforce_dealreg],
-        crm_id:   SalesforceInstance.opportunity_sources.map(&:find_changed_opportunities).flatten
+        crm_id:   SalesforceInstance.opportunity_sources.map(&:find_changed_dealregs).flatten
       )
 
       scopes << Invitation.where(
