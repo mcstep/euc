@@ -10,6 +10,10 @@ namespace :users do
     end
   end
 
+  task :rotate_requests => :environment do
+    UserRequestsAggregatorWorker.new.perform
+  end
+
   namespace :expiration do
     task :handle_expiring => :environment do
       UsersCheckExpirationWorker.new.handle_expiring
