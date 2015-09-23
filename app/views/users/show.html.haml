@@ -50,26 +50,32 @@
         %a{"aria-controls" => "home", "aria-expanded" => "true", "data-toggle" => "tab", href: "#home", role: "tab"} Users
   .tab-content
     #activity.tab-pane.fade.active.in{role: "tabpanel"}
-      - if desktops_stats(@user)[:data].present?
+      - any = false
+
+      - if desktops_stats(@user)[:data].present? && any = true
         .col-md-12.col-sm-12.col-lg-6
           .widget.activity.graph
             %h1 Horizon Activity
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
               #desktops-chart{data: {stats: desktops_stats.to_json}}
 
-      - if sessions_stats(@user)[:data].present?
+      - if sessions_stats(@user)[:data].present? && any = true
         .col-md-12.col-sm-12.col-lg-6
           .widget.activity.graph
             %h1 Sessions
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
               #sessions-chart{data: {stats: sessions_stats.to_json}}
 
-      - if apps_stats(@user)[:data].present?
+      - if apps_stats(@user)[:data].present? && any = true
         .col-lg-12{style: 'clear: both'}
           .widget.activity.graph
             %h1 Horizon Usage
             %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
               #apps-chart{data: {stats: apps_stats.to_json}}  }
+
+      - unless any
+        .center.notice
+          %h4 There is currently no activity to show for this user :(
     - if InvitationPolicy.new(@user).create?
       #home.tab-pane.fade{role: "tabpanel"}
         - @user.invited_users.chunk(&:company_name).each do |company, users|

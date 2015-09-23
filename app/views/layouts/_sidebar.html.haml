@@ -8,92 +8,128 @@
       = current_user.first_name
       %strong= current_user.last_name
 
-%span.sidebar-divider.clear Launch
+%span.sidebar-divider.clear.sidebar-launcher.expanded{"aria-expanded" => "true", "data-toggle" => "collapse", :href => "#sidebar-launcher"} Launch
 
-.launcher
-  .btn-group-vertical{role: "group"}
-    - if current_user.profile.supports_vidm
-      %a.btn.btn-primary.btn-sm{href: "https://vidm.vmtestdrive.com", target: "_blank"}
-        vIDM
-    - else
-      %a.btn.btn-primary.btn-sm{href: "https://workspace.vmwdemo.com", target: "_blank"}
-        Workspace
+.panel-collapse.collapse.in#sidebar-launcher
+  .launcher
     .btn-group-vertical{role: "group"}
-      %button#horizonnative.btn.btn-sm.btn-info.dropdown-toggle{onclick: "$(this).tooltip('hide')", data: {container: 'body', placement: 'right', toggle: 'dropdown', "original-title" => "Make sure you have the latest Horizon Client installed!"}}
-        Horizon Native Client
+      - if current_user.profile.supports_vidm
+        %a.btn.btn-primary.btn-sm{href: "https://vidm.vmtestdrive.com", target: "_blank"}
+          vIDM
+      - else
+        %a.btn.btn-primary.btn-sm{href: "https://workspace.vmwdemo.com", target: "_blank"}
+          Workspace
+      .btn-group-vertical{role: "group"}
+        %button#horizonnative.btn.btn-sm.btn-info.dropdown-toggle{onclick: "$(this).tooltip('hide')", data: {container: 'body', placement: 'right', toggle: 'dropdown', "original-title" => "Make sure you have the latest Horizon Client installed!"}}
+          Horizon Native Client
+          %span.caret
+        %ul.dropdown-menu
+          - sorted_regions.each_with_index do |region, i|
+            %li
+              %a{href: "vmware-view://hv6#{region}.vmwdemo.com/", target: "_blank"}
+                %span{style: ('font-weight: bold' if i == 0)}
+                  = region.upcase
+          %li.divider{role: "separator"}
+          %li
+            %a{href: '#'}
+              Download
+              %br
+              Horizon
+      %button.btn.btn-sm.btn-info.dropdown-toggle{type: "button", data: {toggle: 'dropdown'}}
+        Horizon HTML Access
         %span.caret
       %ul.dropdown-menu
         - sorted_regions.each_with_index do |region, i|
           %li
-            %a{href: "vmware-view://hv6#{region}.vmwdemo.com/", target: "_blank"}
+            %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html"}
               %span{style: ('font-weight: bold' if i == 0)}
                 = region.upcase
-        %li.divider{role: "separator"}
-        %li
-          %a{href: '#'}
-            Download
-            %br
-            Horizon
-    %button.btn.btn-sm.btn-info.dropdown-toggle{type: "button", data: {toggle: 'dropdown'}}
-      Horizon HTML Access
-      %span.caret
-    %ul.dropdown-menu
-      - sorted_regions.each_with_index do |region, i|
-        %li
-          %a{href: "https://hv6#{region}.vmwdemo.com/portal/webclient/index.html"}
-            %span{style: ('font-weight: bold' if i == 0)}
-              = region.upcase
-    %a.btn.btn-primary.btn-sm{href: "https://flex.vmtestdrive.com:7443/rvm", target: "_blank"}
-      Horizon Flex
+      %a.btn.btn-primary.btn-sm{href: "https://flex.vmtestdrive.com:7443/rvm", target: "_blank"}
+        Horizon Flex
+}
 
-%span.sidebar-divider General
-%ul.sidebar-nav
-  %li
-    %a{href: root_path} Dashboard
-  %li
-    %a{href: services_current_user_path}
-      My Services
-  - if policy(:invitation).create? && current_user.invitations_left > 0
-    %li
-      %a{href: new_invitation_path} Send Invitation
-  - if policy(:reporting).users?
-    %li
-      %a{href: users_reporting_index_path} Reporting
-  - if policy(:reporting).opportunities?
-    %li
-      %a{href: opportunities_reporting_index_path} Opportunities
+%span.sidebar-divider.sidebar-general.clear.expanded{"data-parent" => "#nav-collapse", "data-toggle" => "collapse", :href => "#sidebar-general", :role => "tab"} General
 
-- if current_user.root?
-  %span.sidebar-divider Manage
+.panel-collapse.collapse.in#sidebar-general
   %ul.sidebar-nav
-    - if policy(:user).index?
+    %li
+      %a{href: root_path}
+        %span.icon.icon-grid<>
+        Dashboard
+    %li
+      %a{href: services_current_user_path}
+        %span.icon.icon-puzzle<>
+        My Services
+    - if policy(:invitation).create? && current_user.invitations_left > 0
       %li
-        %a{href: users_path} Users
-    - if policy(:domain).index?
+        %a{href: new_invitation_path}
+          %span.icon.icon-list<>
+          Send Invitation
+    - if policy(:reporting).users?
       %li
-        %a{href: domains_path} Domains
-    - if policy(:registration_code).index?
+        %a{href: users_reporting_index_path}
+          %span.icon.icon-grid<>
+          Reporting
+    - if policy(:reporting).opportunities?
       %li
-        %a{href: registration_codes_path} Reg Codes
-    - if policy(:profile).index?
-      %li
-        %a{href: profiles_path} Profiles
-    - if policy(:integration).index?
-      %li
-        %a{href: integrations_path} Integrations
-    - if services.map{|x| policy(x).index?}.any?
-      %li
-        %a{href: services_path} Services
+        %a{href: opportunities_reporting_index_path}
+          %span.icon.icon-wallet<>
+          Opportunities
+
+  - if current_user.root?
+    %span.sidebar-divider.sidebar-general.clear.collapsed{"data-parent" => "#nav-collapse", "data-toggle" => "collapse", :href => "#sidebar-manage", :role => "tab"} Manage
+
+    .panel-collapse.collapse#sidebar-manage
+      %ul.sidebar-nav
+        - if policy(:user).index?
+          %li
+            %a{href: users_path}
+              %span.icon.icon-users
+              Users
+        - if policy(:domain).index?
+          %li
+            %a{href: domains_path}
+              %span.icon.icon-globe
+              Domains
+        - if policy(:registration_code).index?
+          %li
+            %a{href: registration_codes_path}
+              %span.icon.icon-link
+              Reg Codes
+        - if policy(:profile).index?
+          %li
+            %a{href: profiles_path}
+              %span.icon.icon-note
+              Profiles
+        - if policy(:integration).index?
+          %li
+            %a{href: integrations_path}
+              %span.icon.icon-share
+              Integrations
+        - if services.map{|x| policy(x).index?}.any?
+          %li
+            %a{href: services_path}
+              %span.icon.icon-puzzle
+              Services
 
 
-%span.sidebar-divider Your Account
-%ul.sidebar-nav
-  %li
-    %a{href: '#', data: {target: '#avatar-modal', toggle: 'modal'}}
-      Edit Profile
-  %li
-    %a{href: '#', data: {target: '#password-change-modal', toggle: 'modal'}} Change Password
-  %li
-    %a{href: '#', data: {target: '#support-modal', toggle: 'modal'}} Support
-  %li
-    %a{href: session_path, data: {method: 'delete'}} Log Out
+%span.sidebar-divider.sidebar-general.clear.collapsed{"data-parent" => "#nav-collapse", "data-toggle" => "collapse", :href => "#sidebar-account", :role => "tab"} Your Account
+
+.panel-collapse.collapse#sidebar-account
+  %ul.sidebar-nav
+    %li
+      %a{href: '#', data: {target: '#avatar-modal', toggle: 'modal'}}
+        %span.icon.icon-user
+        Edit Profile
+    %li
+      %a{href: '#', data: {target: '#password-change-modal', toggle: 'modal'}}
+        %span.icon.icon-lock
+        Change Password
+    %li
+      %a{href: '#', data: {target: '#support-modal', toggle: 'modal'}}
+        %span.icon.icon-support
+        Support
+    %li
+      %a{href: session_path, data: {method: 'delete'}}
+        %span.icon.icon-logout
+        Log Out

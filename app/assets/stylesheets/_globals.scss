@@ -44,9 +44,13 @@ a {
   margin: 0 15px;
 }
 
+
   
 }
 
+.center {
+  text-align: center !important;
+}
 
 /* Modals */
 .modal-header {
@@ -61,7 +65,7 @@ a {
 .modal-content {
 
   .user-details {
-    padding-left: 3em;
+    padding: 0;
     font-size: 75%;
   
     margin-bottom: 5em;
@@ -205,7 +209,7 @@ a {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: image-url('select.svg') 98% / 15px no-repeat $white;
+    background: asset-url('select.svg') 98% / 15px no-repeat $white;
   }
 }
 
@@ -241,7 +245,7 @@ a {
 
 // Login 
 #bg_pattern { 
-background: image-url('bgpattern.png') rgba(0,0,0,0.2); 
+background: asset-url('bgpattern.png') rgba(0,0,0,0.2); 
 position: fixed; 
 opacity: 0.7; 
 
@@ -254,7 +258,7 @@ z-index: -99;
 }
 
 .fullscreen-bg {
-  background: image-url('bgpattern.png') #1c1c1c; 
+  background: asset-url('bgpattern.png') #1c1c1c; 
   position: fixed;
   top: 0;
   right: 0;
@@ -315,16 +319,20 @@ z-index: -99;
   }
 }
 
-#login-modal .modal-dialog{
-position: absolute;
-left: 50%;
-//now you must set a margin left under zero - value is a half width your window
-margin-left: -150px;
-// this same situation is with height - example
-height: 500px;
-top: 50%;
-margin-top: -150px;
-} 
+#login-modal, #confirmation-modal {
+  .modal-dialog{
+    color: $black;
+  position: absolute;
+  left: 50%;
+  //now you must set a margin left under zero - value is a half width your window
+  margin-left: -150px;
+  // this same situation is with height - example
+  height: 500px;
+  top: 50%;
+  margin-top: -150px;
+  } 
+}
+
 .td-loginblurb {
   background: none !important;
   @media (min-width: 767px) {
@@ -359,13 +367,16 @@ margin-top: -150px;
   
   padding: 40px;
   
+  a {
+    font-weight: normal;
+  }
   
   .loginbox {
     margin-top: 10px;
     text-align: center !important;
-    small {
+    
       color: $black;
-    }
+
   }
   .blurb {
     @media (min-width: 767px) {

@@ -2,7 +2,7 @@
 
 
 #td-topbar {
-  background: image-url('testdrive.svg') top 15px center / 185px no-repeat rgba(255,255,255,1);
+  background: image-path('testdrive.svg') top 15px center / 185px no-repeat rgba(255,255,255,1);
   opacity: 0.9;
   border-bottom: 1px solid rgba(0,0,0,0.1);
   height: 70px;
@@ -125,6 +125,12 @@
     }
 
   }
+
+  .notice {
+    padding: 1em 0;
+    color: $gray-light;
+    text-size: 2em;
+  }
   
   .no-margins {
     margin: 0 ;
@@ -168,7 +174,7 @@
     -moz-border-top-colors: none;
     background-color: $white;
     border-color: $gray-lighter;
-    border-image: none;
+    border-asset: none;
     border-style: solid solid none;
     border-width: 4px 0px 0;
     color: inherit;
@@ -187,9 +193,17 @@
     padding: 15px 20px 0 20px;
 
     border-color: $gray-lighter;
-    border-image: none;
+    border-asset: none;
     border-style: solid solid none;
     border-width: 1px 0px;
+    .buttons {
+      text-align: center;
+      padding: 0 1em;
+      .btn {
+        width: 100%;
+      }
+      
+    }
   }
 
   .ibox-footer {
@@ -612,6 +626,20 @@
 
   }
 
+
+  .expanded {
+    background: asset-url('select_white_up.svg') 97% / 12px no-repeat $brand-primary;
+    &:hover {
+      background-color: lighten($brand-primary,10);
+    }
+  }
+
+  .collapsed {
+    background: asset-url('select_white.svg') 97% / 12px no-repeat $brand-primary;
+      &:hover {
+      background-color: lighten($brand-primary,10);
+    }
+  }
   .td-org {
     box-shadow: 0 15px 0px rgba(0,0,0,0.1);
     min-height: 50px;
@@ -619,7 +647,7 @@
     font-size: 140% !important;
     color: $white;
     text-align: left;
-    background: 99% 50% / 15px no-repeat $brand-primary;
+    
     @include radius;
     
   
@@ -852,7 +880,7 @@
       @include animate;
       margin: 0 0 1em 0;
       padding: 2em 2em 1em 2em;
-      background: image-url('close.svg') top 10px right 10px / 10px no-repeat lighten($td-orange, 30);
+      background: asset-url('close.svg') top 10px right 10px / 10px no-repeat lighten($td-orange, 30);
 
       &:hover {
         background-color: lighten($td-orange, 20);
@@ -990,15 +1018,14 @@
   
   .coming-soon {
   
-    background: image-url('comingsoon.svg') 0% 0/ 80px no-repeat rgba(240,240,240,0.8);
+    background: asset-url('comingsoon.svg') 0% 0/ 80px no-repeat rgba(240,240,240,0.8);
     
     
   }
   
-
   .disabled {
   
-    background: image-url('disabled.svg') 0% 0/ 80px no-repeat rgba(240,240,240,0.8);
+    background: asset-url('disabled.svg') 0% 0/ 80px no-repeat rgba(240,240,240,0.8);
     
     
   }
@@ -1049,6 +1076,11 @@
     
   }
   .form-group {
+    
+    
+    .js-switch {
+    
+    }
     float: right;
     position: absolute;
     bottom: 30px;
@@ -1112,7 +1144,11 @@
   }
   
   
-  
+  .dropdown-menu {
+    max-height: 70vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
   
   
 }

@@ -1,26 +1,35 @@
 - if policy(:invitation).create?
-  .col-md-12.col-lg-8.col-sm-12
+  .col-sm-12
+    %h1.lined.switch01{"data-toggle" => "collapse", :href => "#collapse-stats"}
+      %span.icon01.icon-arrow-down
+      %span Statistics
+
+#collapse-stats.collapse.in
+  .col-md-4.col-lg-3.col-sm-12
     .ibox
       .ibox-title
-        - if current_user.invitations_left > 0
-          %a.btn.btn-success.btn-xs.pull-right{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
-            Invite user
-        %h5 Invitation Statistics
+        %h5 Invites
+      .ibox-content
+        .row.buttons
+          - if current_user.invitations_left > 0
+            %p
+              %a.btn.btn-default.btn-default{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
+                Invite New User
+          - if policy(:user).index?
+            %p
+              %a.btn.btn-default.btn-default{href: users_path} Manage Invitations
+  .col-md-8.col-lg-9.col-sm-12
+    .ibox
+      .ibox-title
+        %h5 Statistics
       .ibox-content
         .row
-          .col-sm-6.col-md-6
+          .col-sm-4.col-md-4
             %h1.no-margins= current_user.total_invitations
             .font-bold.text-navy Total Invitations
-          .col-sm-6.col-md-6
+          .col-sm-4.col-md-4
             %h1.no-margins= current_user.invitations_left
             %div Remaining Invitations
-            .progress
-              .progress-bar.progress-bar-warning{role: "progressbar", style: "width:#{current_user.intitations_used_percents}%"}
-  .col-sm-6.col-md-6.col-lg-4
-    .ibox
-      .ibox-title
-        %h5 Accounts
-      .ibox-content
-        %h1.no-margins
-          = current_user.expiring_invited_users.size
-        Accounts Expiring Soon
+          .col-sm-4.col-md-4
+            %h1.no-margins= current_user.expiring_invited_users.size
+            %div Expiring Soon

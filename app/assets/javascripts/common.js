@@ -65,4 +65,10 @@
   $('.switch01').on('click', function(e) {
      $('.icon01').toggleClass("icon-arrow-down icon-arrow-up");
    });
+
+
+  $('.sidebar-divider').on('click', function(e) {
+    $(this).toggleClass("collapsed expanded");
+    e.preventDefault();
+  });
 })();
