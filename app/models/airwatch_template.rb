@@ -53,9 +53,7 @@ class AirwatchTemplate < ActiveRecord::Base
       airwatch_instance_id: user_integration.integration.airwatch_instance_id
     }
 
-    if attempt = where(condition).first
-      return attempt
-    end
+    !!where(condition).first
   end
 
   def to_h

@@ -9,13 +9,13 @@ RSpec.describe 'Access', type: :feature do
 
     context 'when user is root with no invitations left' do
       let(:user){ create(:root, total_invitations: 0) }
-      it{ is_expected.to have_link('Invite user') }
+      it{ is_expected.to have_link('Invite New User') }
       it{ is_expected.to have_link('Send Invitation') }
     end
 
     context 'when user is admin with no invitations left' do
       let(:user){ create(:admin, total_invitations: 0) }
-      it{ is_expected.to_not have_link('Invite user') }
+      it{ is_expected.to_not have_link('Invite New User') }
       it{ is_expected.to_not have_link('Send Invitation') }
     end
   end

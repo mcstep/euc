@@ -25,7 +25,7 @@
 #  salesforce_status               :integer          default(0), not null
 #  salesforce_user_id              :string
 #  blue_jeans_removal_requested_at :datetime
-#  prohibited_services             :string           default([]), not null
+#  prohibited_services             :string           default([]), not null, is an Array
 #  box_status                      :integer          default(0), not null
 #  box_user_id                     :integer
 #
@@ -47,15 +47,13 @@ class UserIntegration < ActiveRecord::Base
 
   attr_accessor :skip_provisioning, :password
 
+  delegate :directory, to: :integration
+
   belongs_to :user, -> { with_deleted }, inverse_of: :user_integrations
   belongs_to :integration, -> { with_deleted }
   belongs_to :airwatch_group, -> { with_deleted }
 
   has_many :directory_prolongations
-
-  unless ActiveRecord::Base.connection_config[:adapter] == 'postgresql'
-    serialize :prohibited_services
-  end
 
   after_commit    :init_provisioning,  on: :create
   after_commit    :apply_provisioning, on: :update
@@ -135,10 +133,6 @@ class UserIntegration < ActiveRecord::Base
       .find{|x| x.integration_id == integration_id}.try(:authentication_priority)
   end
 
-  def directory
-    integration.directory
-  end
-
   def airwatch_group_name
     user.email.split("@").last.gsub('.','-')[0...20]
   end
@@ -189,6 +183,6 @@ class UserIntegration < ActiveRecord::Base
   end
 
   def airwatch_template?
-    integration.airwatch_instance.use_templates && AirwatchTemplate.exist?(self)
+    integration.airwatch_instance.try(:use_templates) && AirwatchTemplate.exist?(self)
   end
 end

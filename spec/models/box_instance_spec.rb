@@ -7,6 +7,11 @@ RSpec.describe BoxInstance, :vcr, type: :model do
       refresh_token: 'U0gmdLj6v281ahzlq2smaiXdm6mqXFYZsuzeeeElg4Eotl3xVOBZoAqJ99UqdMrE'
   end
 
+  describe '.title' do
+    subject{ box_instance.title }
+    it { expect{subject}.to_not raise_error }
+  end
+
   describe '.register' do
     subject{ box_instance.register('foo111@bar.com', 'Foo Bar') }
     after{ box_instance.unregister('250307578') }

@@ -18,12 +18,33 @@ VCR.configure do |c|
   c.ignore_localhost = true
 end
 
+SimpleCov.start do
+  add_filter '/spec/'
+  at_exit { }
+
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Models', 'app/models'
+  add_group 'Retrievers', 'app/retrievers'
+  add_group 'Workers', 'app/workers'
+  add_group 'Policies', 'app/policies'
+end
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include ShowMeTheCookies, type: :feature
 
   config.before do
     Sidekiq::Worker.clear_all
+  end
+
+  config.after(:suite) do
+    if SimpleCov.running
+      silence_stream(STDOUT) do
+        SimpleCov::Formatter::HTMLFormatter.new.format(SimpleCov.result)
+      end
+
+      SimpleCov::Formatter::SummaryFormatter.new.format(SimpleCov.result)
+    end
   end
 
   config.expect_with :rspec do |expectations|

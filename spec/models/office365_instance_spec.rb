@@ -3,6 +3,11 @@ require 'rails_helper'
 RSpec.describe Office365Instance, :vcr, type: :model do
   let(:office365_instance){ create :staging_office365_instance }
 
+  describe '.title' do
+    subject{ office365_instance.title }
+    it { expect{subject}.to_not raise_error }
+  end
+
   describe '.update_user' do
     it 'works' do
       expect{ office365_instance.update_user('o365.test@vmwdev.net', 'usageLocation' => 'US') }.to_not raise_error

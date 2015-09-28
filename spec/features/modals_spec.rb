@@ -8,7 +8,7 @@ RSpec.describe 'Modals', :js, type: :feature do
   describe 'profile' do
     before do
       visit '/'
-      click_link 'Edit Profile'
+      first('a[data-target="#avatar-modal"]').click
     end
 
     it do

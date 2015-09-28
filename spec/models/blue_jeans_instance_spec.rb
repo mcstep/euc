@@ -3,6 +3,11 @@ require 'rails_helper'
 RSpec.describe BlueJeansInstance, :vcr, type: :model do
   let(:blue_jeans_instance){ create :staging_blue_jeans_instance }
 
+  describe '.title' do
+    subject{ blue_jeans_instance.title }
+    it { expect{subject}.to_not raise_error }
+  end
+
   describe '.token' do
     subject{ blue_jeans_instance.token }
 

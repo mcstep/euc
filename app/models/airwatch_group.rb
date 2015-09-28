@@ -27,6 +27,8 @@ class AirwatchGroup < ActiveRecord::Base
   validates :airwatch_instance, presence: true
 
   def self.produce(user_integration)
+    raise "Integration doesn't reference Airwatch" if user_integration.integration.airwatch_instance.blank?
+
     condition = {
       text_id:              user_integration.airwatch_group_name,
       airwatch_instance_id: user_integration.integration.airwatch_instance_id

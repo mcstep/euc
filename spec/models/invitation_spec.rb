@@ -1,6 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe Office365Instance, :vcr, type: :model do
+RSpec.describe Invitation, :vcr, type: :model do
+  describe '.from' do
+    let(:user){ create(:user) }
+    subject{ Invitation.from(user) }
+    it { expect{subject}.to_not raise_error }
+  end
+
+  describe '.free_invitation_point!' do
+    subject{ create(:invitation).free_invitation_point! }
+    it { expect{subject}.to_not raise_error }
+  end
+
   describe 'crm fetching' do
     it 'enqueues by creation' do
       expect{

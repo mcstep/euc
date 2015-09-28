@@ -1,0 +1,601 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://awconnector.vmwdev.com/tenants/?token=token
+    body:
+      encoding: UTF-8
+      string: '{"domainName":"pagac.name","partnerName":"ZOMG Company 2 (pagac.name)"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '71'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Wed, 09 Sep 2015 14:36:30 GMT
+      Content-Type:
+      - text/plain; charset=utf-8
+      Content-Length:
+      - '7'
+      Connection:
+      - keep-alive
+      Location:
+      - "/tenants/pagac.name"
+      Etag:
+      - W/"7-Ds7rRYYflYXdepej42+Fxg"
+    body:
+      encoding: UTF-8
+      string: Created
+    http_version: 
+  recorded_at: Mon, 28 Sep 2015 20:21:35 GMT
+- request:
+    method: get
+    uri: https://awconnector.vmwdev.com/tenants/pagac.name?token=token
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Wed, 09 Sep 2015 14:36:31 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '17372'
+      Connection:
+      - keep-alive
+      Etag:
+      - W/"43dc-iuupIT/LelXUDdW9yS+oog"
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "organizationGroups": {
+            "id": 3921,
+            "name": "ZOMG Company 2 (pagac.name)",
+            "type": "Customer",
+            "children": [
+              {
+                "id": 3922,
+                "tag": "Admin3921",
+                "name": "Admin",
+                "type": "Container",
+                "children": [
+                  {
+                    "id": 3923,
+                    "name": "Healthcare - Admin",
+                    "type": "Container",
+                    "children": [
+                      {
+                        "id": 3924,
+                        "name": "Regional Health Systems",
+                        "type": "Container",
+                        "children": [
+                          {
+                            "id": 3925,
+                            "name": "North Campus",
+                            "type": "Container",
+                            "children": [
+                              {
+                                "id": 3926,
+                                "name": "Hospital Corp Demo",
+                                "type": "Container",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": 3927,
+                            "name": "South Campus",
+                            "type": "Container",
+                            "children": [
+                              {
+                                "id": 3928,
+                                "name": "Hospital BYOD Demo",
+                                "type": "Container",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": 3929,
+                    "name": "Retail - Admin",
+                    "type": "Container",
+                    "children": [
+                      {
+                        "id": 3930,
+                        "name": "Retail Holding Company",
+                        "type": "Container",
+                        "children": [
+                          {
+                            "id": 3931,
+                            "name": "Warehouse",
+                            "type": "Container",
+                            "children": [
+                              {
+                                "id": 3932,
+                                "name": "Rugged Device Demo",
+                                "type": "Container",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": 3933,
+                            "name": "Storefront",
+                            "type": "Container",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": 3934,
+                    "name": "WWE - Admin",
+                    "type": "Container",
+                    "children": [
+                      {
+                        "id": 3935,
+                        "name": "World Wide Enterprises",
+                        "type": "Container",
+                        "children": [
+                          {
+                            "id": 3936,
+                            "name": "Asia / Pacific",
+                            "type": "Container",
+                            "children": [
+                              {
+                                "id": 3937,
+                                "name": "Australia",
+                                "type": "Container",
+                                "children": [
+                                  {
+                                    "id": 3938,
+                                    "name": "Corporate",
+                                    "type": "Container",
+                                    "children": []
+                                  },
+                                  {
+                                    "id": 3939,
+                                    "name": "Professional Services",
+                                    "type": "Container",
+                                    "children": []
+                                  },
+                                  {
+                                    "id": 3940,
+                                    "name": "Sales",
+                                    "type": "Container",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "id": 3941,
+                                "name": "China",
+                                "type": "Container",
+                                "children": [
+                                  {
+                                    "id": 3942,
+                                    "name": "Information Technology",
+                                    "type": "Container",
+                                    "children": []
+                                  },
+                                  {
+                                    "id": 3943,
+                                    "name": "Operations",
+                                    "type": "Container",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "id": 3944,
+                                "name": "Japan",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3945,
+                                "name": "Korea",
+                                "type": "Container",
+                                "children": [
+                                  {
+                                    "id": 3946,
+                                    "name": "Sales",
+                                    "type": "Container",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "id": 3947,
+                                "name": "Singapore",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3948,
+                                "name": "Taiwan",
+                                "type": "Container",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "id": 3949,
+                            "name": "EMEA",
+                            "type": "Container",
+                            "children": [
+                              {
+                                "id": 3950,
+                                "name": "France",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3951,
+                                "name": "Germany",
+                                "type": "Container",
+                                "children": [
+                                  {
+                                    "id": 3952,
+                                    "name": "Customer Services",
+                                    "type": "Container",
+                                    "children": []
+                                  },
+                                  {
+                                    "id": 3953,
+                                    "name": "Distribution Centers",
+                                    "type": "Container",
+                                    "children": []
+                                  },
+                                  {
+                                    "id": 3954,
+                                    "name": "Information Technology",
+                                    "type": "Container",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "id": 3955,
+                                "name": "Middle East",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3956,
+                                "name": "South Africa",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3957,
+                                "name": "Spain",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3958,
+                                "name": "Switzerland",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3959,
+                                "name": "United Kingdom",
+                                "type": "Container",
+                                "children": [
+                                  {
+                                    "id": 3960,
+                                    "name": "Human Resources",
+                                    "type": "Container",
+                                    "children": []
+                                  },
+                                  {
+                                    "id": 3961,
+                                    "name": "Marketing",
+                                    "type": "Container",
+                                    "children": []
+                                  },
+                                  {
+                                    "id": 3962,
+                                    "name": "Sales Engineers",
+                                    "type": "Container",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "id": 3963,
+                            "name": "North America",
+                            "type": "Container",
+                            "children": [
+                              {
+                                "id": 3964,
+                                "name": "Canada",
+                                "type": "Container",
+                                "children": [
+                                  {
+                                    "id": 3965,
+                                    "name": "Professional Services",
+                                    "type": "Container",
+                                    "children": []
+                                  },
+                                  {
+                                    "id": 3966,
+                                    "name": "Sales",
+                                    "type": "Container",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "id": 3967,
+                                "name": "Mexico",
+                                "type": "Container",
+                                "children": [
+                                  {
+                                    "id": 3968,
+                                    "name": "Sales",
+                                    "type": "Container",
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "id": 3969,
+                                "name": "United States",
+                                "type": "Container",
+                                "children": [
+                                  {
+                                    "id": 3970,
+                                    "name": "Corporate",
+                                    "type": "Container",
+                                    "children": [
+                                      {
+                                        "id": 3971,
+                                        "name": "Executives",
+                                        "type": "Container",
+                                        "children": [
+                                          {
+                                            "id": 3972,
+                                            "name": "Enterprise - BYOD Demo",
+                                            "type": "Container",
+                                            "children": []
+                                          },
+                                          {
+                                            "id": 3973,
+                                            "name": "Enterprise - MEM Demo",
+                                            "type": "Container",
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "id": 3974,
+                                        "name": "Human Resources",
+                                        "type": "Container",
+                                        "children": []
+                                      },
+                                      {
+                                        "id": 3975,
+                                        "name": "Information Technology",
+                                        "type": "Container",
+                                        "children": []
+                                      },
+                                      {
+                                        "id": 3976,
+                                        "name": "Professional Services",
+                                        "type": "Container",
+                                        "children": [
+                                          {
+                                            "id": 3977,
+                                            "tag": "Enrl3921",
+                                            "name": "Enterprise - Agent Enrollment Demo",
+                                            "type": "Container",
+                                            "children": []
+                                          },
+                                          {
+                                            "id": 3978,
+                                            "tag": "Corp3921",
+                                            "name": "Enterprise - EMM Demo",
+                                            "type": "Container",
+                                            "children": []
+                                          },
+                                          {
+                                            "id": 3979,
+                                            "name": "Enterprise - MAM Demo",
+                                            "type": "Container",
+                                            "children": []
+                                          },
+                                          {
+                                            "id": 3980,
+                                            "name": "Enterprise - MCM Demo",
+                                            "type": "Container",
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "id": 3981,
+                                        "name": "Research & Development",
+                                        "type": "Container",
+                                        "children": []
+                                      },
+                                      {
+                                        "id": 3982,
+                                        "name": "Sales",
+                                        "type": "Container",
+                                        "children": [
+                                          {
+                                            "id": 3983,
+                                            "name": "Enterprise - AirWatch Container Demo",
+                                            "type": "Container",
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "id": 3984,
+                                    "name": "Customer Services",
+                                    "type": "Container",
+                                    "children": [
+                                      {
+                                        "id": 3985,
+                                        "name": "Enterprise - Kiosk Demo",
+                                        "type": "Container",
+                                        "children": []
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "id": 3986,
+                                    "name": "Operations Division",
+                                    "type": "Container",
+                                    "children": [
+                                      {
+                                        "id": 3987,
+                                        "name": "Distribution Center",
+                                        "type": "Container",
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "id": 3988,
+                            "name": "South America",
+                            "type": "Container",
+                            "children": [
+                              {
+                                "id": 3989,
+                                "name": "ArgenCna",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3990,
+                                "name": "Brazil",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3991,
+                                "name": "Chile",
+                                "type": "Container",
+                                "children": []
+                              },
+                              {
+                                "id": 3992,
+                                "name": "Colombia",
+                                "type": "Container",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": 3993,
+                "name": "Branding Admin",
+                "type": "Container",
+                "children": []
+              },
+              {
+                "id": 3994,
+                "name": "Sandbox Admin",
+                "type": "Container",
+                "children": []
+              }
+            ]
+          },
+          "enrollmentEmailDomain": "pagac.vmwdev.com"
+        }
+    http_version: 
+  recorded_at: Mon, 28 Sep 2015 20:22:09 GMT
+- request:
+    method: post
+    uri: https://awconnector.vmwdev.com/tenants/?token=token
+    body:
+      encoding: UTF-8
+      string: '{"domainName":"pagac.name","partnerName":"ZOMG Company 2 (pagac.name)"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '71'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Mon, 28 Sep 2015 20:26:48 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Content-Type-Options:
+      - nosniff
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA3NOzMvLL1EI8A8OUdAvSc1LzCsp1rcvyc9OzbMFk1wA6pp8
+        BiIAAAA=
+    http_version: 
+  recorded_at: Mon, 28 Sep 2015 20:26:56 GMT
+recorded_with: VCR 2.9.3

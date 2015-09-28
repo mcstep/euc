@@ -109,6 +109,8 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'launchy'
   gem 'annotate', '~> 2.6.6'
+  gem 'simplecov', :require => false
+  gem 'simplecov-summary'
 end
 
 group :test do

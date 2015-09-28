@@ -14,6 +14,7 @@ RSpec::Matchers.define :enqueue_as do |kind|
 end
 
 RSpec.describe UserIntegration, type: :model do
+  let(:user_integration){ create(:user_integration) }
   subject(:ui_with_disabled_services) do
     UserIntegration.new(
       # prohibit_google_apps: false, <- default value
@@ -23,6 +24,16 @@ RSpec.describe UserIntegration, type: :model do
       prohibit_airwatch: true,
       prohibit_office365: true
     )
+  end
+
+  describe '.email' do
+    subject{ user_integration.email }
+    it { expect{subject}.to_not raise_error }
+  end
+
+  describe '.airwatch_email' do
+    subject{ user_integration.airwatch_email }
+    it { expect{subject}.to_not raise_error }
   end
 
   describe '.*_disabled?' do

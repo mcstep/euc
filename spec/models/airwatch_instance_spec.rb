@@ -4,6 +4,27 @@ RSpec.describe AirwatchInstance, :vcr, type: :model do
   let(:user_integration){ build :user_integration, username: 'spec.test' }
   let(:airwatch_instance){ build :staging_airwatch_instance }
 
+  describe '.title' do
+    subject{ airwatch_instance.title }
+    it { expect{subject}.to_not raise_error }
+  end
+
+  describe '.admin_roles_text' do
+    let(:airwatch_instance) do
+      build :staging_airwatch_instance,
+        admin_roles: [{'Id' => '1', 'LocationGroupId' => '1'}]
+    end
+
+    subject{ airwatch_instance.admin_roles_text }
+    it { is_expected.to eq '1,1' }
+  end
+
+  describe '.admin_roles_text=' do
+    before{ airwatch_instance.admin_roles_text = 'foo,bar' }
+    subject{ airwatch_instance.admin_roles }
+    it { is_expected.to eq([{"Id"=>"foo", "LocationGroupId"=>"bar"}]) }
+  end
+
   describe '.generate_template' do
     subject{ airwatch_instance.generate_template('spec7.com', 'company7') }
     it{ is_expected.to include('name' => 'company7') }

@@ -3,6 +3,21 @@ require 'rails_helper'
 RSpec.describe Directory, :vcr, type: :model do
   let(:directory){ build :test_directory }
 
+  describe '.title' do
+    subject{ directory.title }
+    it { expect{subject}.to_not raise_error }
+  end
+
+  describe '.office365_sync_all' do
+    subject{ directory.office365_sync_all }
+    it { expect{subject}.to_not raise_error }
+  end
+
+  describe '.office365_sync' do
+    subject{ directory.office365_sync('username') }
+    it { expect{subject}.to_not raise_error }
+  end
+
   describe '.replicate' do
     subject{ directory.replicate }
 

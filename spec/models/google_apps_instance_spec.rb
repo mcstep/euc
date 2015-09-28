@@ -3,6 +3,26 @@ require 'rails_helper'
 RSpec.describe GoogleAppsInstance, :vcr, type: :model do
   let(:google_apps_instance){ build :staging_google_apps_instance }
 
+  describe '.title' do
+    subject{ google_apps_instance.title }
+    it { expect{subject}.to_not raise_error }
+  end
+
+  describe '.key_file=' do
+    subject{ google_apps_instance.key_file = Rails.root.join('spec', 'factories', 'data', 'google_apps.p12') }
+    it { expect{subject}.to_not raise_error }
+  end
+
+  describe '.search' do
+    subject{ google_apps_instance.search(create(:user_integration), 'test@vmwdev.com', 'vmwdev.com') }
+    it { expect{subject}.to_not raise_error }
+  end
+
+  describe '.registered?' do
+    subject{ google_apps_instance.registered?(create(:user_integration), 'root@vmwdev.com', 'vmwdev.com') }
+    it { is_expected.to eq false }
+  end
+
   describe '.register' do
     context 'when acting properly' do
       subject{ lambda{ google_apps_instance.register('register@vmwdev.com', 'Great', 'Name') } }

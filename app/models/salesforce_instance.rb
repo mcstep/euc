@@ -91,7 +91,7 @@ class SalesforceInstance < ActiveRecord::Base
     begin
       client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: 'All')
         .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['ORTN']}
-    rescue Faraday::TimeoutError => e
+    rescue Faraday::TimeoutError
       []
     end
   end
@@ -100,7 +100,7 @@ class SalesforceInstance < ActiveRecord::Base
     begin
       client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'Deal', recId: 'All')
         .body.instance_variable_get('@raw_page')['records'].to_a.map{|x| x['Opportunity Id']}
-    rescue Faraday::TimeoutError => e
+    rescue Faraday::TimeoutError
       []
     end
   end

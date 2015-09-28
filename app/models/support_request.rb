@@ -16,12 +16,12 @@ class SupportRequest
   end
 
   def default_subject
-    "Support request from #{from.display_name} through the EUC Demo Portal"
+    "Support request from #{from.try(:display_name) || 'somebody'} through the EUC Demo Portal"
   end
 
   def recipient_email
-    from.invited_by.try(:email)   ||
-      from.profile.support_email  ||
+    from.try(:invited_by).try(:email)   ||
+      from.try(:profile).try(:support_email)  ||
       DEFAULT_EMAIL
   end
 

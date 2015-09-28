@@ -1,18 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe AirwatchTemplate, :vcr, type: :model do
-  let(:airwatch_instance){ build :staging_airwatch_instance }
+  let(:airwatch_instance){ create :staging_airwatch_instance }
   let(:user_integration) do
-    ui = build :airwatch_user_integration
-    ui.user = build :user, company_name: 'ZOMG Company 2', email: 'foo@pagac.name'
-    ui.integration.domain = 'spec65.com'
-    ui.integration.airwatch_instance = airwatch_instance
-    ui
+    create :airwatch_user_integration,
+      user:         create(:user, company_name: 'ZOMG Company 2', email: 'foo@pagac.name'),
+      integration:  create(:integration, domain: 'spec65.com', airwatch_instance: airwatch_instance)
   end
   let(:airwatch_template){ AirwatchTemplate.produce(user_integration) }
 
   describe '.produce' do
-    it{ expect(airwatch_template.data['organizationGroups']).to include('name' => 'ZOMG Company 2 (pagac.name)') }
+    subject{ airwatch_template.data['organizationGroups'] }
+
+    it{ expect{subject}.to change{ AirwatchTemplate.count }.by 1 }
+    it{ is_expected.to include('name' => 'ZOMG Company 2 (pagac.name)') }
+
+    context 'when exists' do
+      before{ AirwatchTemplate.produce(user_integration) }
+      it{ expect{subject}.to change{ AirwatchTemplate.count }.by 0 }
+      it{ is_expected.to include('name' => 'ZOMG Company 2 (pagac.name)') }
+    end
+  end
+
+  describe '.exist?' do
+    subject{ AirwatchTemplate.exist?(user_integration) }
+    it{ is_expected.to eq false }
   end
 
   describe '.to_h' do

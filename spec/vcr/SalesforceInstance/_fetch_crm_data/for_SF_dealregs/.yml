@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://login.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG98SW_UPr.JFjd_11wVTsp4Nhu865RGa6OJ3wd_SCCZUzyCj5Ix.3BvmOVYpPjzPgAKnmqeNrVFo8KboQp&client_secret=605335628658027112&username=mbasanta%40vmtestdrive.com&password=Passw0rd1rOPaTAfxG9p6N8sxlLsjmkw5O
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 28 Sep 2015 21:13:16 GMT
+      Set-Cookie:
+      - BrowserId=xbgyG6wuTjmFv--Gk2eG5g;Path=/;Domain=.salesforce.com;Expires=Fri,
+        27-Nov-2015 21:13:16 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"00D37000000Q0Aw!AQcAQM_V5xBL4Zzcsf0YLsef4ruGFStpdpsw_bMh1yeX.xsOlrkRZ4irtZK1OztLTwrqbWmzzatljs0i.LMjDfgc1y2p3POW","instance_url":"https://vmtestdrive.my.salesforce.com","id":"https://login.salesforce.com/id/00D37000000Q0AwEAK/00537000000J8hfAAC","token_type":"Bearer","issued_at":"1443474796297","signature":"F2OQ0zuazO966gwQXRz96y5vT5mHvh1RSrU6rYNksnQ="}'
+    http_version: 
+  recorded_at: Mon, 28 Sep 2015 21:13:16 GMT
+- request:
+    method: get
+    uri: https://vmtestdrive.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=ORTN&recId=123
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00D37000000Q0Aw!AQcAQM_V5xBL4Zzcsf0YLsef4ruGFStpdpsw_bMh1yeX.xsOlrkRZ4irtZK1OztLTwrqbWmzzatljs0i.LMjDfgc1y2p3POW
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 28 Sep 2015 21:13:17 GMT
+      Set-Cookie:
+      - BrowserId=1549BEBKRz-FLNQd3_Q-pA;Path=/;Domain=.salesforce.com;Expires=Fri,
+        27-Nov-2015 21:13:17 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '[{"errorCode":"NOT_FOUND","message":"Could not find a match for URL
+        /v1.0/EucDemoRestService/EUC"}]'
+    http_version: 
+  recorded_at: Mon, 28 Sep 2015 21:13:17 GMT
+recorded_with: VCR 2.9.3
