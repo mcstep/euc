@@ -7,7 +7,7 @@
   #collapse-invitations.collapse.in
     - current_user.invited_users.chunk(&:company_name).each do |company, users|
       .orgviews.col-sm-12.col-md-12.col-lg-12
-        .td-org.col-sm-12.col-md-12.col-lg-12
+        .td-org.col-sm-12.col-md-12.col-lg-12{href: "#collapse-invitations-#{users.first.company_id}", data: {toggle: "collapse"}}
           %table.table
             %tbody
               %tr
@@ -15,7 +15,7 @@
                   %em.icon-users
                 %td.orgname= company
                 %td.usercount= pluralize(users.count, "Active User")
-        .td-users.zero-space.col-sm-12.col-md-12.col-lg-12
+        .td-users.zero-space.col-sm-12.col-md-12.col-lg-12.collapse.in{id: "collapse-invitations-#{users.first.company_id}"}
           %table.table
             %thead
               %tr
