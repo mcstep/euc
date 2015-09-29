@@ -4,32 +4,34 @@
       %span.icon01.icon-arrow-down
       %span Statistics
 
-#collapse-stats.collapse.in
-  .col-md-4.col-lg-3.col-sm-12
-    .ibox
-      .ibox-title
-        %h5 Invites
-      .ibox-content
-        .row.buttons
-          - if current_user.invitations_left > 0
+  #collapse-stats.collapse.in
+    .col-md-4.col-lg-3.col-sm-12
+      .ibox
+        .ibox-title
+          %h5 Invites
+        .ibox-content
+          .row.buttons
+            - if current_user.invitations_left > 0
+              %p
+                %a.btn.btn-success.btn-default{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
+                  Invite New User
             %p
-              %a.btn.btn-default.btn-default{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
-                Invite New User
-          - if policy(:user).index?
-            %p
-              %a.btn.btn-default.btn-default{href: users_path} Manage Invitations
-  .col-md-8.col-lg-9.col-sm-12
-    .ibox
-      .ibox-title
-        %h5 Statistics
-      .ibox-content
-        .row
-          .col-sm-4.col-md-4
-            %h1.no-margins= current_user.total_invitations
-            .font-bold.text-navy Total Invitations
-          .col-sm-4.col-md-4
-            %h1.no-margins= current_user.invitations_left
-            %div Remaining Invitations
-          .col-sm-4.col-md-4
-            %h1.no-margins= current_user.expiring_invited_users.size
-            %div Expiring Soon
+              - if policy(:user).index?
+                %a.btn.btn-warning.btn-default{href: users_path} Manage Invitations
+              - elsif current_user.invited_users.any?
+                %a.btn.btn-warning.btn-default{href: '#invitations'} Manage Invitations
+    .col-md-8.col-lg-9.col-sm-12
+      .ibox
+        .ibox-title
+          %h5 Statistics
+        .ibox-content
+          .row
+            .col-sm-4.col-md-4
+              %h1.no-margins= current_user.total_invitations
+              .font-bold.text-navy Total Invitations
+            .col-sm-4.col-md-4
+              %h1.no-margins= current_user.invitations_left
+              %div Remaining Invitations
+            .col-sm-4.col-md-4
+              %h1.no-margins= current_user.expiring_invited_users.size
+              %div Expiring Soon

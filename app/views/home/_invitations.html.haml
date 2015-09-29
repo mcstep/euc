@@ -1,4 +1,5 @@
 - if policy(:invitation).create? && current_user.invited_users.any?
+  %a#invitations
   .col-md-12.col-sm-12.col-lg-12
     %h1.lined.switch01{"data-toggle" => "collapse", href: "#collapse-invitations"}
       %span.icon01.icon-arrow-down

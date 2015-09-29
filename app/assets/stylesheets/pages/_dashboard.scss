@@ -2,7 +2,7 @@
 
 
 #td-topbar {
-  background: image-path('testdrive.svg') top 15px center / 185px no-repeat rgba(255,255,255,1);
+  background: image-url('testdrive.svg') top 15px center / 185px no-repeat rgba(255,255,255,1);
   opacity: 0.9;
   border-bottom: 1px solid rgba(0,0,0,0.1);
   height: 70px;
@@ -174,7 +174,7 @@
     -moz-border-top-colors: none;
     background-color: $white;
     border-color: $gray-lighter;
-    border-asset: none;
+    border-image: none;
     border-style: solid solid none;
     border-width: 4px 0px 0;
     color: inherit;
@@ -193,7 +193,7 @@
     padding: 15px 20px 0 20px;
 
     border-color: $gray-lighter;
-    border-asset: none;
+    border-image: none;
     border-style: solid solid none;
     border-width: 1px 0px;
     .buttons {
@@ -627,20 +627,21 @@
   }
 
 
-  .expanded {
-    background: asset-url('select_white_up.svg') 97% / 12px no-repeat $brand-primary;
+  .td-org.expanded {
+    background: image-url('select_white_up.svg') 97% / 12px no-repeat $brand-primary;
     &:hover {
       background-color: lighten($brand-primary,10);
     }
   }
 
-  .collapsed {
-    background: asset-url('select_white.svg') 97% / 12px no-repeat $brand-primary;
+  .td-org.collapsed {
+    background: image-url('select_white.svg') 97% / 12px no-repeat $brand-primary;
       &:hover {
       background-color: lighten($brand-primary,10);
     }
   }
   .td-org {
+    background: image-url('select_white.svg') 97% / 12px no-repeat $brand-primary;
     box-shadow: 0 15px 0px rgba(0,0,0,0.1);
     min-height: 50px;
     padding: 0.5em;
@@ -880,7 +881,7 @@
       @include animate;
       margin: 0 0 1em 0;
       padding: 2em 2em 1em 2em;
-      background: asset-url('close.svg') top 10px right 10px / 10px no-repeat lighten($td-orange, 30);
+      background: image-url('close.svg') top 10px right 10px / 10px no-repeat lighten($td-orange, 30);
 
       &:hover {
         background-color: lighten($td-orange, 20);
@@ -1018,14 +1019,14 @@
   
   .coming-soon {
   
-    background: asset-url('comingsoon.svg') 0% 0/ 80px no-repeat rgba(240,240,240,0.8);
+    background: image-url('comingsoon.svg') 0% 0/ 80px no-repeat rgba(240,240,240,0.8);
     
     
   }
   
   .disabled {
   
-    background: asset-url('disabled.svg') 0% 0/ 80px no-repeat rgba(240,240,240,0.8);
+    background: image-url('disabled.svg') 0% 0/ 80px no-repeat rgba(240,240,240,0.8);
     
     
   }
