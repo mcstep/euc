@@ -59,6 +59,9 @@ gem 'spinjs-rails'
 gem 'switchery-rails'
 gem 'jquery-rails'
 gem 'jquery-cookie-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.15.35'
+gem 'codemirror-rails'
 
 #
 # Services
@@ -70,6 +73,7 @@ gem 'faraday-conductivity'
 gem 'nexmo'
 gem 'restforce'
 gem 'mechanize'
+gem 'mandrill-api', require: 'mandrill'
 
 #
 # Tools

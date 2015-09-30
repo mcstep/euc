@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://mandrillapp.com/api/1.0/messages/send.json
+    body:
+      encoding: UTF-8
+      string: '{"message":{"from_email":"vida@jacobson.us","html":"iure autem voluptas
+        molestiae commodi debitis ducimus facilis illo tempora hic eligendi ratione
+        nemo laborum numquam voluptate sed eos et","to":[]},"async":false,"ip_pool":"Main
+        Pool","send_at":null,"key":"Muo8MHOVZKqZc1SEsFvSAw"}'
+    headers:
+      User-Agent:
+      - excon/0.45.4
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.8.0
+      Date:
+      - Wed, 30 Sep 2015 19:32:01 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Accept-Encoding
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS
+      Access-Control-Allow-Headers:
+      - Content-Type
+      Access-Control-Allow-Credentials:
+      - 'false'
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Wed, 30 Sep 2015 19:32:01 GMT
+recorded_with: VCR 2.9.3

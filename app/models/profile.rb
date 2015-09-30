@@ -28,6 +28,7 @@ class Profile < ActiveRecord::Base
 
   has_many :profile_integrations, inverse_of: :profile
   has_many :integrations, through: :profile_integrations
+  has_many :users
 
   accepts_nested_attributes_for :profile_integrations, allow_destroy: true
 

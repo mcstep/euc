@@ -4,14 +4,21 @@
 @import 'bootstrap';
 @import 'bootstrap-datepicker3';
 @import 'bootstrap-multiselect';
+@import 'bootstrap-datetimepicker';
 @import 'typeahead';
 @import 'switchery';
+@import 'codemirror';
 @import 'mixins';
 @import 'globals';
 
 @import 'pages/signup';
 @import 'pages/sidebar';
 @import 'pages/dashboard';
+
+.rails-bootstrap-forms-datetime-select select {
+  display: inline-block;
+  width: auto;
+}
 
 .td-signup {
   .help-block {

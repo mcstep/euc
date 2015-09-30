@@ -1,3 +1,4 @@
+//= require moment
 //= require jquery
 //= require spin
 //= require jquery.cookie
@@ -8,6 +9,7 @@
 //= require bootstrap-multiselect
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
+//= require bootstrap-datetimepicker
 //= require typeahead
 //= require webcamjs/webcam
 //= require amcharts/amcharts
@@ -15,4 +17,7 @@
 //= require amcharts/pie
 //= require amcharts/themes/light
 //= require switchery
+//= require codemirror
+//= require codemirror/modes/xml
+//= require codemirror/modes/htmlmixed
 //= require_tree .
