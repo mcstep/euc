@@ -3,7 +3,7 @@
   %p
     %a.btn.btn-warning.btn-xs{href: root_path} Return to Dashboard
 .col-sm-12.col-md-12.col-lg-12.usercard
-  .region.amer
+  .region.amer{style: 'width: 88px'}
     %p= @user.home_region.upcase
   .col-xs-12.col-sm-12.col-md-12.col-lg-3.avatar
     .avatar-img
@@ -34,13 +34,13 @@
       / %button.btn.btn-default{type: "button"} Reset Password
       / %button.btn.btn-default{type: "button"} Edit Profile
       - if !current_user.root? && prolongation = @user.authentication_integration.directory_prolongations.last
-        %button.btn.btn-default{data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}
+        %button.btn.btn-default{style: 'width: 114px', data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}
           Extended
       - else
-        %a.btn.btn-xs.btn-warning.prolong-account-link{href: '#', data: {target: '#prolong-account-modal', toggle: 'modal', id: @user.authentication_integration.id, username: @user.authentication_integration.username, date: bl(@user.prolong_date), name: @user.display_name}}
+        %a.btn.btn-xs.btn-warning.prolong-account-link{style: 'width: 114px', href: '#', data: {target: '#prolong-account-modal', toggle: 'modal', id: @user.authentication_integration.id, username: @user.authentication_integration.username, date: bl(@user.prolong_date), name: @user.display_name}}
           Extend
       - if policy(@user).destroy?
-        %a.btn.btn-danger{href: user_path(@user), rel: "nofollow", data: {confirm: "Do you want to delete this account? The users account will permanently be deleted.", method: "delete"}}
+        %a.btn.btn-danger{style: 'width: 114px', href: user_path(@user), rel: "nofollow", data: {confirm: "Do you want to delete this account? The users account will permanently be deleted.", method: "delete"}}
           Delete
   %ul.nav.nav-tabs.nav-justified{role: "tablist"}
     %li.active{role: "presentation"}
