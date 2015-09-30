@@ -2,41 +2,24 @@
 #
 # Table name: users
 #
-#  id                            :integer          not null, primary key
-#  company_id                    :integer
-#  profile_id                    :integer
-#  registration_code_id          :integer
-#  authentication_integration_id :integer
-#  email                         :string           not null
-#  first_name                    :string
-#  last_name                     :string
-#  avatar                        :string
-#  country_code                  :string
-#  phone                         :string
-#  role                          :integer          default(0), not null
-#  status                        :integer          default(0), not null
-#  job_title                     :string
-#  invitations_used              :integer          default(0), not null
-#  total_invitations             :integer          default(5), not null
-#  home_region                   :string
-#  airwatch_eula_accept_date     :date
-#  last_authorized_at            :datetime
-#  deleted_at                    :datetime
-#  created_at                    :datetime         not null
-#  updated_at                    :datetime         not null
-#  verification_token            :string
-#  can_edit_services             :boolean          default(FALSE), not null
-#  can_see_reports               :boolean          default(FALSE), not null
-#  can_see_opportunities         :boolean          default(FALSE), not null
+#  id                :integer          not null, primary key
+#  username          :string(255)
+#  email             :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  invitation_id     :integer
+#  invitation_limit  :integer
+#  role              :integer
+#  display_name      :string(255)
+#  company           :string(255)
+#  title             :string(255)
+#  invitations_used  :integer          default(0)
+#  total_invitations :integer          default(5)
+#  avatar            :string(255)
 #
 # Indexes
 #
-#  index_users_on_authentication_integration_id  (authentication_integration_id)
-#  index_users_on_company_id                     (company_id)
-#  index_users_on_deleted_at                     (deleted_at)
-#  index_users_on_email                          (email)
-#  index_users_on_profile_id                     (profile_id)
-#  index_users_on_registration_code_id           (registration_code_id)
+#  index_users_on_invitation_id  (invitation_id)
 #
 
 class Upgrade::User < ActiveRecord::Base
