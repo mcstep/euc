@@ -111,6 +111,11 @@
             %a{href: services_path}
               %span.icon.icon-puzzle
               Services
+        - if services.map{|x| policy(x).index?}.any?
+          %li
+            %a{href: new_delivery_path}
+              %span.icon.icon-note
+              Mass Delivery
 
 
 %span.sidebar-divider.sidebar-general.clear.collapsed{"data-parent" => "#nav-collapse", "data-toggle" => "collapse", :href => "#sidebar-account", :role => "tab"} Your Account

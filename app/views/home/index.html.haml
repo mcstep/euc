@@ -1,4 +1,4 @@
-- if current_user.profile.home_template
+- if current_user.profile.home_template.present?
   = render "home/custom/#{current_user.profile.home_template}"
 - else
   = render 'header'

@@ -48,6 +48,7 @@
   $('[data-toggle="tooltip"]').tooltip();
   $('[data-toggle="popover"]').popover();
   $('[data-provide="datepicker"]').datepicker({format: 'MM d, yyyy'});
+  $('[data-provide="datetimepicker"]').datetimepicker({useCurrent: false});
 
   $('#super-user-notifcation .close').click(function() {
     $.cookie("super_user_notification_closed", 1);
