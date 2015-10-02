@@ -213,7 +213,13 @@ class User < ActiveRecord::Base
 
   def self.identified_by(handle)
     username, domain = handle.split('@', 2)
-    joins(:authentication_integration => :integration).where("email = ? OR user_integrations.username = ? OR (user_integrations.username = ? AND integrations.domain = ?)", handle, handle, username, domain).first
+    query = <<-SQL
+      LOWER(email) = LOWER(?) OR
+      LOWER(user_integrations.username) = LOWER(?) OR
+      (LOWER(user_integrations.username) = LOWER(?) AND LOWER(integrations.domain) = LOWER(?))
+    SQL
+
+    joins(:authentication_integration => :integration).where(query, handle, handle, username, domain).first
   end
 
   ##
