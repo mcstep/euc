@@ -52,6 +52,10 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def recover?
+    @user.root? && @record.try(:provisioned?)
+  end
+
   def sidekiq?
     @user.root?
   end

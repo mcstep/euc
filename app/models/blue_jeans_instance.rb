@@ -2,18 +2,19 @@
 #
 # Table name: blue_jeans_instances
 #
-#  id             :integer          not null, primary key
-#  group_name     :string
-#  group_region   :string
-#  grant_type     :string
-#  client_id      :string
-#  client_secret  :string
-#  enterprise_id  :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  display_name   :string
-#  support_emails :string
-#  deleted_at     :datetime
+#  id              :integer          not null, primary key
+#  group_name      :string
+#  group_region    :string
+#  grant_type      :string
+#  client_id       :string
+#  client_secret   :string
+#  enterprise_id   :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  display_name    :string
+#  support_emails  :string
+#  deleted_at      :datetime
+#  in_maintainance :boolean          default(FALSE), not null
 #
 
 class BlueJeansInstance < ActiveRecord::Base

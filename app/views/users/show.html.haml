@@ -52,26 +52,26 @@
     #activity.tab-pane.fade.active.in{role: "tabpanel"}
       - any = false
 
-      - if desktops_stats(@user)[:data].present? && any = true
+      - if horizon_desktops_stats(@user)[:data].present? && any = true
         .col-md-12.col-sm-12.col-lg-6
           .widget.activity.graph
             %h1 Horizon Activity
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-              #desktops-chart{data: {stats: desktops_stats.to_json}}
+              #desktops-chart{data: {stats: horizon_desktops_stats.to_json}}
 
-      - if sessions_stats(@user)[:data].present? && any = true
+      - if horizon_sessions_stats(@user)[:data].present? && any = true
         .col-md-12.col-sm-12.col-lg-6
           .widget.activity.graph
-            %h1 Sessions
+            %h1 Horizon Sessions
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-              #sessions-chart{data: {stats: sessions_stats.to_json}}
+              #sessions-chart{data: {stats: horizon_sessions_stats.to_json}}
 
-      - if apps_stats(@user)[:data].present? && any = true
+      - if horizon_apps_stats(@user)[:data].present? && any = true
         .col-lg-12{style: 'clear: both'}
           .widget.activity.graph
             %h1 Horizon Usage
             %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
-              #apps-chart{data: {stats: apps_stats.to_json}}  }
+              #apps-chart{data: {stats: horizon_apps_stats.to_json}}  }
 
       - unless any
         .center.notice

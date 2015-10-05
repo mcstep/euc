@@ -2,18 +2,19 @@
 #
 # Table name: office365_instances
 #
-#  id            :integer          not null, primary key
-#  group_name    :string
-#  group_region  :string
-#  client_id     :string
-#  client_secret :string
-#  tenant_id     :string
-#  resource_id   :string
-#  deleted_at    :datetime
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  license_name  :string
-#  display_name  :string
+#  id              :integer          not null, primary key
+#  group_name      :string
+#  group_region    :string
+#  client_id       :string
+#  client_secret   :string
+#  tenant_id       :string
+#  resource_id     :string
+#  deleted_at      :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  license_name    :string
+#  display_name    :string
+#  in_maintainance :boolean          default(FALSE), not null
 #
 # Indexes
 #

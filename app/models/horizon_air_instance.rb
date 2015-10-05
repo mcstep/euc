@@ -2,16 +2,17 @@
 #
 # Table name: horizon_air_instances
 #
-#  id            :integer          not null, primary key
-#  group_name    :string
-#  group_region  :string
-#  instance_url  :string
-#  instance_port :string
-#  api_key       :string
-#  deleted_at    :datetime
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  display_name  :string
+#  id              :integer          not null, primary key
+#  group_name      :string
+#  group_region    :string
+#  instance_url    :string
+#  instance_port   :string
+#  api_key         :string
+#  deleted_at      :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  display_name    :string
+#  in_maintainance :boolean          default(FALSE), not null
 #
 # Indexes
 #

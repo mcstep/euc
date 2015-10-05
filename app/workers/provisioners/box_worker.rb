@@ -1,7 +1,7 @@
 module Provisioners
   class BoxWorker < ProvisionerWorker
     def provision
-      wait_until user.provisioned? && instance.access_token.present? do
+      wait_until user.provisioned? && instance.access_token.present? && !instance.in_maintainance do
         user_integration.transaction do
           user_integration.box.complete_application
 
@@ -17,7 +17,7 @@ module Provisioners
     end
 
     def revoke
-      wait_until instance.access_token.present? do
+      wait_until instance.access_token.present? && !instance.in_maintainance do
         user_integration.transaction do
           user_integration.box.complete_application
           user_integration.box_user_id = nil
@@ -30,12 +30,16 @@ module Provisioners
     end
 
     def resume
-      provision
+      wait_until !instance.in_maintainance do
+        provision
+      end
     end
 
     def deprovision
-      user_integration.box.complete_application
-      user_integration.save!
+      wait_until !instance.in_maintainance do
+        user_integration.box.complete_application
+        user_integration.save!
+      end
     end
   end
 end

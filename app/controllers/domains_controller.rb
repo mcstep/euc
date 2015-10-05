@@ -1,6 +1,7 @@
 class DomainsController < CrudController
   def index
     super do
+      @domains = @domains.page(params[:page]).per(100)
       @domains = @domains.where("LOWER(name) LIKE LOWER(?)", "%#{params[:search]}%") if params[:search].present?
     end
   end

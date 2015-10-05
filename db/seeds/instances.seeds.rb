@@ -1,9 +1,10 @@
 Directory.where(host: 'api.vmwdemo.com').first_or_create do |d|
 
-  d.use_ssl   = true
-  d.port      = 8443
-  d.api_key   = '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
-  d.stats_url = 'https://eucstats.vmtestdrive.com/events/%{username}/sessions?token=stagingtoken&days=%{days}'
+  d.use_ssl             = true
+  d.port                = 8443
+  d.api_key             = '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
+  d.horizon_stats_url   = 'https://eucstats.vmtestdrive.com/events/%{username}/sessions?token=stagingtoken&days=%{days}'
+  d.workspace_stats_url = 'https://eucstats.vmtestdrive.com/workspace/%{username}/sessions?token=stagingtoken&days=%{days}'
 end
 
 AirwatchInstance.where(host: 'testdrive.awmdm.com').first_or_create do |ai|

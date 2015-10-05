@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get  :impersonate
+      post :recover
     end
     collection do
       get :unimpersonate

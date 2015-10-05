@@ -13,8 +13,8 @@
 #  avatar                        :string
 #  country_code                  :string
 #  phone                         :string
-#  role                          :integer          default(0), not null
-#  status                        :integer          default(0), not null
+#  role                          :integer
+#  status                        :integer
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -25,9 +25,6 @@
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  verification_token            :string
-#  can_edit_services             :boolean          default(FALSE), not null
-#  can_see_reports               :boolean          default(FALSE), not null
-#  can_see_opportunities         :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -96,18 +93,27 @@ class User < ActiveRecord::Base
   end
 
   module Stats extend ActiveSupport::Concern
-    def stats
-      return {} if authentication_integration.directory.stats_url.blank?
-      return @data if @data
-
-      @data = JSON.parse(
+    def request_stats(url)
+      stats = JSON.parse(
         RestClient.get(
-          authentication_integration.directory.stats_url % {username: ERB::Util.url_encode(authentication_integration.username), days: 30}
+          url % {username: ERB::Util.url_encode(authentication_integration.username), days: 30}
         )
       )
 
-      @data.each{|e| e['day'] = Date.parse(e['begin']).to_date.to_s }
-      @data
+      stats.each{|e| e['day'] = Date.parse(e['begin']).to_date.to_s }
+      stats
+    end
+
+    def horizon_stats
+      return [] if authentication_integration.directory.horizon_stats_url.blank?
+      return @horizon_stats if @horizon_stats
+      @horizon_stats = request_stats(authentication_integration.directory.horizon_stats_url)
+    end
+
+    def workspace_stats
+      return [] if authentication_integration.directory.workspace_stats_url.blank?
+      return @workspace_stats if @workspace_stats
+      @workspace_stats = request_stats(authentication_integration.directory.workspace_stats_url)
     end
   end
 

@@ -15,6 +15,7 @@
 #  refresh_token       :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  in_maintainance     :boolean          default(FALSE), not null
 #
 
 class BoxInstance < ActiveRecord::Base
