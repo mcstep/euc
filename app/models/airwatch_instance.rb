@@ -21,6 +21,7 @@
 #  use_templates     :boolean          default(FALSE), not null
 #  use_admin         :boolean          default(FALSE), not null
 #  use_groups        :boolean          default(TRUE), not null
+#  in_maintainance   :boolean          default(FALSE), not null
 #
 # Indexes
 #

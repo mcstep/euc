@@ -31,8 +31,9 @@
       %span.email= @user.email
   .col-xs-12.col-sm-12.col-md-12.col-lg-2.user-admin
     .btn-group.btn-group-sm.btn-group-vertical{role: "group"}
-      / %button.btn.btn-default{type: "button"} Reset Password
-      / %button.btn.btn-default{type: "button"} Edit Profile
+      - if policy(@user).recover?
+        %a{href: recover_user_path(@user), class: 'btn btn-default', data: {confirm: "Do you want to reset password for this account? The user will be notified by email.", method: "post"}}
+          Reset Password
       - if !current_user.root? && prolongation = @user.authentication_integration.directory_prolongations.last
         %button.btn.btn-default{style: 'width: 114px', data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}
           Extended
@@ -52,26 +53,41 @@
     #activity.tab-pane.fade.active.in{role: "tabpanel"}
       - any = false
 
-      - if desktops_stats(@user)[:data].present? && any = true
+      - if horizon_desktops_stats(@user)[:data].present? && any = true
         .col-md-12.col-sm-12.col-lg-6
           .widget.activity.graph
             %h1 Horizon Activity
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-              #desktops-chart{data: {stats: desktops_stats.to_json}}
+              #desktops-chart{data: {stats: horizon_desktops_stats.to_json}}
 
-      - if sessions_stats(@user)[:data].present? && any = true
+      - if horizon_sessions_stats(@user)[:data].present? && any = true
         .col-md-12.col-sm-12.col-lg-6
           .widget.activity.graph
-            %h1 Sessions
+            %h1 Horizon Sessions
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-              #sessions-chart{data: {stats: sessions_stats.to_json}}
+              #sessions-chart{data: {stats: horizon_sessions_stats.to_json}}
 
-      - if apps_stats(@user)[:data].present? && any = true
+      - if workspace_activity_stats[:data].present? && any = true
+        .col-md-12.col-sm-12.col-lg-6
+          .widget.activity.graph
+            %h1 Workspace Activity
+            %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+              #workspace-activity-chart.chart-holder{data: {stats: workspace_activity_stats.to_json}}
+
+
+      - if horizon_apps_stats(@user)[:data].present? && any = true
         .col-lg-12{style: 'clear: both'}
           .widget.activity.graph
             %h1 Horizon Usage
             %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
-              #apps-chart{data: {stats: apps_stats.to_json}}  }
+              #apps-chart{data: {stats: horizon_apps_stats.to_json}}  }
+
+      - if workspace_apps_stats[:data].present? && any = true
+        .col-lg-12{style: 'clear: both'}
+          .widget.activity.graph
+            %h1 Workspace Usage
+            %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
+              #workspace-apps-chart.chart-holder{data: {stats: workspace_apps_stats.to_json}}  }
 
       - unless any
         .center.notice

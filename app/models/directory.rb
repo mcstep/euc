@@ -2,16 +2,17 @@
 #
 # Table name: directories
 #
-#  id           :integer          not null, primary key
-#  host         :string
-#  port         :string
-#  api_key      :string
-#  deleted_at   :datetime
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  use_ssl      :boolean          default(FALSE), not null
-#  stats_url    :string
-#  display_name :string
+#  id                  :integer          not null, primary key
+#  host                :string
+#  port                :string
+#  api_key             :string
+#  deleted_at          :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  use_ssl             :boolean          default(FALSE), not null
+#  horizon_stats_url   :string
+#  display_name        :string
+#  workspace_stats_url :string
 #
 # Indexes
 #

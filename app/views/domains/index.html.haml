@@ -35,3 +35,6 @@
             %td
               = link_to 'Edit', edit_domain_path(domain), class: 'btn btn-xs btn-warning'
               = link_to 'Delete', domain, method: :delete, data: { confirm: 'This domain will be deleted'}, class: "btn btn-xs btn-danger"
+    - if @domains.num_pages > 1
+      .panel-footer
+        = paginate @domains, theme: 'twitter-bootstrap-3'

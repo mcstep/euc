@@ -31,17 +31,21 @@ class Delivery < ActiveRecord::Base
     @client ||= Mandrill::API.new ENV['MANDRILL_TOKEN']
   end
 
+  def default_recipient
+    [{name: 'EUC Demo Portal', email: 'eucdemohelp@vmware.com', type: 'to'}]
+  end
+
   def recipients
     scope = profile.present? ? profile.users : User.all
     scope.map do |user|
-      {email: user.email, name: user.display_name, type: 'to'}
+      {email: user.email, name: user.display_name, type: 'bcc'}
     end
   end
 
   def send!
     begin
       message = {
-        from_email: from_email, html: body, to: recipients
+        from_email: from_email, html: body, to: recipients + default_recipient
       }
       self.response = client.messages.send(message, false, 'Main Pool', send_at)
       self.status = :sent

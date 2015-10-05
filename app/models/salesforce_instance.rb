@@ -20,6 +20,7 @@
 #  updated_at      :datetime         not null
 #  deleted_at      :datetime
 #  host            :string
+#  in_maintainance :boolean          default(FALSE), not null
 #
 
 class SalesforceInstance < ActiveRecord::Base

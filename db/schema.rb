@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930172529) do
+ActiveRecord::Schema.define(version: 20151005124228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20150930172529) do
     t.boolean  "use_templates",     default: false, null: false
     t.boolean  "use_admin",         default: false, null: false
     t.boolean  "use_groups",        default: true,  null: false
+    t.boolean  "in_maintainance",   default: false, null: false
   end
 
   add_index "airwatch_instances", ["deleted_at"], name: "index_airwatch_instances_on_deleted_at", using: :btree
@@ -88,11 +89,12 @@ ActiveRecord::Schema.define(version: 20150930172529) do
     t.string   "client_id"
     t.string   "client_secret"
     t.integer  "enterprise_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "display_name"
     t.string   "support_emails"
     t.datetime "deleted_at"
+    t.boolean  "in_maintainance", default: false, null: false
   end
 
   create_table "box_instances", force: :cascade do |t|
@@ -106,8 +108,9 @@ ActiveRecord::Schema.define(version: 20150930172529) do
     t.string   "client_secret"
     t.string   "access_token"
     t.string   "refresh_token"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "in_maintainance",     default: false, null: false
   end
 
   create_table "companies", force: :cascade do |t|
@@ -150,11 +153,12 @@ ActiveRecord::Schema.define(version: 20150930172529) do
     t.string   "port"
     t.string   "api_key"
     t.datetime "deleted_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "use_ssl",      default: false, null: false
-    t.string   "stats_url"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "use_ssl",             default: false, null: false
+    t.string   "horizon_stats_url"
     t.string   "display_name"
+    t.string   "workspace_stats_url"
   end
 
   add_index "directories", ["deleted_at"], name: "index_directories_on_deleted_at", using: :btree
@@ -197,9 +201,10 @@ ActiveRecord::Schema.define(version: 20150930172529) do
     t.string   "service_account"
     t.string   "act_on_behalf"
     t.datetime "deleted_at"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "display_name"
+    t.boolean  "in_maintainance",  default: false, null: false
   end
 
   add_index "google_apps_instances", ["deleted_at"], name: "index_google_apps_instances_on_deleted_at", using: :btree
@@ -211,9 +216,10 @@ ActiveRecord::Schema.define(version: 20150930172529) do
     t.string   "instance_port"
     t.string   "api_key"
     t.datetime "deleted_at"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "display_name"
+    t.boolean  "in_maintainance", default: false, null: false
   end
 
   add_index "horizon_air_instances", ["deleted_at"], name: "index_horizon_air_instances_on_deleted_at", using: :btree
@@ -227,9 +233,10 @@ ActiveRecord::Schema.define(version: 20150930172529) do
     t.string   "api_port"
     t.string   "api_key"
     t.datetime "deleted_at"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "display_name"
+    t.boolean  "in_maintainance",     default: false, null: false
   end
 
   add_index "horizon_instances", ["deleted_at"], name: "index_horizon_instances_on_deleted_at", using: :btree
@@ -287,10 +294,11 @@ ActiveRecord::Schema.define(version: 20150930172529) do
     t.string   "tenant_id"
     t.string   "resource_id"
     t.datetime "deleted_at"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "license_name"
     t.string   "display_name"
+    t.boolean  "in_maintainance", default: false, null: false
   end
 
   add_index "office365_instances", ["deleted_at"], name: "index_office365_instances_on_deleted_at", using: :btree
@@ -376,10 +384,11 @@ ActiveRecord::Schema.define(version: 20150930172529) do
     t.string   "language_locale"
     t.string   "email_encoding"
     t.string   "profile_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.datetime "deleted_at"
     t.string   "host"
+    t.boolean  "in_maintainance", default: false, null: false
   end
 
   create_table "user_integrations", force: :cascade do |t|

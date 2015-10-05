@@ -1,7 +1,7 @@
 module Provisioners
   class GoogleAppsWorker < ProvisionerWorker
     def provision
-      wait_until user.provisioned? do
+      wait_until user.provisioned? && !instance.in_maintainance do
         user_integration.transaction do
           user_integration.google_apps.complete_application
           user_integration.save!
@@ -18,23 +18,29 @@ module Provisioners
     end
 
     def revoke
-      user_integration.transaction do
-        user_integration.google_apps.complete_application
-        user_integration.save!
+      wait_until !instance.in_maintainance do
+        user_integration.transaction do
+          user_integration.google_apps.complete_application
+          user_integration.save!
 
-        instance.unregister user_integration.email
+          instance.unregister user_integration.email
 
-        remove_group(instance.group_name, instance.group_region) if instance.group_name
+          remove_group(instance.group_name, instance.group_region) if instance.group_name
+        end
       end
     end
 
     def resume
-      provision
+      wait_until !instance.in_maintainance do
+        provision
+      end
     end
 
     def deprovision
-      user_integration.google_apps.complete_application
-      user_integration.save!
+      wait_until !instance.in_maintainance do
+        user_integration.google_apps.complete_application
+        user_integration.save!
+      end
     end
   end
 end

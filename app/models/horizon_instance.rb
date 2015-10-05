@@ -14,6 +14,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  display_name        :string
+#  in_maintainance     :boolean          default(FALSE), not null
 #
 # Indexes
 #

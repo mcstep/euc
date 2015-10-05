@@ -1,7 +1,7 @@
 module Provisioners
   class Office365Worker < ProvisionerWorker
     def provision
-      wait_until user.provisioned? do
+      wait_until user.provisioned? && !instance.in_maintainance do
         user_integration.transaction do
           user_integration.office365.complete_application
           user_integration.save!
@@ -23,24 +23,30 @@ module Provisioners
     end
 
     def revoke
-      user_integration.transaction do
-        user_integration.office365.complete_application
-        user_integration.save!
+      wait_until !instance.in_maintainance do
+        user_integration.transaction do
+          user_integration.office365.complete_application
+          user_integration.save!
 
-        user_integration.directory.replicate('ad2')
-        user_integration.directory.office365_sync_all
+          user_integration.directory.replicate('ad2')
+          user_integration.directory.office365_sync_all
 
-        remove_group(instance.group_name, instance.group_region) if instance.group_name
+          remove_group(instance.group_name, instance.group_region) if instance.group_name
+        end
       end
     end
 
     def resume
-      provision
+      wait_until !instance.in_maintainance do
+        provision
+      end
     end
 
     def deprovision
-      user_integration.office365.complete_application
-      user_integration.save!
+      wait_until !instance.in_maintainance do
+        user_integration.office365.complete_application
+        user_integration.save!
+      end
     end
   end
 end

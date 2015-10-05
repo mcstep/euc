@@ -39,6 +39,12 @@ class UsersController < ApplicationController
     redirect_to users_path, notice: I18n.t('flash.user_updated')
   end
 
+  def recover
+    authorize @user = User.find(params[:id])
+    UserPasswordRecoverWorker.perform_async @user.id, @user.update_password
+    redirect_to users_path, notice: I18n.t('flash.user_recovered')
+  end
+
   def impersonate
     authorize @user = User.find(params[:id])
 
