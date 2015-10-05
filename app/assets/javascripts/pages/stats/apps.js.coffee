@@ -9,3 +9,15 @@ $ ->
       titleField: 'type'
       valueField: 'number'
       depth3D: 15
+
+$ ->
+  stats = $('#workspace-apps-chart').data('stats')
+
+  if stats
+    AmCharts.makeChart 'workspace-apps-chart',
+      type: 'pie',
+      theme: 'light',
+      dataProvider: stats.data
+      titleField: 'type'
+      valueField: 'number'
+      depth3D: 15

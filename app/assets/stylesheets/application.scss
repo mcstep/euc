@@ -89,17 +89,17 @@ form {
   }
 }
 
-#desktops-chart, #sessions-chart, #apps-chart {
+.chart-holder {
   margin-bottom: 20px;
   width: 100%;
   font-size: 10px;
 }
 
-#desktops-chart, #sessions-chart {
+#desktops-chart, #sessions-chart, #workspace-activity-chart {
   height: 220px;
 }
 
-#apps-chart {
+#apps-chart, #workspace-apps-chart {
   height: 400px;
 }
 

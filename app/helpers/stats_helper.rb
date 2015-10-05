@@ -53,4 +53,23 @@ module StatsHelper
     end
     return @workspace_apps_stats = {data: stats}
   end
+
+  def workspace_activity_stats(user=current_user)
+    return @workspace_activity_stats if @workspace_activity_stats
+
+    kinds = {}
+    stats = user.workspace_stats.group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
+      result = { 'day' => day.to_s }
+      entities.group_by{|x| x['title']}.each do |t,xs|
+        key = t.gsub(/[-\.\s]+/,'').downcase
+
+        result[key] = xs.length
+        kinds[key]  = t
+      end
+      result
+    end
+
+    return @workspace_activity_stats = {data: stats, kinds: kinds}
+  end
+
 end

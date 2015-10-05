@@ -4,7 +4,7 @@ Directory.where(host: 'receiver.vmwdev.com').first_or_create! do |d|
   d.port                = 443
   d.api_key             = '7Fbi6tD0uzPa0Yfc7A7Lqv0992Zi5d3p'
   d.horizon_stats_url   = 'https://eucstats.vmtestdrive.com/events/%{username}/sessions?token=stagingtoken&days=%{days}'
-  d.workspace_stats_url = 'https://eucstats.vmtestdrive.com/workspace/%{username}/sessions?token=stagingtoken&days=%{days}'
+  d.workspace_stats_url = 'http://receivertest.vmwdemo.com/workspace/%{username}/sessions?token=token&days=%{days}'
 end
 
 AirwatchInstance.where(host: 'airwatch.vmwdev.com').first_or_create! do |ai|
