@@ -31,8 +31,9 @@
       %span.email= @user.email
   .col-xs-12.col-sm-12.col-md-12.col-lg-2.user-admin
     .btn-group.btn-group-sm.btn-group-vertical{role: "group"}
-      / %button.btn.btn-default{type: "button"} Reset Password
-      / %button.btn.btn-default{type: "button"} Edit Profile
+      - if policy(@user).recover?
+        %a{href: recover_user_path(@user), class: 'btn btn-default', data: {confirm: "Do you want to reset password for this account? The user will be notified by email.", method: "post"}}
+          Reset Password
       - if !current_user.root? && prolongation = @user.authentication_integration.directory_prolongations.last
         %button.btn.btn-default{style: 'width: 114px', data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}
           Extended
