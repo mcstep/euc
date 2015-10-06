@@ -197,6 +197,7 @@ class User < ActiveRecord::Base
   include IntegrationsDelegations
   include CompanyHolder
   include RequestsLogger
+  include Redis::Objects
 
   attr_accessor :skip_points_management
 
@@ -255,6 +256,8 @@ class User < ActiveRecord::Base
 
   as_enum :role, ROLES
   as_enum :status, {active: 0, verification_required: 1}
+
+  list :logins, marshal: true, maxlength: 20
 
   ##
   # Validations

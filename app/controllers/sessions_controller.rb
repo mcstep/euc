@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       if user.active?
         user.update_attributes(last_authorized_at: DateTime.now)
+        user.logins << [DateTime.now, request.remote_ip]
         @current_user = user
         session[:user_id] = user.id
         redirect_to root_path, notice: I18n.t('flash.logged_in')

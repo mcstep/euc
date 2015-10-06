@@ -45,10 +45,12 @@
           Delete
   %ul.nav.nav-tabs.nav-justified{role: "tablist"}
     %li.active{role: "presentation"}
-      %a{"aria-controls" => "home", "aria-expanded" => "false", "data-toggle" => "tab", href: "#activity", role: "tab"} Activity
+      %a{"data-toggle" => "tab", href: "#activity", role: "tab"} Activity
     - if InvitationPolicy.new(@user).create?
       %li{role: "presentation"}
-        %a{"aria-controls" => "home", "aria-expanded" => "true", "data-toggle" => "tab", href: "#home", role: "tab"} Users
+        %a{"data-toggle" => "tab", href: "#home", role: "tab"} Users
+    %li{role: "presentation"}
+      %a{"data-toggle" => "tab", href: "#logins", role: "tab"} Logins
   .tab-content
     #activity.tab-pane.fade.active.in{role: "tabpanel"}
       - any = false
@@ -91,9 +93,75 @@
 
       - unless any
         .center.notice
-          %h4 There is currently no activity to show for this user :(
+          %h4 There is currently no activity to show for this user
+
+    #logins.tab-pane.fade{role: "tabpanel"}
+
+      - if @user.logins.any? && any = true
+        .col-sm-12.col-md-12.col-lg-12
+          %h1.lined
+            %span Portal
+          %table.table
+            %thead
+              %tr
+                %th Time
+                %th IP Address
+            %tbody
+              - @user.logins.each do |login|
+                %tr
+                  %td
+                    = l login[0]
+                  %td
+                    = login[1]
+
+      - if @user.workspace_stats.any? && any = true
+        .col-sm-12.col-md-12.col-lg-12
+          %h1.lined
+            %span Workspace
+          
+          %table.table
+            %thead
+              %tr
+                %th Time
+                %th Title
+            %tbody
+              - @user.workspace_stats.each do |login|
+                %tr
+                  %td
+                    = l DateTime.parse(login['begin'])
+                  %td
+                    = login['title']
+
+      - if @user.horizon_stats.any? && any = true
+        .col-sm-12.col-md-12.col-lg-12
+          %h1.lined
+            %span Horizon
+          %table.table
+            %thead
+              %tr
+                %th Time
+                %th Title
+            %tbody
+              - @user.horizon_stats.each do |login|
+                %tr
+                  %td
+                    = l DateTime.parse(login['begin'])
+                  %td
+                    = login['title']
+
+      - unless any
+        .center.notice
+          %h4 There are currently no logins to show for this user
+
+
+
     - if InvitationPolicy.new(@user).create?
       #home.tab-pane.fade{role: "tabpanel"}
+        - unless @user.invited_users.any?
+          .center.notice
+            %h4 This user didn't invite nobody so far
+
+
         - @user.invited_users.chunk(&:company_name).each do |company, users|
           .orgviews.col-sm-12.col-md-12.col-lg-12
             .td-org.col-sm-12.col-md-12.col-lg-12
