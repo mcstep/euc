@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005124228) do
+ActiveRecord::Schema.define(version: 20151007181717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,12 +153,11 @@ ActiveRecord::Schema.define(version: 20151005124228) do
     t.string   "port"
     t.string   "api_key"
     t.datetime "deleted_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.boolean  "use_ssl",             default: false, null: false
-    t.string   "horizon_stats_url"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "use_ssl",      default: false, null: false
+    t.string   "stats_url"
     t.string   "display_name"
-    t.string   "workspace_stats_url"
   end
 
   add_index "directories", ["deleted_at"], name: "index_directories_on_deleted_at", using: :btree

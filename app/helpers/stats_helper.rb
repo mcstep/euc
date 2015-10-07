@@ -54,6 +54,19 @@ module StatsHelper
     return @workspace_apps_stats = {data: stats}
   end
 
+  def workspace_sessions_stats(user=current_user)
+    return @workspace_sessions_stats if @workspace_sessions_stats
+
+    stats = user.workspace_stats.group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
+      {
+        'day'    => day.to_s,
+        'length' => entities.map{|e| (DateTime.parse(e['end']).to_i - DateTime.parse(e['begin']).to_i)/60}.inject(:+)
+      }
+    end
+
+    return @workspace_sessions_stats = {data: stats}
+  end
+
   def workspace_activity_stats(user=current_user)
     return @workspace_activity_stats if @workspace_activity_stats
 

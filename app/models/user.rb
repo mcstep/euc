@@ -13,8 +13,8 @@
 #  avatar                        :string
 #  country_code                  :string
 #  phone                         :string
-#  role                          :integer
-#  status                        :integer
+#  role                          :integer          default(0), not null
+#  status                        :integer          default(0), not null
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -25,6 +25,9 @@
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  verification_token            :string
+#  can_edit_services             :boolean          default(FALSE), not null
+#  can_see_reports               :boolean          default(FALSE), not null
+#  can_see_opportunities         :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -93,27 +96,38 @@ class User < ActiveRecord::Base
   end
 
   module Stats extend ActiveSupport::Concern
-    def request_stats(url)
+    def request_stats(service, kind)
+      @stats ||= {}
+      return @stats[service+kind] if @stats[service+kind]
+
+      data  = {username: ERB::Util.url_encode(authentication_integration.username), days: 30, kind: kind, service: service}
       stats = JSON.parse(
         RestClient.get(
-          url % {username: ERB::Util.url_encode(authentication_integration.username), days: 30}
+          authentication_integration.directory.stats_url % data
         )
       )
 
-      stats.each{|e| e['day'] = Date.parse(e['begin']).to_date.to_s }
-      stats
+      stats.each do |e| 
+        e['day']  = Date.parse(e['begin']).to_date.to_s if e['day']
+      end
+
+      @stats[service+kind] = stats
     end
 
     def horizon_stats
-      return [] if authentication_integration.directory.horizon_stats_url.blank?
-      return @horizon_stats if @horizon_stats
-      @horizon_stats = request_stats(authentication_integration.directory.horizon_stats_url)
+      request_stats('events', 'sessions')
     end
 
     def workspace_stats
-      return [] if authentication_integration.directory.workspace_stats_url.blank?
-      return @workspace_stats if @workspace_stats
-      @workspace_stats = request_stats(authentication_integration.directory.workspace_stats_url)
+      request_stats('workspace', 'sessions')
+    end
+
+    def horizon_login_stats
+      request_stats('events', 'logins')
+    end
+
+    def workspace_login_stats
+      request_stats('workspace', 'logins')
     end
   end
 

@@ -62,20 +62,19 @@
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
               #desktops-chart{data: {stats: horizon_desktops_stats.to_json}}
 
-      - if horizon_sessions_stats(@user)[:data].present? && any = true
+      - if workspace_activity_stats(@user)[:data].present? && any = true
         .col-md-12.col-sm-12.col-lg-6
+          .widget.activity.graph
+            %h1 Identity Manager Activity
+            %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+              #workspace-activity-chart.chart-holder{data: {stats: workspace_activity_stats.to_json}}
+
+      - if horizon_sessions_stats(@user)[:data].present? && any = true
+        .col-md-12.col-sm-12.col-lg-12
           .widget.activity.graph
             %h1 Horizon Sessions
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
               #sessions-chart{data: {stats: horizon_sessions_stats.to_json}}
-
-      - if workspace_activity_stats[:data].present? && any = true
-        .col-md-12.col-sm-12.col-lg-6
-          .widget.activity.graph
-            %h1 Workspace Activity
-            %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-              #workspace-activity-chart.chart-holder{data: {stats: workspace_activity_stats.to_json}}
-
 
       - if horizon_apps_stats(@user)[:data].present? && any = true
         .col-lg-12{style: 'clear: both'}
@@ -84,10 +83,10 @@
             %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
               #apps-chart{data: {stats: horizon_apps_stats.to_json}}  }
 
-      - if workspace_apps_stats[:data].present? && any = true
+      - if workspace_apps_stats(@user)[:data].present? && any = true
         .col-lg-12{style: 'clear: both'}
           .widget.activity.graph
-            %h1 Workspace Usage
+            %h1 Identity Manager Usage
             %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
               #workspace-apps-chart.chart-holder{data: {stats: workspace_apps_stats.to_json}}  }
 
@@ -114,25 +113,25 @@
                   %td
                     = login[1]
 
-      - if @user.workspace_stats.any? && any = true
+      - if @user.workspace_login_stats.any? && any = true
         .col-sm-12.col-md-12.col-lg-12
           %h1.lined
-            %span Workspace
+            %span Identity Manager
           
           %table.table
             %thead
               %tr
                 %th Time
-                %th Title
+                %th Username
             %tbody
-              - @user.workspace_stats.each do |login|
+              - @user.workspace_login_stats.each do |login|
                 %tr
                   %td
-                    = l DateTime.parse(login['begin'])
+                    = l DateTime.parse(login['date'])
                   %td
-                    = login['title']
+                    = login['username']
 
-      - if @user.horizon_stats.any? && any = true
+      - if @user.horizon_login_stats.any? && any = true
         .col-sm-12.col-md-12.col-lg-12
           %h1.lined
             %span Horizon
@@ -140,14 +139,14 @@
             %thead
               %tr
                 %th Time
-                %th Title
+                %th Username
             %tbody
-              - @user.horizon_stats.each do |login|
+              - @user.horizon_login_stats.each do |login|
                 %tr
                   %td
-                    = l DateTime.parse(login['begin'])
+                    = l DateTime.parse(login['date'])
                   %td
-                    = login['title']
+                    = login['username']
 
       - unless any
         .center.notice
