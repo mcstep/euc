@@ -46,6 +46,9 @@
                 = region.upcase
       %a.btn.btn-primary.btn-sm{href: "https://flex.vmtestdrive.com:7443/rvm", target: "_blank"}
         Horizon Flex
+      - current_user.adminable_airwatch_instances.each do |ai|
+        %a.btn.btn-primary.btn-sm{href: "https://#{ai.host}/AirWatch/"}
+          AW Admin Console
 }
 
 %span.sidebar-divider.sidebar-general.clear.expanded{"data-parent" => "#nav-collapse", "data-toggle" => "collapse", :href => "#sidebar-general", :role => "tab"} General

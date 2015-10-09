@@ -1,5 +1,5 @@
 after 'development:profile_default', 'development:profile_apple' do
-  User.where(email: 'root@vmwdemo.com').first_or_create! do |u|
+  User.where(email: 'administrator+first.user@vmwdev.com').first_or_create! do |u|
 
     u.company_name          = 'Company'
     u.profile               = Profile.where(name: 'Default (Staging)').first

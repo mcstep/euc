@@ -14,8 +14,8 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(params[:password])
       if user.active?
+        UserAuthentication.create!(user: current_user, ip: request.remote_ip, successful: true, user_id: user.id)
         user.update_attributes(last_authorized_at: DateTime.now)
-        user.logins << [DateTime.now, request.remote_ip]
         @current_user = user
         session[:user_id] = user.id
         redirect_to root_path, notice: I18n.t('flash.logged_in')
@@ -23,6 +23,7 @@ class SessionsController < ApplicationController
         redirect_to action: :verify, email: params[:email]
       end
     else
+      UserAuthentication.create!(user: current_user, ip: request.remote_ip, successful: false, user_id: user.id)
       flash.now.alert = I18n.t('flash.bad_authentication')
       render 'new'
     end

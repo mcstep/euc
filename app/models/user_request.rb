@@ -7,6 +7,7 @@
 #  date     :date
 #  hour     :integer
 #  quantity :integer
+#  country  :string
 #
 # Indexes
 #
@@ -14,4 +15,11 @@
 #
 
 class UserRequest < ActiveRecord::Base
+  before_create :assign_country
+
+  scope :recent, lambda{ where("date > ?", Date.today - 30) }
+
+  def assign_country
+    self.country = GeoIP.new(Rails.root.join 'db/geo.dat').country(ip).country_code2
+  end
 end

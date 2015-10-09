@@ -4,5 +4,6 @@
     = f.text_field :send_at, append: "<i class='icon icon-clock'></i>".html_safe, data: {provide: 'datetimepicker'}
     = f.text_field :from_email
     = f.text_field :subject
+    = f.text_field :adhoc_emails, label: 'Adhoc Emails (separated by comma)'
     = f.text_area :body
     = f.submit value: 'Start the mass delivery', class: 'btn btn-success', style: 'width: 100%'

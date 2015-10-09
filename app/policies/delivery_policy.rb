@@ -1,6 +1,6 @@
 class DeliveryPolicy < ApplicationPolicy
   def permitted_attributes
-    [ :profile_id, :body, :send_at, :from_email, :subject ]
+    [ :profile_id, :body, :send_at, :from_email, :subject, :adhoc_emails ]
   end
 
   def create?

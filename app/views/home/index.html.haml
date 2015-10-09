@@ -1,5 +1,7 @@
 - if current_user.profile.home_template.present?
   = render "home/custom/#{current_user.profile.home_template}"
+- elsif current_user.root?
+  = render 'root'
 - else
   = render 'header'
   = render 'tiles'

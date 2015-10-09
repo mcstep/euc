@@ -2,16 +2,17 @@
 #
 # Table name: deliveries
 #
-#  id         :integer          not null, primary key
-#  profile_id :integer
-#  from_email :string           not null
-#  subject    :string           not null
-#  body       :text             not null
-#  send_at    :datetime
-#  status     :integer          default(0), not null
-#  response   :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  profile_id   :integer
+#  from_email   :string           not null
+#  subject      :string           not null
+#  body         :text             not null
+#  send_at      :datetime
+#  status       :integer          default(0), not null
+#  response     :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  adhoc_emails :string
 #
 
 class Delivery < ActiveRecord::Base
@@ -36,10 +37,19 @@ class Delivery < ActiveRecord::Base
   end
 
   def recipients
-    scope = profile.present? ? profile.users : User.all
-    scope.map do |user|
+    scope  = profile.present? ? profile.users : User.all
+    emails = scope.map do |user|
       {email: user.email, name: user.display_name, type: 'bcc'}
     end
+
+    adhoc_emails.split(',').each do |email|
+      puts email.strip
+      if email =~ /[a-zA-Z0-9._%]@(?:[a-zA-Z0-9]+\.)[a-zA-Z]{2,4}/
+        emails << {email: email, type: 'bcc'}
+      end
+    end
+
+    emails
   end
 
   def send!

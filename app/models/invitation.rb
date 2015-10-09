@@ -17,12 +17,15 @@
 #
 # Indexes
 #
+#  index_invitations_on_created_at    (created_at)
 #  index_invitations_on_deleted_at    (deleted_at)
 #  index_invitations_on_from_user_id  (from_user_id)
 #  index_invitations_on_to_user_id    (to_user_id)
 #
 
 class Invitation < ActiveRecord::Base
+  include StatsProvider
+
   acts_as_paranoid
 
   attr_accessor :skip_points_management

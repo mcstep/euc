@@ -33,6 +33,7 @@
 #
 #  index_users_on_authentication_integration_id  (authentication_integration_id)
 #  index_users_on_company_id                     (company_id)
+#  index_users_on_created_at                     (created_at)
 #  index_users_on_deleted_at                     (deleted_at)
 #  index_users_on_email                          (email)
 #  index_users_on_profile_id                     (profile_id)
@@ -212,6 +213,7 @@ class User < ActiveRecord::Base
   include CompanyHolder
   include RequestsLogger
   include Redis::Objects
+  include StatsProvider
 
   attr_accessor :skip_points_management
 
@@ -260,6 +262,7 @@ class User < ActiveRecord::Base
   belongs_to :registration_code, -> { with_deleted }
   has_many :sent_invitations, -> { includes(:to_user) }, class_name: "Invitation", foreign_key: "from_user_id"
   has_one :received_invitation, -> { with_deleted }, class_name: "Invitation", foreign_key: "to_user_id", inverse_of: :to_user
+  has_many :user_authentications
 
   ##
   # Extensions.
@@ -270,8 +273,6 @@ class User < ActiveRecord::Base
 
   as_enum :role, ROLES
   as_enum :status, {active: 0, verification_required: 1}
-
-  list :logins, marshal: true, maxlength: 20
 
   ##
   # Validations
@@ -384,6 +385,10 @@ class User < ActiveRecord::Base
     else
       Cloudinary::Utils.cloudinary_url(self.avatar, width: 200, height: 200, crop: :thumb)
     end
+  end
+
+  def adminable_airwatch_instances
+    integrations.joins(:airwatch_instance).where(airwatch_instances: {use_admin: true}).map(&:airwatch_instance)
   end
 
   ##

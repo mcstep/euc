@@ -25,6 +25,22 @@ class Directory < ActiveRecord::Base
 
   validates :host, presence: true
 
+  def self.global_stats
+    return @stats if @stats
+
+    @stats = JSON.parse(
+      RestClient.get(
+        ENV['STATS_URL'] % {days: Date.today.yday}
+      )
+    )
+
+    @stats.each do |e| 
+      e['day']  = DateTime.parse(e['date']).to_date.to_s
+    end
+
+    @stats
+  end
+
   def title
     url('')
   end

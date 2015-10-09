@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007181717) do
+ActiveRecord::Schema.define(version: 20151009062959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,14 +138,15 @@ ActiveRecord::Schema.define(version: 20151007181717) do
 
   create_table "deliveries", force: :cascade do |t|
     t.integer  "profile_id"
-    t.string   "from_email",             null: false
-    t.string   "subject",                null: false
-    t.text     "body",                   null: false
+    t.string   "from_email",               null: false
+    t.string   "subject",                  null: false
+    t.text     "body",                     null: false
     t.datetime "send_at"
-    t.integer  "status",     default: 0, null: false
+    t.integer  "status",       default: 0, null: false
     t.text     "response"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "adhoc_emails"
   end
 
   create_table "directories", force: :cascade do |t|
@@ -281,6 +282,7 @@ ActiveRecord::Schema.define(version: 20151007181717) do
     t.boolean  "crm_fetch_error", default: false, null: false
   end
 
+  add_index "invitations", ["created_at"], name: "index_invitations_on_created_at", using: :btree
   add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at", using: :btree
   add_index "invitations", ["from_user_id"], name: "index_invitations_on_from_user_id", using: :btree
   add_index "invitations", ["to_user_id"], name: "index_invitations_on_to_user_id", using: :btree
@@ -390,6 +392,16 @@ ActiveRecord::Schema.define(version: 20151007181717) do
     t.boolean  "in_maintainance", default: false, null: false
   end
 
+  create_table "user_authentications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "ip"
+    t.boolean  "successful"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_authentications", ["created_at"], name: "index_user_authentications_on_created_at", using: :btree
+
   create_table "user_integrations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "integration_id"
@@ -431,6 +443,7 @@ ActiveRecord::Schema.define(version: 20151007181717) do
     t.date    "date"
     t.integer "hour"
     t.integer "quantity"
+    t.string  "country"
   end
 
   add_index "user_requests", ["date", "hour"], name: "index_user_requests_on_date_and_hour", using: :btree
@@ -465,6 +478,7 @@ ActiveRecord::Schema.define(version: 20151007181717) do
 
   add_index "users", ["authentication_integration_id"], name: "index_users_on_authentication_integration_id", using: :btree
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
+  add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["profile_id"], name: "index_users_on_profile_id", using: :btree

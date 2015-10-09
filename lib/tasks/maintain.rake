@@ -1,4 +1,11 @@
 namespace :maintain do
+  task :geocode => :environment do
+    UserRequest.where(country: nil).each do |ur|
+      ur.assign_country
+      ur.save!
+    end
+  end
+
   task :remove_user_from_legacy_airwatch => :environment do
     instance = AirwatchInstance.where(host: 'testdrive.awmdm.com').first
 

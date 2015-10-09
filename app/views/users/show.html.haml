@@ -60,35 +60,35 @@
           .widget.activity.graph
             %h1 Horizon Activity
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-              #desktops-chart{data: {stats: horizon_desktops_stats.to_json}}
+              #desktops-chart.desktops-chart.chart-holder{data: {stats: horizon_desktops_stats.to_json}}
 
       - if workspace_activity_stats(@user)[:data].present? && any = true
         .col-md-12.col-sm-12.col-lg-6
           .widget.activity.graph
             %h1 Identity Manager Activity
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-              #workspace-activity-chart.chart-holder{data: {stats: workspace_activity_stats.to_json}}
+              #workspace-activity-chart.desktops-chart.chart-holder{data: {stats: workspace_activity_stats.to_json}}
 
       - if horizon_sessions_stats(@user)[:data].present? && any = true
         .col-md-12.col-sm-12.col-lg-12
           .widget.activity.graph
             %h1 Horizon Sessions
             %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-              #sessions-chart{data: {stats: horizon_sessions_stats.to_json}}
+              #sessions-chart.sessions-chart.chart-holder{data: {stats: horizon_sessions_stats.to_json}}
 
       - if horizon_apps_stats(@user)[:data].present? && any = true
         .col-lg-12{style: 'clear: both'}
           .widget.activity.graph
             %h1 Horizon Usage
             %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
-              #apps-chart{data: {stats: horizon_apps_stats.to_json}}  }
+              #apps-chart.apps-chart.chart-holder.tall{data: {stats: horizon_apps_stats.to_json}}  }
 
       - if workspace_apps_stats(@user)[:data].present? && any = true
         .col-lg-12{style: 'clear: both'}
           .widget.activity.graph
             %h1 Identity Manager Usage
             %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
-              #workspace-apps-chart.chart-holder{data: {stats: workspace_apps_stats.to_json}}  }
+              #workspace-apps-chart.apps-chart.tall.chart-holder{data: {stats: workspace_apps_stats.to_json}}  }
 
       - unless any
         .center.notice
@@ -96,7 +96,7 @@
 
     #logins.tab-pane.fade{role: "tabpanel"}
 
-      - if @user.logins.any? && any = true
+      - if @user.user_authentications.recent.any? && any = true
         .col-sm-12.col-md-12.col-lg-12
           %h1.lined
             %span Portal
@@ -106,12 +106,12 @@
                 %th Time
                 %th IP Address
             %tbody
-              - @user.logins.each do |login|
+              - @user.user_authentications.recent.order('id DESC').each do |ua|
                 %tr
                   %td
-                    = l login[0]
+                    = l ua.created_at
                   %td
-                    = login[1]
+                    = ua.ip
 
       - if @user.workspace_login_stats.any? && any = true
         .col-sm-12.col-md-12.col-lg-12
@@ -121,7 +121,7 @@
           %table.table
             %thead
               %tr
-                %th Time
+                %th{style: 'width: 50%'} Time
                 %th Username
             %tbody
               - @user.workspace_login_stats.each do |login|
@@ -138,7 +138,7 @@
           %table.table
             %thead
               %tr
-                %th Time
+                %th{style: 'width: 50%'} Time
                 %th Username
             %tbody
               - @user.horizon_login_stats.each do |login|
@@ -151,8 +151,6 @@
       - unless any
         .center.notice
           %h4 There are currently no logins to show for this user
-
-
 
     - if InvitationPolicy.new(@user).create?
       #home.tab-pane.fade{role: "tabpanel"}

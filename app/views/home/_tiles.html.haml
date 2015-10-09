@@ -41,32 +41,32 @@
         .widget.activity.graph
           %h1 Horizon Activity
           %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-            #desktops-chart.chart-holder{data: {stats: horizon_desktops_stats.to_json}}
+            #desktops-chart.desktops-chart.chart-holder{data: {stats: horizon_desktops_stats.to_json}}
 
     - if workspace_activity_stats[:data].present?
       .col-md-12.col-sm-12.col-lg-6
         .widget.activity.graph
           %h1 Identity Manager Activity
           %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-            #workspace-activity-chart.chart-holder{data: {stats: workspace_activity_stats.to_json}}
+            #workspace-activity-chart.desktops-chart.chart-holder{data: {stats: workspace_activity_stats.to_json}}
 
     - if horizon_sessions_stats[:data].present?
       .col-md-12.col-sm-12.col-lg-12
         .widget.activity.graph
           %h1 Horizon Sessions
           %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
-            #sessions-chart.chart-holder{data: {stats: horizon_sessions_stats.to_json}}
+            #sessions-chart.sessions-chart.chart-holder{data: {stats: horizon_sessions_stats.to_json}}
 
     - if horizon_apps_stats[:data].present?
       .col-lg-12{style: 'clear: both'}
         .widget.activity.graph
           %h1 Horizon Usage
           %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
-            #apps-chart.chart-holder{data: {stats: horizon_apps_stats.to_json}}  }
+            #apps-chart.apps-chart.chart-holder.tall{data: {stats: horizon_apps_stats.to_json}}  }
 
     - if workspace_apps_stats[:data].present?
       .col-lg-12{style: 'clear: both'}
         .widget.activity.graph
           %h1 Identity Manager Usage
           %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
-            #workspace-apps-chart.chart-holder{data: {stats: workspace_apps_stats.to_json}}  }
+            #workspace-apps-chart.apps-chart.tall.chart-holder{data: {stats: workspace_apps_stats.to_json}}  }

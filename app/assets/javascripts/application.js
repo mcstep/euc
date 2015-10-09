@@ -16,6 +16,9 @@
 //= require amcharts/serial
 //= require amcharts/pie
 //= require amcharts/themes/light
+//= require ammap/ammap
+//= require ammap/maps/js/worldLow
+//= requier ammap/themes/light
 //= require switchery
 //= require codemirror
 //= require codemirror/modes/xml

@@ -1,0 +1,166 @@
+%h1.lined
+  %span Today
+
+.row
+  .col-sm-6.col-md-4.col-lg-4
+    .ibox
+      .ibox-title
+        %h5 Portal
+      .ibox-content
+        %h1.no-margins= UserAuthentication.today.count
+        Total Logins
+
+  .col-sm-6.col-md-4.col-lg-4
+    .ibox
+      .ibox-title
+        %a.btn.btn-primary.btn-xs.btn-default.pull-right{href: users_path} Manage
+        %h5 Portal
+      .ibox-content
+        %h1.no-margins= User.today.count
+        Total Signups
+
+  .col-sm-6.col-md-4.col-lg-4
+    .ibox
+      .ibox-title
+        %h5 Portal
+      .ibox-content
+        %h1.no-margins= Invitation.today.count
+        Total Invitations
+
+%h1.lined
+  %span Last Week
+
+.row
+  .col-sm-6.col-md-4.col-lg-4
+    .ibox
+      .ibox-title
+        %h5 Portal
+      .ibox-content
+        %h1.no-margins= UserAuthentication.last_week.count
+        Total Logins
+
+  .col-sm-6.col-md-4.col-lg-4
+    .ibox
+      .ibox-title
+        %a.btn.btn-primary.btn-xs.btn-default.pull-right{href: users_path} Manage
+        %h5 Portal
+      .ibox-content
+        %h1.no-margins= User.last_week.count
+        Total Signups
+
+  .col-sm-6.col-md-4.col-lg-4
+    .ibox
+      .ibox-title
+        %h5 Portal
+      .ibox-content
+        %h1.no-margins= Invitation.last_week.count
+        Total Invitations
+
+%h1.lined
+  %span Last Month
+
+.row
+  .col-sm-6.col-md-4.col-lg-4
+    .ibox
+      .ibox-title
+        %h5 Portal
+      .ibox-content
+        %h1.no-margins= UserAuthentication.last_month.count
+        Total Logins
+
+  .col-sm-6.col-md-4.col-lg-4
+    .ibox
+      .ibox-title
+        %a.btn.btn-primary.btn-xs.btn-default.pull-right{href: users_path} Manage
+        %h5 Portal
+      .ibox-content
+        %h1.no-margins= User.last_month.count
+        Total Signups
+
+  .col-sm-6.col-md-4.col-lg-4
+    .ibox
+      .ibox-title
+        %h5 Portal
+      .ibox-content
+        %h1.no-margins= Invitation.last_month.count
+        Total Invitations
+
+%h1.lined
+  %span Last Quarter
+
+.col-sm-6.col-md-4.col-lg-4
+  .ibox
+    .ibox-title
+      %h5 Portal
+    .ibox-content
+      %h1.no-margins= UserAuthentication.last_quarter.count
+      Total Logins
+
+.col-sm-6.col-md-4.col-lg-4
+  .ibox
+    .ibox-title
+      %a.btn.btn-primary.btn-xs.btn-default.pull-right{href: users_path} Manage
+      %h5 Portal
+    .ibox-content
+      %h1.no-margins= User.last_quarter.count
+      Total Signups
+
+.col-sm-6.col-md-4.col-lg-4
+  .ibox
+    .ibox-title
+      %h5 Portal
+    .ibox-content
+      %h1.no-margins= Invitation.last_quarter.count
+      Total Invitations
+
+- if global_horizon_desktops_stats[:data].present?
+  .col-md-12.col-sm-12.col-lg-12
+    .widget.activity.graph
+      %h1 Horizon Activity
+      %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+        #global-desktops-chart.desktops-chart.chart-holder{data: {stats: global_horizon_desktops_stats.to_json}}
+
+- if global_horizon_apps_stats[:data].present?
+  .col-md-12.col-sm-12.col-lg-12
+    .widget.activity.graph
+      %h1 Horizon Apps
+      %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+        #global-apps-chart.desktops-chart.chart-holder{data: {stats: global_horizon_apps_stats.to_json}}
+
+- if invitations_quarter_stats[:data].present?
+  .col-md-12.col-sm-12.col-lg-6
+    .widget.activity.graph
+      %h1 Global Quarters Invitations
+      %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+        #invitations-chart.invitations-chart.chart-holder{data: {stats: invitations_quarter_stats.to_json}}
+
+- if potential_seats_quarter_stats[:data].present?
+  .col-md-12.col-sm-12.col-lg-6
+    .widget.activity.graph
+      %h1 Global Quarters Potential Seats
+      %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+        #potential-seats-chart.invitations-chart.chart-holder{data: {stats: potential_seats_quarter_stats.to_json}}
+
+- User::REGIONS.each do |region|
+
+  - if invitations_quarter_stats(region)[:data].present?
+    .col-md-12.col-sm-12.col-lg-6
+      .widget.activity.graph
+        %h1 #{I18n.t "regions.#{region}"} Quarters Invitations
+        %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+          .invitations-chart.chart-holder{id: "#{region}-invitation-chart", data: {stats: invitations_quarter_stats.to_json}}
+
+  - if potential_seats_quarter_stats(region)[:data].present?
+    .col-md-12.col-sm-12.col-lg-6
+      .widget.activity.graph
+        %h1 #{I18n.t "regions.#{region}"} Quarters Potential Seats
+        %div{style: "width: 100%; height: 220px; background-color: #FFFFFF;"}
+          .invitations-chart.chart-holder{id: "#{region}-potential-seats-chart", data: {stats: potential_seats_quarter_stats.to_json}}
+
+
+- if map_stats.any?
+  .col-md-12.col-sm-12.col-lg-12
+    .widget.activity.graph
+      %h1 Map
+      %div{style: "width: 100%; height: 440px; background-color: #FFFFFF;"}
+        #map-chart.chart-holder.tall{data: {stats: map_stats.to_json}}

@@ -24,6 +24,8 @@ gem 'pg'
 gem 'sqlite3' # dev mode for poors
 gem 'redis-objects'
 gem 'redis-semaphore'
+gem 'geoip'
+gem 'iso_country_codes'
 
 #
 # AR Enhancers
