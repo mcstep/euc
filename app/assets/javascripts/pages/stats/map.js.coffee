@@ -41,7 +41,7 @@ $ ->
             longitude: countries[id].long
             latitude: countries[id].lat
             color: countries[id].color
-            title: stat.name
+            title: countries[id].name
             value: stat.value
 
       map = new AmCharts.AmMap(AmCharts.themes.dark)
