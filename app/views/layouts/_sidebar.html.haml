@@ -59,7 +59,7 @@
       %a{href: root_path}
         %span.icon.icon-grid<>
         Dashboard
-    - if current_user.root?
+    - if policy(:home).root?
       %li
         %a{href: root_dashboard_path}
           %span.icon.icon-energy<>
