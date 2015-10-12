@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
       @stats ||= {}
       return @stats[service+kind] if @stats[service+kind]
 
-      data  = {username: ERB::Util.url_encode(authentication_integration.username), days: 30, kind: kind, service: service}
+      data  = {username: ERB::Util.url_encode(authentication_integration.username), days: 300, kind: kind, service: service}
       stats = JSON.parse(
         RestClient.get(
           authentication_integration.directory.stats_url % data

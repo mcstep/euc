@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   root 'home#index'
+  get 'home/root', to: 'home#root', as: :root_dashboard
 
   resource :session do
     member do

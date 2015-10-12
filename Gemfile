@@ -11,7 +11,6 @@ gem 'figaro'
 #
 # General Flow
 #
-gem 'inherited_resources'
 gem 'pundit'
 gem 'sidekiq'
 gem 'sinatra', require: nil

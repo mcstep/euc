@@ -24,7 +24,7 @@ after 'development:profile_default', 'development:profile_apple' do
     u.last_name             = 'User'
     u.home_region           = 'apac'
     u.job_title             = 'CEO'
-    u.integrations_username = 'first.user'
+    u.integrations_username = 'joshi'
     u.skip_provisioning     = true
   end
 end
