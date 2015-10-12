@@ -49,7 +49,6 @@ $ ->
           gridAlpha: 0
           position: 'left'
         valueAxes: [
-          stackType: 'regular'
           axisAlpha: 0.3
           gridAlpha: 0
           title: 'Launches'
