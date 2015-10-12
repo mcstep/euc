@@ -47,7 +47,7 @@
       %a.btn.btn-primary.btn-sm{href: "https://flex.vmtestdrive.com:7443/rvm", target: "_blank"}
         Horizon Flex
       - current_user.adminable_airwatch_instances.each do |ai|
-        %a.btn.btn-primary.btn-sm{href: "https://#{ai.host}/AirWatch/"}
+        %a.btn.btn-primary.btn-sm{href: "https://#{ai.host}/AirWatch/", target: "_blank"}
           AW Admin Console
 }
 
