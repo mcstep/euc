@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :profile do
-    name                  { FFaker::Lorem.words(2).join(' ') }
+    name                  { FFaker::Lorem.words(3).join(' ') }
     supports_vidm         false
 
     factory :integrated_profile do
