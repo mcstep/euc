@@ -1,0 +1,27 @@
+- content_for :content do
+  .container
+    .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-6.col-lg-offset-3.td-dialog.td-signup
+      %h1
+
+      .col-md-12.col-sm-12.col-lg-12
+        = form_tag user_verification_path(@user, token: params[:token]), method: :patch, class: 'form form-horizontal form-bottom' do |f|
+          %fieldset
+            .alert.alert-success
+              %p Please enter your verification code below.
+            .verify-code.form-group{class: ('has-error' if params[:code].present?)}
+              %input.form-control{name: "code", onclick: "this.setSelectionRange(0, this.value.length)", placeholder: "••••••", type: "text"}
+            .form-group
+              %button#submit.btn.btl-lg.btn-success.register{name: "submit"} Verify
+            .col-md-12.col-sm-12.col-lg-12.note
+              %p
+                Not received a code?
+                %a{href: new_user_verification_path(@user, token: params[:token])} Try again
+                or contact
+                %a{href: 'mailto:eucdemohelpp@vmware.com'} support.
+
+    .container
+      #footer.col-sm-12.col-md-12.col-lg-12
+        %p © EUC Global Solution Engineering Team
+
+
+= render 'layouts/global'

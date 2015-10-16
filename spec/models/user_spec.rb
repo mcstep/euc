@@ -105,7 +105,7 @@ RSpec.describe User, type: :model do
 
     context 'when unset' do
       context 'having approved domain' do
-        let!(:domain){ create(:domain, name: 'test.com', user_role: :root) }
+        let!(:domain){ create(:domain, name: 'test.com', user_role: :root, total_invitations: 21) }
         subject{ create :user, profile: nil, email: 'user@test.com' }
 
         it 'inherits from domain' do
@@ -114,6 +114,10 @@ RSpec.describe User, type: :model do
 
         it 'assigns proper role' do
           expect(subject.role).to eq :root
+        end
+
+        it 'assigns invitations' do
+          expect(subject.total_invitations).to eq 21
         end
       end
 
@@ -140,12 +144,26 @@ RSpec.describe User, type: :model do
 
     it{ is_expected.to have_exactly(3).items }
 
+    it 'enqueues provisioning' do
+      expect{ subject }.to change{ UserRegisterWorker.jobs.length }.by(1)
+    end
+
     it 'has airwatch enabled' do
       expect(subject.map(&:airwatch_disabled?)).to eq [true, false, true]
     end
 
     it 'has google apps enabled' do
       expect(subject.map(&:google_apps_disabled?)).to eq [true, true, false]
+    end
+
+    context 'when verification required' do
+      let(:profile){ create(:integrated_profile, requires_verification: true) }
+
+      it{ is_expected.to have_exactly(0).items }
+
+      it 'doesnt enqueue provisioning' do
+        expect{ subject }.to change{ UserRegisterWorker.jobs.length }.by(0)
+      end
     end
 
     context 'when disabler specified' do

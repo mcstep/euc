@@ -15,8 +15,6 @@ Rails.application.routes.draw do
   resource :session do
     member do
       post :recover
-      get  :verify
-      post :verify
     end
   end
   get '/log_in', to: 'sessions#new'
@@ -39,6 +37,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
+    resource :verification
     member do
       get  :impersonate
       post :recover
@@ -70,6 +69,12 @@ Rails.application.routes.draw do
   resources :domains do
     member do
       get :toggle
+    end
+  end
+  resources :nominations do
+    member do
+      # approve is done thru edit/update
+      post :decline
     end
   end
   resources :registration_codes

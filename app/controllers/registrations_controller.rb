@@ -12,7 +12,11 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to new_session_path, notice: I18n.t('flash.user_created')
+      if @user.verification_required?
+        redirect_to new_user_verification_path(@user, token: @user.verification_token_hash)
+      else
+        redirect_to new_session_path, notice: I18n.t('flash.user_created')
+      end
     else
       render action: :new
     end

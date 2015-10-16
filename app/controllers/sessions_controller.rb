@@ -12,34 +12,26 @@ class SessionsController < ApplicationController
   def create
     user = User.identified_by(params[:email])
 
-    if user && user.authenticate(params[:password])
-      if user.active?
-        UserAuthentication.create!(user: current_user, ip: request.remote_ip, successful: true, user_id: user.id)
-        user.update_attributes(last_authorized_at: DateTime.now)
-        @current_user = user
-        session[:user_id] = user.id
-        redirect_to root_path, notice: I18n.t('flash.logged_in')
-      else
-        redirect_to action: :verify, email: params[:email]
-      end
+    if user && user.verification_required?
+      redirect_to new_user_verification_path(user)
+      return
+    elsif user && user.authenticate(params[:password])
+      UserAuthentication.create!(user: current_user, ip: request.remote_ip, successful: true, user_id: user.id)
+      user.update_attributes(last_authorized_at: DateTime.now)
+      @current_user = user
+      session[:user_id] = user.id
+      redirect_to root_path, notice: I18n.t('flash.logged_in')
     else
-      UserAuthentication.create!(user: current_user, ip: request.remote_ip, successful: false, user_id: user.id)
+      if user
+        UserAuthentication.create!(user: current_user, ip: request.remote_ip, successful: false, user_id: user.id)
+      end
       flash.now.alert = I18n.t('flash.bad_authentication')
       render 'new'
     end
   end
 
-  def verify
-    if user = User.confirm!(params[:email], params[:token])
-      user.update_attributes(last_authorized_at: DateTime.now)
-      @current_user = user
-      session[:user_id] = user.id
-      redirect_to root_path, notice: I18n.t('flash.logged_in')
-    end
-  end
-
   def destroy
-    session[:user_id] = session[:impersonator_id] = nil
+    session[:user_id] = session[:impersonator_id] = session[:verifying_user_id] = nil
     redirect_to root_path, notice: I18n.t('flash.logged_out')
   end
 

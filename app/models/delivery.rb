@@ -47,7 +47,7 @@ class Delivery < ActiveRecord::Base
       if email =~ /[a-zA-Z0-9._%]@(?:[a-zA-Z0-9]+\.)[a-zA-Z]{2,4}/
         emails << {email: email, type: 'bcc'}
       end
-    end
+    end if adhoc_emails
 
     emails
   end

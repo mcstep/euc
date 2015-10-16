@@ -86,8 +86,8 @@ class AirwatchInstance < ActiveRecord::Base
     JSON.parse(response) if !response.blank? and response != "null"
   end
 
-  def add_group(name)
-    query "system/groups/#{parent_group_id}/creategroup",
+  def add_group(name, parent_id=parent_group_id)
+    query "system/groups/#{parent_id}/creategroup",
       'Name'               => name,
       'GroupId'            => name,
       'LocationGroupType'  => 'Prospect',

@@ -1,0 +1,37 @@
+.col-md-12.col-sm-12.col-lg-12
+
+  .panel.panel-default
+    = form_tag nominations_path, method: :get, class: 'panel-body' do |f|
+      .input-group
+        %input.form-control{name: "search", placeholder: "Search nominations by company name...", type: "text", value: params[:search]}
+        %span.input-group-btn
+          %button.btn.btn-default{type: "submit"} Search!
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        = pluralize @nominations.size, 'nomination'
+        found
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Company Name
+          %th Domain
+          %th Partner Type
+          %th Actions
+      %tbody
+        - @nominations.each do |nomination|
+          %tr{class: ('danger' if nomination.declined?)}
+            %td= nomination.company_name
+            %td= nomination.domain
+            %td= I18n.t("partner_types.#{nomination.partner_type}")
+            %td
+              - if nomination.nominated?
+                = link_to 'Decline', decline_nomination_path(nomination), method: :post, data: { confirm: 'This nomination will be declined'}, class: "btn btn-xs btn-danger"
+                = link_to 'Approve', edit_nomination_path(nomination), class: 'btn btn-xs btn-success'
+              - else
+                %button.btn.btn-xs{disabled: true, class: (nomination.declined? ? 'btn-danger' : 'btn-success')}
+                  - if nomination.declined?
+                    Declined
+                  - else
+                    Approved

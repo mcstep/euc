@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Access', type: :feature do
+RSpec.describe 'Access', :vcr, type: :feature do
   subject{ page }
   before{ create_cookie 'user_id', user.id }
 

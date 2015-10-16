@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009062959) do
+ActiveRecord::Schema.define(version: 20151015182731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,12 +180,14 @@ ActiveRecord::Schema.define(version: 20151009062959) do
     t.integer  "company_id"
     t.integer  "profile_id"
     t.string   "name"
-    t.integer  "status",     default: 0, null: false
+    t.integer  "status",            default: 0, null: false
     t.integer  "limit"
-    t.integer  "user_role",  default: 0, null: false
+    t.integer  "user_role",         default: 0, null: false
     t.datetime "deleted_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "total_invitations"
+    t.integer  "nomination_id"
   end
 
   add_index "domains", ["company_id"], name: "index_domains_on_company_id", using: :btree
@@ -286,6 +288,21 @@ ActiveRecord::Schema.define(version: 20151009062959) do
   add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at", using: :btree
   add_index "invitations", ["from_user_id"], name: "index_invitations_on_from_user_id", using: :btree
   add_index "invitations", ["to_user_id"], name: "index_invitations_on_to_user_id", using: :btree
+
+  create_table "nominations", force: :cascade do |t|
+    t.integer  "user_id",                   null: false
+    t.string   "company_name",              null: false
+    t.string   "domain",                    null: false
+    t.integer  "status",        default: 0, null: false
+    t.integer  "partner_type",  default: 0, null: false
+    t.string   "contact_name",              null: false
+    t.string   "contact_email",             null: false
+    t.string   "contact_phone"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "nominations", ["user_id"], name: "index_nominations_on_user_id", using: :btree
 
   create_table "office365_instances", force: :cascade do |t|
     t.string   "group_name"
@@ -428,6 +445,7 @@ ActiveRecord::Schema.define(version: 20151009062959) do
     t.string   "prohibited_services",             default: [], null: false, array: true
     t.integer  "box_status",                      default: 0,  null: false
     t.integer  "box_user_id"
+    t.integer  "airwatch_sandbox_admin_group_id"
   end
 
   add_index "user_integrations", ["airwatch_admin_user_id"], name: "index_user_integrations_on_airwatch_admin_user_id", using: :btree
@@ -474,6 +492,7 @@ ActiveRecord::Schema.define(version: 20151009062959) do
     t.boolean  "can_edit_services",             default: false, null: false
     t.boolean  "can_see_reports",               default: false, null: false
     t.boolean  "can_see_opportunities",         default: false, null: false
+    t.string   "desired_password"
   end
 
   add_index "users", ["authentication_integration_id"], name: "index_users_on_authentication_integration_id", using: :btree

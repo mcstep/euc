@@ -2,16 +2,18 @@
 #
 # Table name: domains
 #
-#  id         :integer          not null, primary key
-#  company_id :integer
-#  profile_id :integer
-#  name       :string
-#  status     :integer          default(0), not null
-#  limit      :integer
-#  user_role  :integer          default(0), not null
-#  deleted_at :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                :integer          not null, primary key
+#  company_id        :integer
+#  profile_id        :integer
+#  name              :string
+#  status            :integer          default(0), not null
+#  limit             :integer
+#  user_role         :integer          default(0), not null
+#  deleted_at        :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  total_invitations :integer
+#  nomination_id     :integer
 #
 # Indexes
 #

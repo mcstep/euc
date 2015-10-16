@@ -28,6 +28,7 @@
 #  prohibited_services             :string           default([]), not null, is an Array
 #  box_status                      :integer          default(0), not null
 #  box_user_id                     :integer
+#  airwatch_sandbox_admin_group_id :integer
 #
 # Indexes
 #

@@ -46,6 +46,14 @@ en:
     service_disabled: "%{service} has been disabled"
     service_not_toggled: "%{service} could not be toggled due to running provisioning"
     user_recovered: "User password has been changed successfully"
+    user_verified: You have successfully verified your account. Please check your email for login details.
+    nominated: Your nomination has been accepted!
+
+  partner_types:
+    none: None
+    professional: Professional
+    enterprise: Enterprise
+    premier: Premier
 
   regions:
     amer: Americas

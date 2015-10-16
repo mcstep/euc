@@ -17,6 +17,14 @@ module Provisioners
             user_integration.airwatch_admin_user_id = instance.add_admin_user(user_integration)['Value']
             user_integration.save!
           # end
+
+          if instance.use_templates
+            user_integration.airwatch_sandbox_admin_group_id = instance.add_group(
+              "Sandbox Admin #{user_integration.username}",
+              user_integration.airwatch_template['Sandbox Admin']
+            )
+            user_integration.save!
+          end
         end
 
         user_integration.transaction do
@@ -50,6 +58,15 @@ module Provisioners
           end
         end
 
+        # Run out of common transaction to minimize risks
+        if user_integration.airwatch_sandbox_admin_group_id
+          user_integration.transaction do
+            instance.delete_group(user_integration.airwatch_sandbox_admin_group_id)
+            user_integration.airwatch_sandbox_admin_group_id = nil
+            user_integration.save!
+          end
+        end
+
         user_integration.transaction do
           user_integration.airwatch.complete_application
           user_integration.save!
@@ -74,6 +91,16 @@ module Provisioners
           unless user_integration.airwatch_admin_user_id
             user_integration.airwatch_admin_user_id = instance.add_admin_user(user_integration)['Value']
             user_integration.save!
+          end
+
+          if instance.use_templates
+            unless user_integration.airwatch_sandbox_admin_group_id
+              user_integration.airwatch_sandbox_admin_group_id = instance.add_group(
+                "Sandbox Admin #{user_integration.username}",
+                user_integration.airwatch_template['Sandbox Admin']
+              )
+              user_integration.save!
+            end
           end
         end
 

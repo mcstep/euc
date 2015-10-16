@@ -3,6 +3,7 @@ FactoryGirl.define do
     host      { FFaker::Internet.domain_name }
     port      8080
     api_key   { FFaker::Lorem.characters(36) }
+    stats_url { 'http://receivertest.vmwdemo.com/%{service}/%{username}/%{kind}?token=token&days=%{days}' }
 
     factory :test_directory do
       host    'receiver.vmwdev.com'

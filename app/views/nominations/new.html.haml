@@ -1,0 +1,8 @@
+= bootstrap_form_for resource do |f|
+  = f.text_field :company_name
+  = f.text_field :domain
+  = f.select :partner_type, I18n.t('partner_types').invert
+  = f.text_field :contact_name
+  = f.text_field :contact_email
+  = f.text_field :contact_phone
+  = f.submit class: 'btn btn-success', style: 'width: 100%; margin-bottom: 30px'

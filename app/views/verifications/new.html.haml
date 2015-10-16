@@ -1,0 +1,28 @@
+- content_for :content do
+  .container
+    .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.col-lg-6.col-lg-offset-3.td-dialog.td-signup
+      %h1
+
+      / %form.form.form-horizontal.form-top
+      = form_for @user, url: user_verification_path(@user, token: params[:token]), method: :post, html: {class: 'form form-horizontal form-top'} do |f|
+        %fieldset
+          .col-lg-12.col-md-12.col-sm-12
+            .alert.alert-info
+              %p In an effort to protect our users and combat abuse of our systems, we ask you to verify your identity via a phone call or via SMS.
+          .col-lg-12.col-md-12.col-sm-12{class: ('has-error' if @user.errors['phone'].present?)}
+            .form-group
+              .input-group
+                %span.input-group-addon
+                  +
+                = f.text_field :phone, placeholder: "Cell Phone Number", type: "text", value: @user.phone, class: 'form-control input-md'
+          .col-md-12.col-sm-12.col-lg-12.send-code
+            .form-group
+              %button#sms.btn.btn-info{name: "sms"} Send an SMS
+          .col-md-12.col-sm-12.col-lg-12.note
+
+    .container
+      #footer.col-sm-12.col-md-12.col-lg-12
+        %p © EUC Global Solution Engineering Team
+
+
+= render 'layouts/global'

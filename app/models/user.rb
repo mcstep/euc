@@ -13,8 +13,8 @@
 #  avatar                        :string
 #  country_code                  :string
 #  phone                         :string
-#  role                          :integer          default(0), not null
-#  status                        :integer          default(0), not null
+#  role                          :integer
+#  status                        :integer
 #  job_title                     :string
 #  invitations_used              :integer          default(0), not null
 #  total_invitations             :integer          default(5), not null
@@ -25,9 +25,6 @@
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  verification_token            :string
-#  can_edit_services             :boolean          default(FALSE), not null
-#  can_see_reports               :boolean          default(FALSE), not null
-#  can_see_opportunities         :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -134,12 +131,7 @@ class User < ActiveRecord::Base
 
   module IntegrationsDelegations extend ActiveSupport::Concern
     included do
-      attr_accessor :skip_provisioning, :desired_password, :desired_password_confirmation, :is_importing
-
-      before_validation :ensure_profile
-      before_validation :setup_integrations, on: :create
-      before_validation { self.airwatch_eula_accept_date = Date.today if profile.try(:implied_airwatch_eula) }
-      after_save        :setup_authentication
+      attr_accessor :skip_provisioning, :desired_password_confirmation, :is_importing
 
       validates :desired_password, confirmation: true, length: { minimum: 8 }, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)./, message: :invalid_password }, allow_blank: true
     end
@@ -175,14 +167,15 @@ class User < ActiveRecord::Base
           self.integrations_expiration_date = Date.today + registration_code.user_validity.days
 
         elsif domain = Domain.actual.where(name: email.split('@', 2).last).first
-          self.profile = domain.profile
-          self.role    = domain.user_role
+          self.profile           = domain.profile
+          self.role              = domain.user_role
+          self.total_invitations = domain.total_invitations if domain.total_invitations.present?
         end
       end
     end
 
     def setup_integrations
-      if profile.present?
+      if profile.present? && active?
         effective_integrations = profile.profile_integrations.to_a
         effective_integrations = effective_integrations.select{|ei| ei.allow_sharing} if received_invitation.present?
 
@@ -200,7 +193,7 @@ class User < ActiveRecord::Base
     end
 
     def setup_authentication
-      if authentication_integration.blank?
+      if authentication_integration.blank? && user_integrations.any?
         self.authentication_integration = user_integrations.sort_by(&:authentication_priority).first
         save!
       end
@@ -277,14 +270,18 @@ class User < ActiveRecord::Base
   ##
   # Validations
   ##
-  before_save                 :normalize!
-  before_save                 :cleanup_avatar!
-  before_create               { self.status = :verification_required if profile.try(:requires_verification) }
-  after_validation            :normalize_errors
-  after_create                :use_registration_code_point!
-  after_commit(on: :create)   { UserRegisterWorker.perform_async(id, desired_password) unless skip_provisioning }
-  after_destroy               { received_invitation.try(:free_invitation_point!) }
-  after_destroy               { UserUnregisterWorker.perform_async(id) unless skip_provisioning }
+  before_save                     :normalize!
+  before_save                     :cleanup_avatar!
+  before_validation               :ensure_profile
+  before_validation(on: :create)  { require_verification if profile.try(:requires_verification) }
+  before_validation               { self.airwatch_eula_accept_date = Date.today if profile.try(:implied_airwatch_eula) }
+  before_validation               :setup_integrations, on: :create
+  after_save                      :setup_authentication
+  after_validation                :normalize_errors
+  after_create                    :use_registration_code_point!
+  after_commit                    :provision!, on: :create
+  after_destroy                   { received_invitation.try(:free_invitation_point!) }
+  after_destroy                   { UserUnregisterWorker.perform_async(id) unless skip_provisioning }
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -294,11 +291,12 @@ class User < ActiveRecord::Base
   validates :home_region, presence: true, inclusion: { in: REGIONS, allow_blank: true }
   validates :profile, presence: true
   validates :integrations_username, length: { maximum: 15 }, format: { with: /\A[^ \\\/\[\]\:\;\|\=\,\+\*\?\<\>\@]+\z/, message: :invalid_characters }, allow_blank: true, unless: :is_importing
+  validates :phone, numericality: true, allow_blank: true
 
   validate do
     errors.add :invitations_used, :invalid if invitations_left < 0
 
-    if authentication_integration_id.blank? && user_integrations.blank?
+    if active? && authentication_integration_id.blank? && user_integrations.blank?
       errors.add :authentication_integration_id, :invalid 
     end
 
@@ -391,36 +389,49 @@ class User < ActiveRecord::Base
     integrations.joins(:airwatch_instance).where(airwatch_instances: {use_admin: true}).map(&:airwatch_instance)
   end
 
+  def verification_token_hash
+    Digest::MD5.hexdigest(verification_token)
+  end
+
   ##
   # Modifiers
   ##
-  def self.confirm!(email, token)
-    return false unless attempt = where(email: email, verification_token: token).first
+  def verify!
+    self.status = :active
+    setup_integrations
+    save!
+    provision!
+  end
 
-    attempt.status = :active
-    attempt.save!
+  def provision!
+    if active?
+      UserRegisterWorker.perform_async(id, desired_password) unless skip_provisioning
+    end
+  end
 
-    attempt
+  def require_verification
+    self.status             = :verification_required
+    self.verification_token = ReadableToken.generate
   end
 
   def update_password(password=nil)
-    self.desired_password = password
+    begin
+      self.desired_password = password
 
-    if valid?
-      authentication_integration.directory.update_password(
-        authentication_integration.username,
-        password,
-        authentication_integration.integration.domain
-      )
+      if valid?
+        authentication_integration.directory.update_password(
+          authentication_integration.username,
+          password,
+          authentication_integration.integration.domain
+        )
+      end
+    ensure # Make sure we are not storing the value
+      self.desired_password = nil
     end
   end
 
   def normalize!
     email.downcase!
-  end
-
-  def send_verification!
-    UserVerifyWorker.perform_async(id)
   end
 
   def normalize_errors
