@@ -16,14 +16,14 @@ class SessionsController < ApplicationController
       redirect_to new_user_verification_path(user)
       return
     elsif user && user.authenticate(params[:password])
-      UserAuthentication.create!(user: current_user, ip: request.remote_ip, successful: true, user_id: user.id)
+      UserAuthentication.create!(ip: request.remote_ip, successful: true, user_id: user.id)
       user.update_attributes(last_authorized_at: DateTime.now)
       @current_user = user
       session[:user_id] = user.id
       redirect_to root_path, notice: I18n.t('flash.logged_in')
     else
       if user
-        UserAuthentication.create!(user: current_user, ip: request.remote_ip, successful: false, user_id: user.id)
+        UserAuthentication.create!(ip: request.remote_ip, successful: false, user_id: user.id)
       end
       flash.now.alert = I18n.t('flash.bad_authentication')
       render 'new'
