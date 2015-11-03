@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
     end
 
     def integrations_expiration_date
-      @expiration_date || Date.today + (root? || admin? ? 1.year : 1.month)
+      @expiration_date || Date.today + (root? ? 1.year : 1.day)
     end
 
     def integrations_expiration_date=(date)
@@ -164,16 +164,29 @@ class User < ActiveRecord::Base
 
         if received_invitation.present?
           self.profile = received_invitation.from_user.profile
+          unless profile.forced_user_validity
+            @expiration_date ||= Date.today + received_invitation.user_validity.days
+          end
 
         elsif registration_code
-          self.profile                      = registration_code.profile
-          self.role                         = registration_code.user_role
-          self.integrations_expiration_date = Date.today + registration_code.user_validity.days
+          self.profile = registration_code.profile
+          self.role    = registration_code.user_role
+          unless profile.forced_user_validity
+            @expiration_date ||= Date.today + registration_code.user_validity.days
+          end
 
         elsif domain = Domain.actual.where(name: email.split('@', 2).last).first
           self.profile           = domain.profile
           self.role              = domain.user_role
           self.total_invitations = domain.total_invitations if domain.total_invitations.present?
+          if domain.user_validity && !profile.forced_user_validity
+            @expiration_date ||= Date.today + domain.user_validity.days
+          end
+
+        end
+
+        if profile && profile.forced_user_validity
+          @expiration_date ||= Date.today + profile.forced_user_validity.days
         end
       end
     end

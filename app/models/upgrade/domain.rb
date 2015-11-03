@@ -14,6 +14,7 @@
 #  updated_at        :datetime         not null
 #  total_invitations :integer
 #  nomination_id     :integer
+#  user_validity     :integer
 #
 # Indexes
 #

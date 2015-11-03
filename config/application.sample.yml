@@ -3,6 +3,7 @@ IMPORT_DATABASE_URL: sqlite3:db/development.sqlite3
 REDIS_URL: redis://localhost:6379/0
 MONITORING_SECRET: verybigsecret
 STATS_URL: 'https://eucstats-prod.vmtestdrive.com/events/concurrencies?token=productiontokenisthetoken&days=%{days}'
+TEST_USER_VALIDITY: 1
 
 SECRET_KEY_BASE: 155405921768701eefbd5e5cc310ef4832f0e7b8cb88136fc635f58673e959e24588240ff267f2abda36cd4e1bdafee4a5caebad9eeeef19dc0378d47b2d4e78
 

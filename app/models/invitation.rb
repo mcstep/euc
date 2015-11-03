@@ -48,7 +48,7 @@ class Invitation < ActiveRecord::Base
     end
   end
 
-  after_commit    :refresh_crm_data, on: :create, if: -> { crm_id.present? && crm_kind.present? }
+  after_commit    :refresh_crm_data, on: :create, if: :crm_specified?
   after_create    :use_invitation_point!
   after_destroy   :free_invitation_point!
 
@@ -71,6 +71,14 @@ class Invitation < ActiveRecord::Base
     return if skip_points_management
     from_user.invitations_used -= 1
     from_user.save!
+  end
+
+  def crm_specified?
+    crm_id.present? && crm_kind.present?
+  end
+
+  def user_validity
+    crm_specified? ? 30 : (ENV['TEST_USER_VALIDITY'] || 1).to_i
   end
 
   def refresh_crm_data

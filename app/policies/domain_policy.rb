@@ -1,6 +1,6 @@
 class DomainPolicy < ApplicationPolicy
   def permitted_attributes
-    [:name, :profile_id, :user_role, :total_invitations]
+    [:name, :profile_id, :user_role, :total_invitations, :user_validity]
   end
 
   def index?

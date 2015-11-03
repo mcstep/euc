@@ -19,6 +19,10 @@ FactoryGirl.define do
       association :profile, factory: :full_profile
     end
 
+    factory :authenticatable_user do
+      authentication_integration { create(:user_integration) }
+    end
+
     factory :admin do
       role :admin
     end

@@ -129,6 +129,47 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'expiration_date' do
+    context 'when invited' do
+      let(:from_user){ create(:user) }
+      let(:to_user){ build(:user, profile: nil) }
+      let(:invitation){ Invitation.create! from_user: from_user, to_user: to_user }
+      subject{ invitation.to_user.reload.expiration_date }
+      it{ is_expected.to eq Date.tomorrow }
+
+      context 'when overriden manually' do
+        let(:date){ Date.today + 3.days }
+        let(:to_user){ build(:user, profile: nil, integrations_expiration_date: date) }
+        it{ is_expected.to eq date }
+      end
+
+      context 'when overriden by profile' do
+        let(:from_user){ create(:user, profile: create(:full_profile, forced_user_validity: 5)) }
+        it{ is_expected.to eq Date.today+5.days }
+      end
+    end
+
+    context 'when domain' do
+      let(:profile){ create :full_profile }
+      let!(:domain){ create :domain, name: 'test.com', user_validity: 3, total_invitations: 21, profile: profile }
+      let(:user){ create :user, profile: nil, email: 'user@test.com' }
+      subject{ user.expiration_date }
+
+      it{ is_expected.to eq Date.today + 3.days }
+
+      context 'when overriden manually' do
+        let(:date){ Date.today + 3.days }
+        let(:user){ create :user, profile: nil, email: 'user@test.com', integrations_expiration_date: date }
+        it{ is_expected.to eq date }
+      end
+
+      context 'when overriden by profile' do
+        let(:profile){ create :full_profile, forced_user_validity: 5 }
+        it{ is_expected.to eq Date.today+5.days }
+      end
+    end
+  end
+
   describe 'integrations' do
     let(:external_integration){ create(:integration) }
     let(:profile){ create(:integrated_profile) }
