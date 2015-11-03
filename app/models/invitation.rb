@@ -42,6 +42,14 @@ class Invitation < ActiveRecord::Base
   validates :to_user, presence: true, uniqueness: { scope: [:from_user_id, :deleted_at] }
   validates :from_user_id, presence: true, on: :create
 
+  validate do
+    if crm_specified? && from_user && instance = from_user.company.crm_instance(crm_kind)
+      unless instance.validate_crm_data(crm_kind, crm_id)
+        errors.add :crm_id, :invalid
+      end
+    end
+  end
+
   validate(on: :create) do
     unless skip_points_management
       errors.add :from_user, :invalid unless from_user.invitations_left > 0

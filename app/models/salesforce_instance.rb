@@ -80,6 +80,10 @@ class SalesforceInstance < ActiveRecord::Base
     end
   end
 
+  def validate_crm_data(crm_kind, id)
+    !!fetch_crm_data(crm_kind, id)
+  end
+
   def find_dealreg(id)
     client.get('/services/apexrest/v1.0/EucDemoRestService/EUC', objType: 'ORTN', recId: id).body.first
   end
