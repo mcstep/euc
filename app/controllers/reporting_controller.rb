@@ -39,6 +39,6 @@ class ReportingController < ApplicationController
   def opportunities
     authorize :reporting
 
-    @opportunities = Invitation.includes(:from_user).where.not(crm_id: nil).order(:id).page(params[:page]).per(10)
+    @opportunities = Invitation.includes(:from_user).where.not(crm_id: '').order(:id).page(params[:page]).per(10)
   end
 end
