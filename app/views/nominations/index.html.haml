@@ -18,6 +18,7 @@
           %th Company Name
           %th Domain
           %th Partner Type
+          %th Partner ID
           %th Actions
       %tbody
         - @nominations.each do |nomination|
@@ -25,6 +26,7 @@
             %td= nomination.company_name
             %td= nomination.domain
             %td= I18n.t("partner_types.#{nomination.partner_type}")
+            %td= nomination.partner_id
             %td
               - if nomination.nominated?
                 = link_to 'Decline', decline_nomination_path(nomination), method: :post, data: { confirm: 'This nomination will be declined'}, class: "btn btn-xs btn-danger"

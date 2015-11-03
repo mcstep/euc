@@ -2,6 +2,7 @@
   = f.hidden_field :approval, value: true
   = f.text_field :company_name
   = f.text_field :domain
+  = f.text_field :partner_id, label: 'Partner ID'
   = f.select :partner_type, I18n.t('partner_types').invert, {}
   = f.select :profile_id, Profile.all.collect{|p| [ p.name, p.id ] }, prompt: ''
   = f.submit 'Approve Nomination', class: 'btn btn-success', style: 'width: 100%; margin-bottom: 30px'

@@ -2,7 +2,7 @@ class NominationPolicy < ApplicationPolicy
   def permitted_attributes
     [
       :company_name, :domain, :partner_type, :contact_name, :contact_email, :contact_phone,
-      :profile_id, :approval
+      :profile_id, :approval, :partner_id
     ]
   end
 
