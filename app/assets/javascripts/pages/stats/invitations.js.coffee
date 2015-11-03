@@ -18,6 +18,10 @@ $ ->
           gridAlpha: 0
         ]
         dataProvider: stats.data
+        chartCursor:
+          fullWidth: true
+          cursorAlpha: 0.05
+          graphBulletAlpha: 1
         graphs: [
           {
             type: 'step'
