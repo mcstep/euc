@@ -1,7 +1,42 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount Sidekiq::Web => '/sidekiq', constraints: User::Session::Constraint.new(:sidekiq?)
+  constraints User::Session::Constraint.new(:sidekiq?) do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
+  use_doorkeeper do
+    skip_controllers :applications, :authorized_applications
+  end
+
+  namespace :api do
+    api_version(module: "V1", path: {value: "v1"}, header: {name: "X-VERSION", value: "1"}) do
+      resources :users do
+        member do
+          post :recover
+        end
+      end
+      resources :user_integrations do
+        member do
+          post  :toggle
+        end
+      end
+      resources :invitations
+      resources :nominations do
+        member do
+          # approve is done via edit/update
+          post :decline
+        end
+      end
+      resources :directory_prolongations, only: [:create]
+      resources :reporting, only: [] do
+        collection do
+          get :users
+          get :opportunities
+        end
+      end
+    end
+  end
 
   resources :monitoring, only: [] do
     collection do

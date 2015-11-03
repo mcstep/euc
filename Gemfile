@@ -16,6 +16,8 @@ gem 'pundit'
 gem 'sidekiq'
 gem 'sinatra', require: nil
 gem 'seedbank'
+gem 'doorkeeper'
+gem 'versionist'
 
 #
 # Data sources
@@ -50,6 +52,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'bootstrap_form'
 gem 'nested_form'
 gem 'bootstrap-kaminari-views'
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-10-stable'
 
 #
 # Assets
@@ -126,4 +129,5 @@ group :test do
   gem 'rack_session_access'
   gem 'show_me_the_cookies'
   gem 'test_after_commit'
+  gem 'json_spec'
 end

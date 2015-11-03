@@ -30,6 +30,7 @@ SimpleCov.start do
 end
 
 RSpec.configure do |config|
+  config.include JsonSpec::Helpers
   config.include FactoryGirl::Syntax::Methods
   config.include ShowMeTheCookies, type: :feature
 
