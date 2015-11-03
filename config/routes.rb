@@ -35,6 +35,7 @@ Rails.application.routes.draw do
           get :opportunities
         end
       end
+      resources :airwatch_instances
     end
   end
 
