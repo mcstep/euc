@@ -7,8 +7,7 @@ class NominationPolicy < ApplicationPolicy
   end
 
   def create?
-    #@user.admin?
-    @user.root?
+    @user.profile.can_nominate || @user.root?
   end
 
   def index?

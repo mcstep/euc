@@ -15,6 +15,7 @@
 #  requires_verification :boolean          default(FALSE), not null
 #  implied_airwatch_eula :boolean          default(FALSE), not null
 #  forced_user_validity  :integer
+#  can_nominate          :boolean          default(FALSE), not null
 #
 # Indexes
 #

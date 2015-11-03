@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103174619) do
+ActiveRecord::Schema.define(version: 20151103180923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -412,6 +412,7 @@ ActiveRecord::Schema.define(version: 20151103174619) do
     t.boolean  "requires_verification", default: false, null: false
     t.boolean  "implied_airwatch_eula", default: false, null: false
     t.integer  "forced_user_validity"
+    t.boolean  "can_nominate",          default: false, null: false
   end
 
   add_index "profiles", ["deleted_at"], name: "index_profiles_on_deleted_at", using: :btree
