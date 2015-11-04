@@ -23,7 +23,7 @@ FactoryGirl.define do
     end
 
     factory :opportunities_staging_salesforce_instance do
-      username        'eucintegrationuser@vmware.com.vmw.dev4'
+      username        'eucintegrationuser@vmware.com.vmw.dev'
       password        'VMware1@23Az52gBYvxLZla1ZBjDA9SDhL'
       security_token  ''
       client_id       '3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap'

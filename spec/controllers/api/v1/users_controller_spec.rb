@@ -16,7 +16,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       subject{ response.body }
 
       it{ is_expected.to have_json_size(5).at_path('data') }
-      it{ is_expected.to have_json_size(10).at_path('included') }
+      it{ is_expected.to have_json_size(5).at_path('included') }
     end
   end
 

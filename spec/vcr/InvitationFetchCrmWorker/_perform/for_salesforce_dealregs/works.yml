@@ -197,4 +197,247 @@ http_interactions:
         Email Address":"tkhandelwal@vmw.com"}],"message":"SUCCESSFULLY RETRIEVED DATA"}'
     http_version: 
   recorded_at: Wed, 16 Sep 2015 20:24:25 GMT
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap&client_secret=7956755793130956252&username=eucintegrationuser%40vmware.com.vmw.dev4&password=VMware1%4023Az52gBYvxLZla1ZBjDA9SDhL
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:08 GMT
+      Set-Cookie:
+      - BrowserId=Z2ukmJf8SLq4f6oo1tN3eg;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI","instance_url":"https://vmware--DEV4.cs12.my.salesforce.com","id":"https://test.salesforce.com/id/00DV00000088cTUMAY/005V0000002FTWZIA4","token_type":"Bearer","issued_at":"1446631748596","signature":"eH/1PC/xDqZuuWoaNvbSpOptx0HXqO9zpN+9PjSE9Nw="}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:08 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=ORTN&recId=ORTN-01368187
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:09 GMT
+      Set-Cookie:
+      - BrowserId=cWObMFy2TlewULaGaybTfA;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:09 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":"true","responsecode":"200","records":[{"Customer Title":"Ian
+        Macintosh","Account Manager":"Cameron Milek","Sales Stage":"Pending Sales
+        Review","Deal License ($)":5020.00,"Segment":"Academic","Customer Name":"Aus
+        Inst of Health and Welfare","Forecast Status":null,"Country":"AUSTRALIA","Customer
+        Email Address":"tkhandelwal@vmw.com","ORTN":"ORTN-01368187"}],"message":"SUCCESSFULLY
+        RETRIEVED DATA"}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:10 GMT
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap&client_secret=7956755793130956252&username=eucintegrationuser%40vmware.com.vmw.dev4&password=VMware1%4023Az52gBYvxLZla1ZBjDA9SDhL
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:12 GMT
+      Set-Cookie:
+      - BrowserId=viWiCQRdQlO2S5aTorC2Cw;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:12 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI","instance_url":"https://vmware--DEV4.cs12.my.salesforce.com","id":"https://test.salesforce.com/id/00DV00000088cTUMAY/005V0000002FTWZIA4","token_type":"Bearer","issued_at":"1446631752829","signature":"FCuZuOwgdGCwrIpLb/j+fUMZ2ysTLpLU0Fk8Rb5D20E="}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:12 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=ORTN&recId=ORTN-01368187
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:13 GMT
+      Set-Cookie:
+      - BrowserId=333XjVkVSaOMeoWyxXNKZA;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:13 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":"true","responsecode":"200","records":[{"Customer Title":"Ian
+        Macintosh","Account Manager":"Cameron Milek","Sales Stage":"Pending Sales
+        Review","Deal License ($)":5020.00,"Segment":"Academic","Customer Name":"Aus
+        Inst of Health and Welfare","Forecast Status":null,"Country":"AUSTRALIA","Customer
+        Email Address":"tkhandelwal@vmw.com","ORTN":"ORTN-01368187"}],"message":"SUCCESSFULLY
+        RETRIEVED DATA"}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:14 GMT
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap&client_secret=7956755793130956252&username=eucintegrationuser%40vmware.com.vmw.dev4&password=VMware1%4023Az52gBYvxLZla1ZBjDA9SDhL
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:14 GMT
+      Set-Cookie:
+      - BrowserId=eM0EqGy4S9SB3BIHRGWb0g;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:14 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI","instance_url":"https://vmware--DEV4.cs12.my.salesforce.com","id":"https://test.salesforce.com/id/00DV00000088cTUMAY/005V0000002FTWZIA4","token_type":"Bearer","issued_at":"1446631755185","signature":"Xq99/zoCMRLxAsRVPg5allOycK13/jZFFX/6LxHACHY="}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:15 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=ORTN&recId=ORTN-01368187
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:15 GMT
+      Set-Cookie:
+      - BrowserId=2RjlrAcRRgmf2AnCN8AX1Q;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:15 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":"true","responsecode":"200","records":[{"Customer Title":"Ian
+        Macintosh","Account Manager":"Cameron Milek","Sales Stage":"Pending Sales
+        Review","Deal License ($)":5020.00,"Segment":"Academic","Customer Name":"Aus
+        Inst of Health and Welfare","Forecast Status":null,"Country":"AUSTRALIA","Customer
+        Email Address":"tkhandelwal@vmw.com","ORTN":"ORTN-01368187"}],"message":"SUCCESSFULLY
+        RETRIEVED DATA"}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:16 GMT
 recorded_with: VCR 2.9.3

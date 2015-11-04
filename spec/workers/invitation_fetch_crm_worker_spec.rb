@@ -23,7 +23,7 @@ RSpec.describe InvitationFetchCrmWorker, type: :model do
         end
       end
 
-      context 'when id not found' do
+      xcontext 'when id not found' do
         let(:invitation) do
           FactoryGirl.create :invitation,
             from_user: from_user,
@@ -31,7 +31,7 @@ RSpec.describe InvitationFetchCrmWorker, type: :model do
             crm_id: '999'
         end
 
-        it 'works' do
+        it 'works', :vcr do
           expect{ subject }.to raise_error(Exception)
           expect(invitation.reload.crm_fetch_error).to eq true
         end
@@ -42,7 +42,8 @@ RSpec.describe InvitationFetchCrmWorker, type: :model do
         expect(invitation.reload.crm_data).to eq(
           "Customer Title"=>"Ian Macintosh",
           "Account Manager"=>"Cameron Milek",
-          "Sales Stage"=>"Pending Administrative Review",
+          "Sales Stage"=>"Pending Sales Review",
+          "ORTN" => "ORTN-01368187",
           "Deal License ($)"=>5020.0,
           "Segment"=>"Academic",
           "Customer Name"=>"Aus Inst of Health and Welfare",
@@ -74,7 +75,8 @@ RSpec.describe InvitationFetchCrmWorker, type: :model do
           "Country"=>"FRANCE",
           "Currency Code"=>"USD",
           "Customer Title"=>nil,
-          "Forecast Status"=>"Forecast")
+          "Forecast Status"=>"Forecast",
+          "Opportunity Id" => "1073356")
         expect(invitation.reload.crm_fetch_error).to eq false
       end
     end

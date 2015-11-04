@@ -113,6 +113,10 @@ class UserIntegration < ActiveRecord::Base
     super
   end
 
+  def integration_name
+    integration.try :name
+  end
+
   def email
     "#{username}@#{integration.domain}"
   end

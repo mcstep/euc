@@ -197,4 +197,244 @@ http_interactions:
         RETRIEVED DATA"}'
     http_version: 
   recorded_at: Wed, 16 Sep 2015 20:24:35 GMT
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap&client_secret=7956755793130956252&username=eucintegrationuser%40vmware.com.vmw.dev4&password=VMware1%4023Az52gBYvxLZla1ZBjDA9SDhL
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:08:53 GMT
+      Set-Cookie:
+      - BrowserId=NaKFZQxNQwyRdHqgyBdAlQ;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:08:53 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI","instance_url":"https://vmware--DEV4.cs12.my.salesforce.com","id":"https://test.salesforce.com/id/00DV00000088cTUMAY/005V0000002FTWZIA4","token_type":"Bearer","issued_at":"1446631734244","signature":"Fdt7zOy1gC/mDeXAp2eUPxK+jDNmPYflpCNHxMo+Zm4="}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:08:54 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=Deal&recId=1073356
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:08:55 GMT
+      Set-Cookie:
+      - BrowserId=4pa7vdE3QsKEsBbxBifrsg;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:08:55 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":"true","responsecode":"200","records":[{"Customer Email
+        Address":null,"Account Manager":"Tarun Khandelwal","Customer Name":"Michelin","Sales
+        Stage":"07a - Agreement to Purchase","Deal License ($)":0.00,"Segment":"T2","Country":"FRANCE","Currency
+        Code":"USD","Customer Title":null,"Forecast Status":"Forecast","Opportunity
+        Id":"1073356"}],"message":"SUCCESSFULLY RETRIEVED DATA"}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:01 GMT
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap&client_secret=7956755793130956252&username=eucintegrationuser%40vmware.com.vmw.dev4&password=VMware1%4023Az52gBYvxLZla1ZBjDA9SDhL
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:01 GMT
+      Set-Cookie:
+      - BrowserId=KbCejgwXRPKHyLcHhta1ZA;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:01 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI","instance_url":"https://vmware--DEV4.cs12.my.salesforce.com","id":"https://test.salesforce.com/id/00DV00000088cTUMAY/005V0000002FTWZIA4","token_type":"Bearer","issued_at":"1446631742966","signature":"HWs8TNL8JI3RLNx6Efmb2CzwZFB8knc9mBmmjOLrGJg="}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:03 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=Deal&recId=1073356
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:03 GMT
+      Set-Cookie:
+      - BrowserId=C_yBilL0S7GI0NiGmPoMFA;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:03 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":"true","responsecode":"200","records":[{"Customer Email
+        Address":null,"Account Manager":"Tarun Khandelwal","Customer Name":"Michelin","Sales
+        Stage":"07a - Agreement to Purchase","Deal License ($)":0.00,"Segment":"T2","Country":"FRANCE","Currency
+        Code":"USD","Customer Title":null,"Forecast Status":"Forecast","Opportunity
+        Id":"1073356"}],"message":"SUCCESSFULLY RETRIEVED DATA"}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:04 GMT
+- request:
+    method: post
+    uri: https://test.salesforce.com/services/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=password&client_id=3MVG9Oe7T3Ol0ea7VXyLoN8ib2X9x_.9965dNjpQ8UQG_YL5CKxwBWzCNdwCnHxhdcSTCGlhjKpfTEOhhMQap&client_secret=7956755793130956252&username=eucintegrationuser%40vmware.com.vmw.dev4&password=VMware1%4023Az52gBYvxLZla1ZBjDA9SDhL
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:05 GMT
+      Set-Cookie:
+      - BrowserId=4Nh1qpboT6-wZMf_5KaMOA;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI","instance_url":"https://vmware--DEV4.cs12.my.salesforce.com","id":"https://test.salesforce.com/id/00DV00000088cTUMAY/005V0000002FTWZIA4","token_type":"Bearer","issued_at":"1446631745909","signature":"GGJs/0ZIRin4W6NNpNn+s4u0zzLAmyCl+WC8FbddeUo="}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:05 GMT
+- request:
+    method: get
+    uri: https://vmware--dev4.cs12.my.salesforce.com/services/apexrest/v1.0/EucDemoRestService/EUC?objType=Deal&recId=1073356
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Authorization:
+      - OAuth 00DV00000088cTU!ARAAQP5wKPoayKp.JTuBPiuIboU43pZo0azIkKe5kw4zINsg1EjbQ8p96.Qev_zB2HKUJy7pHV9Ay9I_8eAQ9tyjQ5i3WEfI
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 04 Nov 2015 10:09:06 GMT
+      Set-Cookie:
+      - BrowserId=fiGmmvPpRrelNB-fO8p-1g;Path=/;Domain=.salesforce.com;Expires=Sun,
+        03-Jan-2016 10:09:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":"true","responsecode":"200","records":[{"Customer Email
+        Address":null,"Account Manager":"Tarun Khandelwal","Customer Name":"Michelin","Sales
+        Stage":"07a - Agreement to Purchase","Deal License ($)":0.00,"Segment":"T2","Country":"FRANCE","Currency
+        Code":"USD","Customer Title":null,"Forecast Status":"Forecast","Opportunity
+        Id":"1073356"}],"message":"SUCCESSFULLY RETRIEVED DATA"}'
+    http_version: 
+  recorded_at: Wed, 04 Nov 2015 10:09:07 GMT
 recorded_with: VCR 2.9.3

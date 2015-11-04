@@ -23,6 +23,8 @@ class BoxInstance < ActiveRecord::Base
 
   after_commit{ BoxInstanceFetcherWorker.perform_async(id) }
 
+  validates :client_id, presence: true
+
   def title
     username
   end

@@ -330,6 +330,10 @@ class User < ActiveRecord::Base
     authentication_integration && authentication_integration.directory_status != :provisioning
   end
 
+  def profile_name
+    profile.try :name
+  end
+
   def email_domain
     email.split('@', 2).last
   end

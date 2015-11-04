@@ -35,7 +35,19 @@ Rails.application.routes.draw do
           get :opportunities
         end
       end
+      resources :support_requests
+      resources :domains
+      resources :registration_codes
       resources :airwatch_instances
+      resources :blue_jeans_instances
+      resources :box_instances
+      resources :directories
+      resources :google_apps_instances
+      resources :horizon_instances
+      resources :office365_instances
+      resources :salesforce_instances
+      resources :integrations
+      resources :profiles
     end
   end
 

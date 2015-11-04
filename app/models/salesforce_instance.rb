@@ -81,7 +81,11 @@ class SalesforceInstance < ActiveRecord::Base
   end
 
   def validate_crm_data(crm_kind, id)
-    !!fetch_crm_data(crm_kind, id)
+    begin
+      !!fetch_crm_data(crm_kind, id)
+    rescue Exception => e
+      return false
+    end
   end
 
   def find_dealreg(id)

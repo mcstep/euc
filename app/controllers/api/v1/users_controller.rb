@@ -1,7 +1,7 @@
 class Api::V1::UsersController < Api::ApplicationController
   def index
     authorize :user
-    render json: policy_scope(User), include: ['profile', 'user_integrations', 'user_integrations.integartion']
+    render json: policy_scope(User), include: ['user_integrations']
   end
 
   def update
