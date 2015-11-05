@@ -2,13 +2,16 @@
   = uf.text_field :first_name
   = uf.text_field :last_name
   = uf.email_field :email
-  .form-group
+  .form-group{class: ('has-error' if f.object.errors[:crm_id].any?)}
     - title = I18n.t "crm_kinds.#{current_user.company.crm_kind}"
     %label.control-label= "#{title} ID"
     .input-group
       %span.input-group-addon.icon-info{"data-container" => "body", "data-original-title" => "Enter the #{title} ID (if any) associated with this Customer.", "data-placement" => "top", "data-toggle" => "tooltip"}
       = f.hidden_field :crm_kind, value: current_user.company.crm_kind
       %input#salesforce.form-control.input-md{name: "invitation[crm_id]", type: "text"}
+    - if f.object.errors[:crm_id].any?
+      %span.help-block
+        = f.object.errors[:crm_id].join(', ')
   = uf.text_field :company_name, label_class: "required"
   = f.text_field :potential_seats
   = uf.text_field :job_title
