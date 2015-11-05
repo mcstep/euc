@@ -426,7 +426,7 @@ class User < ActiveRecord::Base
 
   def provision!
     if active?
-      UserRegisterWorker.perform_async(id, desired_password) unless skip_provisioning
+      UserRegisterWorker.perform_async(id) unless skip_provisioning
     end
   end
 
