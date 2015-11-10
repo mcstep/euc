@@ -1,78 +1,78 @@
-
-.row.hero
-  .col-md-12.col-lg-12.col-sm-12
-    %h1 Getting Started Guide
-    %p
-      This guide overviews the Demo Environment and corresponding
-      resources for Apple employees to demonstrate the AirWatch
-      product to prospects and customers. Each of the demo stories,
-      known as Demo Topics, consist of an iOS device configured for
-      an end user along with how to deploy these features using the
-      AirWatch admin console.
-.row
-  .col-md-12.row
-    %a#01{:name => "01"}
-    %h2 Admin Console
-    .col-lg-6.well.well-lg
+%div{style: 'padding: 0px 20px'}
+  .row.hero
+    .col-md-12.col-lg-12.col-sm-12
+      %h1 Getting Started Guide
       %p
-        %strong URL:
-        %a{:href => "http://apple.awmdm.com"} apple.awmdm.com
-      %p
-        %strong Username:
-        Username provided in
-        registration email
-      %p
-        %strong Password:
-        Password provided in
-        registration email
-.row
-  .col-md-12.col-lg-12
-    %a#02{:name => "02"}
-    %h2 Device Enrollment
-    %p
-      To enroll your device for an AirWatch demo follow the below
-      steps:
-    .col-sm-12.col-md-6.col-lg-4.row
-      %p
-        %img{:src => "http://i.imgur.com/GNo1Kb1.png", :width => "100%"}/
-      %p
-        1. Download the AirWatch Agent from the app store or by
-        navigating in a browser to
-        = succeed "." do
-          %a{:href => "http://awagent.com"} awagent.com
-    .col-sm-12.col-md-6.col-lg-4.row
-      %p
-        %img{:src => "http://i.imgur.com/bjp6HxA.png", :width => "100%"}/
-      %p
-        2. Enter Demo email address using the below format:
-        = succeed "." do
-          %strong username@apple.vmtestdrive.com
-    .col-sm-12.col-md-6.col-lg-4.row
-      %p
-        %img{:src => "http://i.imgur.com/g6ZZFhv.png", :width => "100%"}/
-      %p
-        3. Select demo flow from the drop down. See below for a
-        detailed description of each Demo Topic.
-    .col-sm-12.col-md-6.col-lg-4.row
-      %p
-        %img{:src => "http://i.imgur.com/KJZJfV6.png", :width => "100%"}/
-      %p
-        4. Select demo flow from the drop down. See below for a
-        detailed description of each Demo Topic.
-    .col-sm-12.col-md-6.col-lg-4.row
-      %p
-        %img{:src => "http://i.imgur.com/BGg2G7P.png", :width => "100%"}/
-      %p
-        5. Select demo flow from the drop down. See below for a
-        detailed description of each Demo Topic.
-    .col-sm-12.col-md-6.col-lg-4.row
-      %p
-        %img{:src => "http://i.imgur.com/PzNi0xV.png", :width => "100%"}/
-      %p
-        6. Select demo flow from the drop down. See below for a
-        detailed description of each Demo Topic.
+        This guide overviews the Demo Environment and corresponding
+        resources for Apple employees to demonstrate the AirWatch
+        product to prospects and customers. Each of the demo stories,
+        known as Demo Topics, consist of an iOS device configured for
+        an end user along with how to deploy these features using the
+        AirWatch admin console.
   .row
-    .col-md-12.row
+    .col-md-12
+      %a#01{:name => "01"}
+      %h2 Admin Console
+      .col-lg-12.well.well-lg
+        %p
+          %strong URL:
+          %a{:href => "http://apple.awmdm.com"} apple.awmdm.com
+        %p
+          %strong Username:
+          Username provided in
+          registration email
+        %p
+          %strong Password:
+          Password provided in
+          registration email
+  .row
+    .col-md-12.col-lg-12
+      %a#02{:name => "02"}
+      %h2 Device Enrollment
+      %p
+        To enroll your device for an AirWatch demo follow the below
+        steps:
+      .col-sm-12.col-md-6.col-lg-4
+        %p
+          %img{:src => "http://i.imgur.com/GNo1Kb1.png", :width => "100%"}/
+        %p
+          1. Download the AirWatch Agent from the app store or by
+          navigating in a browser to
+          = succeed "." do
+            %a{:href => "http://awagent.com"} awagent.com
+      .col-sm-12.col-md-6.col-lg-4
+        %p
+          %img{:src => "http://i.imgur.com/bjp6HxA.png", :width => "100%"}/
+        %p
+          2. Enter Demo email address using the below format:
+          = succeed "." do
+            %strong username@apple.vmtestdrive.com
+      .col-sm-12.col-md-6.col-lg-4
+        %p
+          %img{:src => "http://i.imgur.com/g6ZZFhv.png", :width => "100%"}/
+        %p
+          3. Select demo flow from the drop down. See below for a
+          detailed description of each Demo Topic.
+      .col-sm-12.col-md-6.col-lg-4
+        %p
+          %img{:src => "http://i.imgur.com/KJZJfV6.png", :width => "100%"}/
+        %p
+          4. Select demo flow from the drop down. See below for a
+          detailed description of each Demo Topic.
+      .col-sm-12.col-md-6.col-lg-4
+        %p
+          %img{:src => "http://i.imgur.com/BGg2G7P.png", :width => "100%"}/
+        %p
+          5. Select demo flow from the drop down. See below for a
+          detailed description of each Demo Topic.
+      .col-sm-12.col-md-6.col-lg-4
+        %p
+          %img{:src => "http://i.imgur.com/PzNi0xV.png", :width => "100%"}/
+        %p
+          6. Select demo flow from the drop down. See below for a
+          detailed description of each Demo Topic.
+  .row
+    .col-md-12
       %a#02{:name => "02"}
       %h2 Demo Topics
       %p
@@ -165,7 +165,7 @@
           ,
           = succeed ")" do
             %a{:href => "https://airwatch.wistia.com/medias/qxj6po6we9", :target => "_blank"} View Video
-  .row
+  .row{style: 'margin-bottom: 20px'}
     %a#03{:name => "03"}
     .col-md-6.col-lg-6
       %h2 Product Information
@@ -176,6 +176,14 @@
         = succeed "." do
           %a{:href => "https://secure.air-watch.com/register", :target => "_new"} here
         %a{:href => "https://my.air-watch.com"} my.air-watch.com
+
+      %h2 Find an AirWatch Sales Engineer
+      %p
+        Download the SĒk App to your iOS device to connect with an AirWatch Sales Engineer based on geographical proximity, name, role, vertical and more! 
+      %p
+        %a{href: 'https://itunes.apple.com/us/app/sek/id1027063275?mt=8'}
+          https://itunes.apple.com/us/app/sek/id1027063275?mt=8
+
     .col-md-6.col-lg-6
       %h2 Demo Feedback and Support
       %p
