@@ -108,4 +108,10 @@ class GeneralMailer < ApplicationMailer
 
     mail(to: ENV['NOMINATION_NOTIFIY_TO'], subject: "#{nomination.company_name} nominated")
   end
+
+  def bug_report_email(recipient, from, subject, body)
+    @body = body
+
+    mail(to: recipient, from: from, subject: subject)
+  end
 end

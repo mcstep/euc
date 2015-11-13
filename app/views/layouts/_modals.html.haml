@@ -37,6 +37,22 @@
         %button.btn.btn-default{type: "button"} Cancel
         %button.btn.btn-success{disabled: true, type: "submit"} Use this Photo
 
+#bug-report-modal.modal.fade{role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      = bootstrap_form_for @bug_report do |f|
+        .modal-header
+          %button.close{type: "button", data: {dismiss: 'modal'}}
+            %span ×
+          .td-dialog
+            %h1 Submit a support request
+        .modal-body
+          = f.select :product, ['AirWatch', 'Horizon', 'Identity Manager', 'App Volumes', 'UEM', 'VMware Testdrive Portal', 'vROPS for Horizon', 'Other']
+          = f.text_area :body, maxlength: 1000, rows: 10
+        .modal-footer
+          %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
+          %button.btn.btn-success{type: "submit"} Submit request
+
 #support-modal.modal.fade{role: "dialog", tabindex: "-1"}
   .modal-dialog
     .modal-content

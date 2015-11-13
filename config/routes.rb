@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   get '/register(/:code)', to: 'registrations#new'
 
   resources :support_requests, only: [:create]
+  resources :bug_reports, only: [:create]
 
   resource :current_user do
     member do

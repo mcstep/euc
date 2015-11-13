@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
   def setup_global_forms
     @invitation = Invitation.from(current_user)
     @support_request = SupportRequest.new(from: current_user)
+    @bug_report = BugReport.new(from: current_user)
   end
 
   def redirect_back_or_root(*params)
