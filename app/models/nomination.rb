@@ -35,6 +35,12 @@ class Nomination < ActiveRecord::Base
   validates :domain, presence: true, uniqueness: true, hostname: true
   validates :profile_id, presence: true, if: :approval
 
+  validate do
+    if Domain.where(name: domain).any?
+      errors.add :domain, :taken
+    end
+  end
+
   def decline!
     self.status = :declined
     save!

@@ -2,6 +2,8 @@
 
   .panel.panel-default
     = form_tag nominations_path, method: :get, class: 'panel-body' do |f|
+      - if policy(:nomination).new?
+        = link_to 'Nominate a Partner', new_nomination_path, class: 'btn btn-success pull-left'
       .input-group
         %input.form-control{name: "search", placeholder: "Search nominations by company name...", type: "text", value: params[:search]}
         %span.input-group-btn
@@ -19,7 +21,10 @@
           %th Domain
           %th Partner Type
           %th Partner ID
-          %th Actions
+          - if policy(:nomination).edit?
+            %th Actions
+          - else
+            %th Status
       %tbody
         - @nominations.each do |nomination|
           %tr{class: ('danger' if nomination.declined?)}
@@ -27,13 +32,21 @@
             %td= nomination.domain
             %td= I18n.t("partner_types.#{nomination.partner_type}")
             %td= nomination.partner_id
-            %td
-              - if nomination.nominated?
-                = link_to 'Decline', decline_nomination_path(nomination), method: :post, data: { confirm: 'This nomination will be declined'}, class: "btn btn-xs btn-danger"
-                = link_to 'Approve', edit_nomination_path(nomination), class: 'btn btn-xs btn-success'
-              - else
-                %button.btn.btn-xs{disabled: true, class: (nomination.declined? ? 'btn-danger' : 'btn-success')}
-                  - if nomination.declined?
-                    Declined
-                  - else
-                    Approved
+            - if policy(:nomination).edit?
+              %td
+                - if nomination.nominated?
+                  = link_to 'Decline', decline_nomination_path(nomination), method: :post, data: { confirm: 'This nomination will be declined'}, class: "btn btn-xs btn-danger"
+                  = link_to 'Approve', edit_nomination_path(nomination), class: 'btn btn-xs btn-success'
+                - else
+                  %button.btn.btn-xs{disabled: true, class: (nomination.declined? ? 'btn-danger' : 'btn-success')}
+                    - if nomination.declined?
+                      Declined
+                    - else
+                      Approved
+            - else
+              %td
+                = nomination.status.to_s.humanize
+
+    - if @nominations.num_pages > 1
+      .panel-footer
+        = paginate @nominations, theme: 'twitter-bootstrap-3'

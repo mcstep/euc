@@ -1,4 +1,14 @@
 class NominationPolicy < ApplicationPolicy
+  class Scope < Struct.new(:user, :scope)
+    def resolve
+      if user.root?
+        scope.all
+      else
+        scope.where(user_id: user.id)
+      end
+    end
+  end
+
   def permitted_attributes
     [
       :company_name, :domain, :partner_type, :contact_name, :contact_email, :contact_phone,
@@ -11,14 +21,18 @@ class NominationPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.root?
+    @user.profile.can_nominate || @user.root?
   end
 
   def update?
-    index?
+    @user.root?
   end
 
   def decline?
     index?
+  end
+
+  def decline_from_email?
+    decline?
   end
 end

@@ -1,8 +1,10 @@
 class NominationsController < CrudController
   def index
     super do
+      @nominations = policy_scope(Nomination)
       @nominations = @nominations.where("company_name ILIKE ?", "%#{params[:search]}%")
       @nominations = @nominations.order('id DESC')
+      @nominations = @nominations.page(params[:page])
     end
   end
 
@@ -21,6 +23,8 @@ class NominationsController < CrudController
 
     redirect_to action: :index
   end
+
+  alias :decline_from_email :decline
 
   def update
     resource

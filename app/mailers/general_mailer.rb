@@ -102,4 +102,10 @@ class GeneralMailer < ApplicationMailer
 
     mail(to: to, subject: 'VMWare Testdrive Portal User Removal')
   end
+
+  def nomination_notify_email(nomination)
+    @nomination = nomination
+
+    mail(to: ENV['NOMINATION_NOTIFIY_TO'], subject: "#{nomination.company_name} nominated")
+  end
 end

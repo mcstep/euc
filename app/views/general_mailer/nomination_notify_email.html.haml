@@ -1,0 +1,4 @@
+<h4>#{@nomination.company_name} has been nominated by #{@nomination.user.email}.</h4>
+= link_to 'Decline', decline_from_email_nomination_url(@nomination)
+|
+= link_to 'Approve', edit_nomination_url(@nomination)

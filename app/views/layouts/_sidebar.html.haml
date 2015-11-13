@@ -83,11 +83,11 @@
         %a{href: opportunities_reporting_index_path}
           %span.icon.icon-wallet<>
           Opportunities
-    - if policy(:nomination).new?
+    - if policy(:nomination).index?
       %li
-        %a{href: new_nomination_path}
-          %span.icon.icon-trophy<>
-          Nominate a Partner
+        %a{href: nominations_path}
+          %span.icon.icon-directions
+          Nominations
 
   - if current_user.root?
     %span.sidebar-divider.sidebar-general.clear.collapsed{"data-parent" => "#nav-collapse", "data-toggle" => "collapse", :href => "#sidebar-manage", :role => "tab"} Manage
@@ -104,11 +104,6 @@
             %a{href: domains_path}
               %span.icon.icon-globe
               Domains
-        - if policy(:nomination).index?
-          %li
-            %a{href: nominations_path}
-              %span.icon.icon-directions
-              Nominations
         - if policy(:registration_code).index?
           %li
             %a{href: registration_codes_path}

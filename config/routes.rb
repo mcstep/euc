@@ -123,6 +123,7 @@ Rails.application.routes.draw do
     member do
       # approve is done thru edit/update
       post :decline
+      get  :decline_from_email
     end
   end
   resources :registration_codes
