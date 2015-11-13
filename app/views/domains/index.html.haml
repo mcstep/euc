@@ -24,8 +24,8 @@
           %tr
             %td= domain.name
             %td= domain.profile.name
-            %td.text-center
-              .btn-group.btn-toggle
+            %td.text-center{style: 'width: 1%'}
+              .btn-group.btn-toggle{style: 'width: 68px'}
                 - if domain.active?
                   = link_to 'ON',  toggle_domain_path(domain), class: 'btn btn-xs btn-success active'
                   = link_to 'OFF', toggle_domain_path(domain), class: 'btn btn-xs btn-default'
