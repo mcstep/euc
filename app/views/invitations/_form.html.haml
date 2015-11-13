@@ -1,14 +1,35 @@
+- crm_title = I18n.t "crm_kinds.#{current_user.company.crm_kind}"
+
+#invitation-modal.modal.fade{role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type: "button", data: {dismiss: 'modal'}}
+          %span ×
+        .td-dialog
+          %h1 Add with no #{crm_title}?
+      .modal-body
+        %h4
+          WARNING! You have not entered a valid #{crm_title} in this invitation! 
+        %p
+          Without a valid #{crm_title} accounts on the Testdrive system expire in #{ENV['TEST_USER_VALIDITY'].to_i*24}hrs. 
+        %p
+          If you wish to add the ID later you may do so via the portal dashboard, for a guide on how to complete these steps click here.
+      .modal-footer
+        %button.btn.btn-default.pull-left{type: "button", data: {dismiss: 'modal'}} Cancel
+        %button.btn.btn-success{type: "submit", onclick: "$(this).closest('form').data('force', true)"} Submit
+
+
 = f.fields_for :to_user do |uf|
   = uf.text_field :first_name
   = uf.text_field :last_name
   = uf.email_field :email
   .form-group{class: ('has-error' if f.object.errors[:crm_id].any?)}
-    - title = I18n.t "crm_kinds.#{current_user.company.crm_kind}"
-    %label.control-label= "#{title} ID"
+    %label.control-label= "#{crm_title} ID"
     .input-group
-      %span.input-group-addon.icon-info{"data-container" => "body", "data-original-title" => "Enter the #{title} ID (if any) associated with this Customer.", "data-placement" => "top", "data-toggle" => "tooltip"}
+      %span.input-group-addon.icon-info{"data-container" => "body", "data-original-title" => "Enter the #{crm_title} ID (if any) associated with this Customer.", "data-placement" => "top", "data-toggle" => "tooltip"}
       = f.hidden_field :crm_kind, value: current_user.company.crm_kind
-      %input#salesforce.form-control.input-md{name: "invitation[crm_id]", type: "text"}
+      %input#salesforce.form-control.input-md{name: "invitation[crm_id]", type: "text", value: f.object.crm_id}
     - if f.object.errors[:crm_id].any?
       %span.help-block
         = f.object.errors[:crm_id].join(', ')
@@ -33,5 +54,5 @@
         .col-lg-3
           = uif.check_box :"prohibit_#{s}", label: "No #{s.camelize}"
 .help-block{style: 'margin-top: 20px'}
-  A 30-day account will be setup for the user. After the 30-day trial ends, the user's
+  A <i class="days" data-min="#{ENV['TEST_USER_VALIDITY']}" data-max="30"></i>-day account will be setup for the user. After the <i class="days"></i>-day trial ends, the user's
   %strong account will automatically be deleted from the system.

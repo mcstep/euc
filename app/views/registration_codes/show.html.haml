@@ -57,7 +57,7 @@
                   %span{data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: 'hover'}}
                     (Prolonged)
                 - else
-                  %a.prolong-account-link{href: '#', data: {target: "#prolong-account-modal", toggle: 'modal', id: user.authentication_integration.id, username: user.authentication_integration.username, date: l(user.expiration_date+1.month), name: user.display_name}}
+                  %a.btn.btn-warning.btn-xs{href: new_directory_prolongation_path(user_integration_id: user.authentication_integration_id)}
                     (Prolong)
             %td
               - if user.invited_by

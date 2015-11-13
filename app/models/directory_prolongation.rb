@@ -19,13 +19,15 @@
 #
 
 class DirectoryProlongation < ActiveRecord::Base
-  attr_accessor :skip_expiration_management, :period
+  attr_accessor :skip_expiration_management, :period, :invitation_crm_id
 
   belongs_to :user_integration, -> { with_deleted }
   belongs_to :user, -> { with_deleted }
+  has_one :received_invitation, through: :user_integration
 
   validates :user_integration,    presence: true
   validates :expiration_date_new, presence: true
+  validates :invitation_crm_id,   presence: true, on: :create, if: :user_integration_needs_crm_id?
 
   before_validation do
     self.expiration_date_old   = user_integration.directory_expiration_date
@@ -33,10 +35,18 @@ class DirectoryProlongation < ActiveRecord::Base
   end
 
   after_create do
+    if user_integration_needs_crm_id?
+      received_invitation.update_attributes(crm_id: invitation_crm_id)
+    end
+
     unless skip_expiration_management
       user_integration.update_attributes(directory_expiration_date: expiration_date_new)
       DirectoryProlongWorker.perform_async(id)
     end
+  end
+
+  def user_integration_needs_crm_id?
+    received_invitation.present? && received_invitation.crm_id.blank?
   end
 
   def period

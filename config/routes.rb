@@ -99,7 +99,7 @@ Rails.application.routes.draw do
       get  :toggle
     end
   end
-  resources :directory_prolongations, only: [:create]
+  resources :directory_prolongations, only: [:new, :create]
   resources :invitations do
     member do
       get :refresh_opportunity

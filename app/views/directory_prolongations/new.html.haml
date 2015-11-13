@@ -1,0 +1,4 @@
+.col-md-12.col-sm-12.col-lg-12
+  = bootstrap_form_for(@directory_prolongation) do |f|
+    = render 'directory_prolongations/form', f: f
+    = f.submit 'Submit request', class: 'btn btn-success', style: 'width: 100%; margin-bottom: 30px'

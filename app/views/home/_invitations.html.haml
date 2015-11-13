@@ -38,10 +38,10 @@
                     %a.btn.btn-xs.btn-success{href: user_path(user)}
                       Activity
                     - if prolongation = user.authentication_integration.directory_prolongations.last
-                      %button.btn.btn-xs.btn-default{data: {content: "Reason: #{prolongation.reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}
+                      %button.btn.btn-xs.btn-default{data: {content: "Reason: #{prolongation.reason.blank? ? '-' : prolongation.reason}", placement: "bottom", toggle: "popover", trigger: "hover"}}
                         Extended
                     - else
-                      %a.btn.btn-xs.btn-warning.prolong-account-link{href: '#', data: {target: '#prolong-account-modal', toggle: 'modal', id: user.authentication_integration.id, username: user.authentication_integration.username, date: bl(user.prolong_date), name: user.display_name}}
+                      %a.btn.btn-warning.btn-xs{href: new_directory_prolongation_path(user_integration_id: user.authentication_integration_id)}
                         Extend
                     %a.btn.btn-xs.btn-danger{href: user_path(user), rel: "nofollow", data: {confirm: "Do you want to delete this account? The users account will permanently be deleted.", method: "delete"}}
                       Delete

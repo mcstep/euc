@@ -1,0 +1,32 @@
+= f.hidden_field :user_integration_id
+%p
+  This action will prolong the user's account by a month. This will be a one-time extension and the users account will be deleted from the system once the expiration date has been reached.
+.form-group
+  %label Name
+  %input.invitation-name.form-control{readonly: "true", type: "text", value: @directory_prolongation.user_integration.user.display_name}
+.form-group
+  %label Username
+  %input.invitation-username.form-control{readonly: "true", type: "text", value: @directory_prolongation.user_integration.username}
+- if @directory_prolongation.received_invitation
+  - crm_kind  = @directory_prolongation.received_invitation.crm_kind || current_user.company.crm_kind
+  - crm_title = I18n.t "crm_kinds.#{crm_kind}"
+  .form-group{class: ('has-error' if @directory_prolongation.errors[:invitation_crm_id].any?)}
+    %label.control-label= "#{crm_title} ID"
+    .input-group
+      %span.input-group-addon.icon-info{"data-container" => "body", "data-original-title" => "Enter the #{crm_title} ID (if any) associated with this Customer.", "data-placement" => "top", "data-toggle" => "tooltip"}
+      - if @directory_prolongation.received_invitation.crm_id.present?
+        %input.form-control.input-md{value: @directory_prolongation.received_invitation.crm_id, readonly: true}
+      - else
+        %input.form-control.input-md{name: "directory_prolongation[invitation_crm_id]", type: "text", value: @directory_prolongation.received_invitation.crm_id}
+    - if f.object.errors[:invitation_crm_id].any?
+      %span.help-block
+        = f.object.errors[:invitation_crm_id].join(', ')
+= f.text_field :reason, placeholder: 'Please enter reason for extension'
+.form-group
+  %label New Expiration Date
+  - if writable?(f.object, :expiration_date_new)
+    = f.text_field :expiration_date_new, data: {provide: 'datepicker'}, hide_label: true, value: bl(@directory_prolongation.expiration_date_new)
+  - else
+    %input#directory_prolongation_expiration_date_new.expires-at.form-control{readonly: "true", type: "text"}
+- if writable?(f.object, :send_notification)
+  = f.check_box :send_notification

@@ -1,7 +1,7 @@
 class DirectoryProlongationPolicy < ApplicationPolicy
   def permitted_attributes
     attributes = [
-      :reason, :user_integration_id
+      :reason, :user_integration_id, :invitation_crm_id
     ]
     attributes << :expiration_date_new if @user.root?
     attributes << :send_notification if @user.root?

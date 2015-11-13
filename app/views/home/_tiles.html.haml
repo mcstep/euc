@@ -13,7 +13,7 @@
           .row.buttons
             - if current_user.invitations_left > 0
               %p
-                %a.btn.btn-success.btn-default{href: '#', data: {target: "#invite-modal", toggle: "modal"}}
+                %a.btn.btn-success.btn-default{href: new_invitation_path}
                   Invite New User
             %p
               - if policy(:user).index?
