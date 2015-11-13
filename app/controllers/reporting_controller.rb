@@ -16,8 +16,12 @@ class ReportingController < ApplicationController
         @invitations = @invitations.where('invitations.created_at < ?', Date.parse(params[:end_date]))
       end
 
+      if params[:regions].present?
+        @users = @users.where(home_region: params[:regions])
+        @invitations = @invitations.includes(:to_user).where(users: {home_region: params[:regions]})
+      end
+
       @users = @users.where(company_id: params[:companies]) if params[:companies].present?
-      @users = @users.where(home_region: params[:regions]) if params[:regions].present?
 
       unless current_user.root?
         @users = @users.joins(:company).where("companies.name NOT ILIKE ?", exclusion)
