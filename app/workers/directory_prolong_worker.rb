@@ -8,6 +8,9 @@ class DirectoryProlongWorker
       prolongation.expiration_date_new,
       prolongation.user_integration.integration.domain
     )
-    GeneralMailer.directory_prolongation_email(prolongation).deliver_now
+
+    if prolongation.send_notification
+      GeneralMailer.directory_prolongation_email(prolongation).deliver_now
+    end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103180923) do
+ActiveRecord::Schema.define(version: 20151112103628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,8 +169,9 @@ ActiveRecord::Schema.define(version: 20151103180923) do
     t.string   "reason"
     t.date     "expiration_date_old"
     t.date     "expiration_date_new"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "send_notification",   default: true, null: false
   end
 
   add_index "directory_prolongations", ["user_id"], name: "index_directory_prolongations_on_user_id", using: :btree

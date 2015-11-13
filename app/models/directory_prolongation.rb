@@ -10,6 +10,7 @@
 #  expiration_date_new :date
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  send_notification   :boolean          default(TRUE), not null
 #
 # Indexes
 #

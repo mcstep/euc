@@ -128,10 +128,12 @@
           = f.text_field :reason, placeholder: 'Please enter reason for extension'
           .form-group
             %label New Expiration Date
-            - if current_user.root?
+            - if writable?(f.object, :expiration_date_new)
               = f.text_field :expiration_date_new, data: {provide: 'datepicker'}, hide_label: true
             - else
               %input#directory_prolongation_expiration_date_new.expires-at.form-control{readonly: "true", type: "text"}
+          - if writable?(f.object, :send_notification)
+            = f.check_box :send_notification
         .modal-footer
           %button.btn.btn-default.pull-left{type: 'button', data: {dismiss: 'modal'}} Cancel
           %button.btn.btn-success{type: 'submit'} Submit request

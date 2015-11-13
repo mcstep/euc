@@ -4,6 +4,7 @@ class DirectoryProlongationPolicy < ApplicationPolicy
       :reason, :user_integration_id
     ]
     attributes << :expiration_date_new if @user.root?
+    attributes << :send_notification if @user.root?
     attributes
   end
 
