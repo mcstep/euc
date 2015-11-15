@@ -112,6 +112,6 @@ class GeneralMailer < ApplicationMailer
   def bug_report_email(recipient, from, subject, body)
     @body = body
 
-    mail(to: recipient, from: from, subject: subject)
+    mail(to: recipient, from: from, reply_to: from, subject: subject)
   end
 end
