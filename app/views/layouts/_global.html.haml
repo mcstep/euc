@@ -25,7 +25,7 @@
         email: "#{current_user.try(:email)}",
         name: "#{current_user.try(:display_name)}",
         properties: { role: "#{current_user.try(:role)}" },
-        appKey: 'i7mVWdjWAMow1tVBnU0uYd66KekOIld4OUZ88CYfdbwsUo0biTool2dQ3BiZ3GbV'
+        appKey: '#{ENV['DOORBELL_KEY']}'
       };
       (function(d, t) {
         var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/2567?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g);
