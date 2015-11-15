@@ -84,7 +84,10 @@
                 %td.logo
                   %em.icon-users
                 %td.orgname= company
-                %td.usercount= pluralize(users.count, "Active User")
+                %td.usercount{style: 'max-width: 400px'}
+                  = pluralize(users.count, "Active User")
+                  %small
+                    = "/ #{pluralize(users.map{|x| x.invited_users.length}.inject(:+), "Invitations")}"
         .td-users.zero-space.col-sm-12.col-md-12.col-lg-12
           %table.table
             %thead
