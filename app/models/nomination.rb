@@ -35,6 +35,10 @@ class Nomination < ActiveRecord::Base
   validates :domain, presence: true, uniqueness: true, hostname: true
   validates :profile_id, presence: true, if: :approval
 
+  after_create do
+    NominationNotificationWorker.perform_async(id)
+  end
+
   validate do
     if Domain.where(name: domain).any?
       errors.add :domain, :taken
