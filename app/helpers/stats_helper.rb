@@ -1,88 +1,95 @@
 module StatsHelper
-  def horizon_desktops_stats(user=current_user)
+  def horizon_desktops_stats(user=current_user, global: false)
     return @horizon_desktop_stats if @horizon_desktop_stats
 
     kinds = {}
-    stats = user.horizon_stats.group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
-      result = { 'day' => day.to_s }
-      entities.group_by{|x| x['title']}.each do |t,xs|
-        key = t.gsub(/[-\.\s]+/,'').downcase
+    stats = user.horizon_stats(global: global)
+      .group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
+        result = { 'day' => day.to_s }
+        entities.group_by{|x| x['title']}.each do |t,xs|
+          key = t.gsub(/[-\.\s]+/,'').downcase
 
-        result[key] = xs.length
-        kinds[key]  = t
+          result[key] = xs.length
+          kinds[key]  = t
       end
-      result
+
+    result
     end
 
     @horizon_desktop_stats = {data: stats, kinds: kinds}
   end
 
-  def horizon_sessions_stats(user=current_user)
+  def horizon_sessions_stats(user=current_user, global: false)
     return @horizon_sessions_stats if @horizon_sessions_stats
 
-    stats = user.horizon_stats.group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
-      {
-        'day'    => day.to_s,
-        'length' => entities.map{|e| (DateTime.parse(e['end']).to_i - DateTime.parse(e['begin']).to_i)/60}.inject(:+)
-      }
-    end
+    stats = user.horizon_stats(global: global)
+      .group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
+        {
+          'day'    => day.to_s,
+          'length' => entities.map{|e| (DateTime.parse(e['end']).to_i - DateTime.parse(e['begin']).to_i)/60}.inject(:+)
+        }
+      end
 
     @horizon_sessions_stats = {data: stats}
   end
 
-  def horizon_apps_stats(user=current_user)
+  def horizon_apps_stats(user=current_user, global: false)
     return @horizon_apps_stats if @horizon_apps_stats
 
-    stats = user.horizon_stats.group_by{|x| x['title']}.map do |title, entities|
-      {
-        'type'   => title,
-        'number' => entities.length
-      }
-    end
+    stats = user.horizon_stats(global: global)
+      .group_by{|x| x['title']}.map do |title, entities|
+        {
+          'type'   => title,
+          'number' => entities.length
+        }
+      end
 
     @horizon_apps_stats = {data: stats}
   end
 
-  def workspace_apps_stats(user=current_user)
+  def workspace_apps_stats(user=current_user, global: false)
     return @workspace_apps_stats if @workspace_apps_stats
 
-    stats = user.workspace_stats.group_by{|x| x['title']}.map do |title, entities|
-      {
-        'type'   => title,
-        'number' => entities.length
-      }
-    end
+    stats = user.workspace_stats(global: global)
+      .group_by{|x| x['title']}.map do |title, entities|
+        {
+          'type'   => title,
+          'number' => entities.length
+        }
+      end
 
     @workspace_apps_stats = {data: stats}
   end
 
-  def workspace_sessions_stats(user=current_user)
+  def workspace_sessions_stats(user=current_user, global: false)
     return @workspace_sessions_stats if @workspace_sessions_stats
 
-    stats = user.workspace_stats.group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
-      {
-        'day'    => day.to_s,
-        'length' => entities.map{|e| (DateTime.parse(e['end']).to_i - DateTime.parse(e['begin']).to_i)/60}.inject(:+)
-      }
-    end
+    stats = user.workspace_stats(global: global)
+      .group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
+        {
+          'day'    => day.to_s,
+          'length' => entities.map{|e| (DateTime.parse(e['end']).to_i - DateTime.parse(e['begin']).to_i)/60}.inject(:+)
+        }
+      end
 
     @workspace_sessions_stats = {data: stats}
   end
 
-  def workspace_activity_stats(user=current_user)
+  def workspace_activity_stats(user=current_user, global: false)
     return @workspace_activity_stats if @workspace_activity_stats
 
     kinds = {}
-    stats = user.workspace_stats.group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
-      result = { 'day' => day.to_s }
-      entities.group_by{|x| x['title']}.each do |t,xs|
-        key = t.gsub(/[-\.\s]+/,'').downcase
+    stats = user.workspace_stats(global: global)
+      .group_by{|x| Date.parse(x['begin']).to_date}.map do |day, entities|
+        result = { 'day' => day.to_s }
+        entities.group_by{|x| x['title']}.each do |t,xs|
+          key = t.gsub(/[-\.\s]+/,'').downcase
 
-        result[key] = xs.length
-        kinds[key]  = t
+          result[key] = xs.length
+          kinds[key]  = t
+        end
+        result
       end
-      result
-    end
 
     @workspace_activity_stats = {data: stats, kinds: kinds}
   end

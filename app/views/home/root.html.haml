@@ -169,3 +169,17 @@
         %h1 Map
         %div{style: "width: 100%; height: 440px; background-color: #FFFFFF;"}
           #map-chart.chart-holder.tall{data: {stats: map_stats.to_json}}
+
+  - if horizon_apps_stats(global: true)[:data].present?
+    .col-lg-12{style: 'clear: both'}
+      .widget.activity.graph
+        %h1 Horizon Usage
+        %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
+          #apps-chart.apps-chart.chart-holder.tall{data: {stats: horizon_apps_stats.to_json}}  }
+
+  - if workspace_apps_stats(global: true)[:data].present?
+    .col-lg-12{style: 'clear: both'}
+      .widget.activity.graph
+        %h1 Identity Manager Usage
+        %div{style: "width: 100%; height: 370px; background-color: #FFFFFF;"}
+          #workspace-apps-chart.apps-chart.tall.chart-holder{data: {stats: workspace_apps_stats.to_json}}  }

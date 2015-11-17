@@ -98,11 +98,13 @@ class User < ActiveRecord::Base
   end
 
   module Stats extend ActiveSupport::Concern
-    def request_stats(service, kind)
+    def request_stats(service, kind, global: false)
       @stats ||= {}
       return @stats[service+kind] if @stats[service+kind]
 
-      data  = {username: ERB::Util.url_encode(authentication_integration.username), days: 30, kind: kind, service: service}
+      uname = global ? '' : ERB::Util.url_encode(authentication_integration.username)
+      days  = global ? 120 : 30
+      data  = {username: uname, days: days, kind: kind, service: service}
       stats = JSON.parse(
         RestClient.get(
           authentication_integration.directory.stats_url % data
@@ -116,20 +118,20 @@ class User < ActiveRecord::Base
       @stats[service+kind] = stats
     end
 
-    def horizon_stats
-      request_stats('events', 'sessions')
+    def horizon_stats(global: false)
+      request_stats('events', 'sessions', global: global)
     end
 
-    def workspace_stats
-      request_stats('workspace', 'sessions')
+    def workspace_stats(global: false)
+      request_stats('workspace', 'sessions', global: global)
     end
 
-    def horizon_login_stats
-      request_stats('events', 'logins')
+    def horizon_login_stats(global: false)
+      request_stats('events', 'logins', global: global)
     end
 
-    def workspace_login_stats
-      request_stats('workspace', 'logins')
+    def workspace_login_stats(global: false)
+      request_stats('workspace', 'logins', global: global)
     end
   end
 
