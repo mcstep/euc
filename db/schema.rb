@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151112103628) do
+ActiveRecord::Schema.define(version: 20151117190851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,15 +138,16 @@ ActiveRecord::Schema.define(version: 20151112103628) do
 
   create_table "deliveries", force: :cascade do |t|
     t.integer  "profile_id"
-    t.string   "from_email",               null: false
-    t.string   "subject",                  null: false
-    t.text     "body",                     null: false
+    t.string   "from_email",                  null: false
+    t.string   "subject",                     null: false
+    t.text     "body",                        null: false
     t.datetime "send_at"
-    t.integer  "status",       default: 0, null: false
+    t.integer  "status",       default: 0,    null: false
     t.text     "response"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "adhoc_emails"
+    t.boolean  "global",       default: true, null: false
   end
 
   create_table "directories", force: :cascade do |t|

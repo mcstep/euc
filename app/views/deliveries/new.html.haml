@@ -1,5 +1,6 @@
 %div{style: 'margin-bottom: 20px'}
   = bootstrap_form_for resource do |f|
+    = f.check_box :global, label: '<b>Send to all users across the system</b>'.html_safe
     = f.select :profile_id, Profile.all.collect{|p| [ p.name, p.id ] }, prompt: '', label: 'Only send email to users inheriting the following profile'
     = f.text_field :send_at, append: "<i class='icon icon-clock'></i>".html_safe, data: {provide: 'datetimepicker'}
     = f.text_field :from_email

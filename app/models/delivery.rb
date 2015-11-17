@@ -13,6 +13,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  adhoc_emails :string
+#  global       :boolean          default(TRUE), not null
 #
 
 class Delivery < ActiveRecord::Base
@@ -37,7 +38,14 @@ class Delivery < ActiveRecord::Base
   end
 
   def recipients
-    scope  = profile.present? ? profile.users : User.all
+    scope  = if profile.present?
+      profile.users
+    elsif global
+      User.all
+    else
+      []
+    end
+
     emails = scope.map do |user|
       {email: user.email, name: user.display_name, type: 'bcc'}
     end
