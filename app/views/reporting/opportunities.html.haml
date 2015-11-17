@@ -12,7 +12,7 @@
   .panel.panel-default
     .panel-heading
       %h3.panel-title
-        = pluralize @opportunities.size, 'opportunity'
+        = pluralize @opportunities.total_count, 'opportunity'
         found
 
     %table.table.table-striped.table-bordered
