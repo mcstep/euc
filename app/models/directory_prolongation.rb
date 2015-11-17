@@ -47,6 +47,7 @@ class DirectoryProlongation < ActiveRecord::Base
 
   def user_integration_needs_crm_id?
     return false unless ENV['INVITATION_FORCE_CRM_ID']
+    return false if user.root?
     received_invitation.present? && received_invitation.crm_id.blank?
   end
 
