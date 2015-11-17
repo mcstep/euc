@@ -32,7 +32,7 @@ class Nomination < ActiveRecord::Base
   validates :company_name, presence: true
   validates :contact_name, presence: true
   validates :contact_email, presence: true
-  validates :domain, presence: true, uniqueness: true, hostname: true
+  validates :domain, presence: true, uniqueness: {scope: :user_id}, hostname: true
   validates :profile_id, presence: true, if: :approval
 
   after_create do
