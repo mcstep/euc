@@ -89,46 +89,46 @@
           %span.icon.icon-directions
           Nominations
 
-  - if current_user.root?
-    %span.sidebar-divider.sidebar-general.clear.collapsed{"data-parent" => "#nav-collapse", "data-toggle" => "collapse", :href => "#sidebar-manage", :role => "tab"} Manage
+- if current_user.root?
+  %span.sidebar-divider.sidebar-general.clear.collapsed{"data-parent" => "#nav-collapse", "data-toggle" => "collapse", :href => "#sidebar-manage", :role => "tab"} Manage
 
-    .panel-collapse.collapse#sidebar-manage
-      %ul.sidebar-nav
-        - if policy(:user).index?
-          %li
-            %a{href: users_path}
-              %span.icon.icon-users
-              Users
-        - if policy(:domain).index?
-          %li
-            %a{href: domains_path}
-              %span.icon.icon-globe
-              Domains
-        - if policy(:registration_code).index?
-          %li
-            %a{href: registration_codes_path}
-              %span.icon.icon-link
-              Reg Codes
-        - if policy(:profile).index?
-          %li
-            %a{href: profiles_path}
-              %span.icon.icon-note
-              Profiles
-        - if policy(:integration).index?
-          %li
-            %a{href: integrations_path}
-              %span.icon.icon-share
-              Integrations
-        - if services.map{|x| policy(x).index?}.any?
-          %li
-            %a{href: services_path}
-              %span.icon.icon-puzzle
-              Services
-        - if services.map{|x| policy(x).index?}.any?
-          %li
-            %a{href: new_delivery_path}
-              %span.icon.icon-note
-              Mass Delivery
+  .panel-collapse.collapse#sidebar-manage
+    %ul.sidebar-nav
+      - if policy(:user).index?
+        %li
+          %a{href: users_path}
+            %span.icon.icon-users
+            Users
+      - if policy(:domain).index?
+        %li
+          %a{href: domains_path}
+            %span.icon.icon-globe
+            Domains
+      - if policy(:registration_code).index?
+        %li
+          %a{href: registration_codes_path}
+            %span.icon.icon-link
+            Reg Codes
+      - if policy(:profile).index?
+        %li
+          %a{href: profiles_path}
+            %span.icon.icon-note
+            Profiles
+      - if policy(:integration).index?
+        %li
+          %a{href: integrations_path}
+            %span.icon.icon-share
+            Integrations
+      - if services.map{|x| policy(x).index?}.any?
+        %li
+          %a{href: services_path}
+            %span.icon.icon-puzzle
+            Services
+      - if services.map{|x| policy(x).index?}.any?
+        %li
+          %a{href: new_delivery_path}
+            %span.icon.icon-note
+            Mass Delivery
 
 
 %span.sidebar-divider.sidebar-general.clear.collapsed{"data-parent" => "#nav-collapse", "data-toggle" => "collapse", :href => "#sidebar-account", :role => "tab"} Your Account
