@@ -86,6 +86,7 @@ gem 'mandrill-api', require: 'mandrill'
 gem 'newrelic_rpm'
 gem 'le'
 gem 'bugsnag', group: :production
+gem 'appsignal', '~> 0.12.rc', group: :production
 
 #
 # Misc

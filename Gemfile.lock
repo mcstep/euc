@@ -55,6 +55,9 @@ GEM
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
+    appsignal (0.12.rc.6)
+      rack
+      thread_safe
     arel (6.0.2)
     autoparse (0.3.3)
       addressable (>= 2.3.1)
@@ -511,6 +514,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers!
   annotate (~> 2.6.6)
+  appsignal (~> 0.12.rc)
   azure-directory!
   bootstrap-datepicker-rails
   bootstrap-kaminari-views
@@ -598,6 +602,3 @@ DEPENDENCIES
   wannabe_bool
   web-console (~> 2.0)
   webmock
-
-BUNDLED WITH
-   1.10.6
