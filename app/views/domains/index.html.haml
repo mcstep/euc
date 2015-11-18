@@ -10,7 +10,7 @@
   .panel.panel-default
     .panel-heading
       %h3.panel-title
-        = pluralize @domains.size, 'domain'
+        = pluralize @domains.total_count, 'domain'
         found
     %table.table.table-striped.table-bordered
       %thead
