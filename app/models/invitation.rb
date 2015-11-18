@@ -18,6 +18,7 @@
 # Indexes
 #
 #  index_invitations_on_created_at    (created_at)
+#  index_invitations_on_crm_kind      (crm_kind)
 #  index_invitations_on_deleted_at    (deleted_at)
 #  index_invitations_on_from_user_id  (from_user_id)
 #  index_invitations_on_to_user_id    (to_user_id)

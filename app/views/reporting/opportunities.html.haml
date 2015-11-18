@@ -1,11 +1,11 @@
 .zero-space.col-sm-12.col-md-12.col-lg-12
-  - CrmConfigurator.kinds.keys.each do |kind|
+  - CrmConfigurator.kinds.each do |key, value|
     .col-sm-6.col-md-6.col-lg-6
       .ibox.float-e-margins
         .ibox-title
-          %h5= I18n.t "crm_kinds.#{kind}"
+          %h5= I18n.t "crm_kinds.#{key}"
         .ibox-content
-          %h1.no-margins= @opportunities.select{|x| x.crm_kind == kind}.length
+          %h1.no-margins= @opportunities.where(crm_kind: value).count
           %small Total linked customers
 
 .col-md-12.col-sm-12.col-lg-12

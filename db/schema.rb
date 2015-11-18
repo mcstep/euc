@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117190851) do
+ActiveRecord::Schema.define(version: 20151118180510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -288,6 +288,7 @@ ActiveRecord::Schema.define(version: 20151117190851) do
   end
 
   add_index "invitations", ["created_at"], name: "index_invitations_on_created_at", using: :btree
+  add_index "invitations", ["crm_kind"], name: "index_invitations_on_crm_kind", using: :btree
   add_index "invitations", ["deleted_at"], name: "index_invitations_on_deleted_at", using: :btree
   add_index "invitations", ["from_user_id"], name: "index_invitations_on_from_user_id", using: :btree
   add_index "invitations", ["to_user_id"], name: "index_invitations_on_to_user_id", using: :btree
