@@ -5,7 +5,7 @@
         .ibox-title
           %h5= I18n.t "crm_kinds.#{key}"
         .ibox-content
-          %h1.no-margins= @opportunities.where(crm_kind: value).count
+          %h1.no-margins= @opportunities_stats.where(crm_kind: value).count
           %small Total linked customers
 
 .col-md-12.col-sm-12.col-lg-12
