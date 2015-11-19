@@ -61,13 +61,13 @@ Rails.application.configure do
   config.action_controller.asset_host = "//#{ENV['CLOUDFRONT_HOST']}"
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "gmail.com",
-    authentication: "plain",
+    address: ENV['SMTP_ADDRESS'],
+    port: ENV['SMTP_PORT'],
+    domain: ENV['SMTP_DOMAIN'],
+    authentication: ENV['SMTP_AUTH'],
     enable_starttls_auto: true,
-    user_name: ENV['GMAIL_USERNAME'],
-    password: ENV['GMAIL_PASSWORD']
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD']
   }
   # ActionMailer Config
   config.action_mailer.default_url_options = { protocol: 'https', host: 'portal.vmtestdrive.com' }
