@@ -12,15 +12,16 @@ $ ->
         titleField: 'type'
         valueField: 'number'
         depth3D: 15
+        groupPercent: $(this).data('group')
 
-$ ->
-  stats = $('#workspace-apps-chart').data('stats')
+# $ ->
+#   stats = $('#workspace-apps-chart').data('stats')
 
-  if stats
-    AmCharts.makeChart 'workspace-apps-chart',
-      type: 'pie',
-      theme: 'light',
-      dataProvider: stats.data
-      titleField: 'type'
-      valueField: 'number'
-      depth3D: 15
+#   if stats
+#     AmCharts.makeChart 'workspace-apps-chart',
+#       type: 'pie',
+#       theme: 'light',
+#       dataProvider: stats.data
+#       titleField: 'type'
+#       valueField: 'number'
+#       depth3D: 15
