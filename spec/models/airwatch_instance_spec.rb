@@ -74,7 +74,7 @@ RSpec.describe AirwatchInstance, :vcr, type: :model do
     it{ is_expected.to be_a Hash }
   end
 
-  describe '.add_admin_user' do
+  xdescribe '.add_admin_user' do
     subject{ @result = airwatch_instance.add_admin_user(user_integration) }
     after{ airwatch_instance.delete_admin_user(@result['Value']) }
     it{ is_expected.to be_a Hash }
