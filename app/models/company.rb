@@ -13,6 +13,8 @@
 #
 # Indexes
 #
+#  companies_di_id                (created_at,salesforce_dealreg_instance_id)
+#  companies_soi_id               (created_at,salesforce_opportunity_instance_id)
 #  index_companies_on_deleted_at  (deleted_at)
 #
 

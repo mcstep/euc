@@ -19,6 +19,7 @@
 # Indexes
 #
 #  index_domains_on_company_id  (company_id)
+#  index_domains_on_created_at  (created_at)
 #  index_domains_on_deleted_at  (deleted_at)
 #  index_domains_on_profile_id  (profile_id)
 #

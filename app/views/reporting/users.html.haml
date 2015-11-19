@@ -38,22 +38,32 @@
     #collapse-stats.collapse.in
       .zero-space.col-sm-12.col-md-12.col-lg-12
         - if @users
-          .col-sm-6.col-md-6.col-lg-3
+          .col-sm-12.col-md-6.col-lg-3
             .ibox.float-e-margins
               .ibox-title
                 %h5 Registrations
               .ibox-content
                 %h1.no-margins= @users.length
                 %small Total Registrations
-          .col-sm-6.col-md-6.col-lg-3
+          .col-sm-12.col-md-6.col-lg-3
             .ibox.float-e-margins
               .ibox-title
                 %h5 Invites
               .ibox-content
                 %h1.no-margins= number_with_delimiter @invitations.length
                 %small Total Invitations
-        - if @total
-          .col-sm-6.col-md-6.col-lg-3
+          .col-sm-12.col-md-12.col-lg-6
+            .ibox.float-e-margins
+              .ibox-title
+                %h5 CRM
+              .ibox-content
+                - CrmConfigurator.kinds.each do |key, value|\
+                  .col-md-6
+                    %h1.no-margins= number_with_delimiter @invitations.where(crm_kind: value).count
+                    %small= I18n.t "crm_kinds.#{key}"
+
+        - if @total && current_user.root?
+          .col-sm-12.col-md-6.col-lg-3
             .ibox.float-e-margins
               .ibox-title
                 %h5 Users
@@ -64,7 +74,7 @@
                 .col-md-6
                   %h1.no-margins= number_with_delimiter @total.count
                   %small Total Users
-          .col-md-6.col-lg-3.col-sm-6
+          .col-sm-12.col-md-6.col-lg-3
             .ibox.float-e-margins
               .ibox-title
                 %h5 Opportunity Statistics
@@ -73,6 +83,18 @@
                   .col-md-6
                     %h1.no-margins= number_with_delimiter @opportunity
                     %small Potential Seats
+        - if @domains
+          .col-sm-12.col-md-6.col-lg-3
+            .ibox.float-e-margins
+              .ibox-title
+                %h5 Domains
+              .ibox-content
+                .col-md-6
+                  %h1.no-margins= number_with_delimiter @domains.count
+                  %small Partners Added
+                .col-md-6
+                  %h1.no-margins= number_with_delimiter @used_domains.count
+                  %small Partner Signups  
 
   - if @users
     - @users.chunk(&:company_name).each do |company, users|

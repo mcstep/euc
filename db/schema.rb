@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118180510) do
+ActiveRecord::Schema.define(version: 20151119180007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 20151118180510) do
   end
 
   add_index "domains", ["company_id"], name: "index_domains_on_company_id", using: :btree
+  add_index "domains", ["created_at"], name: "index_domains_on_created_at", using: :btree
   add_index "domains", ["deleted_at"], name: "index_domains_on_deleted_at", using: :btree
   add_index "domains", ["profile_id"], name: "index_domains_on_profile_id", using: :btree
 
@@ -540,6 +541,7 @@ ActiveRecord::Schema.define(version: 20151118180510) do
     t.boolean  "can_see_reports",               default: false, null: false
     t.boolean  "can_see_opportunities",         default: false, null: false
     t.string   "desired_password"
+    t.integer  "domain_id"
   end
 
   add_index "users", ["authentication_integration_id"], name: "index_users_on_authentication_integration_id", using: :btree

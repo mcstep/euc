@@ -10,10 +10,14 @@ class ReportingController < ApplicationController
     if params[:start_date].present?
       @users = User.includes(sent_invitations: :to_user).where('users.created_at > ?', Date.parse(params[:start_date]))
       @invitations = Invitation.where('invitations.created_at > ?', Date.parse(params[:start_date]))
+      @domains = Domain.where('domains.created_at > ?', Date.parse(params[:start_date]))
+      @used_domains = @domains.distinct.joins(:users).where('users.created_at > ?', Date.parse(params[:start_date]))
 
       if params[:end_date].present?
         @users = @users.where('users.created_at < ?', Date.parse(params[:end_date]))
         @invitations = @invitations.where('invitations.created_at < ?', Date.parse(params[:end_date]))
+        @domains = @domains.where('domains.created_at < ?', Date.parse(params[:end_date]))
+        @used_domains = @used_domains.where('users.created_at < ?', Date.parse(params[:end_date]))
       end
 
       if params[:regions].present?

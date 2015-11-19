@@ -19,6 +19,7 @@
 # Indexes
 #
 #  index_domains_on_company_id  (company_id)
+#  index_domains_on_created_at  (created_at)
 #  index_domains_on_deleted_at  (deleted_at)
 #  index_domains_on_profile_id  (profile_id)
 #
@@ -27,6 +28,7 @@ class Domain < ActiveRecord::Base
   include CompanyHolder
 
   belongs_to :profile, -> { with_deleted }
+  has_many :users
 
   as_enum :status, {active: 0, inactive: 1}
   as_enum :user_role, User::ROLES

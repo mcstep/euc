@@ -29,6 +29,7 @@
 #  can_see_reports               :boolean          default(FALSE), not null
 #  can_see_opportunities         :boolean          default(FALSE), not null
 #  desired_password              :string
+#  domain_id                     :integer
 #
 # Indexes
 #

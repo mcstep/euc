@@ -29,6 +29,7 @@
 #  can_see_reports               :boolean          default(FALSE), not null
 #  can_see_opportunities         :boolean          default(FALSE), not null
 #  desired_password              :string
+#  domain_id                     :integer
 #
 # Indexes
 #
@@ -271,6 +272,7 @@ class User < ActiveRecord::Base
   belongs_to :profile, -> { with_deleted }
   has_many :user_integrations, -> { includes(:directory_prolongations) }, dependent: :destroy, inverse_of: :user
   has_many :integrations, through: :user_integrations
+  belongs_to :domain
   belongs_to :registration_code, -> { with_deleted }
   has_many :sent_invitations, -> { includes(:to_user) }, class_name: "Invitation", foreign_key: "from_user_id"
   has_one :received_invitation, -> { with_deleted }, class_name: "Invitation", foreign_key: "to_user_id", inverse_of: :to_user
