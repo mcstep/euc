@@ -34,7 +34,7 @@ class Delivery < ActiveRecord::Base
   end
 
   def default_recipient
-    [{name: 'EUC Demo Portal', email: 'eucdemohelp@vmware.com', type: 'to'}]
+    [{name: 'EUC Demo Portal', email: ENV['DELIVERY_DEFAULT_RECIPIENT'], type: 'to'}]
   end
 
   def recipients
