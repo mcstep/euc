@@ -20,3 +20,13 @@ $ ->
         unless $crmId.val()
           e.preventDefault();
           $modal.modal('show');
+
+    matcher = new Bloodhound({
+      queryTokenizer: Bloodhound.tokenizers.whitespace
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace
+      remote:
+        url: '/registration/suggest_company?query=%QUERY'
+        wildcard: '%QUERY'
+    })
+
+    $('#invitation_to_user_attributes_company_name', $form).typeahead {minLength: 1, highlight: true}, {source: matcher}
