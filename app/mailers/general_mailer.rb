@@ -26,8 +26,9 @@ class GeneralMailer < ApplicationMailer
     @name      = name
     @subject   = subject
     @body      = body
+    @cc        = ENV['SUPPORT_REQUEST_CC_EMAIL']
 
-    mail(to: @recipient, subject: @subject, from: @from, reply_to: @from)
+    mail(to: @recipient, subject: @subject, from: @from, reply_to: @from, cc: @cc)
   end
 
   def account_expiry_email(user)
