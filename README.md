@@ -45,3 +45,9 @@ To deploy to production servers run:
 ```
 bundle exec cap production deploy
 ```
+
+## Design notes
+
+### Adding service column
+
+Service status columns are designed to be set to `provisioning` by default. They are then overriden by state machine to be set to `deprovisioned` unless available. It means that when you add new `*_status` column it has to be added with the default value equal to `deprovisioned` (-1) and after that the default value has to be changed to 0. Then existing customers will properly default to not having the service while new customers will be arranged by state machine.
