@@ -14,7 +14,7 @@
                 %td.logo
                   %em.icon-users
                 %td.orgname= company
-                %td.usercount= pluralize(users.count, "Active User")
+                %td.usercount= pluralize(users.select{|x| !x.expired?}.count, "Active User")
         .td-users.zero-space.col-sm-12.col-md-12.col-lg-12.collapse.in{id: "collapse-invitations-#{users.first.company_id}"}
           %table.table
             %thead

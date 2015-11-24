@@ -233,6 +233,12 @@ class User < ActiveRecord::Base
   ##
   # Scopes
   ##
+  scope :active, lambda{
+    joins(:authentication_integration).where(
+      'user_integrations.directory_expiration_date >', DateTime.now
+    )
+  }
+
   scope :expiring_soon, lambda { |period=nil|
     period ||= 3.days
 

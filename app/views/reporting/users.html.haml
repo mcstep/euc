@@ -107,7 +107,7 @@
                   %em.icon-users
                 %td.orgname= company
                 %td.usercount{style: 'max-width: 400px'}
-                  = pluralize(users.count, "Active User")
+                  = pluralize(users.select{|x| !x.expired?}.count, "Active User")
                   %small
                     = "/ #{pluralize(users.map{|x| x.invited_users.length}.inject(:+), "Invitations")}"
         .td-users.zero-space.col-sm-12.col-md-12.col-lg-12.collapse.in{id: "collapse-users-#{users.first.id}"}
