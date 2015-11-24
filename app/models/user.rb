@@ -317,7 +317,7 @@ class User < ActiveRecord::Base
   validates :job_title, presence: true
   validates :home_region, presence: true, inclusion: { in: REGIONS, allow_blank: true }
   validates :profile, presence: true
-  validates :integrations_username, length: { maximum: 15 }, format: { with: /\A[^ \\\/\[\]\:\;\|\=\,\+\*\?\<\>\@]+\z/, message: :invalid_characters }, allow_blank: true, unless: :is_importing
+  validates :integrations_username, length: { minimum: 6, maximum: 15 }, format: { with: /\A[^ \\\/\[\]\:\;\|\=\,\+\*\?\<\>\@]+\z/, message: :invalid_characters }, allow_blank: true, unless: :is_importing
   validates :phone, numericality: true, allow_blank: true
 
   validate do

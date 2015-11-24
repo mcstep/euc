@@ -15,6 +15,15 @@
           = f.text_field :first_name, hide_label: true, placeholder: 'First Name'
           = f.text_field :last_name, hide_label: true, placeholder: 'Last Name'
           = f.text_field :integrations_username, hide_label: true, placeholder: 'Username (optional)'
+          #usrname_info{style: "margin-top: 10px; z-index: 10000"}
+            %h4 Username must meet the following requirements:
+            %ul
+              %li.length.invalid Minimum of 6, maximum of 15 characters
+              %li.characters.valid
+                No invalid characters or spaces
+                %br/
+                %em \ / [ ] : ; | = , + * ? < > @ "
+        .col-md-12.col-sm-12.col-lg-12
           = f.text_field :email, hide_label: true, placeholder: 'E-Mail'
           = f.text_field :job_title, hide_label: true, placeholder: 'Title'
           = f.text_field :company_name, hide_label: true, placeholder: 'Company', data: { typeahead: Company.pluck(:name) }
@@ -33,16 +42,16 @@
             #pswd_info{style: 'display: none; margin-bottom: -10px'}
               %h4 Password must meet the following requirements:
               %ul
-                %li#letter.invalid
+                %li.letter.invalid
                   At least
                   %strong one letter
-                %li#capital.invalid
+                %li.capital.invalid
                   At least
                   %strong one capital letter
-                %li#number.invalid
+                %li.number.invalid
                   At least
                   %strong one number
-                %li#length.invalid
+                %li.length.invalid
                   Be at least
                   %strong 8 characters
 
