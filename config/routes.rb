@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       post :recover
     end
   end
+  get '/passwordreset', to: 'sessions#new'
   get '/log_in', to: 'sessions#new'
 
   resource :registration, only: [:new, :create] do
