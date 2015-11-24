@@ -23,7 +23,9 @@ class RegistrationsController < ApplicationController
   end
 
   def suggest_company
-    render text: Company.where('LOWER(name) LIKE LOWER(?)', "#{params[:query]}%").pluck(:name),
+    data = Company.where('LOWER(name) LIKE LOWER(?)', "#{params[:query]}%").pluck(:name, :type)
+
+    render text: data.map{|x| {name: x[0], type: x[1]} }.to_json,
       content_type: :json
   end
 

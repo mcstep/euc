@@ -5,7 +5,7 @@
 #  id                              :integer          not null, primary key
 #  user_id                         :integer
 #  integration_id                  :integer
-#  username                        :string
+#  username                        :string           not null
 #  directory_expiration_date       :date             not null
 #  directory_status                :integer          default(0), not null
 #  horizon_air_status              :integer          default(0), not null

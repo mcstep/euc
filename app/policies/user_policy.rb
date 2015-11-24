@@ -13,7 +13,8 @@ class UserPolicy < ApplicationPolicy
 
   def permitted_attributes
     attributes = [
-      :first_name, :last_name, :email, :company_name, :job_title, :home_region, :total_invitations,
+      :first_name, :last_name, :email, :company_name, :company_type,
+      :job_title, :home_region, :total_invitations,
       :integrations_username,
       user_integrations_attributes: [
         :id, :integration_id, *Integration::SERVICES.map{|s| :"prohibit_#{s}"}

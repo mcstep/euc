@@ -78,6 +78,15 @@ en:
     salesforce_opportunity: SF Opportunity
     salesforce_dealreg: SF Deal
 
+  company_types:
+    health: Healthcare
+    finance: Financial Services
+    gov: Government
+    edu: Education
+    retail: Retail
+    engineer: Engineering/Manufacturing
+    other: Other
+
   errors:
     messages:
       invalid_password: "should include small letter, big letter and a digit"

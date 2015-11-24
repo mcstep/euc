@@ -34,6 +34,7 @@
       %span.help-block
         = f.object.errors[:crm_id].join(', ')
   = uf.text_field :company_name, label_class: "required"
+  = uf.select :company_type, I18n.t('company_types').invert, include_blank: '', label: 'Company industry segment'
   = f.text_field :potential_seats
   = uf.text_field :job_title
   = uf.text_field :integrations_username

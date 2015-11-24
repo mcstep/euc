@@ -10,6 +10,7 @@
 #  crm_kind                           :integer          default(0), not null
 #  salesforce_opportunity_instance_id :integer
 #  salesforce_dealreg_instance_id     :integer
+#  type                               :string
 #
 # Indexes
 #
@@ -18,10 +19,15 @@
 
 class Company < ActiveRecord::Base
   include CrmConfigurator
+
+  self.inheritance_column = :hell_no
+
+  TYPES = %w(health finance gov edu retail engineer other)
   
   acts_as_paranoid
 
   validates :name, presence: true, uniqueness: { scope: :deleted_at }
+  validates :type, inclusion: { in: TYPES, allow_blank: true }
 
   scope :named, lambda{|name| where("LOWER(name) = ?", name.downcase) }
 

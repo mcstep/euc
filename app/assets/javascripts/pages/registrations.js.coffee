@@ -61,10 +61,16 @@ $ ->
   #
   matcher = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name')
     remote:
       url: '/registration/suggest_company?query=%QUERY'
       wildcard: '%QUERY'
   })
 
-  $('#signup-form #user_company_name').typeahead {minLength: 1, highlight: true}, {source: matcher}
+  $('#signup-form #user_company_name').typeahead { minLength: 1, highlight: true },
+    source: matcher,
+    displayKey: 'name'
+
+  $('#signup-form #user_company_name').bind 'typeahead:select', ($e, item) ->
+    if item.type
+      $('#user_company_type').val item.type

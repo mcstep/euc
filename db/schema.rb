@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124172654) do
+ActiveRecord::Schema.define(version: 20151124191150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20151124172654) do
     t.integer  "crm_kind",                           default: 0, null: false
     t.integer  "salesforce_opportunity_instance_id"
     t.integer  "salesforce_dealreg_instance_id"
+    t.string   "type"
   end
 
   add_index "companies", ["deleted_at"], name: "index_companies_on_deleted_at", using: :btree

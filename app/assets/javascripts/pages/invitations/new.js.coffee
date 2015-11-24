@@ -29,4 +29,10 @@ $ ->
         wildcard: '%QUERY'
     })
 
-    $('#invitation_to_user_attributes_company_name', $form).typeahead {minLength: 1, highlight: true}, {source: matcher}
+    $('#invitation_to_user_attributes_company_name', $form).typeahead { minLength: 1, highlight: true },
+      source: matcher,
+      displayKey: 'name'
+
+    $('#invitation_to_user_attributes_company_name', $form).bind 'typeahead:select', ($e, item) ->
+      if item.type
+        $('#invitation_to_user_attributes_company_type').val item.type
