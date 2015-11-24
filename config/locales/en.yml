@@ -23,6 +23,9 @@ en:
   date:
     formats:
       default: '%B %d, %Y'
+  time:
+    formats:
+      default: '%B %d, %Y %H:%I %p %Z'
 
   flash:
     logged_in: Logged in!
