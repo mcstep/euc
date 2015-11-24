@@ -43,6 +43,10 @@ module Provisioners
           if instance.use_groups
             GeneralMailer.airwatch_activation_email(user_integration).deliver_now
           end
+
+          if instance.use_templates
+            GeneralMailer.airwatch_templates_activation_email(user_integration).deliver_now
+          end
         end
       end
     end

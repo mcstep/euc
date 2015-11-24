@@ -60,13 +60,13 @@ class GeneralMailer < ApplicationMailer
     instance  = user_integration.integration.airwatch_instance
     @user     = user_integration.user
     @username = user_integration.username
-    @group    = user_integration.airwatch_group.text_id
+    @group    = user_integration.airwatch_group.try(:text_id)
     @domain   = user_integration.integration.domain
     path      = Rails.root.join 'tmp', Dir::Tmpname.make_tmpname('qr', nil)
 
     begin
       RQRCode::QRCode.new(
-        "https://awagent.com/Home/Welcome?gid=#{user_integration.airwatch_group.text_id}&serverurl=#{instance.host}",
+        "https://awagent.com/Home/Welcome?gid=#{user_integration.airwatch_group.try(:text_id)}&serverurl=#{instance.host}",
         size: 10
       ).to_img.resize(200, 200).save(path)
 
@@ -76,6 +76,16 @@ class GeneralMailer < ApplicationMailer
     end
 
     @qr = result['url']
+
+    mail(to: @user.email, subject: 'AirWatch Account Activation and Enrollment Instructions')
+  end
+
+  def airwatch_templates_activation_email(user_integration)
+    instance  = user_integration.integration.airwatch_instance
+    @user     = user_integration.user
+    @username = user_integration.username
+    @group    = user_integration.airwatch_group.try(:text_id)
+    @domain   = user_integration.integration.domain
 
     mail(to: @user.email, subject: 'AirWatch Account Activation and Enrollment Instructions')
   end
