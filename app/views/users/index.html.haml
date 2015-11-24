@@ -17,14 +17,22 @@
     %table.table.table-striped.table-bordered
       %thead
         %tr
-          %th Full Name
-          %th Username
-          %th Email
-          %th Company
-          %th Title
-          %th Region
-          %th Expires on
-          %th Invited by
+          %th
+            %a{href: order_href('name')} Full Name
+          %th
+            %a{href: order_href('username')} Username
+          %th
+            %a{href: order_href('email')} Email
+          %th
+            %a{href: order_href('company')} Company
+          %th
+            %a{href: order_href('job_title')} Title
+          %th
+            %a{href: order_href('home_region')} Region
+          %th
+            %a{href: order_href('expiration_date')} Expires on
+          %th
+            %a{href: order_href('invited_by')} Invited by
           %th
       %tbody
         - @users.each do |user|

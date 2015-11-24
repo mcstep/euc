@@ -3,10 +3,14 @@ class UsersController < ApplicationController
 
   def index
     authorize :user
-    @users = policy_scope(User).includes(:authentication_integration).order(:first_name).page(params[:page])
+    @users = policy_scope(User).includes(:authentication_integration).page(params[:page])
+
+    params[:order] ||= 'name'
+    params[:desc]  = params[:desc].to_b
+    params[:order] = 'name' unless User.respond_to?("order_by_#{params[:order]}")
+    @users = @users.send("order_by_#{params[:order]}", params[:desc].to_b)
 
     if params[:search].present?
-      @users = @users
       @users = 
         if params[:search].match(/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
           @users.where('email LIKE ?', "%#{params[:search]}%")

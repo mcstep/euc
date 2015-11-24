@@ -23,6 +23,10 @@ module ApplicationHelper
     value
   end
 
+  def order_href(field)
+    "?order=#{field}&desc=#{params[:order] == field && !params[:desc]}"
+  end
+
   def permitted_regions
     regions = current_user.try(:root?) ? User::REGIONS : User::REGIONS - User::TEST_REGIONS
 

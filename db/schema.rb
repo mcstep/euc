@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119180007) do
+ActiveRecord::Schema.define(version: 20151124172654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -470,7 +470,7 @@ ActiveRecord::Schema.define(version: 20151119180007) do
   create_table "user_integrations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "integration_id"
-    t.string   "username"
+    t.string   "username",                                     null: false
     t.date     "directory_expiration_date",                    null: false
     t.integer  "directory_status",                default: 0,  null: false
     t.integer  "horizon_air_status",              default: 0,  null: false

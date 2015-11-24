@@ -253,6 +253,45 @@ class User < ActiveRecord::Base
     )
   }
 
+  scope :order_by_name, lambda {|desc=false|
+    order("first_name #{desc ? 'DESC' : 'ASC'}, last_name #{desc ? 'DESC' : 'ASC'}")
+  }
+
+  scope :order_by_username, lambda{|desc=false|
+    joins(:authentication_integration).order(
+      "user_integrations.username #{desc ? 'DESC' : 'ASC'}"
+    )
+  }
+
+  scope :order_by_email, lambda{|desc=false|
+    order("email #{desc ? 'DESC' : 'ASC'}")
+  }
+
+  scope :order_by_company, lambda{|desc=false|
+    joins(:company).order("companies.name #{desc ? 'DESC' : 'ASC'}")
+  }
+
+  scope :order_by_job_title, lambda{|desc=false|
+    order("job_title #{desc ? 'DESC' : 'ASC'}")
+  }
+
+  scope :order_by_home_region, lambda{|desc=false|
+    order("home_region #{desc ? 'DESC' : 'ASC'}")
+  }
+
+  scope :order_by_expiration_date, lambda{|desc=false|
+    joins(:authentication_integration).order(
+      "user_integrations.directory_expiration_date #{desc ? 'DESC' : 'ASC'}"
+    )
+  }
+
+  scope :order_by_invited_by, lambda{|desc=false|
+    joins("LEFT JOIN invitations i ON i.to_user_id = users.id LEFT JOIN users iu ON i.from_user_id = iu.id").order(
+      "iu.first_name #{desc ? 'DESC' : 'ASC'}"
+    )
+  }
+
+
   def self.identified_by(handle)
     username, domain = handle.split('@', 2)
     query = <<-SQL
